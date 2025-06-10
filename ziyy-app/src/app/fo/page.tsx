@@ -8,7 +8,7 @@ export default function Page() {
             <div className="w-[90%]">
                 <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
                     <div className="flex items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
-                        <h2 className="text-black font-semibold text-xl">Front Office</h2>
+                        <h2 className="text-black font-semibold text-xl">Ziyy Gym | Front Office</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
