@@ -12,71 +12,20 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 export default function Page() {
-    const [isAbsDialogOpen, setIsAbsDialogOpen] = useState(false);
-    const [isAddMemberDialogOpen, setIsAddMemberDialogOpen] = useState(false);
     const [isAddTxDialogOpen, setIsAddTxDialogOpen] = useState(false);
-
-    const [memberName, setMemberName] = useState("");
-    const [coupleName, setCoupleName] = useState("");
-    const [memberNik, setMemberNik] = useState("");
-    const [coupleNik, setCoupleNik] = useState("");
-    const [memberTelp, setMemberTelp] = useState("");
-    const [coupleTelp, setCoupleTelp] = useState("");
-    const [memberType, setMemberType] = useState("");
-    const [memberDuration, setMemberDuration] = useState("");
-    const [absenceType, setAbsenceType] = useState("");
-
     const [txType, setTxType] = useState("");
     const [txTitle, setTxTitle] = useState("");
     const [txNote, setTxNote] = useState("");
-    const [txIncomeType, setTxIncomeType] = useState("");
+    const [itemType, setItemType] = useState("");
+    const [itemAmount, setItemAmount] = useState("");
     const [paymentAmount, setPaymentAmount] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("");
-
-    const [pertemuanAmount, setPertemuanAmount] = useState("");
-
-    const handleAbsenceSubmit = () => {
-        console.log("Member Name:", memberName);
-        console.log("Absence Type:", absenceType);
-        
-        setMemberName("");
-        setAbsenceType("");
-        setIsAbsDialogOpen(false);
-    };
-
-    const handleAddMemberSubmit = () => {
-        console.log("Member Name:", memberName);
-        console.log("Member NIK:", memberNik);
-        console.log("Member Telp:", memberTelp);
-        console.log("Couple Name:", coupleName);
-        console.log("Couple NIK:", coupleNik);
-        console.log("Couple Telp:", coupleTelp);
-        console.log("Member Type:", memberType);
-        console.log("Member Duration:", memberDuration);
-        console.log("Payment Amount:", paymentAmount);
-        console.log("Payment Method:", paymentMethod);
-        
-        setMemberName("");
-        setCoupleName("");
-        setMemberNik("");
-        setCoupleNik("");
-        setMemberTelp("");
-        setCoupleTelp("");
-        setMemberType("");
-        setMemberDuration("");
-        setPaymentAmount("");
-        setPaymentMethod("");
-        setIsAddMemberDialogOpen(false);
-    };
 
     const handleAddTxSubmit = () => {
         console.log("Transaction Type:", txType);
         if(txType === "pemasukan") {
-            console.log("Member Name:", memberName);
-            console.log("Payment Type:", txIncomeType);
-            if(txIncomeType === "paketPt" || "paketKelas"){
-                console.log("Pertemuan Amount:", pertemuanAmount);
-            }
+            console.log("Item Type:", itemType);
+            console.log("Item Amount:", itemAmount);
             console.log("Payment Amount:", paymentAmount);
             console.log("Payment Method:", paymentMethod);
         }else {
@@ -87,10 +36,10 @@ export default function Page() {
         }
         
         setTxType("");
-        setTxIncomeType("");
         setTxTitle("");
         setTxNote("");
-        setMemberName("");
+        setItemType("");
+        setItemAmount("");
         setPaymentAmount("");
         setPaymentMethod("");
         setPertemuanAmount("");
@@ -200,8 +149,8 @@ export default function Page() {
                                     </div>
                                     <div hidden={!(txType === "pemasukan")} className="grid gap-4">
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="txIncomeType" className="text-right">Item</Label>
-                                            <Select value={txIncomeType} onValueChange={setTxIncomeType}>
+                                            <Label htmlFor="itemType" className="text-right">Item</Label>
+                                            <Select value={itemType} onValueChange={setItemType}>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Pilih Item" />
                                                 </SelectTrigger>
@@ -220,12 +169,8 @@ export default function Page() {
                                             </Select>
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="memberName" className="text-right">Jumlah Item</Label>
-                                            <Input type="number" id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Jumlah Item" className="w-32 col-span-3" />
-                                        </div>
-                                        <div hidden={!(txIncomeType === "paketPt" || txIncomeType === "paketKelas")} className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="pertemuanAmount" className="text-right">Pertemuan</Label>
-                                            <Input type="number" id="pertemuanAmount" value={pertemuanAmount} onChange={(e) => setPertemuanAmount(e.target.value)} placeholder="Jumlah Pertemuan" className="w-[30%] col-span-3" />
+                                            <Label htmlFor="itemAmount" className="text-right">Jumlah Item</Label>
+                                            <Input type="number" id="itemAmount" value={itemAmount} onChange={(e) => setItemAmount(e.target.value)} placeholder="Jumlah Item" className="w-32 col-span-3" />
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="paymentMethod" className="text-right">
