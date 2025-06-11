@@ -23,7 +23,7 @@ export default function Page(){
 
                     <div className="grid grid-cols-2 gap-6 p-6">
                         <Link href="/fo">
-                            <Card className="flex bg-white hover:bg-white/70 p-6 cursor-pointer">
+                            <Card className="flex bg-white hover:bg-white/70 py-12 px-0 cursor-pointer">
                                 <CardContent className="flex flex-col items-center justify-center space-y-4">
                                     <FolderOpen className="w-12 h-12"/>
                                     <p className="text-center text-xl font-semibold">
@@ -34,7 +34,7 @@ export default function Page(){
                         </Link>
 
                         <Link href="acc">
-                            <Card className="flex bg-white hover:bg-white/70 p-6 cursor-pointer">
+                            <Card className="flex bg-white hover:bg-white/70 py-12 px-0 cursor-pointer">
                                 <CardContent className="flex flex-col items-center justify-center space-y-4">
                                     <DollarSign className="w-12 h-12"/>
                                     <p className="text-center text-xl font-semibold">
@@ -45,7 +45,7 @@ export default function Page(){
                         </Link>
 
                         <Link href="mkt">
-                            <Card className="flex bg-white hover:bg-white/70 p-6 cursor-pointer">
+                            <Card className="flex bg-white hover:bg-white/70 py-12 px-0 cursor-pointer">
                                 <CardContent className="flex flex-col items-center justify-center space-y-4">
                                     <MapPinned className="w-12 h-12"/>
                                     <p className="text-center text-xl font-semibold">
@@ -56,7 +56,7 @@ export default function Page(){
                         </Link>
 
                         <Link href="mgmt">
-                            <Card className="flex bg-white hover:bg-white/70 p-6 cursor-pointer">
+                            <Card className="flex bg-white hover:bg-white/70 py-12 px-0 cursor-pointer">
                                 <CardContent className="flex flex-col items-center justify-center space-y-4">
                                     <Briefcase className="w-12 h-12"/>
                                     <p className="text-center text-xl font-semibold">

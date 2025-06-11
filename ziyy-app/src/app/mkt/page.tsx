@@ -5,7 +5,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 export default function Page() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
-            <div className="w-[70%]">
+            <div className="w-[30%]">
                 <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
                     <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
                         <h2 className="text-black font-semibold text-xl">Ziyy Gym | Marketing</h2>
@@ -27,7 +27,7 @@ export default function Page() {
                     <p className="text-black font-semibold text-xl pl-6 pt-6">Rabu, 11 Juni 2025</p>
 
                     <div className="grid grid-cols-2 gap-6 p-6">
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Campaign Aktif</CardTitle>
                             </CardHeader>
@@ -40,7 +40,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Total Aktivitas</CardTitle>
                                 <CardDescription>Hari ini</CardDescription>
@@ -56,7 +56,7 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-6 pl-6 pr-6 pb-6 pt-0">
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Daftar Campaign</CardTitle>
                             </CardHeader>
@@ -67,7 +67,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Catat Aktivitas</CardTitle>
                             </CardHeader>

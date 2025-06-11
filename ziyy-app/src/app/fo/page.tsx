@@ -15,17 +15,25 @@ export default function Page() {
     const [isAbsDialogOpen, setIsAbsDialogOpen] = useState(false);
     const [isAddMemberDialogOpen, setIsAddMemberDialogOpen] = useState(false);
     const [isAddTxDialogOpen, setIsAddTxDialogOpen] = useState(false);
+
     const [memberName, setMemberName] = useState("");
     const [coupleName, setCoupleName] = useState("");
     const [memberNik, setMemberNik] = useState("");
     const [coupleNik, setCoupleNik] = useState("");
     const [memberTelp, setMemberTelp] = useState("");
     const [coupleTelp, setCoupleTelp] = useState("");
-    const [paymentAmount, setPaymentAmount] = useState("");
     const [memberType, setMemberType] = useState("");
     const [memberDuration, setMemberDuration] = useState("");
-    const [paymentType, setPaymentType] = useState("");
     const [absenceType, setAbsenceType] = useState("");
+
+    const [txType, setTxType] = useState("");
+    const [txTitle, setTxTitle] = useState("");
+    const [txNote, setTxNote] = useState("");
+    const [txIncomeType, setTxIncomeType] = useState("");
+    const [paymentAmount, setPaymentAmount] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("");
+
+    const [pertemuanAmount, setPertemuanAmount] = useState("");
 
     const handleAbsenceSubmit = () => {
         console.log("Member Name:", memberName);
@@ -46,7 +54,7 @@ export default function Page() {
         console.log("Member Type:", memberType);
         console.log("Member Duration:", memberDuration);
         console.log("Payment Amount:", paymentAmount);
-        console.log("Payment Type:", paymentType);
+        console.log("Payment Method:", paymentMethod);
         
         setMemberName("");
         setCoupleName("");
@@ -57,9 +65,37 @@ export default function Page() {
         setMemberType("");
         setMemberDuration("");
         setPaymentAmount("");
-        setPaymentType("");
+        setPaymentMethod("");
         setIsAddMemberDialogOpen(false);
     };
+
+    const handleAddTxSubmit = () => {
+        console.log("Transaction Type:", txType);
+        if(txType === "pemasukan") {
+            console.log("Member Name:", memberName);
+            console.log("Payment Type:", txIncomeType);
+            if(txIncomeType === "paketPt" || "paketKelas"){
+                console.log("Pertemuan Amount:", pertemuanAmount);
+            }
+            console.log("Payment Amount:", paymentAmount);
+            console.log("Payment Method:", paymentMethod);
+        }else {
+            console.log("Transaction Title: ", txTitle);
+            console.log("Transaction Note: ", txNote);
+            console.log("Payment Amount:", paymentAmount);
+            console.log("Payment Method:", paymentMethod);
+        }
+        
+        setTxType("");
+        setTxIncomeType("");
+        setTxTitle("");
+        setTxNote("");
+        setMemberName("");
+        setPaymentAmount("");
+        setPaymentMethod("");
+        setPertemuanAmount("");
+        setIsAddTxDialogOpen(false);
+    }
     
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
@@ -86,7 +122,7 @@ export default function Page() {
 
                     <div className="grid grid-cols-5 gap-6 p-6">
                         <Link href={"/fo/member"}>
-                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                 <CardHeader>
                                     <CardTitle>Member</CardTitle>
                                     <CardDescription>Total Member</CardDescription>
@@ -102,7 +138,7 @@ export default function Page() {
                         </Link>
                         
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Member</CardTitle>
                                 <CardDescription>Member Baru</CardDescription>
@@ -116,7 +152,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Member</CardTitle>
                                 <CardDescription>Mendekati Habis</CardDescription>
@@ -130,7 +166,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Pemasukan</CardTitle>
                                 <CardDescription>Hari ini</CardDescription>
@@ -144,7 +180,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Pengeluaran</CardTitle>
                                 <CardDescription>Hari ini</CardDescription>
@@ -162,7 +198,7 @@ export default function Page() {
                     <div className="grid grid-cols-3 gap-6 pl-6 pr-6 pb-6">
                         <Dialog open={isAbsDialogOpen} onOpenChange={setIsAbsDialogOpen}>
                             <DialogTrigger asChild>
-                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                     <CardHeader>
                                         <CardTitle>Absensi Member</CardTitle>
                                     </CardHeader>
@@ -185,7 +221,7 @@ export default function Page() {
                                         <Label htmlFor="memberName" className="text-right">
                                             Nama
                                         </Label>
-                                        <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Member" className="col-span-3" />
+                                        <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Lengkap Member" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="absenceType" className="text-right">
@@ -213,7 +249,7 @@ export default function Page() {
 
                         <Dialog open={isAddMemberDialogOpen} onOpenChange={setIsAddMemberDialogOpen}>
                             <DialogTrigger asChild>
-                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                     <CardHeader>
                                         <CardTitle>Tambah Member Baru</CardTitle>
                                     </CardHeader>
@@ -236,7 +272,7 @@ export default function Page() {
                                         <Label htmlFor="memberName" className="text-right">
                                             Nama
                                         </Label>
-                                        <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Member" className="col-span-3" />
+                                        <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Lengkap Member" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="memberNik" className="text-right">
@@ -255,7 +291,7 @@ export default function Page() {
                                             <Label htmlFor="coupleName" className="text-right">
                                                 Nama
                                             </Label>
-                                            <Input id="coupleName" value={coupleName} onChange={(e) => setCoupleName(e.target.value)} placeholder="Nama Couple" className="col-span-3" />
+                                            <Input id="coupleName" value={coupleName} onChange={(e) => setCoupleName(e.target.value)} placeholder="Nama Lengkap Couple" className="col-span-3" />
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="coupleNik" className="text-right">
@@ -303,10 +339,10 @@ export default function Page() {
                                         </Select>
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="paymentType" className="text-right">
+                                        <Label htmlFor="paymentMethod" className="text-right">
                                             Pembayaran
                                         </Label>
-                                        <Select value={paymentType} onValueChange={setPaymentType}>
+                                        <Select value={paymentMethod} onValueChange={setPaymentMethod}>
                                             <SelectTrigger className="col-span-3">
                                                 <SelectValue placeholder="Pilih Metode Pembayaran" />
                                             </SelectTrigger>
@@ -330,23 +366,143 @@ export default function Page() {
                                     </div>
                                 </div>
                                 <DialogFooter>
-                                    <Button type="submit" onClick={handleAbsenceSubmit} disabled={!paymentAmount}>
+                                    <Button type="submit" onClick={handleAddMemberSubmit} disabled={!paymentAmount}>
                                         Tambah Member
                                     </Button>
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Tambah Transaksi</CardTitle>
-                            </CardHeader>
-                            <CardContent></CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500 gap-2">
-                                <CirclePlus />
-                                <p className="text-md font-semibold">Tambah</p>
-                            </CardFooter>
-                        </Card>
+                        <Dialog open={isAddTxDialogOpen} onOpenChange={setIsAddTxDialogOpen}>
+                            <DialogTrigger asChild>
+                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                    <CardHeader>
+                                        <CardTitle>Tambah Transaksi</CardTitle>
+                                    </CardHeader>
+                                    <CardContent></CardContent>
+                                    <CardFooter className="flex-row hover:text-gray-500 gap-2">
+                                        <CirclePlus />
+                                        <p className="text-md font-semibold">Tambah</p>
+                                    </CardFooter>
+                                </Card>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Tambah Transaksi</DialogTitle>
+                                    <DialogDescription>Masukkan detail transaksi di sini.</DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="txType" className="text-right">
+                                            Transaksi
+                                        </Label>
+                                        <Select value={txType} onValueChange={setTxType}>
+                                            <SelectTrigger className="col-span-3">
+                                                <SelectValue placeholder="Pilih Jenis Transaksi" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="pemasukan">Pemasukan</SelectItem>
+                                                <SelectItem value="pengeluaran">Pengeluaran</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div hidden={!(txType === "pemasukan")} className="grid gap-4">
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="memberName" className="text-right">Nama</Label>
+                                            <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Lengkap Member" className="col-span-3" />
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="txIncomeType" className="text-right">Jenis</Label>
+                                            <Select value={txIncomeType} onValueChange={setTxIncomeType}>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Pilih Jenis Pemasukan" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="insidentilGym">Insidentil Gym</SelectItem>
+                                                    <SelectItem value="insidentilPt">Insidentil PT</SelectItem>
+                                                    <SelectItem value="insidentilKelas">Insidentil Kelas</SelectItem>
+                                                    <SelectItem value="perpanjangMember">Perpanjang Member Gym</SelectItem>
+                                                    <SelectItem value="paketPt">Paket PT</SelectItem>
+                                                    <SelectItem value="paketKelas">Paket Kelas</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div hidden={!(txIncomeType === "paketPt" || txIncomeType === "paketKelas")} className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="pertemuanAmount" className="text-right">Pertemuan</Label>
+                                            <Input type="number" id="pertemuanAmount" value={pertemuanAmount} onChange={(e) => setPertemuanAmount(e.target.value)} placeholder="Jumlah Pertemuan" className="w-[30%] col-span-3" />
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="paymentMethod" className="text-right">
+                                                Pembayaran
+                                            </Label>
+                                            <Select value={paymentMethod} onValueChange={setPaymentMethod}>
+                                                <SelectTrigger className="col-span-3">
+                                                    <SelectValue placeholder="Pilih Metode Pembayaran" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="cash">Cash</SelectItem>
+                                                    <SelectItem value="transfer">Transfer</SelectItem>
+                                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
+                                                    <SelectItem value="qrisMdr">QRIS BRI</SelectItem>
+                                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="paymentAmount" className="text-right">
+                                                Jumlah
+                                            </Label>
+                                            <Input id="paymentAmount" type="number" value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} placeholder="Jumlah Pembayaran" className="w-[50%] col-span-3" />
+                                        </div>
+                                    </div>
+                                    <div hidden={!(txType === "pengeluaran")} className="grid gap-4">
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="txTitle" className="text-right">Judul</Label>
+                                            <Input id="txTitle" value={txTitle} onChange={(e) => setTxTitle(e.target.value)} placeholder="Judul Pengeluaran" className="col-span-3" />
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="txNote" className="text-right">Keterangan</Label>
+                                            <Input id="txNote" value={txNote} onChange={(e) => setTxNote(e.target.value)} placeholder="Keterangan Pengeluaran" className="col-span-3" />
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="paymentMethod" className="text-right">
+                                                Pembayaran
+                                            </Label>
+                                            <Select value={paymentMethod} onValueChange={setPaymentMethod}>
+                                                <SelectTrigger className="col-span-3">
+                                                    <SelectValue placeholder="Pilih Metode Pembayaran" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="cash">Cash</SelectItem>
+                                                    <SelectItem value="transfer">Transfer</SelectItem>
+                                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
+                                                    <SelectItem value="qrisMdr">QRIS BRI</SelectItem>
+                                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="paymentAmount" className="text-right">
+                                                Jumlah
+                                            </Label>
+                                            <Input id="paymentAmount" type="number" value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} placeholder="Jumlah Pembayaran" className="w-[50%] col-span-3" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                    <Button type="submit" onClick={handleAddTxSubmit} disabled={!paymentAmount}>
+                                        Tambah Transaksi
+                                    </Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                        
                     </div>
                 </div>
             </div>

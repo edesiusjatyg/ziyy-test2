@@ -27,7 +27,7 @@ export default function Page() {
                     <p className="text-black font-semibold text-xl pl-6 pt-6">Rabu, 11 Juni 2025</p>
 
                     <div className="grid grid-cols-5 gap-6 p-6">
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Pemasukan</CardTitle>
                                 <CardDescription>Hari ini</CardDescription>
@@ -41,7 +41,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Pengeluaran</CardTitle>
                                 <CardDescription>Hari ini</CardDescription>
@@ -55,7 +55,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Pemasukan</CardTitle>
                                 <CardDescription>Bulan ini</CardDescription>
@@ -69,7 +69,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Pengeluaran</CardTitle>
                                 <CardDescription>Bulan ini</CardDescription>
@@ -83,7 +83,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white p-6">
+                        <Card className="flex flex-col justify-between bg-white py-6 px-2">
                             <CardHeader>
                                 <CardTitle>Total Kas</CardTitle>
                             </CardHeader>
@@ -96,7 +96,7 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-6 pt-6 pb-6 pl-88 pr-88">
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Daftar Transaksi</CardTitle>
                             </CardHeader>
@@ -107,7 +107,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 p-6 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Tambah Transaksi</CardTitle>
                             </CardHeader>
