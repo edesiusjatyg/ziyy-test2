@@ -8,8 +8,8 @@ export default function Page(){
         <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
             <div className="w-[30%]">
                 <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
-                    <div className="flex items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
-                        <h2 className="text-black font-semibold text-xl">Hello, Owner</h2>
+                    <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
+                        <h2 className="text-black font-semibold text-xl">Ziyy Gym</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
