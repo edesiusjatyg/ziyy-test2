@@ -42,7 +42,6 @@ export default function Page() {
         setItemAmount("");
         setPaymentAmount("");
         setPaymentMethod("");
-        setPertemuanAmount("");
         setIsAddTxDialogOpen(false);
     }
     

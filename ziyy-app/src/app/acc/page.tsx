@@ -95,7 +95,7 @@ export default function Page() {
                         </Card>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 pt-6 pb-6 pl-88 pr-88">
+                    <div className="grid grid-cols-2 gap-6 pb-6 pl-88 pr-88">
                         <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Daftar Transaksi</CardTitle>
