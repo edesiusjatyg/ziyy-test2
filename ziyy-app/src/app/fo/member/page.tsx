@@ -26,7 +26,7 @@ type Member = {
 };
 
 // Mock data for gym members
-const mockMembers: Member[] = [
+let mockMembers: Member[] = [
     {
         id: 1,
         name: "Ahmad Rizky",
@@ -82,6 +82,7 @@ const mockMembers: Member[] = [
 export default function Page() {
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
     const handleMemberClick = (member: Member) => {
         setSelectedMember(member);
@@ -237,7 +238,7 @@ export default function Page() {
                     <DialogFooter className="flex gap-2">
                         <Button 
                             variant="outline" 
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 hover:cursor-pointer"
                             onClick={() => {
                                 // Edit functionality will be added later
                                 console.log("Edit member:", selectedMember?.id);
@@ -248,15 +249,51 @@ export default function Page() {
                         </Button>
                         <Button 
                             variant="destructive" 
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 hover:cursor-pointer"
                             onClick={() => {
-                                // Delete functionality will be added later
-                                console.log("Delete member:", selectedMember?.id);
+                                setIsDeleteDialogOpen(true);
                             }}
                         >
                             <Trash2 className="h-4 w-4" />
                             Delete
                         </Button>
+
+                        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                            <DialogContent className="max-w-md">
+                                <DialogHeader>
+                                <DialogTitle className="flex items-center gap-2">
+                                    <Trash2 className="h-5 w-5" />
+                                    Delete Member
+                                </DialogTitle>
+                                <DialogDescription>
+                                    Are you sure you want to delete this member?
+                                </DialogDescription>
+                                </DialogHeader>
+                                <DialogFooter className="flex gap-2">
+                                <Button 
+                                    variant="outline" 
+                                    className="flex items-center gap-2 hover:cursor-pointer"
+                                    onClick={() => {
+                                    setIsDeleteDialogOpen(false);
+                                    }}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button 
+                                    variant="destructive" 
+                                    className="flex items-center gap-2 hover:cursor-pointer"
+                                    onClick={() => {
+                                    const updatedMembers = mockMembers.filter(member => member.id !== selectedMember?.id);
+                                    mockMembers = updatedMembers;
+                                    setIsDeleteDialogOpen(false);
+                                    console.log("Delete member:", selectedMember?.id);
+                                    }}
+                                >
+                                    Continue
+                                </Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
