@@ -83,11 +83,42 @@ export default function Page() {
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+    const [memberName, setMemberName] = useState("");
+    const [memberNik, setMemberNik] = useState("");
+    const [memberTelp, setMemberTelp] = useState("");
+    const [memberType, setMemberType] = useState("");
 
     const handleMemberClick = (member: Member) => {
         setSelectedMember(member);
         setIsDialogOpen(true);
     };
+
+    const handleEditClick = () => {
+        if (selectedMember) {
+            setMemberName(selectedMember.name);
+            setMemberNik(selectedMember.nik);
+            setMemberTelp(selectedMember.phone);
+            setMemberType(selectedMember.membership);
+            setIsEditDialogOpen(true);
+        }
+    }
+
+    const handleSaveEdit = () => {
+        if (selectedMember) {
+            selectedMember.name = memberName;
+            selectedMember.nik = memberNik;
+            selectedMember.phone = memberTelp;
+            for(let i = 0; i < mockMembers.length; i++) {
+                if (mockMembers[i].id === selectedMember.id) {
+                    mockMembers[i] = selectedMember;
+                    break;
+                }
+            }
+            setIsEditDialogOpen(false);
+        }
+    }
 
     const getStatusBadge = (status: string) => {
         if (status === "Active") {
@@ -108,195 +139,306 @@ export default function Page() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
-            <div className="w-[90%] max-w-6xl">
-                <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
-                    <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
-                        <h2 className="text-black font-semibold text-xl">Ziyy Gym | Front Office</h2>
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/" className="text-gray-600 hover:text-gray-900">
-                                        Home
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbLink href="/fo" className="text-gray-600 hover:text-gray-900">
-                                        FO
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>
-                                        Member
-                                    </BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
+      <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
+        <div className="w-[90%] max-w-6xl">
+          <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
+            <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
+              <h2 className="text-black font-semibold text-xl">
+                Ziyy Gym | Front Office
+              </h2>
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink
+                      href="/"
+                      className="text-gray-600 hover:text-gray-900"
+                    >
+                      Home
+                    </BreadcrumbLink>
+                    <BreadcrumbSeparator></BreadcrumbSeparator>
+                    <BreadcrumbLink
+                      href="/fo"
+                      className="text-gray-600 hover:text-gray-900"
+                    >
+                      FO
+                    </BreadcrumbLink>
+                    <BreadcrumbSeparator></BreadcrumbSeparator>
+                    <BreadcrumbPage>Member</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <p className="text-black font-semibold text-xl">
+                  Rabu, 11 Juni 2025
+                </p>
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Member Ziyy Gym</CardTitle>
+                  <CardDescription>
+                    Klik pada nama member untuk melihat detailnya.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Nama</TableHead>
+                        <TableHead>Membership</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Expiry Date</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {mockMembers.map((member) => (
+                        <TableRow
+                          key={member.id}
+                          className="cursor-pointer hover:bg-gray-50"
+                          onClick={() => handleMemberClick(member)}
+                        >
+                          <TableCell className="font-semibold">
+                            {member.name}
+                          </TableCell>
+                          <TableCell>
+                            {getMembershipBadge(member.membership)}
+                          </TableCell>
+                          <TableCell>{getStatusBadge(member.status)}</TableCell>
+                          <TableCell>{member.expiryDate}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <User className="h-5 w-5" />
+                Member Details
+              </DialogTitle>
+              <DialogDescription>
+                Informasi detail tentang member.
+              </DialogDescription>
+            </DialogHeader>
+
+            {selectedMember && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label className="text-sm font-medium text-gray-600">
+                      Nama
+                    </Label>
+                    <p className="text-sm font-semibold">
+                      {selectedMember.name}
+                    </p>
+                  </div>
+
+                  <div>
+                    <Label className="text-sm font-medium text-gray-600">
+                      Expiry Date
+                    </Label>
+                    <p className="text-sm">{selectedMember.expiryDate}</p>
+                  </div>
+
+                  <div>
+                    <Label className="text-sm font-medium text-gray-600">
+                      NIK
+                    </Label>
+                    <p className="text-sm">{selectedMember.nik}</p>
+                  </div>
+
+                  <div>
+                    <Label className="text-sm font-medium text-gray-600">
+                      Status
+                    </Label>
+                    <div className="mt-1">
+                      {getStatusBadge(selectedMember.status)}
                     </div>
+                  </div>
 
-                    <div className="p-6">
-                        <div className="flex justify-between items-center mb-6">
-                            <p className="text-black font-semibold text-xl">Rabu, 11 Juni 2025</p>
-                        </div>
+                  <div>
+                    <Label className="text-sm font-medium text-gray-600">
+                      HP
+                    </Label>
+                    <p className="text-sm">{selectedMember.phone}</p>
+                  </div>
 
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Member Ziyy Gym</CardTitle>
-                                <CardDescription>
-                                    Klik pada nama member untuk melihat detailnya.
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead>Nama</TableHead>
-                                            <TableHead>Membership</TableHead>
-                                            <TableHead>Status</TableHead>
-                                            <TableHead>Expiry Date</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {mockMembers.map((member) => (
-                                            <TableRow 
-                                                key={member.id} 
-                                                className="cursor-pointer hover:bg-gray-50"
-                                                onClick={() => handleMemberClick(member)}
-                                            >
-                                                <TableCell className="font-semibold">
-                                                    {member.name}
-                                                </TableCell>
-                                                <TableCell>{getMembershipBadge(member.membership)}</TableCell>
-                                                <TableCell>{getStatusBadge(member.status)}</TableCell>
-                                                <TableCell>{member.expiryDate}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </CardContent>
-                        </Card>
+                  <div>
+                    <Label className="text-sm font-medium text-gray-600">
+                      Membership
+                    </Label>
+                    <div className="mt-1">
+                      {getMembershipBadge(selectedMember.membership)}
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label className="text-sm font-medium text-gray-600">
+                      Join Date
+                    </Label>
+                    <p className="text-sm">{selectedMember.joinDate}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <DialogFooter className="flex gap-2">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 hover:cursor-pointer"
+                onClick={handleEditClick}
+              >
+                <Edit className="h-4 w-4" />
+                Edit
+              </Button>
+              <Button
+                variant="destructive"
+                className="flex items-center gap-2 hover:cursor-pointer"
+                onClick={() => {
+                  setIsDeleteDialogOpen(true);
+                }}
+              >
+                <Trash2 className="h-4 w-4" />
+                Delete
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Trash2 className="h-5 w-5" />
+                Delete Member
+              </DialogTitle>
+              <DialogDescription>
+                Are you sure you want to delete this member?
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="flex gap-2">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 hover:cursor-pointer"
+                onClick={() => {
+                  setIsDeleteDialogOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                className="flex items-center gap-2 hover:cursor-pointer"
+                onClick={() => {
+                  const updatedMembers = mockMembers.filter(
+                    (member) => member.id !== selectedMember?.id
+                  );
+                  mockMembers = updatedMembers;
+                  setIsDeleteDialogOpen(false);
+                  console.log("Delete member:", selectedMember?.id);
+                }}
+              >
+                Continue
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                    <Edit className="h-5 w-5" />
+                    Edit Member
+                </DialogTitle>
+                <DialogDescription>Edit member information.</DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4">
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="memberName" className="text-right">
+                        Nama
+                    </Label>
+                    <Input
+                        id="memberName"
+                        value={memberName}
+                        onChange={(e) => setMemberName(e.target.value)}
+                        placeholder="Nama Lengkap Member"
+                        className="col-span-3"
+                    />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="memberNik" className="text-right">
+                        NIK
+                    </Label>
+                    <Input
+                        id="memberNik"
+                        value={memberNik}
+                        onChange={(e) => setMemberNik(e.target.value)}
+                        placeholder="NIK Member"
+                        className="col-span-3"
+                    />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="memberTelp" className="text-right">
+                        No Telp
+                    </Label>
+                    <Input
+                        id="memberTelp"
+                        value={memberTelp}
+                        onChange={(e) => setMemberTelp(e.target.value)}
+                        placeholder="No Telp Member"
+                        className="col-span-3"
+                    />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="memberType" className="text-right">
+                        Tipe
+                    </Label>
+                    <Input
+                        id="memberType"
+                        value={memberType}
+                        onChange={(e) => setMemberType(e.target.value)}
+                        placeholder="Jenis Member"
+                        className="col-span-3"
+                        disabled
+                    />
                     </div>
                 </div>
             </div>
 
-            {/* Member Details Dialog */}
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="max-w-md">
-                    <DialogHeader>
-                        <DialogTitle className="flex items-center gap-2">
-                            <User className="h-5 w-5" />
-                            Member Details
-                        </DialogTitle>
-                        <DialogDescription>
-                            Informasi detail tentang member.
-                        </DialogDescription>
-                    </DialogHeader>
-                    
-                    {selectedMember && (
-                        <div className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">Nama</Label>
-                                    <p className="text-sm font-semibold">{selectedMember.name}</p>
-                                </div>
-
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">Expiry Date</Label>
-                                    <p className="text-sm">{selectedMember.expiryDate}</p>
-                                </div>
-
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">NIK</Label>
-                                    <p className="text-sm">{selectedMember.nik}</p>
-                                </div>
-
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">Status</Label>
-                                    <div className="mt-1">
-                                        {getStatusBadge(selectedMember.status)}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">HP</Label>
-                                    <p className="text-sm">{selectedMember.phone}</p>
-                                </div>
-
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">Membership</Label>
-                                    <div className="mt-1">
-                                        {getMembershipBadge(selectedMember.membership)}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">Join Date</Label>
-                                    <p className="text-sm">{selectedMember.joinDate}</p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    <DialogFooter className="flex gap-2">
-                        <Button 
-                            variant="outline" 
-                            className="flex items-center gap-2 hover:cursor-pointer"
-                            onClick={() => {
-                                // Edit functionality will be added later
-                                console.log("Edit member:", selectedMember?.id);
-                            }}
-                        >
-                            <Edit className="h-4 w-4" />
-                            Edit
-                        </Button>
-                        <Button 
-                            variant="destructive" 
-                            className="flex items-center gap-2 hover:cursor-pointer"
-                            onClick={() => {
-                                setIsDeleteDialogOpen(true);
-                            }}
-                        >
-                            <Trash2 className="h-4 w-4" />
-                            Delete
-                        </Button>
-
-                        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-                            <DialogContent className="max-w-md">
-                                <DialogHeader>
-                                <DialogTitle className="flex items-center gap-2">
-                                    <Trash2 className="h-5 w-5" />
-                                    Delete Member
-                                </DialogTitle>
-                                <DialogDescription>
-                                    Are you sure you want to delete this member?
-                                </DialogDescription>
-                                </DialogHeader>
-                                <DialogFooter className="flex gap-2">
-                                <Button 
-                                    variant="outline" 
-                                    className="flex items-center gap-2 hover:cursor-pointer"
-                                    onClick={() => {
-                                    setIsDeleteDialogOpen(false);
-                                    }}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button 
-                                    variant="destructive" 
-                                    className="flex items-center gap-2 hover:cursor-pointer"
-                                    onClick={() => {
-                                    const updatedMembers = mockMembers.filter(member => member.id !== selectedMember?.id);
-                                    mockMembers = updatedMembers;
-                                    setIsDeleteDialogOpen(false);
-                                    console.log("Delete member:", selectedMember?.id);
-                                    }}
-                                >
-                                    Continue
-                                </Button>
-                                </DialogFooter>
-                            </DialogContent>
-                        </Dialog>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-        </div>
+            <DialogFooter className="flex gap-2">
+                <Button
+                    variant="outline"
+                    onClick={() => {
+                        setIsEditDialogOpen(false);
+                    }}
+                    className="flex items-center gap-2 hover:cursor-pointer"
+                >
+                    Cancel
+                </Button>
+                <Button
+                    variant="default"
+                    onClick={() => {
+                        handleSaveEdit();
+                    }}
+                    className="flex items-center gap-2 hover:cursor-pointer"
+                >
+                    Save
+                </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
     );
 }
