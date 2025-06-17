@@ -1,0 +1,224 @@
+{
+    "txFo": [
+        {
+            "id": 1,
+            "txType": "pemasukan",
+            "txIncomeType": "perpanjangMember",
+            "txTitle": "Perpanjang member 1 bulan",
+            "txNote": "",
+            "memberName": "Ahmad Rizky",
+            "paymentAmount": "300000",
+            "paymentMethod": "cash",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 2,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Bayar listrik",
+            "txNote": "Pembayaran bulanan",
+            "memberName": "",
+            "paymentAmount": "50000",
+            "paymentMethod": "debitMdr",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 3,
+            "txType": "pemasukan",
+            "txIncomeType": "paketPt",
+            "txTitle": "Maya Sari PT 4x",
+            "txNote": "",
+            "memberName": "Maya Sari",
+            "paymentAmount": "200000",
+            "paymentMethod": "qrisBri",
+            "pertemuanAmount": "4"
+        },
+        {
+            "id": 4,
+            "txType": "pemasukan",
+            "txIncomeType": "insidentilGym",
+            "txTitle": "Insidentil Gym",
+            "txNote": "",
+            "memberName": "Budi Santoso",
+            "paymentAmount": "50000",
+            "paymentMethod": "cash",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 5,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Beli Alat Gym",
+            "txNote": "Pembelian dumbbell baru",
+            "memberName": "",
+            "paymentAmount": "150000",
+            "paymentMethod": "transfer",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 6,
+            "txType": "pemasukan",
+            "txIncomeType": "paketKelas",
+            "txTitle": "Siti Nurhaliza Kelas Yoga",
+            "txNote": "",
+            "memberName": "Siti Nurhaliza",
+            "paymentAmount": "150000",
+            "paymentMethod": "debitBri",
+            "pertemuanAmount": "5"
+        },
+        {
+            "id": 7,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Gaji Pelatih",
+            "txNote": "Pembayaran gaji pelatih bulan ini",
+            "memberName": "",
+            "paymentAmount": "500000",
+            "paymentMethod": "transfer",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 8,
+            "txType": "pemasukan",
+            "txIncomeType": "insidentilPt",
+            "txTitle": "Dedi Kurniawan PT Kilat",
+            "txNote": "",
+            "memberName": "Dedi Kurniawan",
+            "paymentAmount": "100000",
+            "paymentMethod": "qrisMdr",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 9,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Beli Air Mineral",
+            "txNote": "Pembelian air mineral untuk gym",
+            "memberName": "",
+            "paymentAmount": "75000",
+            "paymentMethod": "cash",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 10,
+            "txType": "pemasukan",
+            "txIncomeType": "perpanjangMember",
+            "txTitle": "Perpanjang member 3 bulan",
+            "txNote": "",
+            "memberName": "Budi Santoso",
+            "paymentAmount": "750000",
+            "paymentMethod": "debitBri",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 11,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Pembayaran Internet",
+            "txNote": "Langganan internet bulanan",
+            "memberName": "",
+            "paymentAmount": "200000",
+            "paymentMethod": "transfer",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 12,
+            "txType": "pemasukan",
+            "txIncomeType": "insidentilKelas",
+            "txTitle": "Kelas Zumba Satuan",
+            "txNote": "",
+            "memberName": "Maya Sari",
+            "paymentAmount": "75000",
+            "paymentMethod": "cash",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 13,
+            "txType": "pemasukan",
+            "txIncomeType": "paketPt",
+            "txTitle": "Ahmad Rizky PT Premium",
+            "txNote": "",
+            "memberName": "Ahmad Rizky",
+            "paymentAmount": "250000",
+            "paymentMethod": "qrisBri",
+            "pertemuanAmount": "5"
+        },
+        {
+            "id": 14,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Biaya Kebersihan",
+            "txNote": "Pembayaran jasa cleaning service",
+            "memberName": "",
+            "paymentAmount": "300000",
+            "paymentMethod": "transfer",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 15,
+            "txType": "pemasukan",
+            "txIncomeType": "perpanjangMember",
+            "txTitle": "Perpanjang member 6 bulan",
+            "txNote": "",
+            "memberName": "Siti Nurhaliza",
+            "paymentAmount": "1200000",
+            "paymentMethod": "debitMdr",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 16,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Pembelian Perlengkapan Kebersihan",
+            "txNote": "Sabun, lap, dan pembersih",
+            "memberName": "",
+            "paymentAmount": "100000",
+            "paymentMethod": "cash",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 17,
+            "txType": "pemasukan",
+            "txIncomeType": "paketKelas",
+            "txTitle": "Dedi Kurniawan Kelas Body Combat",
+            "txNote": "",
+            "memberName": "Dedi Kurniawan",
+            "paymentAmount": "200000",
+            "paymentMethod": "qrisMdr",
+            "pertemuanAmount": "6"
+        },
+        {
+            "id": 18,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Biaya Maintenance Alat",
+            "txNote": "Servis alat gym rutin",
+            "memberName": "",
+            "paymentAmount": "250000",
+            "paymentMethod": "transfer",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 19,
+            "txType": "pemasukan",
+            "txIncomeType": "insidentilPt",
+            "txTitle": "Maya Sari PT Intensif",
+            "txNote": "",
+            "memberName": "Maya Sari",
+            "paymentAmount": "150000",
+            "paymentMethod": "cash",
+            "pertemuanAmount": ""
+        },
+        {
+            "id": 20,
+            "txType": "pengeluaran",
+            "txIncomeType": "",
+            "txTitle": "Pembelian Merchandise",
+            "txNote": "Kaos, tumbler gym",
+            "memberName": "",
+            "paymentAmount": "500000",
+            "paymentMethod": "debitBri",
+            "pertemuanAmount": ""
+        }
+    ]
+}

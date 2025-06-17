@@ -153,21 +153,22 @@ export default function Page() {
                             </Card>
                         </Link>
                         
-
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Member</CardTitle>
-                                <CardDescription>Mendekati Habis</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">23</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
-                            </CardFooter>
-                        </Card>
-
+                        <Link href={"/fo/member-near-exp"}>
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Member</CardTitle>
+                                    <CardDescription>Mendekati Habis</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">23</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight />
+                                    <p className="text-md font-semibold">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
+                        
                         <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Pemasukan</CardTitle>
@@ -445,7 +446,7 @@ export default function Page() {
                                                     <SelectItem value="cash">Cash</SelectItem>
                                                     <SelectItem value="transfer">Transfer</SelectItem>
                                                     <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS BRI</SelectItem>
+                                                    <SelectItem value="qrisBri">QRIS BRI</SelectItem>
                                                     <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
                                                     <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
                                                     <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
