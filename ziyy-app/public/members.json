@@ -3,52 +3,502 @@
         {
             "id": 1,
             "name": "Ahmad Rizky",
-            "nik": "647403205",
-            "phone": "08123456789",
+            "nik": "6474032001",
+            "phone": "081234567890",
             "membership": "Personal",
-            "joinDate": "2024-01-15",
-            "expiryDate": "2025-01-15",
+            "joinDate": "2024-12-17",
+            "expiryDate": "2025-12-17",
             "status": "Active"
         },
         {
             "id": 2,
             "name": "Siti Nurhaliza",
-            "nik": "6474032024",
-            "phone": "08234567890",
-            "membership": "Personal",
-            "joinDate": "2024-03-20",
-            "expiryDate": "2025-03-20",
-            "status": "Active"
+            "nik": "6474032002",
+            "phone": "082345678901",
+            "membership": "Couple",
+            "joinDate": "2025-03-17",
+            "expiryDate": "2025-09-17",
+            "status": "NearExp"
         },
         {
             "id": 3,
             "name": "Budi Santoso",
-            "nik": "647403203",
-            "phone": "08345678901",
-            "membership": "Couple",
-            "joinDate": "2023-12-10",
-            "expiryDate": "2024-12-10",
-            "status": "NearExp"
+            "nik": "6474032003",
+            "phone": "083456789012",
+            "membership": "Personal",
+            "joinDate": "2024-01-17",
+            "expiryDate": "2025-01-17",
+            "status": "Expired"
         },
         {
             "id": 4,
             "name": "Maya Sari",
-            "nik": "647403202",
-            "phone": "08456789012",
+            "nik": "6474032004",
+            "phone": "084567890123",
             "membership": "Couple",
-            "joinDate": "2023-12-10",
-            "expiryDate": "2024-12-10",
-            "status": "NearExp"
+            "joinDate": "2024-11-17",
+            "expiryDate": "2025-05-17",
+            "status": "Expired"
         },
         {
             "id": 5,
             "name": "Dedi Kurniawan",
-            "nik": "647403201",
-            "phone": "08567890123",
+            "nik": "6474032005",
+            "phone": "085678901234",
             "membership": "Personal",
-            "joinDate": "2024-02-28",
-            "expiryDate": "2025-02-28",
+            "joinDate": "2025-01-17",
+            "expiryDate": "2026-01-17",
             "status": "Active"
+        },
+        {
+            "id": 6,
+            "name": "Rini Wijaya",
+            "nik": "6474032006",
+            "phone": "086789012345",
+            "membership": "Couple",
+            "joinDate": "2024-09-17",
+            "expiryDate": "2025-03-17",
+            "status": "Expired"
+        },
+        {
+            "id": 7,
+            "name": "Andi Pranata",
+            "nik": "6474032007",
+            "phone": "087890123456",
+            "membership": "Personal",
+            "joinDate": "2025-05-17",
+            "expiryDate": "2025-11-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 8,
+            "name": "Dewi Susanto",
+            "nik": "6474032008",
+            "phone": "088901234567",
+            "membership": "Couple",
+            "joinDate": "2024-07-17",
+            "expiryDate": "2025-07-17",
+            "status": "Active"
+        },
+        {
+            "id": 9,
+            "name": "Rudi Hartono",
+            "nik": "6474032009",
+            "phone": "089012345678",
+            "membership": "Personal",
+            "joinDate": "2024-10-17",
+            "expiryDate": "2025-10-17",
+            "status": "Active"
+        },
+        {
+            "id": 10,
+            "name": "Rina Putra",
+            "nik": "6474032010",
+            "phone": "080123456789",
+            "membership": "Couple",
+            "joinDate": "2025-04-17",
+            "expiryDate": "2025-10-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 11,
+            "name": "Agus Setiawan",
+            "nik": "6474032011",
+            "phone": "081234567890",
+            "membership": "Personal",
+            "joinDate": "2024-08-17",
+            "expiryDate": "2025-08-17",
+            "status": "Active"
+        },
+        {
+            "id": 12,
+            "name": "Hani Rahayu",
+            "nik": "6474032012",
+            "phone": "082345678901",
+            "membership": "Couple",
+            "joinDate": "2024-06-17",
+            "expiryDate": "2024-12-17",
+            "status": "Expired"
+        },
+        {
+            "id": 13,
+            "name": "Joko Widodo",
+            "nik": "6474032013",
+            "phone": "083456789012",
+            "membership": "Personal",
+            "joinDate": "2025-02-17",
+            "expiryDate": "2026-02-17",
+            "status": "Active"
+        },
+        {
+            "id": 14,
+            "name": "Sri Mulyani",
+            "nik": "6474032014",
+            "phone": "084567890123",
+            "membership": "Couple",
+            "joinDate": "2024-12-17",
+            "expiryDate": "2025-06-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 15,
+            "name": "Bambang Sudibyo",
+            "nik": "6474032015",
+            "phone": "085678901234",
+            "membership": "Personal",
+            "joinDate": "2024-05-17",
+            "expiryDate": "2025-05-17",
+            "status": "Active"
+        },
+        {
+            "id": 16,
+            "name": "Retno Marsudi",
+            "nik": "6474032016",
+            "phone": "086789012345",
+            "membership": "Couple",
+            "joinDate": "2024-11-17",
+            "expiryDate": "2025-05-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 17,
+            "name": "Prabowo Subianto",
+            "nik": "6474032017",
+            "phone": "087890123456",
+            "membership": "Personal",
+            "joinDate": "2024-07-17",
+            "expiryDate": "2025-07-17",
+            "status": "Active"
+        },
+        {
+            "id": 18,
+            "name": "Megawati Sukarnoputri",
+            "nik": "6474032018",
+            "phone": "088901234567",
+            "membership": "Couple",
+            "joinDate": "2024-04-17",
+            "expiryDate": "2024-10-17",
+            "status": "Expired"
+        },
+        {
+            "id": 19,
+            "name": "Anis Baswedan",
+            "nik": "6474032019",
+            "phone": "089012345678",
+            "membership": "Personal",
+            "joinDate": "2025-01-17",
+            "expiryDate": "2026-01-17",
+            "status": "Active"
+        },
+        {
+            "id": 20,
+            "name": "Risma Trimurti",
+            "nik": "6474032020",
+            "phone": "080123456789",
+            "membership": "Couple",
+            "joinDate": "2025-03-17",
+            "expiryDate": "2025-09-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 21,
+            "name": "Ganjar Pranowo",
+            "nik": "6474032021",
+            "phone": "081234567890",
+            "membership": "Personal",
+            "joinDate": "2024-09-17",
+            "expiryDate": "2025-09-17",
+            "status": "Active"
+        },
+        {
+            "id": 22,
+            "name": "Khofifah Indar Parawansa",
+            "nik": "6474032022",
+            "phone": "082345678901",
+            "membership": "Couple",
+            "joinDate": "2024-10-17",
+            "expiryDate": "2024-04-17",
+            "status": "Expired"
+        },
+        {
+            "id": 23,
+            "name": "Mahfud MD",
+            "nik": "6474032023",
+            "phone": "083456789012",
+            "membership": "Personal",
+            "joinDate": "2025-06-17",
+            "expiryDate": "2026-06-17",
+            "status": "Active"
+        },
+        {
+            "id": 24,
+            "name": "Siti Zuhro",
+            "nik": "6474032024",
+            "phone": "084567890123",
+            "membership": "Couple",
+            "joinDate": "2024-08-17",
+            "expiryDate": "2025-02-17",
+            "status": "Expired"
+        },
+        {
+            "id": 25,
+            "name": "Ridwan Kamil",
+            "nik": "6474032025",
+            "phone": "085678901234",
+            "membership": "Personal",
+            "joinDate": "2025-05-17",
+            "expiryDate": "2025-11-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 26,
+            "name": "Tri Rismaharini",
+            "nik": "6474032026",
+            "phone": "086789012345",
+            "membership": "Couple",
+            "joinDate": "2024-12-17",
+            "expiryDate": "2025-06-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 27,
+            "name": "Anies Baswedan",
+            "nik": "6474032027",
+            "phone": "087890123456",
+            "membership": "Personal",
+            "joinDate": "2024-11-17",
+            "expiryDate": "2025-11-17",
+            "status": "Active"
+        },
+        {
+            "id": 28,
+            "name": "Cak Imin",
+            "nik": "6474032028",
+            "phone": "088901234567",
+            "membership": "Couple",
+            "joinDate": "2024-07-17",
+            "expiryDate": "2024-01-17",
+            "status": "Expired"
+        },
+        {
+            "id": 29,
+            "name": "Sandiaga Uno",
+            "nik": "6474032029",
+            "phone": "089012345678",
+            "membership": "Personal",
+            "joinDate": "2025-02-17",
+            "expiryDate": "2026-02-17",
+            "status": "Active"
+        },
+        {
+            "id": 30,
+            "name": "Maria Ulfah",
+            "nik": "6474032030",
+            "phone": "080123456789",
+            "membership": "Couple",
+            "joinDate": "2025-04-17",
+            "expiryDate": "2025-10-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 31,
+            "name": "Erick Thohir",
+            "nik": "6474032031",
+            "phone": "081234567890",
+            "membership": "Personal",
+            "joinDate": "2024-10-17",
+            "expiryDate": "2025-10-17",
+            "status": "Active"
+        },
+        {
+            "id": 32,
+            "name": "Susi Pudjiastuti",
+            "nik": "6474032032",
+            "phone": "082345678901",
+            "membership": "Couple",
+            "joinDate": "2024-05-17",
+            "expiryDate": "2024-11-17",
+            "status": "Expired"
+        },
+        {
+            "id": 33,
+            "name": "Nadiem Makarim",
+            "nik": "6474032033",
+            "phone": "083456789012",
+            "membership": "Personal",
+            "joinDate": "2025-01-17",
+            "expiryDate": "2026-01-17",
+            "status": "Active"
+        },
+        {
+            "id": 34,
+            "name": "Yenny Wahid",
+            "nik": "6474032034",
+            "phone": "084567890123",
+            "membership": "Couple",
+            "joinDate": "2025-03-17",
+            "expiryDate": "2025-09-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 35,
+            "name": "Abdul Halim",
+            "nik": "6474032035",
+            "phone": "085678901234",
+            "membership": "Personal",
+            "joinDate": "2024-08-17",
+            "expiryDate": "2025-08-17",
+            "status": "Active"
+        },
+        {
+            "id": 36,
+            "name": "Nurul Arifin",
+            "nik": "6474032036",
+            "phone": "086789012345",
+            "membership": "Couple",
+            "joinDate": "2024-06-17",
+            "expiryDate": "2024-12-17",
+            "status": "Expired"
+        },
+        {
+            "id": 37,
+            "name": "Miftah Faridl",
+            "nik": "6474032037",
+            "phone": "087890123456",
+            "membership": "Personal",
+            "joinDate": "2025-02-17",
+            "expiryDate": "2026-02-17",
+            "status": "Active"
+        },
+        {
+            "id": 38,
+            "name": "Dewi Perssik",
+            "nik": "6474032038",
+            "phone": "088901234567",
+            "membership": "Couple",
+            "joinDate": "2024-09-17",
+            "expiryDate": "2025-03-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 39,
+            "name": "Firmansyah",
+            "nik": "6474032039",
+            "phone": "089012345678",
+            "membership": "Personal",
+            "joinDate": "2024-11-17",
+            "expiryDate": "2025-11-17",
+            "status": "Active"
+        },
+        {
+            "id": 40,
+            "name": "Ratna Sarumpaet",
+            "nik": "6474032040",
+            "phone": "080123456789",
+            "membership": "Couple",
+            "joinDate": "2024-07-17",
+            "expiryDate": "2024-01-17",
+            "status": "Expired"
+        },
+        {
+            "id": 41,
+            "name": "Joko Sapto",
+            "nik": "6474032041",
+            "phone": "081234567890",
+            "membership": "Personal",
+            "joinDate": "2025-05-17",
+            "expiryDate": "2025-11-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 42,
+            "name": "Ayu Ting Ting",
+            "nik": "6474032042",
+            "phone": "082345678901",
+            "membership": "Couple",
+            "joinDate": "2025-01-17",
+            "expiryDate": "2025-07-17",
+            "status": "Active"
+        },
+        {
+            "id": 43,
+            "name": "Raffi Ahmad",
+            "nik": "6474032043",
+            "phone": "083456789012",
+            "membership": "Personal",
+            "joinDate": "2024-12-17",
+            "expiryDate": "2025-12-17",
+            "status": "Active"
+        },
+        {
+            "id": 44,
+            "name": "Nagita Slavina",
+            "nik": "6474032044",
+            "phone": "084567890123",
+            "membership": "Couple",
+            "joinDate": "2024-10-17",
+            "expiryDate": "2024-04-17",
+            "status": "Expired"
+        },
+        {
+            "id": 45,
+            "name": "Arief Muhammad",
+            "nik": "6474032045",
+            "phone": "085678901234",
+            "membership": "Personal",
+            "joinDate": "2025-06-17",
+            "expiryDate": "2026-06-17",
+            "status": "Active"
+        },
+        {
+            "id": 46,
+            "name": "Lesty Kejora",
+            "nik": "6474032046",
+            "phone": "086789012345",
+            "membership": "Couple",
+            "joinDate": "2025-04-17",
+            "expiryDate": "2025-10-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 47,
+            "name": "Rizky Billar",
+            "nik": "6474032047",
+            "phone": "087890123456",
+            "membership": "Personal",
+            "joinDate": "2024-08-17",
+            "expiryDate": "2025-08-17",
+            "status": "Active"
+        },
+        {
+            "id": 48,
+            "name": "Genades Marpaung",
+            "nik": "6474032048",
+            "phone": "088901234567",
+            "membership": "Couple",
+            "joinDate": "2024-05-17",
+            "expiryDate": "2024-11-17",
+            "status": "Expired"
+        },
+        {
+            "id": 49,
+            "name": "Ivan Gunawan",
+            "nik": "6474032049",
+            "phone": "089012345678",
+            "membership": "Personal",
+            "joinDate": "2025-03-17",
+            "expiryDate": "2025-09-17",
+            "status": "NearExp"
+        },
+        {
+            "id": 50,
+            "name": "Agnez Mo",
+            "nik": "6474032050",
+            "phone": "080123456789",
+            "membership": "Couple",
+            "joinDate": "2024-11-17",
+            "expiryDate": "2025-05-17",
+            "status": "NearExp"
         }
     ]
 }
