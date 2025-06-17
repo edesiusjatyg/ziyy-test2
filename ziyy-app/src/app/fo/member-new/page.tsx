@@ -36,18 +36,29 @@ export default function Page() {
     const [memberType, setMemberType] = useState("");
 
     useEffect(() => {
-        const fetchMembers = async () => {
-            try {
-                const response = await fetch('/members.json');
-                const data = await response.json();
-                setMockMembers(data.members);
-            } catch (error) {
-                console.error('Error fetching members:', error);
-            }
-        };
+      const fetchMembers = async () => {
+          try {
+              const response = await fetch('/members.json');
+              const data = await response.json();
 
-        fetchMembers();
-    }, []);
+              const today = new Date();
+              const todayString = today.toISOString().split('T')[0];
+
+              const todayMembers = data.members.filter((member: Member) => {
+                  const memberJoinDate = new Date(member.joinDate);
+                  const memberJoinDateString = memberJoinDate.toISOString().split('T')[0];
+                  
+                  return memberJoinDateString === todayString;
+              });
+
+              setMockMembers(todayMembers);
+          } catch (error) {
+              console.error('Error fetching members:', error);
+          }
+      };
+
+      fetchMembers();
+  }, []);
 
     const handleMemberClick = (member: Member) => {
         setSelectedMember(member);
@@ -134,7 +145,7 @@ export default function Page() {
                       FO
                     </BreadcrumbLink>
                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                    <BreadcrumbPage>Member</BreadcrumbPage>
+                    <BreadcrumbPage>Member Baru</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
@@ -149,7 +160,7 @@ export default function Page() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Member Ziyy Gym</CardTitle>
+                  <CardTitle>Member Baru Hari Ini</CardTitle>
                   <CardDescription>
                     Klik pada nama member untuk melihat detailnya.
                   </CardDescription>

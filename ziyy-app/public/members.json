@@ -1,0 +1,54 @@
+{
+    "members": [
+        {
+            "id": 1,
+            "name": "Ahmad Rizky",
+            "nik": "647403205",
+            "phone": "08123456789",
+            "membership": "Personal",
+            "joinDate": "2024-01-15",
+            "expiryDate": "2025-01-15",
+            "status": "Active"
+        },
+        {
+            "id": 2,
+            "name": "Siti Nurhaliza",
+            "nik": "6474032024",
+            "phone": "08234567890",
+            "membership": "Personal",
+            "joinDate": "2024-03-20",
+            "expiryDate": "2025-03-20",
+            "status": "Active"
+        },
+        {
+            "id": 3,
+            "name": "Budi Santoso",
+            "nik": "647403203",
+            "phone": "08345678901",
+            "membership": "Couple",
+            "joinDate": "2023-12-10",
+            "expiryDate": "2024-12-10",
+            "status": "NearExp"
+        },
+        {
+            "id": 4,
+            "name": "Maya Sari",
+            "nik": "647403202",
+            "phone": "08456789012",
+            "membership": "Couple",
+            "joinDate": "2023-12-10",
+            "expiryDate": "2024-12-10",
+            "status": "NearExp"
+        },
+        {
+            "id": 5,
+            "name": "Dedi Kurniawan",
+            "nik": "647403201",
+            "phone": "08567890123",
+            "membership": "Personal",
+            "joinDate": "2024-02-28",
+            "expiryDate": "2025-02-28",
+            "status": "Active"
+        }
+    ]
+}
