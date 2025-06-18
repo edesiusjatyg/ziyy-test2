@@ -185,19 +185,21 @@ export default function Page() {
                             </Card>
                         </Link>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Pengeluaran</CardTitle>
-                                <CardDescription>Hari ini</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">Rp400.000</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
-                            </CardFooter>
-                        </Card>
+                        <Link href={"/fo/tx-expense"}>
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Pengeluaran</CardTitle>
+                                    <CardDescription>Hari ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">Rp400.000</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight />
+                                    <p className="text-md font-semibold">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link> 
                     </div>
 
                     <div className="grid grid-cols-3 gap-6 pl-6 pr-6 pb-6">
@@ -484,7 +486,7 @@ export default function Page() {
                                                     <SelectItem value="cash">Cash</SelectItem>
                                                     <SelectItem value="transfer">Transfer</SelectItem>
                                                     <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS BRI</SelectItem>
+                                                    <SelectItem value="qrisBri">QRIS BRI</SelectItem>
                                                     <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
                                                     <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
                                                     <SelectItem value="edcMdr">EDC Mandiri</SelectItem>

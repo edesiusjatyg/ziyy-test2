@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { get } from "http";
 
 type Transaction = {
     id: number;
@@ -31,31 +32,28 @@ export default function Page() {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-    const [txMemberName, setMemberTxName] = useState("");
-    const [txIncomeType, setTxIncomeType] = useState("");
     const [txTitle, setTxTitle] = useState("");
     const [txNote, setTxNote] = useState("");
     const [txPaymentAmount, setTxPaymentAmount] = useState("");
     const [txPaymentMethod, setTxPaymentMethod] = useState("");
-    const [txPertemuaAnmount, setTxPertemuanAmount] = useState("");
 
     useEffect(() => {
-        const fetchMembers = async () => {
+        const fetchTxs = async () => {
             try {
                 const response = await fetch('/txFo.json');
                 const data = await response.json();
 
                 const incomeTx = data.txFo.filter((tx: Transaction) => {
-                    return tx.type === "pemasukan";
+                    return tx.type === "pengeluaran";
                 });
 
                 setMockTx(incomeTx);
             } catch (error) {
-                console.error('Error fetching members:', error);
+                console.error('Error fetching expenses:', error);
             }
         };
 
-        fetchMembers();
+        fetchTxs();
     }, []);
 
     const handleTxClick = (tx: Transaction) => {
@@ -65,13 +63,10 @@ export default function Page() {
 
     const handleEditClick = () => {
         if (selectedTx) {
-            setMemberTxName(selectedTx.memberName);
-            setTxIncomeType(selectedTx.incomeType);
             setTxTitle(selectedTx.title);
             setTxNote(selectedTx.note);
             setTxPaymentAmount(selectedTx.paymentAmount);
             setTxPaymentMethod(selectedTx.paymentMethod);
-            setTxPertemuanAmount(selectedTx.pertemuanAmount);
             setIsEditDialogOpen(true);
         }
     };
@@ -80,6 +75,8 @@ export default function Page() {
         if (selectedTx) {
             selectedTx.title = txTitle;
             selectedTx.note = txNote;
+            selectedTx.paymentAmount = txPaymentAmount;
+            selectedTx.paymentMethod = txPaymentMethod;
             for(let i = 0; i < mockTx.length; i++) {
                 if (mockTx[i].id === selectedTx.id) {
                     mockTx[i] = selectedTx;
@@ -102,19 +99,23 @@ export default function Page() {
         }
     };
 
-    const getIncomeTypeBadge = (incomeType: string) => {
-        if (incomeType === "insidentilGym") {
-            return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Gym (Insidentil)</Badge>;
-        } else if (incomeType === "insidentilPt") {
-            return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">PT (Insidentil)</Badge>;
-        } else if (incomeType === "insidentilKelas") {
-            return <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-100">Kelas (Insidentil)</Badge>;
-        } else if (incomeType === "perpanjangMember") {
-            return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Perpanjang Member</Badge>;
-        } else if (incomeType === "paketPt") {
-            return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Paket PT</Badge>;
-        } else if (incomeType === "paketKelas") {
-            return <Badge className="bg-teal-100 text-teal-800 hover:bg-teal-100">Paket Kelas</Badge>;
+    const getPaymentMethodBadge = (paymentMethod: string) => {
+        if (paymentMethod === "cash") {
+            return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Cash</Badge>;
+        } else if (paymentMethod === "transfer") {
+            return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Transfer</Badge>;
+        } else if (paymentMethod === "debitBri") {
+            return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Debit BRI</Badge>;
+        } else if (paymentMethod === "qrisBri") {
+            return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">QRIS BRI</Badge>;
+        } else if (paymentMethod === "debitMdr") {
+            return <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-100">Debit Mandiri</Badge>;
+        } else if (paymentMethod === "qrisMdr") {
+            return <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-100">QRIS Mandiri</Badge>;
+        } else if (paymentMethod === "edcMdr") {
+            return <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-100">EDC Mandiri</Badge>;
+        } else if (paymentMethod === "transferMdr") {
+            return <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-100">Transfer Mandiri</Badge>;
         }
     };
 
@@ -143,7 +144,7 @@ export default function Page() {
                             FO
                             </BreadcrumbLink>
                             <BreadcrumbSeparator></BreadcrumbSeparator>
-                            <BreadcrumbPage>Pemasukan</BreadcrumbPage>
+                            <BreadcrumbPage>Pengeluaran</BreadcrumbPage>
                         </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -158,7 +159,7 @@ export default function Page() {
 
                         <Card>
                             <CardHeader>
-                            <CardTitle>Transaksi Masuk Hari ini</CardTitle>
+                            <CardTitle>Transaksi Keluar Hari ini</CardTitle>
                             <CardDescription>
                                 Klik pada transaksi untuk melihat detailnya.
                             </CardDescription>
@@ -168,7 +169,7 @@ export default function Page() {
                                 <TableHeader>
                                 <TableRow>
                                     <TableHead>Judul</TableHead>
-                                    <TableHead>Jenis</TableHead>
+                                    <TableHead>Keterangan</TableHead>
                                     <TableHead>Nominal</TableHead>
                                 </TableRow>
                                 </TableHeader>
@@ -180,7 +181,7 @@ export default function Page() {
                                     onClick={() => handleTxClick(tx)}
                                     >
                                     <TableCell>{tx.title}</TableCell>
-                                    <TableCell>{getIncomeTypeBadge(tx.incomeType)}</TableCell>
+                                    <TableCell>{tx.note}</TableCell>
                                     <TableCell className="font-semibold">{tx.paymentAmount}</TableCell>
                                     </TableRow>
                                 ))}
@@ -209,20 +210,6 @@ export default function Page() {
                             <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <Label className="text-sm font-medium text-gray-600">
-                                    Nama
-                                </Label>
-                                <p className="text-sm font-semibold">{selectedTx.memberName}</p>
-                            </div>
-
-                            <div>
-                                <Label className="text-sm font-medium text-gray-600">
-                                    Jenis
-                                </Label>
-                                <p className="text-sm font-semibold">{getIncomeTypeBadge(selectedTx.incomeType)}</p>
-                            </div>
-
-                            <div>
-                                <Label className="text-sm font-medium text-gray-600">
                                     Judul
                                 </Label>
                                 <p className="text-sm font-semibold">{selectedTx.title}</p>
@@ -246,17 +233,8 @@ export default function Page() {
                                 <Label className="text-sm font-medium text-gray-600">
                                     Pembayaran 
                                 </Label>
-                                <p className="text-sm font-semibold">{selectedTx.paymentMethod}</p>
+                                <p className="text-sm font-semibold">{getPaymentMethodBadge(selectedTx.paymentMethod)}</p>
                             </div>
-
-                            {(selectedTx.incomeType === "paketPt" || selectedTx.incomeType === "paketKelas") && (
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">
-                                        Jumlah Pertemuan
-                                    </Label>
-                                    <p className="text-sm font-semibold">{selectedTx.pertemuanAmount}</p>
-                                </div>
-                            )}
                             </div>
                         </div>
                     )}
@@ -355,35 +333,15 @@ export default function Page() {
                             </div>
 
                             <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="txIncomeType" className="text-right">
-                                Jenis
-                            </Label>
-                            <p className="text-sm font-semibold">{getIncomeTypeBadge(txIncomeType)}</p>
-                            </div>
-
-                            <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="txMemberName" className="text-right">
-                                Nama
-                            </Label>
-                            <Input
-                                id="txMemberName"
-                                value={txMemberName}
-                                placeholder="-"
-                                className="col-span-3"
-                                disabled
-                            />
-                            </div>
-
-                            <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="txPaymentAmount" className="text-right">
                                 Jumlah
                             </Label>
                             <Input
                                 id="txPaymentAmount"
                                 value={txPaymentAmount}
+                                onChange={(e) => setTxPaymentAmount(e.target.value)}
                                 placeholder="-"
                                 className="col-span-3"
-                                disabled
                             />
                             </div>
 
@@ -391,29 +349,22 @@ export default function Page() {
                             <Label htmlFor="txPaymentMethod" className="text-right">
                                 Pembayaran
                             </Label>
-                            <Input
-                                id="txPaymentMethod"
-                                value={txPaymentMethod}
-                                placeholder="-"
-                                className="col-span-3"
-                                disabled
-                            />
+                            <Select value={txPaymentMethod} onValueChange={setTxPaymentMethod}>
+                                <SelectTrigger className="col-span-3">
+                                    <SelectValue placeholder={txPaymentMethod}/>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="cash">Cash</SelectItem>
+                                    <SelectItem value="transfer">Transfer</SelectItem>
+                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
+                                    <SelectItem value="qrisBri">QRIS BRI</SelectItem>
+                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
+                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
+                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
+                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                </SelectContent>
+                            </Select>
                             </div>
-
-                            {(txIncomeType === "paketPt" || txIncomeType === "paketKelas") && (
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label htmlFor="txPertemuanAmount" className="text-right">
-                                        Pertemuan
-                                    </Label>
-                                    <Input
-                                        id="txPertemuanAmount"
-                                        value={txPertemuaAnmount}
-                                        placeholder="Jumlah Pertemuan"
-                                        className="col-span-3"
-                                        disabled
-                                    />
-                                </div>
-                            )}
                         </div>
                     </div>
 
