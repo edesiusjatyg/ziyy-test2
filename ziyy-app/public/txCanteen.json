@@ -1,0 +1,204 @@
+{
+    "txCanteen": [
+        {
+            "id": 1,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "cleoKecil", 
+            "itemAmount": 5,
+            "paymentAmount": "25000",
+            "paymentMethod": "cash"
+        },
+        {
+            "id": 2,
+            "txType": "pemasukan", 
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "protein",
+            "itemAmount": 2,
+            "paymentAmount": "300000",
+            "paymentMethod": "transfer"
+        },
+        {
+            "id": 3,
+            "txType": "pengeluaran",
+            "txTitle": "Beli Stok Minuman",
+            "txNote": "Pembelian air mineral",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "150000",
+            "paymentMethod": "cash"
+        },
+        {
+            "id": 4,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "bcaa",
+            "itemAmount": 1,
+            "paymentAmount": "180000",
+            "paymentMethod": "qrisMdr"
+        },
+        {
+            "id": 5,
+            "txType": "pengeluaran",
+            "txTitle": "Sewa Alat Baru",
+            "txNote": "Pembelian timbangan digital",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "250000",
+            "paymentMethod": "debitBri"
+        },
+        {
+            "id": 6,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "americano",
+            "itemAmount": 3,
+            "paymentAmount": "45000",
+            "paymentMethod": "cash"
+        },
+        {
+            "id": 7,
+            "txType": "pengeluaran",
+            "txTitle": "Bayar Listrik",
+            "txNote": "Tagihan bulanan kantin",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "300000",
+            "paymentMethod": "transfer"
+        },
+        {
+            "id": 8,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "cleoBesar",
+            "itemAmount": 4,
+            "paymentAmount": "40000",
+            "paymentMethod": "debitMdr"
+        },
+        {
+            "id": 9,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "creatine",
+            "itemAmount": 1,
+            "paymentAmount": "220000",
+            "paymentMethod": "qrisBri"
+        },
+        {
+            "id": 10,
+            "txType": "pengeluaran",
+            "txTitle": "Beli Peralatan Kebersihan",
+            "txNote": "Sabun, lap, dan pembersih",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "75000",
+            "paymentMethod": "cash"
+        },
+        {
+            "id": 11,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "latte",
+            "itemAmount": 2,
+            "paymentAmount": "60000",
+            "paymentMethod": "transfer"
+        },
+        {
+            "id": 12,
+            "txType": "pengeluaran",
+            "txTitle": "Gaji Karyawan Paruh Waktu",
+            "txNote": "Pembayaran kasir bulan ini",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "500000",
+            "paymentMethod": "transfer"
+        },
+        {
+            "id": 13,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "hilo",
+            "itemAmount": 6,
+            "paymentAmount": "54000",
+            "paymentMethod": "cash"
+        },
+        {
+            "id": 14,
+            "txType": "pengeluaran",
+            "txTitle": "Servis Mesin Kopi",
+            "txNote": "Perawatan mesin espresso",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "200000",
+            "paymentMethod": "debitBri"
+        },
+        {
+            "id": 15,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "tropicana",
+            "itemAmount": 3,
+            "paymentAmount": "30000",
+            "paymentMethod": "qrisMdr"
+        },
+        {
+            "id": 16,
+            "txType": "pengeluaran",
+            "txTitle": "Beli Bahan Makanan",
+            "txNote": "Stok bahan protein shake",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "350000",
+            "paymentMethod": "transfer"
+        },
+        {
+            "id": 17,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "cleoSedang",
+            "itemAmount": 4,
+            "paymentAmount": "32000",
+            "paymentMethod": "cash"
+        },
+        {
+            "id": 18,
+            "txType": "pengeluaran",
+            "txTitle": "Biaya Kebersihan",
+            "txNote": "Pembayaran jasa kebersihan",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "100000",
+            "paymentMethod": "cash"
+        },
+        {
+            "id": 19,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "protein",
+            "itemAmount": 1,
+            "paymentAmount": "150000",
+            "paymentMethod": "debitMdr"
+        },
+        {
+            "id": 20,
+            "txType": "pengeluaran",
+            "txTitle": "Perpanjangan Sewa Tempat",
+            "txNote": "Biaya sewa ruang kantin",
+            "itemType": "",
+            "itemAmount": null,
+            "paymentAmount": "1000000",
+            "paymentMethod": "transfer"
+        }
+    ]
+}
