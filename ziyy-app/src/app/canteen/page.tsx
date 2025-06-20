@@ -85,33 +85,37 @@ export default function Page() {
                             </Card>
                         </Link>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Pemasukan</CardTitle>
-                                <CardDescription>Hari ini</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">Rp2.400.000</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
-                            </CardFooter>
-                        </Card>
-
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Pengeluaran</CardTitle>
-                                <CardDescription>Hari ini</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">Rp400.000</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
-                            </CardFooter>
-                        </Card>
+                        <Link href={"/canteen/tx-income"}>
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Pemasukan</CardTitle>
+                                    <CardDescription>Hari ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">Rp2.400.000</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight />
+                                    <p className="text-md font-semibold">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
+                        
+                        <Link href={"/canteen/tx-expense"}>
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Pengeluaran</CardTitle>
+                                    <CardDescription>Hari ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">Rp400.000</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight />
+                                    <p className="text-md font-semibold">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
                     </div>
 
                     <div className="grid grid-cols-3 gap-6 pl-6 pr-6 pb-6">

@@ -11,18 +11,16 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { get } from "http";
 
 type Transaction = {
     id: number;
-    type: string;
-    incomeType: string;
-    title: string;
-    note: string;
-    memberName: string;
+    txType: string;
+    txTitle: string;
+    txNote: string;
+    itemType: string;
+    itemAmount: string;
     paymentAmount: string;
     paymentMethod: string;
-    pertemuanAmount: string;
 };
 
 export default function Page() {
@@ -32,24 +30,27 @@ export default function Page() {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
+    const [txType, setTxType] = useState("");
     const [txTitle, setTxTitle] = useState("");
     const [txNote, setTxNote] = useState("");
+    const [txItemAmount, setTxItemAmount] = useState("");
+    const [txItemType, setTxItemType] = useState("");
     const [txPaymentAmount, setTxPaymentAmount] = useState("");
     const [txPaymentMethod, setTxPaymentMethod] = useState("");
 
     useEffect(() => {
         const fetchTxs = async () => {
             try {
-                const response = await fetch('/txFo.json');
+                const response = await fetch('/txCanteen.json');
                 const data = await response.json();
 
-                const incomeTx = data.txFo.filter((tx: Transaction) => {
-                    return tx.type === "pengeluaran";
+                const incomeTx = data.txCanteen.filter((tx: Transaction) => {
+                    return tx.txType === "pemasukan";
                 });
 
                 setMockTx(incomeTx);
             } catch (error) {
-                console.error('Error fetching expenses:', error);
+                console.error('Error fetching sales:', error);
             }
         };
 
@@ -63,8 +64,10 @@ export default function Page() {
 
     const handleEditClick = () => {
         if (selectedTx) {
-            setTxTitle(selectedTx.title);
-            setTxNote(selectedTx.note);
+            setTxTitle(selectedTx.txTitle);
+            setTxNote(selectedTx.txNote);
+            setTxItemAmount(selectedTx.itemAmount);
+            setTxItemType(selectedTx.itemType);
             setTxPaymentAmount(selectedTx.paymentAmount);
             setTxPaymentMethod(selectedTx.paymentMethod);
             setIsEditDialogOpen(true);
@@ -73,8 +76,8 @@ export default function Page() {
 
     const handleSaveEdit = () => {
         if (selectedTx) {
-            selectedTx.title = txTitle;
-            selectedTx.note = txNote;
+            selectedTx.txTitle = txTitle;
+            selectedTx.txNote = txNote;
             selectedTx.paymentAmount = txPaymentAmount;
             selectedTx.paymentMethod = txPaymentMethod;
             for(let i = 0; i < mockTx.length; i++) {
@@ -98,6 +101,30 @@ export default function Page() {
             setIsDialogOpen(false);
         }
     };
+
+    const getItemBadge = (itemType: string) => {
+        if (itemType === "cleoKecil") {
+            return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Cleo Kecil</Badge>;
+        } else if (itemType === "cleoSedang") {
+            return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Cleo Sedang</Badge>;
+        } else if (itemType === "cleoBesar") {
+            return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Cleo Besar</Badge>;
+        } else if (itemType === "bcaa") {
+            return <Badge className="bg-sky-100 text-sky-800 hover:bg-sky-100">BCAA</Badge>;
+        } else if (itemType === "creatine") {
+            return <Badge className="bg-sky-100 text-sky-800 hover:bg-sky-100">Creatine</Badge>;
+        } else if (itemType === "protein") {
+            return <Badge className="bg-sky-100 text-sky-800 hover:bg-sky-100">Whey Protein</Badge>;
+        } else if (itemType === "hilo") {
+            return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Hilo</Badge>;
+        } else if (itemType === "tropicana") {
+            return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Tropicana</Badge>;
+        } else if (itemType === "americano") {
+            return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Americano</Badge>;
+        } else if (itemType === "latte") {
+            return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Latte</Badge>;
+        }
+    }
 
     const getPaymentMethodBadge = (paymentMethod: string) => {
         if (paymentMethod === "cash") {
@@ -125,7 +152,7 @@ export default function Page() {
                 <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
                     <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
                     <h2 className="text-black font-semibold text-xl">
-                        Ziyy Gym | Front Office
+                        Ziyy Gym | Kantin
                     </h2>
                     <Breadcrumb>
                         <BreadcrumbList>
@@ -138,13 +165,13 @@ export default function Page() {
                             </BreadcrumbLink>
                             <BreadcrumbSeparator></BreadcrumbSeparator>
                             <BreadcrumbLink
-                            href="/fo"
+                            href="/canteen"
                             className="text-gray-600 hover:text-gray-900"
                             >
-                            FO
+                            Kantin
                             </BreadcrumbLink>
                             <BreadcrumbSeparator></BreadcrumbSeparator>
-                            <BreadcrumbPage>Pengeluaran</BreadcrumbPage>
+                            <BreadcrumbPage>Pemasukan</BreadcrumbPage>
                         </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -159,7 +186,7 @@ export default function Page() {
 
                         <Card>
                             <CardHeader>
-                            <CardTitle>Transaksi Keluar Hari ini</CardTitle>
+                            <CardTitle>Daftar Pemasukan</CardTitle>
                             <CardDescription>
                                 Klik pada transaksi untuk melihat detailnya.
                             </CardDescription>
@@ -168,8 +195,8 @@ export default function Page() {
                             <Table>
                                 <TableHeader>
                                 <TableRow>
-                                    <TableHead>Judul</TableHead>
-                                    <TableHead>Keterangan</TableHead>
+                                    <TableHead>Item</TableHead>
+                                    <TableHead>Qty</TableHead>
                                     <TableHead>Nominal</TableHead>
                                 </TableRow>
                                 </TableHeader>
@@ -180,8 +207,8 @@ export default function Page() {
                                     className="cursor-pointer hover:bg-gray-50"
                                     onClick={() => handleTxClick(tx)}
                                     >
-                                    <TableCell>{tx.title}</TableCell>
-                                    <TableCell>{tx.note}</TableCell>
+                                    <TableCell>{getItemBadge(tx.itemType)}</TableCell>
+                                    <TableCell>{tx.itemAmount}</TableCell>
                                     <TableCell className="font-semibold">{tx.paymentAmount}</TableCell>
                                     </TableRow>
                                 ))}
@@ -208,33 +235,33 @@ export default function Page() {
                     {selectedTx && (
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">
-                                        Judul
-                                    </Label>
-                                    <p className="text-sm font-semibold">{selectedTx.title}</p>
-                                </div>
+                            <div>
+                                <Label className="text-sm font-medium text-gray-600">
+                                    Item 
+                                </Label>
+                                <p className="text-sm font-semibold">{getItemBadge(selectedTx.itemType)}</p>
+                            </div>
 
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">
-                                        Keterangan
-                                    </Label>
-                                    <p className="text-sm font-semibold">{selectedTx.note}</p>
-                                </div>
+                            <div>
+                                <Label className="text-sm font-medium text-gray-600">
+                                    Qty
+                                </Label>
+                                <p className="text-sm font-semibold">{selectedTx.itemAmount}</p>
+                            </div>
+                            
+                            <div>
+                                <Label className="text-sm font-medium text-gray-600">
+                                    Jumlah 
+                                </Label>
+                                <p className="text-sm font-semibold">{selectedTx.paymentAmount}</p>
+                            </div>
 
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">
-                                        Jumlah 
-                                    </Label>
-                                    <p className="text-sm font-semibold">{selectedTx.paymentAmount}</p>
-                                </div>
-
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">
-                                        Pembayaran 
-                                    </Label>
-                                    <p className="text-sm font-semibold">{getPaymentMethodBadge(selectedTx.paymentMethod)}</p>
-                                </div>
+                            <div>
+                                <Label className="text-sm font-medium text-gray-600">
+                                    Pembayaran 
+                                </Label>
+                                <p className="text-sm font-semibold">{getPaymentMethodBadge(selectedTx.paymentMethod)}</p>
+                            </div>
                             </div>
                         </div>
                     )}
@@ -294,7 +321,7 @@ export default function Page() {
                 </DialogContent>
             </Dialog>
 
-            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+            {/* <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="max-w-md">
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2">
@@ -389,7 +416,7 @@ export default function Page() {
                         </Button>
                     </DialogFooter>
                 </DialogContent>
-            </Dialog>
+            </Dialog> */}
         </div>
     );
 }

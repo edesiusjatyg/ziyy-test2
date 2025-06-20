@@ -152,7 +152,7 @@ export default function Page() {
                 <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
                     <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
                     <h2 className="text-black font-semibold text-xl">
-                        Ziyy Gym | Canteen
+                        Ziyy Gym | Kantin
                     </h2>
                     <Breadcrumb>
                         <BreadcrumbList>
@@ -168,7 +168,7 @@ export default function Page() {
                             href="/canteen"
                             className="text-gray-600 hover:text-gray-900"
                             >
-                            Canteen
+                            Kantin
                             </BreadcrumbLink>
                             <BreadcrumbSeparator></BreadcrumbSeparator>
                             <BreadcrumbPage>Penjualan</BreadcrumbPage>
@@ -239,7 +239,7 @@ export default function Page() {
                                 <Label className="text-sm font-medium text-gray-600">
                                     Item 
                                 </Label>
-                                <p className="text-sm font-semibold">{selectedTx.itemType}</p>
+                                <p className="text-sm font-semibold">{getItemBadge(selectedTx.itemType)}</p>
                             </div>
 
                             <div>

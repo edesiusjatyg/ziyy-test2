@@ -11,18 +11,16 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { get } from "http";
 
 type Transaction = {
     id: number;
-    type: string;
-    incomeType: string;
-    title: string;
-    note: string;
-    memberName: string;
+    txType: string;
+    txTitle: string;
+    txNote: string;
+    itemType: string;
+    itemAmount: string;
     paymentAmount: string;
     paymentMethod: string;
-    pertemuanAmount: string;
 };
 
 export default function Page() {
@@ -32,24 +30,27 @@ export default function Page() {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
+    const [txType, setTxType] = useState("");
     const [txTitle, setTxTitle] = useState("");
     const [txNote, setTxNote] = useState("");
+    const [txItemAmount, setTxItemAmount] = useState("");
+    const [txItemType, setTxItemType] = useState("");
     const [txPaymentAmount, setTxPaymentAmount] = useState("");
     const [txPaymentMethod, setTxPaymentMethod] = useState("");
 
     useEffect(() => {
         const fetchTxs = async () => {
             try {
-                const response = await fetch('/txFo.json');
+                const response = await fetch('/txCanteen.json');
                 const data = await response.json();
 
-                const incomeTx = data.txFo.filter((tx: Transaction) => {
-                    return tx.type === "pengeluaran";
+                const incomeTx = data.txCanteen.filter((tx: Transaction) => {
+                    return tx.txType === "pengeluaran";
                 });
 
                 setMockTx(incomeTx);
             } catch (error) {
-                console.error('Error fetching expenses:', error);
+                console.error('Error fetching sales:', error);
             }
         };
 
@@ -63,8 +64,10 @@ export default function Page() {
 
     const handleEditClick = () => {
         if (selectedTx) {
-            setTxTitle(selectedTx.title);
-            setTxNote(selectedTx.note);
+            setTxTitle(selectedTx.txTitle);
+            setTxNote(selectedTx.txNote);
+            setTxItemAmount(selectedTx.itemAmount);
+            setTxItemType(selectedTx.itemType);
             setTxPaymentAmount(selectedTx.paymentAmount);
             setTxPaymentMethod(selectedTx.paymentMethod);
             setIsEditDialogOpen(true);
@@ -73,8 +76,8 @@ export default function Page() {
 
     const handleSaveEdit = () => {
         if (selectedTx) {
-            selectedTx.title = txTitle;
-            selectedTx.note = txNote;
+            selectedTx.txTitle = txTitle;
+            selectedTx.txNote = txNote;
             selectedTx.paymentAmount = txPaymentAmount;
             selectedTx.paymentMethod = txPaymentMethod;
             for(let i = 0; i < mockTx.length; i++) {
@@ -125,7 +128,7 @@ export default function Page() {
                 <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
                     <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
                     <h2 className="text-black font-semibold text-xl">
-                        Ziyy Gym | Front Office
+                        Ziyy Gym | Kantin
                     </h2>
                     <Breadcrumb>
                         <BreadcrumbList>
@@ -138,10 +141,10 @@ export default function Page() {
                             </BreadcrumbLink>
                             <BreadcrumbSeparator></BreadcrumbSeparator>
                             <BreadcrumbLink
-                            href="/fo"
+                            href="/canteen"
                             className="text-gray-600 hover:text-gray-900"
                             >
-                            FO
+                            Kantin
                             </BreadcrumbLink>
                             <BreadcrumbSeparator></BreadcrumbSeparator>
                             <BreadcrumbPage>Pengeluaran</BreadcrumbPage>
@@ -159,7 +162,7 @@ export default function Page() {
 
                         <Card>
                             <CardHeader>
-                            <CardTitle>Transaksi Keluar Hari ini</CardTitle>
+                            <CardTitle>List Pengeluaran</CardTitle>
                             <CardDescription>
                                 Klik pada transaksi untuk melihat detailnya.
                             </CardDescription>
@@ -180,8 +183,8 @@ export default function Page() {
                                     className="cursor-pointer hover:bg-gray-50"
                                     onClick={() => handleTxClick(tx)}
                                     >
-                                    <TableCell>{tx.title}</TableCell>
-                                    <TableCell>{tx.note}</TableCell>
+                                    <TableCell>{tx.txTitle}</TableCell>
+                                    <TableCell>{tx.txNote}</TableCell>
                                     <TableCell className="font-semibold">{tx.paymentAmount}</TableCell>
                                     </TableRow>
                                 ))}
@@ -212,14 +215,14 @@ export default function Page() {
                                     <Label className="text-sm font-medium text-gray-600">
                                         Judul
                                     </Label>
-                                    <p className="text-sm font-semibold">{selectedTx.title}</p>
+                                    <p className="text-sm font-semibold">{selectedTx.txTitle}</p>
                                 </div>
 
                                 <div>
                                     <Label className="text-sm font-medium text-gray-600">
                                         Keterangan
                                     </Label>
-                                    <p className="text-sm font-semibold">{selectedTx.note}</p>
+                                    <p className="text-sm font-semibold">{selectedTx.txNote}</p>
                                 </div>
 
                                 <div>
