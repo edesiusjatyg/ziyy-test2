@@ -60,33 +60,37 @@ export default function Page() {
                             </Card>
                         </Link>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Pemasukan</CardTitle>
-                                <CardDescription>Bulan ini</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">Rp12.800.000</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
-                            </CardFooter>
-                        </Card>
+                        <Link href="/acc/tx-income-monthly">
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Pemasukan</CardTitle>
+                                    <CardDescription>Bulan ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">Rp12.800.000</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight />
+                                    <p className="text-md font-semibold">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Pengeluaran</CardTitle>
-                                <CardDescription>Bulan ini</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">Rp3.700.000</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
-                            </CardFooter>
-                        </Card>
+                        <Link href="/acc/tx-expense-monthly">
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Pengeluaran</CardTitle>
+                                    <CardDescription>Bulan ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">Rp2.800.000</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight />
+                                    <p className="text-md font-semibold">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
 
                         <Card className="flex flex-col justify-between bg-white py-6 px-2">
                             <CardHeader>

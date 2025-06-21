@@ -10,7 +10,7 @@
             "paymentAmount": "300000",
             "paymentMethod": "cash",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-11"
         },
         {
             "id": 2,
@@ -22,7 +22,7 @@
             "paymentAmount": "50000",
             "paymentMethod": "debitMdr",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-12"
         },
         {
             "id": 3,
@@ -34,7 +34,7 @@
             "paymentAmount": "200000",
             "paymentMethod": "qrisBri",
             "pertemuanAmount": "4",
-            "date": "2025-06-21"
+            "date": "2025-06-13"
         },
         {
             "id": 4,
@@ -46,7 +46,7 @@
             "paymentAmount": "50000",
             "paymentMethod": "cash",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-14"
         },
         {
             "id": 5,
@@ -58,7 +58,7 @@
             "paymentAmount": "150000",
             "paymentMethod": "transfer",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-15"
         },
         {
             "id": 6,
@@ -70,7 +70,7 @@
             "paymentAmount": "150000",
             "paymentMethod": "debitBri",
             "pertemuanAmount": "5",
-            "date": "2025-06-21"
+            "date": "2025-06-16"
         },
         {
             "id": 7,
@@ -82,7 +82,7 @@
             "paymentAmount": "500000",
             "paymentMethod": "transfer",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-17"
         },
         {
             "id": 8,
@@ -94,7 +94,7 @@
             "paymentAmount": "100000",
             "paymentMethod": "qrisMdr",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-18"
         },
         {
             "id": 9,
@@ -106,7 +106,7 @@
             "paymentAmount": "75000",
             "paymentMethod": "cash",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-19"
         },
         {
             "id": 10,
@@ -118,7 +118,7 @@
             "paymentAmount": "750000",
             "paymentMethod": "debitBri",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-20"
         },
         {
             "id": 11,
@@ -142,7 +142,7 @@
             "paymentAmount": "75000",
             "paymentMethod": "cash",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-11"
         },
         {
             "id": 13,
@@ -154,7 +154,7 @@
             "paymentAmount": "250000",
             "paymentMethod": "qrisBri",
             "pertemuanAmount": "5",
-            "date": "2025-06-21"
+            "date": "2025-06-12"
         },
         {
             "id": 14,
@@ -166,7 +166,7 @@
             "paymentAmount": "300000",
             "paymentMethod": "transfer",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-13"
         },
         {
             "id": 15,
@@ -178,7 +178,7 @@
             "paymentAmount": "1200000",
             "paymentMethod": "debitMdr",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-14"
         },
         {
             "id": 16,
@@ -190,7 +190,7 @@
             "paymentAmount": "100000",
             "paymentMethod": "cash",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-15"
         },
         {
             "id": 17,
@@ -202,7 +202,7 @@
             "paymentAmount": "200000",
             "paymentMethod": "qrisMdr",
             "pertemuanAmount": "6",
-            "date": "2025-06-21"
+            "date": "2025-06-16"
         },
         {
             "id": 18,
@@ -214,7 +214,7 @@
             "paymentAmount": "250000",
             "paymentMethod": "transfer",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-17"
         },
         {
             "id": 19,
@@ -226,7 +226,7 @@
             "paymentAmount": "150000",
             "paymentMethod": "cash",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-18"
         },
         {
             "id": 20,
@@ -238,7 +238,7 @@
             "paymentAmount": "500000",
             "paymentMethod": "debitBri",
             "pertemuanAmount": "",
-            "date": "2025-06-21"
+            "date": "2025-06-19"
         }
     ]
 }
