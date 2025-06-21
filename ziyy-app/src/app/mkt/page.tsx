@@ -1,8 +1,22 @@
+"use client";
+
+import { useState } from "react";
 import { CirclePlus, ChevronsRight } from "lucide-react";
 import { Card, CardTitle, CardContent, CardDescription, CardFooter, CardHeader} from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 export default function Page() {
+    const [isAddActivityDialogOpen, setIsAddActivityDialogOpen] = useState(false);
+
+    const handleAddActivity = () => {
+        
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
             <div className="w-[30%]">
@@ -67,7 +81,7 @@ export default function Page() {
                             </CardFooter>
                         </Card>
 
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer" onClick={() => setIsAddActivityDialogOpen(true)}>
                             <CardHeader>
                                 <CardTitle>Catat Aktivitas</CardTitle>
                             </CardHeader>
@@ -78,6 +92,29 @@ export default function Page() {
                             </CardFooter>
                         </Card>
                     </div>
+
+                    <Dialog open={isAddActivityDialogOpen} onOpenChange={setIsAddActivityDialogOpen}>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Tambah Aktivitas</DialogTitle>
+                            </DialogHeader>
+
+                            {/* <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="memberName" className="text-right">
+                                        Nama
+                                    </Label>
+                                    <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Lengkap Member" className="col-span-3" />
+                                </div>
+                            </div> */}
+
+                            <DialogFooter>
+                                <Button type="submit" onClick={handleAddActivity}>
+                                    Tambah Aktivitas
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             </div>
         </div>

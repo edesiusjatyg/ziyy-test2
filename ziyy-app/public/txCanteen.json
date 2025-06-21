@@ -8,7 +8,8 @@
             "itemType": "cleoKecil", 
             "itemAmount": 5,
             "paymentAmount": "25000",
-            "paymentMethod": "cash"
+            "paymentMethod": "cash",
+            "date": "2025-06-21"
         },
         {
             "id": 2,
@@ -18,7 +19,8 @@
             "itemType": "protein",
             "itemAmount": 2,
             "paymentAmount": "300000",
-            "paymentMethod": "transfer"
+            "paymentMethod": "transfer",
+            "date": "2025-06-21"
         },
         {
             "id": 3,
@@ -28,7 +30,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "150000",
-            "paymentMethod": "cash"
+            "paymentMethod": "cash",
+            "date": "2025-06-21"
         },
         {
             "id": 4,
@@ -38,7 +41,8 @@
             "itemType": "bcaa",
             "itemAmount": 1,
             "paymentAmount": "180000",
-            "paymentMethod": "qrisMdr"
+            "paymentMethod": "qrisMdr",
+            "date": "2025-06-21"
         },
         {
             "id": 5,
@@ -48,7 +52,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "250000",
-            "paymentMethod": "debitBri"
+            "paymentMethod": "debitBri",
+            "date": "2025-06-21"
         },
         {
             "id": 6,
@@ -58,7 +63,8 @@
             "itemType": "americano",
             "itemAmount": 3,
             "paymentAmount": "45000",
-            "paymentMethod": "cash"
+            "paymentMethod": "cash",
+            "date": "2025-06-21"
         },
         {
             "id": 7,
@@ -68,7 +74,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "300000",
-            "paymentMethod": "transfer"
+            "paymentMethod": "transfer",
+            "date": "2025-06-21"
         },
         {
             "id": 8,
@@ -78,7 +85,8 @@
             "itemType": "cleoBesar",
             "itemAmount": 4,
             "paymentAmount": "40000",
-            "paymentMethod": "debitMdr"
+            "paymentMethod": "debitMdr",
+            "date": "2025-06-21"
         },
         {
             "id": 9,
@@ -88,7 +96,8 @@
             "itemType": "creatine",
             "itemAmount": 1,
             "paymentAmount": "220000",
-            "paymentMethod": "qrisBri"
+            "paymentMethod": "qrisBri",
+            "date": "2025-06-21"
         },
         {
             "id": 10,
@@ -98,7 +107,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "75000",
-            "paymentMethod": "cash"
+            "paymentMethod": "cash",
+            "date": "2025-06-21"
         },
         {
             "id": 11,
@@ -108,7 +118,8 @@
             "itemType": "latte",
             "itemAmount": 2,
             "paymentAmount": "60000",
-            "paymentMethod": "transfer"
+            "paymentMethod": "transfer",
+            "date": "2025-06-21"
         },
         {
             "id": 12,
@@ -118,7 +129,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "500000",
-            "paymentMethod": "transfer"
+            "paymentMethod": "transfer",
+            "date": "2025-06-21"
         },
         {
             "id": 13,
@@ -128,7 +140,8 @@
             "itemType": "hilo",
             "itemAmount": 6,
             "paymentAmount": "54000",
-            "paymentMethod": "cash"
+            "paymentMethod": "cash",
+            "date": "2025-06-21"
         },
         {
             "id": 14,
@@ -138,7 +151,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "200000",
-            "paymentMethod": "debitBri"
+            "paymentMethod": "debitBri",
+            "date": "2025-06-21"
         },
         {
             "id": 15,
@@ -148,7 +162,8 @@
             "itemType": "tropicana",
             "itemAmount": 3,
             "paymentAmount": "30000",
-            "paymentMethod": "qrisMdr"
+            "paymentMethod": "qrisMdr",
+            "date": "2025-06-21"
         },
         {
             "id": 16,
@@ -158,7 +173,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "350000",
-            "paymentMethod": "transfer"
+            "paymentMethod": "transfer",
+            "date": "2025-06-21"
         },
         {
             "id": 17,
@@ -168,7 +184,8 @@
             "itemType": "cleoSedang",
             "itemAmount": 4,
             "paymentAmount": "32000",
-            "paymentMethod": "cash"
+            "paymentMethod": "cash",
+            "date": "2025-06-21"
         },
         {
             "id": 18,
@@ -178,7 +195,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "100000",
-            "paymentMethod": "cash"
+            "paymentMethod": "cash",
+            "date": "2025-06-21"
         },
         {
             "id": 19,
@@ -188,7 +206,8 @@
             "itemType": "protein",
             "itemAmount": 1,
             "paymentAmount": "150000",
-            "paymentMethod": "debitMdr"
+            "paymentMethod": "debitMdr",
+            "date": "2025-06-21"
         },
         {
             "id": 20,
@@ -198,7 +217,8 @@
             "itemType": "",
             "itemAmount": null,
             "paymentAmount": "1000000",
-            "paymentMethod": "transfer"
+            "paymentMethod": "transfer",
+            "date": "2025-06-21"
         }
     ]
 }

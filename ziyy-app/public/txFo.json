@@ -9,7 +9,8 @@
             "memberName": "Ahmad Rizky",
             "paymentAmount": "300000",
             "paymentMethod": "cash",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 2,
@@ -20,7 +21,8 @@
             "memberName": "",
             "paymentAmount": "50000",
             "paymentMethod": "debitMdr",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 3,
@@ -31,7 +33,8 @@
             "memberName": "Maya Sari",
             "paymentAmount": "200000",
             "paymentMethod": "qrisBri",
-            "pertemuanAmount": "4"
+            "pertemuanAmount": "4",
+            "date": "2025-06-21"
         },
         {
             "id": 4,
@@ -42,7 +45,8 @@
             "memberName": "Budi Santoso",
             "paymentAmount": "50000",
             "paymentMethod": "cash",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 5,
@@ -53,7 +57,8 @@
             "memberName": "",
             "paymentAmount": "150000",
             "paymentMethod": "transfer",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 6,
@@ -64,7 +69,8 @@
             "memberName": "Siti Nurhaliza",
             "paymentAmount": "150000",
             "paymentMethod": "debitBri",
-            "pertemuanAmount": "5"
+            "pertemuanAmount": "5",
+            "date": "2025-06-21"
         },
         {
             "id": 7,
@@ -75,7 +81,8 @@
             "memberName": "",
             "paymentAmount": "500000",
             "paymentMethod": "transfer",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 8,
@@ -86,7 +93,8 @@
             "memberName": "Dedi Kurniawan",
             "paymentAmount": "100000",
             "paymentMethod": "qrisMdr",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 9,
@@ -97,7 +105,8 @@
             "memberName": "",
             "paymentAmount": "75000",
             "paymentMethod": "cash",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 10,
@@ -108,7 +117,8 @@
             "memberName": "Budi Santoso",
             "paymentAmount": "750000",
             "paymentMethod": "debitBri",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 11,
@@ -119,7 +129,8 @@
             "memberName": "",
             "paymentAmount": "200000",
             "paymentMethod": "transfer",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 12,
@@ -130,7 +141,8 @@
             "memberName": "Maya Sari",
             "paymentAmount": "75000",
             "paymentMethod": "cash",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 13,
@@ -141,7 +153,8 @@
             "memberName": "Ahmad Rizky",
             "paymentAmount": "250000",
             "paymentMethod": "qrisBri",
-            "pertemuanAmount": "5"
+            "pertemuanAmount": "5",
+            "date": "2025-06-21"
         },
         {
             "id": 14,
@@ -152,7 +165,8 @@
             "memberName": "",
             "paymentAmount": "300000",
             "paymentMethod": "transfer",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 15,
@@ -163,7 +177,8 @@
             "memberName": "Siti Nurhaliza",
             "paymentAmount": "1200000",
             "paymentMethod": "debitMdr",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 16,
@@ -174,7 +189,8 @@
             "memberName": "",
             "paymentAmount": "100000",
             "paymentMethod": "cash",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 17,
@@ -185,7 +201,8 @@
             "memberName": "Dedi Kurniawan",
             "paymentAmount": "200000",
             "paymentMethod": "qrisMdr",
-            "pertemuanAmount": "6"
+            "pertemuanAmount": "6",
+            "date": "2025-06-21"
         },
         {
             "id": 18,
@@ -196,7 +213,8 @@
             "memberName": "",
             "paymentAmount": "250000",
             "paymentMethod": "transfer",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 19,
@@ -207,7 +225,8 @@
             "memberName": "Maya Sari",
             "paymentAmount": "150000",
             "paymentMethod": "cash",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         },
         {
             "id": 20,
@@ -218,7 +237,8 @@
             "memberName": "",
             "paymentAmount": "500000",
             "paymentMethod": "debitBri",
-            "pertemuanAmount": ""
+            "pertemuanAmount": "",
+            "date": "2025-06-21"
         }
     ]
 }

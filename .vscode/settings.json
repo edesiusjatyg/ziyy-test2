@@ -1,16 +1,16 @@
 {
     "files.exclude": {
-        "ziyy-app\\node_modules": true,
-        "ziyy-app\\.next": true,
-        "ziyy-app\\tsconfig.json": true,
-        "ziyy-app\\README.md": true,
-        "ziyy-app\\postcss.config.mjs": true,
-        "ziyy-app\\pnpm-lock.yaml": true,
-        "ziyy-app\\package.json": true,
-        "ziyy-app\\next.config.ts": true,
-        "ziyy-app\\next-env.d.ts": true,
-        "ziyy-app\\components.json": true,
-        "ziyy-app\\.gitignore": true,
-        ".vscode": true
+        "ziyy-app\\node_modules": false,
+        "ziyy-app\\.next": false,
+        "ziyy-app\\tsconfig.json": false,
+        "ziyy-app\\README.md": false,
+        "ziyy-app\\postcss.config.mjs": false,
+        "ziyy-app\\pnpm-lock.yaml": false,
+        "ziyy-app\\package.json": false,
+        "ziyy-app\\next.config.ts": false,
+        "ziyy-app\\next-env.d.ts": false,
+        "ziyy-app\\components.json": false,
+        "ziyy-app\\.gitignore": false,
+        ".vscode": false
     }
 }

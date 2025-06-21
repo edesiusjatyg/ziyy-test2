@@ -1,6 +1,7 @@
 import { CirclePlus, ChevronsRight } from "lucide-react";
 import { Card, CardTitle, CardContent, CardDescription, CardFooter, CardHeader} from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
+import Link from "next/link";
 
 export default function Page() {
     return (
@@ -26,34 +27,38 @@ export default function Page() {
 
                     <p className="text-black font-semibold text-xl pl-6 pt-6">Rabu, 11 Juni 2025</p>
 
-                    <div className="grid grid-cols-5 gap-6 p-6">
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Pemasukan</CardTitle>
-                                <CardDescription>Hari ini</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">Rp2.400.000</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
-                            </CardFooter>
-                        </Card>
-
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                            <CardHeader>
-                                <CardTitle>Pengeluaran</CardTitle>
-                                <CardDescription>Hari ini</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">Rp400.000</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
-                            </CardFooter>
-                        </Card>
+                    <div className="grid grid-cols-2 gap-6 p-6">
+                        <Link href="/acc/tx-income">
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Pemasukan</CardTitle>
+                                    <CardDescription>Hari ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">Rp2.400.000</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight />
+                                    <p className="text-md font-semibold">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
+                        
+                        <Link href="/acc/tx-expense">
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Pengeluaran</CardTitle>
+                                    <CardDescription>Hari ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">Rp400.000</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight />
+                                    <p className="text-md font-semibold">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
 
                         <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
