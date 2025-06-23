@@ -117,47 +117,62 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 mb-8">
-                        {/* Card grid for summary */}
                         <Link href={"/fo/member"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer min-h-[100px] flex flex-col items-center justify-center p-4">
-                                <CardContent className="flex flex-col items-center justify-center gap-1">
-                                    <span className="text-[1.25rem] text-gray-700">178</span>
-                                    <p className="text-center text-[1rem] text-gray-700">Total Member</p>
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Member</CardTitle>
+                                    <CardDescription>Total Member</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-2xl text-gray-700">178</p>
                                 </CardContent>
                             </Card>
                         </Link>
                         <Link href={"/fo/member-new"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer min-h-[100px] flex flex-col items-center justify-center p-4">
-                                <CardContent className="flex flex-col items-center justify-center gap-1">
-                                    <span className="text-[1.25rem] text-gray-700">9</span>
-                                    <p className="text-center text-[1rem] text-gray-700">Member Baru</p>
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Member</CardTitle>
+                                    <CardDescription>Member Baru</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-2xl text-gray-700">9</p>
                                 </CardContent>
                             </Card>
                         </Link>
                         <Link href={"/fo/member-near-exp"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer min-h-[100px] flex flex-col items-center justify-center p-4">
-                                <CardContent className="flex flex-col items-center justify-center gap-1">
-                                    <span className="text-[1.25rem] text-gray-700">23</span>
-                                    <p className="text-center text-[1rem] text-gray-700">Mendekati Habis</p>
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Member</CardTitle>
+                                    <CardDescription>Mendekati Habis</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-2xl text-gray-700">23</p>
                                 </CardContent>
                             </Card>
                         </Link>
                         <Link href={"/fo/tx-income"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer min-h-[100px] flex flex-col items-center justify-center p-4">
-                                <CardContent className="flex flex-col items-center justify-center gap-1">
-                                    <span className="text-[1.25rem] text-gray-700">Rp2.400.000</span>
-                                    <p className="text-center text-[1rem] text-gray-700">Pemasukan Hari Ini</p>
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Pemasukan</CardTitle>
+                                    <CardDescription>Hari Ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-2xl text-gray-700">Rp2.400.000</p>
                                 </CardContent>
                             </Card>
                         </Link>
                         <Link href={"/fo/tx-expense"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer min-h-[100px] flex flex-col items-center justify-center p-4">
-                                <CardContent className="flex flex-col items-center justify-center gap-1">
-                                    <span className="text-[1.25rem] text-gray-700">Rp400.000</span>
-                                    <p className="text-center text-[1rem] text-gray-700">Pengeluaran Hari Ini</p>
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Pengeluaran</CardTitle>
+                                    <CardDescription>Hari Ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-2xl text-gray-700">Rp400.000</p>
                                 </CardContent>
                             </Card>
                         </Link>
+                        {/* Add more cards here as needed, following the same pattern */}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -166,7 +181,7 @@ export default function Page() {
                             <DialogTrigger asChild>
                                 <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer rounded-xl shadow-sm">
                                     <CardHeader>
-                                        <CardTitle className="text-gray-900 text-base font-normal">Absensi Member</CardTitle>
+                                        <CardTitle className="text-gray-900 text-base">Absensi Member</CardTitle>
                                     </CardHeader>
                                     <CardContent></CardContent>
                                     <CardFooter className="flex-row hover:text-gray-500 gap-2">
@@ -217,7 +232,7 @@ export default function Page() {
                             <DialogTrigger asChild>
                                 <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer rounded-xl shadow-sm">
                                     <CardHeader>
-                                        <CardTitle className="text-gray-900 text-base font-normal">Tambah Member Baru</CardTitle>
+                                        <CardTitle className="text-gray-900 text-base">Tambah Member Baru</CardTitle>
                                     </CardHeader>
                                     <CardContent></CardContent>
                                     <CardFooter className="flex-row hover:text-gray-500 gap-2">
@@ -343,7 +358,7 @@ export default function Page() {
                             <DialogTrigger asChild>
                                 <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer rounded-xl shadow-sm">
                                     <CardHeader>
-                                        <CardTitle className="text-gray-900 text-base font-normal">Tambah Transaksi</CardTitle>
+                                        <CardTitle className="text-gray-900 text-base">Tambah Transaksi</CardTitle>
                                     </CardHeader>
                                     <CardContent></CardContent>
                                     <CardFooter className="flex-row hover:text-gray-500 gap-2">
