@@ -1,0 +1,20 @@
+{
+  "activities": [
+    {
+      "id": "1",
+      "username": "marketing1",
+      "campaignId": "1",
+      "title": "Posted referral program flyers",
+      "description": "Distributed flyers at gym entrance and reception",
+      "date": "2025-06-21"
+    },
+    {
+      "id": "2",
+      "username": "marketing2",
+      "campaignId": "2",
+      "title": "Challenge announcement post",
+      "description": "Created and posted challenge details on social media",
+      "date": "2025-06-15"
+    }
+  ]
+}

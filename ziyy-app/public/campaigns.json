@@ -1,0 +1,20 @@
+{
+  "campaigns": [
+    {
+      "id": "1",
+      "title": "Referral Program Q2 2025",
+      "description": "Members get 1 month free for each successful referral",
+      "kpi": "20 new members",
+      "startDate": "2025-06-01",
+      "endDate": "2025-06-30"
+    },
+    {
+      "id": "2",
+      "title": "Summer Body Challenge",
+      "description": "3-month transformation challenge with prizes",
+      "kpi": "50 participants",
+      "startDate": "2025-06-15",
+      "endDate": "2025-09-15"
+    }
+  ]
+}
