@@ -1,20 +1,24 @@
 {
   "activities": [
-    {
-      "id": "1",
-      "username": "marketing1",
-      "campaignId": "1",
-      "title": "Posted referral program flyers",
-      "description": "Distributed flyers at gym entrance and reception",
-      "date": "2025-06-21"
-    },
-    {
-      "id": "2",
-      "username": "marketing2",
-      "campaignId": "2",
-      "title": "Challenge announcement post",
-      "description": "Created and posted challenge details on social media",
-      "date": "2025-06-15"
-    }
+    {"id": "1", "username": "andi", "campaignId": "1", "title": "Share poster promo Januari", "description": "Membagikan poster promo ke grup WA", "date": "2025-01-03"},
+    {"id": "2", "username": "budi", "campaignId": "2", "title": "Buat konten IG Valentine", "description": "Upload konten promo pasangan di IG", "date": "2025-02-05"},
+    {"id": "3", "username": "citra", "campaignId": "3", "title": "Broadcast Maret Sehat", "description": "Broadcast promo ke member lama", "date": "2025-03-02"},
+    {"id": "4", "username": "dina", "campaignId": "4", "title": "Flyer April Ceria", "description": "Sebar flyer di sekolah-sekolah", "date": "2025-04-10"},
+    {"id": "5", "username": "eko", "campaignId": "5", "title": "Demo alat gym", "description": "Demo alat untuk keluarga", "date": "2025-05-12"},
+    {"id": "6", "username": "fajar", "campaignId": "6", "title": "Live IG Juni Strong", "description": "Live IG bahas promo alat gym", "date": "2025-06-15"},
+    {"id": "7", "username": "gina", "campaignId": "7", "title": "Referral check", "description": "Cek data referral member", "date": "2025-07-08"},
+    {"id": "8", "username": "hadi", "campaignId": "8", "title": "Promo Merdeka", "description": "Upload video promo kemerdekaan", "date": "2025-08-10"},
+    {"id": "9", "username": "ira", "campaignId": "9", "title": "Broadcast September Fit", "description": "Broadcast ke member baru", "date": "2025-09-05"},
+    {"id": "10", "username": "joni", "campaignId": "10", "title": "Review alat Oktober", "description": "Review alat fitness baru", "date": "2025-10-12"},
+    {"id": "11", "username": "andi", "campaignId": "11", "title": "Diskon member lama", "description": "Hubungi member lama via WA", "date": "2025-11-03"},
+    {"id": "12", "username": "budi", "campaignId": "12", "title": "Promo Desember", "description": "Upload konten promo akhir tahun", "date": "2025-12-05"},
+    {"id": "13", "username": "citra", "campaignId": "13", "title": "Ramadhan Fit broadcast", "description": "Broadcast paket puasa sehat", "date": "2025-03-20"},
+    {"id": "14", "username": "dina", "campaignId": "14", "title": "Lebaran Ceria", "description": "Sebar flyer promo lebaran", "date": "2025-04-20"},
+    {"id": "15", "username": "eko", "campaignId": "15", "title": "Back to School", "description": "Upload konten diskon pelajar", "date": "2025-07-12"},
+    {"id": "16", "username": "fajar", "campaignId": "16", "title": "Summer Body", "description": "Live IG paket musim panas", "date": "2025-06-15"},
+    {"id": "17", "username": "gina", "campaignId": "17", "title": "Autumn Fit", "description": "Broadcast promo musim gugur", "date": "2025-09-12"},
+    {"id": "18", "username": "hadi", "campaignId": "18", "title": "Winter Strong", "description": "Upload video paket musim dingin", "date": "2025-12-10"},
+    {"id": "19", "username": "ira", "campaignId": "19", "title": "Spring Fresh", "description": "Broadcast promo musim semi", "date": "2025-03-10"},
+    {"id": "20", "username": "joni", "campaignId": "20", "title": "Year End Blast", "description": "Upload konten promo besar akhir tahun", "date": "2025-12-20"}
   ]
 }

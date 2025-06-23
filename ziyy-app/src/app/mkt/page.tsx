@@ -129,25 +129,40 @@ export default function Page() {
                         </Breadcrumb>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 mb-6">
-                        <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0">
-                            <CardHeader>
-                                <CardTitle className="text-gray-900">Campaign Aktif</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-2xl text-gray-700">{getActiveCampaigns().length}</p>
-                            </CardContent>
-                        </Card>
-
-                        <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0">
-                            <CardHeader>
-                                <CardTitle className="text-gray-900">Total Aktivitas</CardTitle>
-                                <CardDescription>Hari ini</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-2xl text-gray-700">{getTodayActivities().length}</p>
-                            </CardContent>
-                        </Card>
+                    {/* Navigation Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <Link href="/mkt/campaigns-active" className="block">
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Campaign Aktif</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-2xl text-gray-700">{getActiveCampaigns().length}</p>
+                                </CardContent>
+                            </Card>
+                        </Link>
+                        <Link href="/mkt/activities" className="block">
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Daftar Aktivitas</CardTitle>
+                                    <CardDescription>Hari ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-2xl text-gray-700">{getTodayActivities().length}</p>
+                                </CardContent>
+                            </Card>
+                        </Link>
+                        <Link href="/mkt/campaigns" className="block">
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Daftar Campaign</CardTitle>
+                                    <CardDescription>Lihat semua campaign</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-2xl text-gray-700">{campaigns.length}</p>
+                                </CardContent>
+                            </Card>
+                        </Link>
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
