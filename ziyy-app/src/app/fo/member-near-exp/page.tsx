@@ -96,6 +96,10 @@ export default function Page() {
         }
     };
 
+    const handleContact = (member: Member) => {
+        window.open(`https://wa.me/${member.phone.replace(/^0/, '62')}`);
+    };
+
     const getStatusBadge = (status: string) => {
         if (status === "Active") {
             return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
@@ -115,86 +119,53 @@ export default function Page() {
     };
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
-        <div className="w-[90%] max-w-6xl">
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
-            <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
-              <h2 className="text-black font-semibold text-xl">
-                Ziyy Gym | Front Office
-              </h2>
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink
-                      href="/"
-                      className="text-gray-600 hover:text-gray-900"
-                    >
-                      Home
-                    </BreadcrumbLink>
-                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                    <BreadcrumbLink
-                      href="/fo"
-                      className="text-gray-600 hover:text-gray-900"
-                    >
-                      FO
-                    </BreadcrumbLink>
-                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                    <BreadcrumbPage>Member Mendekati Habis</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
+        <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
+            <div className="w-full max-w-6xl py-4 md:py-8">
+                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                    <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
+                        <h2 className="text-white text-2xl tracking-tight">Ziyy Gym | Member Mendekati Habis</h2>
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/fo" className="text-white/90 hover:text-white">
+                                        FO
+                                    </BreadcrumbLink>
+                                    <BreadcrumbSeparator></BreadcrumbSeparator>
+                                    <BreadcrumbPage>Member Mendekati Habis</BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
 
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <p className="text-black font-semibold text-xl">
-                  Rabu, 11 Juni 2025
-                </p>
-              </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {mockMembers.length === 0 && (
+                            <p className="text-gray-500 col-span-full text-center">Tidak ada member mendekati habis.</p>
+                        )}
+                        {mockMembers.map((member) => (
+                            <Card key={member.id} className="cursor-pointer hover:shadow-lg transition-shadow bg-white" onClick={() => handleMemberClick(member)}>
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2">
+                                        <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
+                                    </CardTitle>
+                                    <CardDescription className="text-xs text-gray-500">NIK: {member.nik}</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-2">
+                                        <div>{getMembershipBadge(member.membership)}</div>
+                                        <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
+                                        <Badge variant="outline" className="text-xs text-yellow-700 border-yellow-400 bg-yellow-100">Mendekati Habis</Badge>
+                                    </div>
+                                </CardContent>
+                                <CardFooter className="flex gap-2 justify-end">
+                                    <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10" onClick={e => { e.stopPropagation(); handleContact(member); }}>
+                                        Contact
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        ))}
+                    </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Member Mendekati Habis</CardTitle>
-                  <CardDescription>
-                    Klik pada nama member untuk melihat detailnya.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Nama</TableHead>
-                        <TableHead>Membership</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Expiry Date</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {mockMembers.map((member) => (
-                        <TableRow
-                          key={member.id}
-                          className="cursor-pointer hover:bg-gray-50"
-                          onClick={() => handleMemberClick(member)}
-                        >
-                          <TableCell className="font-semibold">
-                            {member.name}
-                          </TableCell>
-                          <TableCell>
-                            {getMembershipBadge(member.membership)}
-                          </TableCell>
-                          <TableCell>{getStatusBadge(member.status)}</TableCell>
-                          <TableCell>{member.expiryDate}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent className="max-w-md">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
@@ -411,6 +382,8 @@ export default function Page() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </div>
+                </div>
+            </div>
+        </div>
     );
 }
