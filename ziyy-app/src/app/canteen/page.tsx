@@ -46,46 +46,26 @@ export default function Page() {
     }
     
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
-            <div className="w-[50%]">
-                <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
-                    <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
-                        <h2 className="text-black font-semibold text-xl">Ziyy Gym | Kantin</h2>
+        <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
+            <div className="w-full max-w-2xl py-4 md:py-8">
+                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                    <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
+                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Kantin</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/" className="text-gray-600 hover:text-gray-900">
+                                    <BreadcrumbLink href="/" className="text-white/90 hover:text-white">
                                         Home
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>
-                                        Kantin
-                                    </BreadcrumbPage>
+                                    <BreadcrumbPage>Kantin</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
                     </div>
 
-                    <p className="text-black font-semibold text-xl pl-6 pt-6">Rabu, 11 Juni 2025</p>
-
-                    <div className="grid grid-cols-3 gap-6 p-6">
-                        <Link href={"/canteen/sales"}>
-                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                                <CardHeader>
-                                    <CardTitle>Penjualan</CardTitle>
-                                    <CardDescription>Hari ini</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-lg font-semibold">11</p>
-                                </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight />
-                                    <p className="text-md font-semibold">Detail</p>
-                                </CardFooter>
-                            </Card>
-                        </Link>
-
-                        <Link href={"/canteen/tx-income"}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mb-6">
+                        <Link href="/canteen/tx-income">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                 <CardHeader>
                                     <CardTitle>Pemasukan</CardTitle>
@@ -95,13 +75,12 @@ export default function Page() {
                                     <p className="text-lg font-semibold">Rp2.400.000</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight />
-                                    <p className="text-md font-semibold">Detail</p>
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
-                        
-                        <Link href={"/canteen/tx-expense"}>
+                        <Link href="/canteen/tx-expense">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                 <CardHeader>
                                     <CardTitle>Pengeluaran</CardTitle>
@@ -111,14 +90,30 @@ export default function Page() {
                                     <p className="text-lg font-semibold">Rp400.000</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight />
-                                    <p className="text-md font-semibold">Detail</p>
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-6 pl-6 pr-6 pb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
+                        <Link href="/canteen/sales">
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <CardHeader>
+                                    <CardTitle>Penjualan</CardTitle>
+                                    <CardDescription>Hari ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">11</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
+
                         <Dialog open={isAddTxDialogOpen} onOpenChange={setIsAddTxDialogOpen}>
                             <DialogTrigger asChild>
                                 <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
@@ -127,8 +122,8 @@ export default function Page() {
                                     </CardHeader>
                                     <CardContent></CardContent>
                                     <CardFooter className="flex-row hover:text-gray-500 gap-2">
-                                        <CirclePlus />
-                                        <p className="text-md font-semibold">Tambah</p>
+                                        <CirclePlus className="text-[#7bb3d6]"/>
+                                        <p className="text-md">Tambah</p>
                                     </CardFooter>
                                 </Card>
                             </DialogTrigger>

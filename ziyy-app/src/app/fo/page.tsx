@@ -102,7 +102,7 @@ export default function Page() {
             <div className="w-full max-w-6xl">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <h2 className="text-white text-2xl tracking-tight">Ziyy Gym | Front Office</h2>
+                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Front Office</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
@@ -124,8 +124,12 @@ export default function Page() {
                                     <CardDescription>Total Member</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-2xl text-gray-700">178</p>
+                                    <p className="text-lg font-semibold">178</p>
                                 </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href={"/fo/member-new"}>
@@ -135,8 +139,12 @@ export default function Page() {
                                     <CardDescription>Member Baru</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-2xl text-gray-700">9</p>
+                                    <p className="text-lg font-semibold">9</p>
                                 </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href={"/fo/member-near-exp"}>
@@ -146,8 +154,12 @@ export default function Page() {
                                     <CardDescription>Mendekati Habis</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-2xl text-gray-700">23</p>
+                                    <p className="text-lg font-semibold">23</p>
                                 </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href={"/fo/tx-income"}>
@@ -157,8 +169,12 @@ export default function Page() {
                                     <CardDescription>Hari Ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-2xl text-gray-700">Rp2.400.000</p>
+                                    <p className="text-lg font-semibold">Rp2.400.000</p>
                                 </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href={"/fo/tx-expense"}>
@@ -168,8 +184,12 @@ export default function Page() {
                                     <CardDescription>Hari Ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-2xl text-gray-700">Rp400.000</p>
+                                    <p className="text-lg font-semibold">Rp400.000</p>
                                 </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
                             </Card>
                         </Link>
                         {/* Add more cards here as needed, following the same pattern */}
