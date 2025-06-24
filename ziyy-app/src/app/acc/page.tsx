@@ -5,29 +5,25 @@ import Link from "next/link";
 
 export default function Page() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 p-8 flex items-center justify-center">
-            <div className="w-[70%]">
-                <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl">
-                    <div className="flex flex-col items-center justify-between bg-slate-500/50 rounded-t-2xl pb-4 pt-4 px-6">
-                        <h2 className="text-black font-semibold text-xl">Ziyy Gym | Accounting</h2>
+        <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
+            <div className="w-full max-w-6xl py-4 md:py-8">
+                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                    <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
+                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Accounting</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/" className="text-gray-600 hover:text-gray-900">
+                                    <BreadcrumbLink href="/" className="text-white/90 hover:text-white">
                                         Home
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>
-                                        Accounting
-                                    </BreadcrumbPage>
+                                    <BreadcrumbPage>Accounting</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
                     </div>
 
-                    <p className="text-black font-semibold text-xl pl-6 pt-6">Rabu, 11 Juni 2025</p>
-
-                    <div className="grid grid-cols-2 gap-6 p-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-6">
                         <Link href="/acc/tx-income">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                 <CardHeader>
@@ -38,12 +34,11 @@ export default function Page() {
                                     <p className="text-lg font-semibold">Rp2.400.000</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight />
-                                    <p className="text-md font-semibold">Detail</p>
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
-                        
                         <Link href="/acc/tx-expense">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                 <CardHeader>
@@ -54,12 +49,11 @@ export default function Page() {
                                     <p className="text-lg font-semibold">Rp400.000</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight />
-                                    <p className="text-md font-semibold">Detail</p>
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
-
                         <Link href="/acc/tx-income-monthly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                 <CardHeader>
@@ -70,12 +64,11 @@ export default function Page() {
                                     <p className="text-lg font-semibold">Rp12.800.000</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight />
-                                    <p className="text-md font-semibold">Detail</p>
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
-
                         <Link href="/acc/tx-expense-monthly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                                 <CardHeader>
@@ -86,12 +79,11 @@ export default function Page() {
                                     <p className="text-lg font-semibold">Rp2.800.000</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight />
-                                    <p className="text-md font-semibold">Detail</p>
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
-
                         <Card className="flex flex-col justify-between bg-white py-6 px-2">
                             <CardHeader>
                                 <CardTitle>Total Kas</CardTitle>
@@ -99,31 +91,29 @@ export default function Page() {
                             <CardContent>
                                 <p className="text-lg font-semibold">Rp22.400.000</p>
                             </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500">
-                            </CardFooter>
+                            <CardFooter className="flex-row hover:text-gray-500"></CardFooter>
                         </Card>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 pb-6 pl-88 pr-88">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Daftar Transaksi</CardTitle>
                             </CardHeader>
                             <CardContent></CardContent>
                             <CardFooter className="flex-row hover:text-gray-500">
-                                <ChevronsRight />
-                                <p className="text-md font-semibold">Detail</p>
+                                <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
                             </CardFooter>
                         </Card>
-
                         <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
                             <CardHeader>
                                 <CardTitle>Tambah Transaksi</CardTitle>
                             </CardHeader>
                             <CardContent></CardContent>
                             <CardFooter className="flex-row hover:text-gray-500 gap-2">
-                                <CirclePlus />
-                                <p className="text-md font-semibold">Tambah</p>
+                                <CirclePlus className="text-[#7bb3d6]"/>
+                                <p className="text-md">Tambah</p>
                             </CardFooter>
                         </Card>
                     </div>
