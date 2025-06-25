@@ -152,14 +152,8 @@ export default function Page() {
                                 </div>
                               </CardContent>
                               <CardFooter className="flex gap-2 justify-end">
-                                <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10"
-                                  onClick={e => { e.stopPropagation(); setSelectedMember(member); setIsEditDialogOpen(true); }}>
-                                  Edit
-                                </Button>
-                                <Button size="sm" variant="destructive"
-                                  onClick={e => { e.stopPropagation(); setSelectedMember(member); setIsDeleteDialogOpen(true); }}>
-                                  Delete
-                                </Button>
+                                <ChevronsRight className="text-[#7bb3d6] h-4 w-4" />
+                                <p className="text-sm">Detail</p>
                               </CardFooter>
                             </Card>
                         ))}

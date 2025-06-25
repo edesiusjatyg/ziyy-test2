@@ -137,7 +137,7 @@ export default function Page() {
                         </Breadcrumb>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {mockMembers.length === 0 && (
                             <p className="text-gray-500 col-span-full text-center">Tidak ada member mendekati habis.</p>
                         )}
@@ -153,11 +153,11 @@ export default function Page() {
                                     <div className="space-y-2">
                                         <div>{getMembershipBadge(member.membership)}</div>
                                         <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
-                                        <Badge variant="outline" className="text-xs text-yellow-700 border-yellow-400 bg-yellow-100">Mendekati Habis</Badge>
+                                        <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>
                                     </div>
                                 </CardContent>
                                 <CardFooter className="flex gap-2 justify-end">
-                                    <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10" onClick={e => { e.stopPropagation(); handleContact(member); }}>
+                                    <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10 cursor-pointer" onClick={e => { e.stopPropagation(); handleContact(member); }}>
                                         Contact
                                     </Button>
                                 </CardFooter>

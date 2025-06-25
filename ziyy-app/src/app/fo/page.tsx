@@ -116,7 +116,7 @@ export default function Page() {
                         </Breadcrumb>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 mb-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                         <Link href={"/fo/member"}>
                             <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
@@ -162,30 +162,13 @@ export default function Page() {
                                 </CardFooter>
                             </Card>
                         </Link>
-                        <Link href={"/fo/tx-income"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                        <Link href={"/fo/transactions"}>
+                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
-                                    <CardTitle className="text-gray-900">Pemasukan</CardTitle>
+                                    <CardTitle className="text-gray-900">Daftar Transaksi</CardTitle>
                                     <CardDescription>Hari Ini</CardDescription>
                                 </CardHeader>
-                                <CardContent>
-                                    <p className="text-lg font-semibold">Rp2.400.000</p>
-                                </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
-                            </Card>
-                        </Link>
-                        <Link href={"/fo/tx-expense"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
-                                <CardHeader>
-                                    <CardTitle className="text-gray-900">Pengeluaran</CardTitle>
-                                    <CardDescription>Hari Ini</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-lg font-semibold">Rp400.000</p>
-                                </CardContent>
+                                <CardContent />
                                 <CardFooter className="flex-row hover:text-gray-500">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
                                     <p className="text-md">Detail</p>
