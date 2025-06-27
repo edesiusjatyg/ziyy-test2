@@ -34,7 +34,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Edit, Trash2, User } from "lucide-react";
+import { Edit, Trash2, User, Undo2 } from "lucide-react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 
 // Transaction type
 // ...existing code...
@@ -59,7 +60,7 @@ export default function TransactionsPage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   // For edit dialog (income)
-  const [txMemberName, setMemberTxName] = useState("");
+  const [txMemberName, setTxMemberName] = useState("");
   const [txIncomeType, setTxIncomeType] = useState("");
   const [txTitle, setTxTitle] = useState("");
   const [txNote, setTxNote] = useState("");
@@ -98,7 +99,7 @@ export default function TransactionsPage() {
   const handleEditClick = () => {
     if (!selectedTx) return;
     if (selectedTx.type === "pemasukan") {
-      setMemberTxName(selectedTx.memberName);
+      setTxMemberName(selectedTx.memberName);
       setTxIncomeType(selectedTx.incomeType);
       setTxTitle(selectedTx.title);
       setTxNote(selectedTx.note);
@@ -189,6 +190,7 @@ export default function TransactionsPage() {
       );
     }
   };
+  // Payment method badge
   const getPaymentMethodBadge = (paymentMethod: string) => {
     if (paymentMethod === "cash") {
       return (
@@ -251,14 +253,24 @@ export default function TransactionsPage() {
           className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8"
           style={{ boxShadow: "0 4px 24px 0 rgba(31, 38, 135, 0.08)" }}
         >
-          <div
-            className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8"
-            style={{ background: "#7bb3d6" }}
-          >
-            <h2 className="text-white text-2xl tracking-tight">
-              Ziyy Gym | FO Transaksi
-            </h2>
-          </div>
+          <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
+                            <Undo2 className="text-white/80 hover:text-white"/>
+                        </div>
+                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Transaksi FO</h2>
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white">
+                                        FO
+                                    </BreadcrumbLink>
+                                    <BreadcrumbSeparator></BreadcrumbSeparator>
+                                    <BreadcrumbPage className="text-white">Transaksi</BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
               <CardHeader>
@@ -400,7 +412,7 @@ export default function TransactionsPage() {
                         Pembayaran
                       </Label>
                       <p className="text-sm font-semibold">
-                        {selectedTx.paymentMethod}
+                        {getPaymentMethodBadge(selectedTx.paymentMethod)}
                       </p>
                     </div>
                     {(selectedTx.incomeType === "paketPt" ||
@@ -558,9 +570,9 @@ export default function TransactionsPage() {
                       <Input
                         id="txMemberName"
                         value={txMemberName}
+                        onChange={(e) => setTxMemberName(e.target.value)}
                         placeholder="-"
                         className="col-span-3"
-                        disabled
                       />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -568,24 +580,33 @@ export default function TransactionsPage() {
                         Jumlah
                       </Label>
                       <Input
+                        type="number"
                         id="txPaymentAmount"
                         value={txPaymentAmount}
+                        onChange={(e) => setTxPaymentAmount(e.target.value)}
                         placeholder="-"
                         className="col-span-3"
-                        disabled
                       />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                       <Label htmlFor="txPaymentMethod" className="text-right">
                         Pembayaran
                       </Label>
-                      <Input
-                        id="txPaymentMethod"
-                        value={txPaymentMethod}
-                        placeholder="-"
-                        className="col-span-3"
-                        disabled
-                      />
+                      <Select value={txPaymentMethod} onValueChange={setTxPaymentMethod}>
+                        <SelectTrigger className="col-span-3">
+                          <SelectValue placeholder="Pilih Metode Pembayaran" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="cash">Cash</SelectItem>
+                          <SelectItem value="transfer">Transfer</SelectItem>
+                          <SelectItem value="debitBri">Debit BRI</SelectItem>
+                          <SelectItem value="qrisBri">QRIS BRI</SelectItem>
+                          <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
+                          <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
+                          <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
+                          <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                     {(txIncomeType === "paketPt" ||
                       txIncomeType === "paketKelas") && (
@@ -597,11 +618,12 @@ export default function TransactionsPage() {
                           Pertemuan
                         </Label>
                         <Input
+                          type="number"
                           id="txPertemuanAmount"
                           value={txPertemuaAnmount}
+                          onChange={(e) => setTxPertemuanAmount(e.target.value)}
                           placeholder="Jumlah Pertemuan"
                           className="col-span-3"
-                          disabled
                         />
                       </div>
                     )}

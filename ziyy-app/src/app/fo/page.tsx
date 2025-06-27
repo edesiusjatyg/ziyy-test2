@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { CirclePlus, ChevronsRight } from "lucide-react";
+import { CirclePlus, ChevronsRight, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -102,15 +102,18 @@ export default function Page() {
             <div className="w-full max-w-6xl">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
+                            <Undo2 className="text-white/80 hover:text-white"/>
+                        </div>
                         <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Front Office</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/" className="text-white/90 hover:text-white">
+                                    <BreadcrumbLink href="/" className="text-white/80 hover:text-white">
                                         Home
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>FO</BreadcrumbPage>
+                                    <BreadcrumbPage className="text-white">FO</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
@@ -162,6 +165,21 @@ export default function Page() {
                                 </CardFooter>
                             </Card>
                         </Link>
+                        {/* <Link href={"/fo/member-abs"}>
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-gray-900">Member</CardTitle>
+                                    <CardDescription>Member Baru</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-lg font-semibold">9</p>
+                                </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link> */}
                         <Link href={"/fo/transactions"}>
                             <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>

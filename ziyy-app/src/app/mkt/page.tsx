@@ -112,7 +112,7 @@ export default function Page() {
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
-            <div className="w-full max-w-6xl">
+            <div className="w-full max-w-4xl">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
                         <h2 className="text-white text-2xl tracking-tight">Ziyy Gym | Marketing</h2>
@@ -132,35 +132,47 @@ export default function Page() {
                     {/* Navigation Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <Link href="/mkt/campaigns-active" className="block">
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Campaign Aktif</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-2xl text-gray-700">{getActiveCampaigns().length}</p>
+                                    <p className="text-lg font-semibold">{getActiveCampaigns().length}</p>
                                 </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/mkt/activities" className="block">
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Daftar Aktivitas</CardTitle>
                                     <CardDescription>Hari ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-2xl text-gray-700">{getTodayActivities().length}</p>
+                                    <p className="text-lg font-semibold">{getTodayActivities().length}</p>
                                 </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/mkt/campaigns" className="block">
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Daftar Campaign</CardTitle>
                                     <CardDescription>Lihat semua campaign</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-2xl text-gray-700">{campaigns.length}</p>
+                                    <p className="text-lg font-semibold">{campaigns.length}</p>
                                 </CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                    <p className="text-md">Detail</p>
+                                </CardFooter>
                             </Card>
                         </Link>
                     </div>

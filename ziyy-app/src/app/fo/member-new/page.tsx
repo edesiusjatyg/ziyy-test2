@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import { CirclePlus, ChevronsRight, Edit, Trash2, User } from "lucide-react";
+import { CirclePlus, ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -125,15 +125,18 @@ export default function Page() {
             <div className="w-full max-w-6xl py-4 md:py-8">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <h2 className="text-white text-2xl tracking-tight">Ziyy Gym | Member Baru</h2>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
+                            <Undo2 className="text-white/80 hover:text-white"/>
+                        </div>
+                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Members</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/fo" className="text-white/90 hover:text-white">
+                                    <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white">
                                         FO
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>Member Baru</BreadcrumbPage>
+                                    <BreadcrumbPage className="text-white">Member Baru</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
