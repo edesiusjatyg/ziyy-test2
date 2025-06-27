@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react";
-import { CirclePlus, ChevronsRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { CirclePlus, ChevronsRight, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -12,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 export default function Page() {
+    const router = useRouter();
+
     const [isAddTxDialogOpen, setIsAddTxDialogOpen] = useState(false);
     const [txType, setTxType] = useState("");
     const [txTitle, setTxTitle] = useState("");
@@ -46,19 +49,22 @@ export default function Page() {
     }
     
     return (
-        <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
+        <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
             <div className="w-full max-w-2xl py-4 md:py-8">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/home")}>
+                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
+                        </div>
                         <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Kantin</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/" className="text-white/90 hover:text-white">
+                                    <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
                                         Home
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>Kantin</BreadcrumbPage>
+                                    <BreadcrumbPage className="text-white">Kantin</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
@@ -66,7 +72,7 @@ export default function Page() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mb-6">
                         <Link href="/canteen/tx-income">
-                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                            <Card className="flex flex-col justify-between bg-white hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
                                     <CardTitle>Pemasukan</CardTitle>
                                     <CardDescription>Hari ini</CardDescription>
@@ -74,14 +80,14 @@ export default function Page() {
                                 <CardContent>
                                     <p className="text-lg font-semibold">Rp2.400.000</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
+                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
                                     <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/canteen/tx-expense">
-                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                            <Card className="flex flex-col justify-between bg-white hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
                                     <CardTitle>Pengeluaran</CardTitle>
                                     <CardDescription>Hari ini</CardDescription>
@@ -89,7 +95,7 @@ export default function Page() {
                                 <CardContent>
                                     <p className="text-lg font-semibold">Rp400.000</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
+                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
                                     <p className="text-md">Detail</p>
                                 </CardFooter>
@@ -97,31 +103,15 @@ export default function Page() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
-                        <Link href="/canteen/sales">
-                            <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
-                                <CardHeader>
-                                    <CardTitle>Penjualan</CardTitle>
-                                    <CardDescription>Hari ini</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-lg font-semibold">11</p>
-                                </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
-                            </Card>
-                        </Link>
-
+                    <div className="grid grid-cols-1 gap-6">
                         <Dialog open={isAddTxDialogOpen} onOpenChange={setIsAddTxDialogOpen}>
                             <DialogTrigger asChild>
-                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer">
+                                <Card className="flex flex-col justify-between bg-white hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                     <CardHeader>
                                         <CardTitle>Tambah Transaksi</CardTitle>
                                     </CardHeader>
                                     <CardContent></CardContent>
-                                    <CardFooter className="flex-row hover:text-gray-500 gap-2">
+                                    <CardFooter className="flex-row hover:text-gray-500 gap-2 transition-all">
                                         <CirclePlus className="text-[#7bb3d6]"/>
                                         <p className="text-md">Tambah</p>
                                     </CardFooter>
@@ -196,7 +186,7 @@ export default function Page() {
                                             <Label htmlFor="paymentAmount" className="text-right">
                                                 Jumlah
                                             </Label>
-                                            <Input id="paymentAmount" type="number" value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} placeholder="Jumlah Pembayaran" className="w-[50%] col-span-3" />
+                                            <Input id="paymentAmount" type="number" value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} placeholder="Jumlah Pembayaran" className="w-32 col-span-3" />
                                         </div>
                                     </div>
                                     <div hidden={!(txType === "pengeluaran")} className="grid gap-4">

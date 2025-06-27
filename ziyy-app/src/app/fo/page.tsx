@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { CirclePlus, ChevronsRight, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -12,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 export default function Page() {
+    const router = useRouter();
+
     const [isAbsDialogOpen, setIsAbsDialogOpen] = useState(false);
     const [isAddMemberDialogOpen, setIsAddMemberDialogOpen] = useState(false);
     const [isAddTxDialogOpen, setIsAddTxDialogOpen] = useState(false);
@@ -34,6 +37,27 @@ export default function Page() {
     const [paymentMethod, setPaymentMethod] = useState("");
 
     const [pertemuanAmount, setPertemuanAmount] = useState("");
+
+    const [members, setMembers] = useState([]);
+    const [newMembers, setNewMembers] = useState([]);
+    const [nearExpMembers, setNearExpMembers] = useState([]);
+    const [transactions, setTransactions] = useState([]);
+
+    useEffect(() => {
+        fetch("/members.json")
+            .then(res => res.json())
+            .then(data => {
+                setMembers(data.members || []);
+                // New members: joined today
+                const today = new Date().toISOString().split("T")[0];
+                setNewMembers((data.members || []).filter((m: any) => m.joinDate === today));
+                // Near expiry members (example: status === 'NearExp')
+                setNearExpMembers((data.members || []).filter((m: any) => m.status === "NearExp"));
+            });
+        fetch("/txFo.json")
+            .then(res => res.json())
+            .then(data => setTransactions(data.txFo || []));
+    }, []);
 
     const handleAbsenceSubmit = () => {
         console.log("Member Name:", memberName);
@@ -98,18 +122,18 @@ export default function Page() {
     }
     
     return (
-        <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
+        <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
             <div className="w-full max-w-6xl">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
-                            <Undo2 className="text-white/80 hover:text-white"/>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/home")}>
+                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
                         </div>
                         <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Front Office</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/" className="text-white/80 hover:text-white">
+                                    <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
                                         Home
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
@@ -121,13 +145,13 @@ export default function Page() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                         <Link href={"/fo/member"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Member</CardTitle>
                                     <CardDescription>Total Member</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">178</p>
+                                    <p className="text-lg font-semibold">{members.length}</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
@@ -136,13 +160,13 @@ export default function Page() {
                             </Card>
                         </Link>
                         <Link href={"/fo/member-new"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Member</CardTitle>
                                     <CardDescription>Member Baru</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">9</p>
+                                    <p className="text-lg font-semibold">{newMembers.length}</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
@@ -151,13 +175,13 @@ export default function Page() {
                             </Card>
                         </Link>
                         <Link href={"/fo/member-near-exp"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Member</CardTitle>
                                     <CardDescription>Mendekati Habis</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">23</p>
+                                    <p className="text-lg font-semibold">{nearExpMembers.length}</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
@@ -165,28 +189,15 @@ export default function Page() {
                                 </CardFooter>
                             </Card>
                         </Link>
-                        {/* <Link href={"/fo/member-abs"}>
-                            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
-                                <CardHeader>
-                                    <CardTitle className="text-gray-900">Member</CardTitle>
-                                    <CardDescription>Member Baru</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-lg font-semibold">9</p>
-                                </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
-                            </Card>
-                        </Link> */}
                         <Link href={"/fo/transactions"}>
-                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Daftar Transaksi</CardTitle>
                                     <CardDescription>Hari Ini</CardDescription>
                                 </CardHeader>
-                                <CardContent />
+                                <CardContent>
+                                    <p className="text-lg font-semibold">{transactions.length}</p>
+                                </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
                                     <p className="text-md">Detail</p>
@@ -200,7 +211,7 @@ export default function Page() {
                         {/* Dialog cards */}
                         <Dialog open={isAbsDialogOpen} onOpenChange={setIsAbsDialogOpen}>
                             <DialogTrigger asChild>
-                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer rounded-xl shadow-sm">
+                                <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
                                     <CardHeader>
                                         <CardTitle className="text-gray-900 text-base">Absensi Member</CardTitle>
                                     </CardHeader>
@@ -251,7 +262,7 @@ export default function Page() {
 
                         <Dialog open={isAddMemberDialogOpen} onOpenChange={setIsAddMemberDialogOpen}>
                             <DialogTrigger asChild>
-                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer rounded-xl shadow-sm">
+                                <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
                                     <CardHeader>
                                         <CardTitle className="text-gray-900 text-base">Tambah Member Baru</CardTitle>
                                     </CardHeader>
@@ -377,7 +388,7 @@ export default function Page() {
 
                         <Dialog open={isAddTxDialogOpen} onOpenChange={setIsAddTxDialogOpen}>
                             <DialogTrigger asChild>
-                                <Card className="flex flex-col justify-between bg-white hover:bg-white/70 py-6 px-2 cursor-pointer rounded-xl shadow-sm">
+                                <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
                                     <CardHeader>
                                         <CardTitle className="text-gray-900 text-base">Tambah Transaksi</CardTitle>
                                     </CardHeader>

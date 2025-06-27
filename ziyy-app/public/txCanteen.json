@@ -219,6 +219,17 @@
             "paymentAmount": "1000000",
             "paymentMethod": "transfer",
             "date": "2025-06-19"
+        },
+        {
+            "id": 21,
+            "txType": "pemasukan",
+            "txTitle": "",
+            "txNote": "",
+            "itemType": "cleoSedang",
+            "itemAmount": 4,
+            "paymentAmount": "32000",
+            "paymentMethod": "cash",
+            "date": "2025-06-16"
         }
     ]
 }

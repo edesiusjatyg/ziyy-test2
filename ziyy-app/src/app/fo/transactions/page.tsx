@@ -244,10 +244,7 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center font-sans"
-      style={{ background: "#629dc9" }}
-    >
+    <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
       <div className="w-full max-w-6xl py-4 md:py-8">
         <div
           className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8"
@@ -255,13 +252,13 @@ export default function TransactionsPage() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
                         <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
-                            <Undo2 className="text-white/80 hover:text-white"/>
+                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
                         </div>
                         <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Transaksi FO</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white">
+                                    <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
                                         FO
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
@@ -272,7 +269,7 @@ export default function TransactionsPage() {
                     </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+            <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
               <CardHeader>
                 <CardTitle className="text-gray-900">Pemasukan</CardTitle>
                 <CardDescription>Hari Ini</CardDescription>
@@ -281,7 +278,7 @@ export default function TransactionsPage() {
                 <p className="text-lg font-semibold">Rp2.400.000</p>
               </CardContent>
             </Card>
-            <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer h-full">
+            <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
               <CardHeader>
                 <CardTitle className="text-gray-900">Pengeluaran</CardTitle>
                 <CardDescription>Hari Ini</CardDescription>
