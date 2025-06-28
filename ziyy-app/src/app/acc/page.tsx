@@ -4,10 +4,24 @@ import { CirclePlus, ChevronsRight, Undo2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Card, CardTitle, CardContent, CardDescription, CardFooter, CardHeader} from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
 
 export default function Page() {
     const router = useRouter();
+    const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+    const [txType, setTxType] = useState("");
+    const [txTitle, setTxTitle] = useState("");
+    const [txNote, setTxNote] = useState("");
+    const [txPaymentMethod, setTxPaymentMethod] = useState("");
+    const [txPaymentAmount, setTxPaymentAmount] = useState("");
+    const [txDate, setTxDate] = useState("");
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
@@ -32,11 +46,11 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-                        <Link href="/acc/tx-income">
+                        <Link href="/acc/tx-weekly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
                                     <CardTitle>Pemasukan</CardTitle>
-                                    <CardDescription>Hari ini</CardDescription>
+                                    <CardDescription>Minggu ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
                                     <p className="text-lg font-semibold">Rp2.400.000</p>
@@ -47,11 +61,11 @@ export default function Page() {
                                 </CardFooter>
                             </Card>
                         </Link>
-                        <Link href="/acc/tx-expense">
+                        <Link href="/acc/tx-weekly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
                                     <CardTitle>Pengeluaran</CardTitle>
-                                    <CardDescription>Hari ini</CardDescription>
+                                    <CardDescription>Minggu ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
                                     <p className="text-lg font-semibold">Rp400.000</p>
@@ -62,7 +76,7 @@ export default function Page() {
                                 </CardFooter>
                             </Card>
                         </Link>
-                        <Link href="/acc/tx-income-monthly">
+                        <Link href="/acc/tx-monthly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
                                     <CardTitle>Pemasukan</CardTitle>
@@ -77,7 +91,7 @@ export default function Page() {
                                 </CardFooter>
                             </Card>
                         </Link>
-                        <Link href="/acc/tx-expense-monthly">
+                        <Link href="/acc/tx-monthly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
                                     <CardTitle>Pengeluaran</CardTitle>
@@ -104,17 +118,19 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
-                            <CardHeader>
-                                <CardTitle>Daftar Transaksi</CardTitle>
-                            </CardHeader>
-                            <CardContent></CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                            </CardFooter>
-                        </Card>
-                        <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
+                        <Link href="/acc/tx-monthly">
+                            <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
+                                <CardHeader>
+                                    <CardTitle>Daftar Transaksi</CardTitle>
+                                </CardHeader>
+                                <CardContent></CardContent>
+                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
+                                    <ChevronsRight className="text-[#7bb3d6]"/>
+                                        <p className="text-md">Detail</p>
+                                </CardFooter>
+                            </Card>
+                        </Link>
+                        <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all" onClick={() => setIsAddDialogOpen(true)}>
                             <CardHeader>
                                 <CardTitle>Tambah Transaksi</CardTitle>
                             </CardHeader>
@@ -125,6 +141,73 @@ export default function Page() {
                             </CardFooter>
                         </Card>
                     </div>
+                    <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                        <DialogContent className="max-w-md">
+                            <DialogHeader>
+                                <DialogTitle>Tambah Transaksi</DialogTitle>
+                                <DialogDescription>Masukkan detail transaksi baru di sini.</DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="txType" className="text-right">Jenis</Label>
+                                    <Select value={txType} onValueChange={setTxType}>
+                                        <SelectTrigger className="col-span-3">
+                                            <SelectValue placeholder="Pilih Jenis Transaksi" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="pemasukan">Pemasukan</SelectItem>
+                                            <SelectItem value="pengeluaran">Pengeluaran</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="txTitle" className="text-right">Judul</Label>
+                                    <Input id="txTitle" value={txTitle} onChange={e => setTxTitle(e.target.value)} placeholder="Judul Transaksi" className="col-span-3" />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="txNote" className="text-right">Keterangan</Label>
+                                    <Input id="txNote" value={txNote} onChange={e => setTxNote(e.target.value)} placeholder="Keterangan" className="col-span-3" />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="txPaymentMethod" className="text-right">Pembayaran</Label>
+                                    <Select value={txPaymentMethod} onValueChange={setTxPaymentMethod}>
+                                        <SelectTrigger className="col-span-3">
+                                            <SelectValue placeholder="Pilih Metode Pembayaran" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="cash">Cash</SelectItem>
+                                            <SelectItem value="transfer">Transfer</SelectItem>
+                                            <SelectItem value="debitBri">Debit BRI</SelectItem>
+                                            <SelectItem value="qrisBri">QRIS BRI</SelectItem>
+                                            <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
+                                            <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
+                                            <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
+                                            <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="txPaymentAmount" className="text-right">Nominal</Label>
+                                    <Input id="txPaymentAmount" type="number" value={txPaymentAmount} onChange={e => setTxPaymentAmount(e.target.value)} placeholder="Nominal Pembayaran" className="col-span-3 w-36" />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="txDate" className="text-right">Tanggal</Label>
+                                    <Input
+                                        id="txDate"
+                                        type="date"
+                                        value={txDate}
+                                        onChange={e => setTxDate(e.target.value)}
+                                        className="col-span-3 w-36"
+                                    />
+                                </div>
+                            </div>
+                            <DialogFooter>
+                                <Button type="submit" onClick={() => setIsAddDialogOpen(false)} disabled={!txType || !txTitle || !txPaymentAmount || !txDate}>
+                                    Tambah Transaksi
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             </div>
         </div>

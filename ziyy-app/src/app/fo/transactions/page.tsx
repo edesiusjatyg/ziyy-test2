@@ -251,22 +251,22 @@ export default function TransactionsPage() {
           style={{ boxShadow: "0 4px 24px 0 rgba(31, 38, 135, 0.08)" }}
         >
           <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
-                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
-                        </div>
-                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Transaksi FO</h2>
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
-                                        FO
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage className="text-white">Transaksi</BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
-                    </div>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
+              <Undo2 className="text-white/80 hover:text-white transition-all"/>
+            </div>
+            <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Transaksi FO</h2>
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
+                    FO
+                  </BreadcrumbLink>
+                  <BreadcrumbSeparator></BreadcrumbSeparator>
+                  <BreadcrumbPage className="text-white">Transaksi</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
