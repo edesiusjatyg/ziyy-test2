@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Undo2, Trash2, Edit } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -18,6 +20,8 @@ interface Campaign {
 }
 
 export default function CampaignsPage() {
+    const router = useRouter();
+
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
     const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
@@ -78,15 +82,11 @@ export default function CampaignsPage() {
         }
     };
 
-    const handleDeleteClick = () => {
-        setIsViewDialogOpen(false);
-        setIsDeleteDialogOpen(true);
-    };
-
     const handleDeleteConfirm = () => {
         if (selectedCampaign) {
             setCampaigns(campaigns.filter(campaign => campaign.id !== selectedCampaign.id));
             setIsDeleteDialogOpen(false);
+            setIsViewDialogOpen(false);
             setSelectedCampaign(null);
         }
     };
@@ -101,19 +101,22 @@ export default function CampaignsPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
-            <div className="w-full max-w-6xl">
+        <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
+            <div className="w-full max-w-6xl py-4 md:py-8">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <h2 className="text-white text-2xl tracking-tight">Ziyy Gym | Campaigns</h2>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/mkt")}>
+                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
+                        </div>
+                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Marketing</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/mkt" className="text-white/90 hover:text-white">
+                                    <BreadcrumbLink href="/mkt" className="text-white/80 hover:text-white transition-all">
                                         Marketing
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>Campaigns</BreadcrumbPage>
+                                    <BreadcrumbPage className="text-white">Campaigns</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
@@ -146,15 +149,16 @@ export default function CampaignsPage() {
                         <DialogContent>
                             <DialogHeader>
                                 <DialogTitle>Campaign Details</DialogTitle>
+                                <DialogDescription>Informasi detail mengenai campaign.</DialogDescription>
                             </DialogHeader>
                             {selectedCampaign && (
-                                <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-2 gap-4 py-4">
                                     <div>
-                                        <Label>Title</Label>
+                                        <Label>Judul</Label>
                                         <p className="mt-1">{selectedCampaign.title}</p>
                                     </div>
                                     <div>
-                                        <Label>Description</Label>
+                                        <Label>Keterangan</Label>
                                         <p className="mt-1">{selectedCampaign.description}</p>
                                     </div>
                                     <div>
@@ -162,18 +166,32 @@ export default function CampaignsPage() {
                                         <p className="mt-1">{selectedCampaign.kpi}</p>
                                     </div>
                                     <div>
-                                        <Label>Start Date</Label>
+                                        <Label>Dari</Label>
                                         <p className="mt-1">{selectedCampaign.startDate}</p>
                                     </div>
                                     <div>
-                                        <Label>End Date</Label>
+                                        <Label>Sampai</Label>
                                         <p className="mt-1">{selectedCampaign.endDate}</p>
                                     </div>
                                 </div>
                             )}
                             <DialogFooter>
-                                <Button variant="outline" onClick={handleDeleteClick}>Delete</Button>
-                                <Button onClick={handleEditClick}>Edit</Button>
+                                <Button
+                                    variant="outline"
+                                    className="flex items-center gap-2 hover:cursor-pointer"
+                                    onClick={handleEditClick}
+                                >
+                                    <Edit className="h-4 w-4" />
+                                    Edit
+                                </Button>
+                                <Button
+                                    variant="destructive"
+                                    className="flex items-center gap-2 hover:cursor-pointer"
+                                    onClick={() => setIsDeleteDialogOpen(true)}
+                                >
+                                    <Trash2 className="h-4 w-4" />
+                                    Delete
+                                </Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
@@ -183,6 +201,7 @@ export default function CampaignsPage() {
                         <DialogContent>
                             <DialogHeader>
                                 <DialogTitle>Edit Campaign</DialogTitle>
+                                <DialogDescription>Edit informasi mengenai campaign.</DialogDescription>
                             </DialogHeader>
                             <div className="grid gap-4 py-4">
                                 <div className="grid gap-2">
@@ -238,8 +257,9 @@ export default function CampaignsPage() {
                                     type="submit" 
                                     onClick={handleEditSubmit}
                                     disabled={!campaignTitle || !campaignDesc || !campaignKpi || !startDate || !endDate}
+                                    className="hover:cursor-pointer"
                                 >
-                                    Save Changes
+                                    Save
                                 </Button>
                             </DialogFooter>
                         </DialogContent>
@@ -258,7 +278,12 @@ export default function CampaignsPage() {
                                 <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
                                     Cancel
                                 </Button>
-                                <Button variant="destructive" onClick={handleDeleteConfirm}>
+                                <Button
+                                    variant="destructive"
+                                    className="flex items-center gap-2 hover:cursor-pointer"
+                                    onClick={handleDeleteConfirm}
+                                >
+                                    <Trash2 className="h-4 w-4" />
                                     Delete
                                 </Button>
                             </DialogFooter>

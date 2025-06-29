@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Undo2, Trash2, Edit } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -23,6 +25,8 @@ interface Campaign {
 }
 
 export default function ActivitiesPage() {
+    const router = useRouter();
+
     const [activities, setActivities] = useState<Activity[]>([]);
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
@@ -111,19 +115,22 @@ export default function ActivitiesPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
-            <div className="w-full max-w-6xl">
+        <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
+            <div className="w-full max-w-6xl py-4 md:py-8">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <h2 className="text-white text-2xl tracking-tight">Ziyy Gym | Activities</h2>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/mkt")}>
+                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
+                        </div>
+                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Marketing</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/mkt" className="text-white/90 hover:text-white">
+                                    <BreadcrumbLink href="/mkt" className="text-white/80 hover:text-white transition-all">
                                         Marketing
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>Activities</BreadcrumbPage>
+                                    <BreadcrumbPage className="text-white">Activities</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
@@ -163,15 +170,16 @@ export default function ActivitiesPage() {
                         <DialogContent>
                             <DialogHeader>
                                 <DialogTitle>Activity Details</DialogTitle>
+                                <DialogDescription>Informasi detail mengenai aktivitas.</DialogDescription>
                             </DialogHeader>
                             {selectedActivity && (
-                                <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-2 gap-4 py-4">
                                     <div>
-                                        <Label>Date</Label>
+                                        <Label>Tanggal</Label>
                                         <p className="mt-1">{selectedActivity.date}</p>
                                     </div>
                                     <div>
-                                        <Label>Username</Label>
+                                        <Label>Nama</Label>
                                         <p className="mt-1">{selectedActivity.username}</p>
                                     </div>
                                     <div>
@@ -179,18 +187,32 @@ export default function ActivitiesPage() {
                                         <p className="mt-1">{getCampaignTitle(selectedActivity.campaignId)}</p>
                                     </div>
                                     <div>
-                                        <Label>Title</Label>
+                                        <Label>Judul</Label>
                                         <p className="mt-1">{selectedActivity.title}</p>
                                     </div>
                                     <div>
-                                        <Label>Description</Label>
+                                        <Label>Deskripsi</Label>
                                         <p className="mt-1">{selectedActivity.description}</p>
                                     </div>
                                 </div>
                             )}
                             <DialogFooter>
-                                <Button variant="outline" onClick={handleDeleteClick}>Delete</Button>
-                                <Button onClick={handleEditClick}>Edit</Button>
+                                <Button
+                                    variant="outline"
+                                    className="flex items-center gap-2 hover:cursor-pointer"
+                                    onClick={handleEditClick}
+                                >
+                                    <Edit className="h-4 w-4" />
+                                    Edit
+                                </Button>
+                                <Button
+                                    variant="destructive"
+                                    className="flex items-center gap-2 hover:cursor-pointer"
+                                    onClick={() => setIsDeleteDialogOpen(true)}
+                                >
+                                    <Trash2 className="h-4 w-4" />
+                                    Delete
+                                </Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
@@ -200,15 +222,17 @@ export default function ActivitiesPage() {
                         <DialogContent>
                             <DialogHeader>
                                 <DialogTitle>Edit Activity</DialogTitle>
+                                <DialogDescription>Edit informasi detail mengenai aktivitas.</DialogDescription>
                             </DialogHeader>
                             <div className="grid gap-4 py-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="username">Username</Label>
+                                    <Label htmlFor="username">Nama</Label>
                                     <Input
                                         id="username"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
                                         placeholder="Username"
+                                        disabled
                                     />
                                 </div>
                                 <div className="grid gap-2">
@@ -228,7 +252,7 @@ export default function ActivitiesPage() {
                                     </select>
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="activityTitle">Title</Label>
+                                    <Label htmlFor="activityTitle">Judul</Label>
                                     <Input
                                         id="activityTitle"
                                         value={activityTitle}
@@ -237,7 +261,7 @@ export default function ActivitiesPage() {
                                     />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="activityDesc">Description</Label>
+                                    <Label htmlFor="activityDesc">Deskripsi</Label>
                                     <Input
                                         id="activityDesc"
                                         value={activityDesc}
@@ -251,8 +275,9 @@ export default function ActivitiesPage() {
                                     type="submit" 
                                     onClick={handleEditSubmit}
                                     disabled={!username || !selectedCampaign || !activityTitle || !activityDesc}
+                                    className="flex items-center gap-2 hover:cursor-pointer"
                                 >
-                                    Save Changes
+                                    Save
                                 </Button>
                             </DialogFooter>
                         </DialogContent>

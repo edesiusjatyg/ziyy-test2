@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CirclePlus, ChevronsRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { CirclePlus, ChevronsRight, Undo2 } from "lucide-react";
 import { Card, CardTitle, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -29,6 +30,8 @@ interface Activity {
 }
 
 export default function Page() {
+    const router = useRouter();
+
     const [isAddActivityDialogOpen, setIsAddActivityDialogOpen] = useState(false);
     const [isAddCampaignDialogOpen, setIsAddCampaignDialogOpen] = useState(false);
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -111,19 +114,22 @@ export default function Page() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center font-sans" style={{ background: '#629dc9' }}>
+        <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
             <div className="w-full max-w-4xl">
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <h2 className="text-white text-2xl tracking-tight">Ziyy Gym | Marketing</h2>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/home")}>
+                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
+                        </div>
+                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Marketing</h2>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/" className="text-white/90 hover:text-white">
+                                    <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
                                         Home
                                     </BreadcrumbLink>
                                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage>Marketing</BreadcrumbPage>
+                                    <BreadcrumbPage className="text-white">Marketing</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
@@ -132,21 +138,21 @@ export default function Page() {
                     {/* Navigation Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <Link href="/mkt/campaigns-active" className="block">
-                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Campaign Aktif</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <p className="text-lg font-semibold">{getActiveCampaigns().length}</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
+                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
                                     <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/mkt/activities" className="block">
-                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Daftar Aktivitas</CardTitle>
                                     <CardDescription>Hari ini</CardDescription>
@@ -154,14 +160,14 @@ export default function Page() {
                                 <CardContent>
                                     <p className="text-lg font-semibold">{getTodayActivities().length}</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
+                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
                                     <p className="text-md">Detail</p>
                                 </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/mkt/campaigns" className="block">
-                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-md transition-all border-0 cursor-pointer h-full">
+                            <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
                                     <CardTitle className="text-gray-900">Daftar Campaign</CardTitle>
                                     <CardDescription>Lihat semua campaign</CardDescription>
@@ -169,7 +175,7 @@ export default function Page() {
                                 <CardContent>
                                     <p className="text-lg font-semibold">{campaigns.length}</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500">
+                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
                                     <p className="text-md">Detail</p>
                                 </CardFooter>
@@ -180,12 +186,12 @@ export default function Page() {
                     <div className="grid grid-cols-2 gap-6">
                         <Dialog open={isAddCampaignDialogOpen} onOpenChange={setIsAddCampaignDialogOpen}>
                             <DialogTrigger asChild>
-                                <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer">
+                                <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer">
                                     <CardHeader>
                                         <CardTitle className="text-gray-900">Tambah Campaign</CardTitle>
                                     </CardHeader>
                                     <CardContent></CardContent>
-                                    <CardFooter className="flex-row hover:text-gray-500 gap-2">
+                                    <CardFooter className="flex-row hover:text-gray-500 gap-2 transition-all">
                                         <CirclePlus className="text-[#7bb3d6]" />
                                         <p className="text-gray-700">Tambah</p>
                                     </CardFooter>
@@ -261,12 +267,12 @@ export default function Page() {
 
                         <Dialog open={isAddActivityDialogOpen} onOpenChange={setIsAddActivityDialogOpen}>
                             <DialogTrigger asChild>
-                                <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border-0 cursor-pointer">
+                                <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer">
                                     <CardHeader>
                                         <CardTitle className="text-gray-900">Catat Aktivitas</CardTitle>
                                     </CardHeader>
                                     <CardContent></CardContent>
-                                    <CardFooter className="flex-row hover:text-gray-500 gap-2">
+                                    <CardFooter className="flex-row hover:text-gray-500 gap-2 transition-all">
                                         <CirclePlus className="text-[#7bb3d6]" />
                                         <p className="text-gray-700">Tambah</p>
                                     </CardFooter>
