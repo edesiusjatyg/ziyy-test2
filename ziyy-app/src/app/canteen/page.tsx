@@ -24,10 +24,32 @@ export default function Page() {
     const [paymentAmount, setPaymentAmount] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("");
 
+    const [totalIncome, setTotalIncome] = useState(0);
+    const [totalExpense, setTotalExpense] = useState(0);
+
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setShow(true);
+        setTimeout(() => {setShow(true)}, 100);
+
+        fetch("/txCanteen.json")
+            .then(res => res.json())
+            .then(data => {
+                const today = new Date().toISOString().split("T")[0];
+                const txs = data.txCanteen || [];
+                const todaysTxs = txs.filter((tx: any) => tx.date === today);
+
+                const income = todaysTxs
+                    .filter((tx: any) => tx.txType === "pemasukan")
+                    .reduce((sum: number, tx: any) => sum + Number(tx.paymentAmount), 0);
+
+                const expense = todaysTxs
+                    .filter((tx: any) => tx.txType === "pengeluaran")
+                    .reduce((sum: number, tx: any) => sum + Number(tx.paymentAmount), 0);
+
+                setTotalIncome(income);
+                setTotalExpense(expense);
+            });
     }, []);
 
     const handleAddTxSubmit = () => {
@@ -56,27 +78,31 @@ export default function Page() {
     
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className={`w-full max-w-2xl py-4 md:py-8 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
-                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-                    <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/home")}>
+            <div className={`w-full max-w-2xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                    <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
+                        <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/home")}>
                             <Undo2 className="text-white/80 hover:text-white transition-all"/>
                         </div>
-                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Kantin</h2>
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
-                                        Home
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage className="text-white">Kantin</BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
+                        <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
+                            Ziyy Gym | Kantin
+                        </h2>
+                        <div className="z-10">
+                            <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
+                                            Home
+                                        </BreadcrumbLink>
+                                        <BreadcrumbSeparator></BreadcrumbSeparator>
+                                        <BreadcrumbPage className="text-white">Kantin</BreadcrumbPage>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 px-8 pb-8">
                         <Link href="/canteen/tx-income">
                             <Card className="flex flex-col justify-between bg-white hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
@@ -99,7 +125,7 @@ export default function Page() {
                                     <CardDescription>Hari ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">Rp400.000</p>
+                                    <p className="text-lg font-semibold">Rp2.400.000</p>
                                 </CardContent>
                                 <CardFooter className="flex-row hover:text-gray-500 transition-all">
                                     <ChevronsRight className="text-[#7bb3d6]"/>
@@ -109,7 +135,7 @@ export default function Page() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-6">
+                    <div className="grid grid-cols-1 gap-6 px-8 pb-8">
                         <Dialog open={isAddTxDialogOpen} onOpenChange={setIsAddTxDialogOpen}>
                             <DialogTrigger asChild>
                                 <Card className="flex flex-col justify-between bg-white hover:shadow-lg py-6 px-2 cursor-pointer transition-all">

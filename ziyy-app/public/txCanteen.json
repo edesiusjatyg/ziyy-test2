@@ -9,7 +9,7 @@
             "itemAmount": 5,
             "paymentAmount": "25000",
             "paymentMethod": "cash",
-            "date": "2025-06-11"
+            "date": "2025-06-30"
         },
         {
             "id": 2,
@@ -20,7 +20,7 @@
             "itemAmount": 2,
             "paymentAmount": "300000",
             "paymentMethod": "transfer",
-            "date": "2025-06-12"
+            "date": "2025-06-30"
         },
         {
             "id": 3,
@@ -31,7 +31,7 @@
             "itemAmount": null,
             "paymentAmount": "150000",
             "paymentMethod": "cash",
-            "date": "2025-06-13"
+            "date": "2025-06-30"
         },
         {
             "id": 4,
@@ -42,7 +42,7 @@
             "itemAmount": 1,
             "paymentAmount": "180000",
             "paymentMethod": "qrisMdr",
-            "date": "2025-06-14"
+            "date": "2025-06-30"
         },
         {
             "id": 5,
@@ -53,7 +53,7 @@
             "itemAmount": null,
             "paymentAmount": "250000",
             "paymentMethod": "debitBri",
-            "date": "2025-06-15"
+            "date": "2025-06-30"
         },
         {
             "id": 6,

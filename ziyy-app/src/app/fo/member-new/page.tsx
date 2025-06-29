@@ -41,6 +41,8 @@ export default function Page() {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
+      setTimeout(() => {setShow(true)}, 100);
+
       const fetchMembers = async () => {
           try {
               const response = await fetch('/members.json');
@@ -64,8 +66,6 @@ export default function Page() {
 
       fetchMembers();
   }, []);
-
-    useEffect(() => { setShow(true); }, []);
 
     const handleMemberClick = (member: Member) => {
         setSelectedMember(member);
@@ -129,27 +129,31 @@ export default function Page() {
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className={`w-full max-w-6xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
-                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-                    <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/fo')}>
+            <div className={`w-full max-w-6xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                    <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
+                        <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/fo")}>
                             <Undo2 className="text-white/80 hover:text-white transition-all"/>
                         </div>
-                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Members</h2>
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
-                                        FO
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage className="text-white">Member Baru</BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
+                        <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
+                            Ziyy Gym | Member Baru
+                        </h2>
+                        <div className="z-10">
+                            <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
+                                            FO
+                                        </BreadcrumbLink>
+                                        <BreadcrumbSeparator></BreadcrumbSeparator>
+                                        <BreadcrumbPage className="text-white">Member Baru</BreadcrumbPage>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-8 px-8">
                         {mockMembers.length === 0 && (
                             <p className="text-gray-500 col-span-full text-center">Tidak ada member baru hari ini.</p>
                         )}

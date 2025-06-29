@@ -24,32 +24,36 @@ export default function Page() {
     const [txDate, setTxDate] = useState("");
 
     useEffect(() => {
-        setShow(true);
+        setTimeout(() => {setShow(true)}, 100);
     }, []);
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className={`w-full max-w-6xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
-                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-                    <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/home")}>
+            <div className={`w-full max-w-6xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                    <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
+                        <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/home")}>
                             <Undo2 className="text-white/80 hover:text-white transition-all"/>
                         </div>
-                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Accounting</h2>
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
-                                        Home
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage className="text-white">Accounting</BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
+                        <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
+                            Ziyy Gym | Accounting
+                        </h2>
+                        <div className="z-10">
+                            <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
+                                            Home
+                                        </BreadcrumbLink>
+                                        <BreadcrumbSeparator></BreadcrumbSeparator>
+                                        <BreadcrumbPage className="text-white">Accounting</BreadcrumbPage>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 px-8 pb-8">
                         <Link href="/acc/tx-weekly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
@@ -121,7 +125,7 @@ export default function Page() {
                         </Card>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-8 pb-8">
                         <Link href="/acc/tx-monthly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>

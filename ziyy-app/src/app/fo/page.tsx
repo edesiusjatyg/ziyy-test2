@@ -45,7 +45,7 @@ export default function Page() {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        setShow(true);
+        setTimeout(() => {setShow(true)}, 100);
 
         fetch("/members.json")
             .then(res => res.json())
@@ -126,27 +126,31 @@ export default function Page() {
     
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className={`w-full max-w-6xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
-                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-                    <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/home")}>
+            <div className={`w-full max-w-6xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                    <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
+                        <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/home")}>
                             <Undo2 className="text-white/80 hover:text-white transition-all"/>
                         </div>
-                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Front Office</h2>
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
-                                        Home
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage className="text-white">FO</BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
+                        <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
+                            Ziyy Gym | Front Office
+                        </h2>
+                        <div className="z-10">
+                            <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink href="/home" className="text-white/80 hover:text-white transition-all">
+                                            Home
+                                        </BreadcrumbLink>
+                                        <BreadcrumbSeparator></BreadcrumbSeparator>
+                                        <BreadcrumbPage className="text-white">FO</BreadcrumbPage>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 pb-8 px-8">
                         <Link href={"/fo/member"}>
                             <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
@@ -210,7 +214,7 @@ export default function Page() {
                         {/* Add more cards here as needed, following the same pattern */}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-8 px-8">
                         {/* Dialog cards */}
                         <Dialog open={isAbsDialogOpen} onOpenChange={setIsAbsDialogOpen}>
                             <DialogTrigger asChild>

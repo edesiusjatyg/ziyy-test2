@@ -11,7 +11,7 @@ export default function Page() {
     const router = useRouter();
 
     useEffect(() => {
-        setShow(true);
+        setTimeout(() => {setShow(true)}, 100);
     }, []);
 
     // Animated blinking dots state

@@ -48,6 +48,8 @@ export default function Page() {
   const [editDate, setEditDate] = useState("");
 
   useEffect(() => {
+    setTimeout(() => {setShow(true)}, 100);
+
     fetch("/txAct.json")
       .then((res) => res.json())
       .then((data) => {
@@ -66,10 +68,6 @@ export default function Page() {
         setIncomeTx(weeklyTxs.filter((tx: Transaction) => tx.type === "pemasukan"));
         setExpenseTx(weeklyTxs.filter((tx: Transaction) => tx.type === "pengeluaran"));
       });
-  }, []);
-
-  useEffect(() => {
-    setShow(true);
   }, []);
 
   // Dialog handlers
@@ -170,27 +168,31 @@ export default function Page() {
 
   return (
     <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-      <div className={`w-full max-w-6xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
-        <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8 mt-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-          <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/acc')}>
+      <div className={`w-full max-w-6xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+        <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+          <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
+            <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/acc")}>
               <Undo2 className="text-white/80 hover:text-white transition-all"/>
             </div>
-            <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Accounting</h2>
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/acc" className="text-white/80 hover:text-white transition-all">
-                    Accounting
-                  </BreadcrumbLink>
-                  <BreadcrumbSeparator></BreadcrumbSeparator>
-                  <BreadcrumbPage className="text-white">Transaksi Mingguan</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
+              Ziyy Gym | Transaksi Mingguan
+            </h2>
+            <div className="z-10">
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/acc" className="text-white/80 hover:text-white transition-all">
+                      Accounting
+                    </BreadcrumbLink>
+                    <BreadcrumbSeparator></BreadcrumbSeparator>
+                    <BreadcrumbPage className="text-white">Transaksi Mingguan</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-8 pb-8">
             {/* Income Table Card */}
             <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
               <CardHeader>
@@ -271,7 +273,7 @@ export default function Page() {
                       <Label className="text-sm font-medium text-gray-600">
                         Judul
                       </Label>
-                      <p className="text-sm font-semibold">
+                      <p className="text-sm">
                         {selectedTx.title}
                       </p>
                     </div>
@@ -279,11 +281,11 @@ export default function Page() {
                       <Label className="text-sm font-medium text-gray-600">
                         Keterangan
                       </Label>
-                      <p className="text-sm font-semibold">{selectedTx.note}</p>
+                      <p className="text-sm">{selectedTx.note}</p>
                     </div>
                     <div>
                       <Label className="text-sm font-medium text-gray-600">
-                        Jumlah
+                        Nominal
                       </Label>
                       <p className="text-sm font-semibold">
                         {selectedTx.paymentAmount}

@@ -11,12 +11,13 @@ export default function Page() {
     const router = useRouter();
 
     useEffect(() => {
-        setShow(true);
+        setTimeout(() => {setShow(true)}, 100);
     }, []);
 
     // Animated blinking dots state
     const dotCount = 5;
     const [activeDot, setActiveDot] = useState(0);
+
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveDot((prev) => (prev + 1) % dotCount);
