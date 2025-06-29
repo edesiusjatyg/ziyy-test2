@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardHeader,
@@ -52,6 +53,8 @@ type Transaction = {
 };
 
 export default function TransactionsPage() {
+  const router = useRouter();
+
   const [incomeTx, setIncomeTx] = useState<Transaction[]>([]);
   const [expenseTx, setExpenseTx] = useState<Transaction[]>([]);
   const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
@@ -72,6 +75,11 @@ export default function TransactionsPage() {
   const [exNote, setExNote] = useState("");
   const [exPaymentAmount, setExPaymentAmount] = useState("");
   const [exPaymentMethod, setExPaymentMethod] = useState("");
+
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    setShow(true);
+  }, []);
 
   useEffect(() => {
     const fetchTx = async () => {
@@ -245,13 +253,13 @@ export default function TransactionsPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-      <div className="w-full max-w-6xl py-4 md:py-8">
+      <div className={`w-full max-w-6xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
         <div
           className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8"
           style={{ boxShadow: "0 4px 24px 0 rgba(31, 38, 135, 0.08)" }}
         >
           <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/fo")}>
               <Undo2 className="text-white/80 hover:text-white transition-all"/>
             </div>
             <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Transaksi FO</h2>

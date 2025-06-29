@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { CirclePlus, ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -24,6 +25,8 @@ type Member = {
 };
 
 export default function Page() {
+    const router = useRouter();
+
     const [mockMembers, setMockMembers] = useState<Member[]>([]);
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -34,6 +37,8 @@ export default function Page() {
     const [memberNik, setMemberNik] = useState("");
     const [memberTelp, setMemberTelp] = useState("");
     const [memberType, setMemberType] = useState("");
+
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         const fetchMembers = async () => {
@@ -52,6 +57,7 @@ export default function Page() {
         };
 
         fetchMembers();
+        setShow(true);
     }, []);
 
     const handleMemberClick = (member: Member) => {
@@ -120,55 +126,56 @@ export default function Page() {
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className="w-full max-w-6xl py-4 md:py-8">
-                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-                    <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
-                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
+            <div className={`w-full max-w-6xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+                <div className="w-full max-w-6xl py-4 md:py-8">
+                    <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                        <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
+                            <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/fo')}>
+                                <Undo2 className="text-white/80 hover:text-white transition-all"/>
+                            </div>
+                            <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Members</h2>
+                            <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
+                                            FO
+                                        </BreadcrumbLink>
+                                        <BreadcrumbSeparator></BreadcrumbSeparator>
+                                        <BreadcrumbPage className="text-white">Member Mendekati Habis</BreadcrumbPage>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
                         </div>
-                        <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Members</h2>
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
-                                        FO
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator></BreadcrumbSeparator>
-                                    <BreadcrumbPage className="text-white">Member Mendekati Habis</BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {mockMembers.length === 0 && (
-                            <p className="text-gray-500 col-span-full text-center">Tidak ada member mendekati habis.</p>
-                        )}
-                        {mockMembers.map((member) => (
-                            <Card key={member.id} className="cursor-pointer hover:shadow-lg transition-shadow bg-white" onClick={() => handleMemberClick(member)}>
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
-                                    </CardTitle>
-                                    <CardDescription className="text-xs text-gray-500">NIK: {member.nik}</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-2">
-                                        <div>{getMembershipBadge(member.membership)}</div>
-                                        <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
-                                        <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>
-                                    </div>
-                                </CardContent>
-                                <CardFooter className="flex gap-2 justify-end">
-                                    <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10 cursor-pointer" onClick={e => { e.stopPropagation(); handleContact(member); }}>
-                                        Contact
-                                    </Button>
-                                </CardFooter>
-                            </Card>
-                        ))}
-                    </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {mockMembers.length === 0 && (
+                                <p className="text-gray-500 col-span-full text-center">Tidak ada member mendekati habis.</p>
+                            )}
+                            {mockMembers.map((member) => (
+                                <Card key={member.id} className="cursor-pointer hover:shadow-lg transition-shadow bg-white" onClick={() => handleMemberClick(member)}>
+                                    <CardHeader>
+                                        <CardTitle className="flex items-center gap-2">
+                                            <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
+                                        </CardTitle>
+                                        <CardDescription className="text-xs text-gray-500">NIK: {member.nik}</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="space-y-2">
+                                            <div>{getMembershipBadge(member.membership)}</div>
+                                            <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
+                                            <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>
+                                        </div>
+                                    </CardContent>
+                                    <CardFooter className="flex gap-2 justify-end">
+                                        <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10 cursor-pointer" onClick={e => { e.stopPropagation(); handleContact(member); }}>
+                                            Contact
+                                        </Button>
+                                    </CardFooter>
+                                </Card>
+                            ))}
+                        </div>
 
-                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent className="max-w-md">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
@@ -388,5 +395,6 @@ export default function Page() {
                 </div>
             </div>
         </div>
+    </div>
     );
 }

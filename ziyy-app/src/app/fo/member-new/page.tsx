@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { CirclePlus, ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -24,6 +25,8 @@ type Member = {
 };
 
 export default function Page() {
+    const router = useRouter();
+
     const [mockMembers, setMockMembers] = useState<Member[]>([]);
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -34,6 +37,8 @@ export default function Page() {
     const [memberNik, setMemberNik] = useState("");
     const [memberTelp, setMemberTelp] = useState("");
     const [memberType, setMemberType] = useState("");
+
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
       const fetchMembers = async () => {
@@ -59,6 +64,8 @@ export default function Page() {
 
       fetchMembers();
   }, []);
+
+    useEffect(() => { setShow(true); }, []);
 
     const handleMemberClick = (member: Member) => {
         setSelectedMember(member);
@@ -122,10 +129,10 @@ export default function Page() {
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className="w-full max-w-6xl py-4 md:py-8">
+            <div className={`w-full max-w-6xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.history.back()}>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/fo')}>
                             <Undo2 className="text-white/80 hover:text-white transition-all"/>
                         </div>
                         <h2 className="text-white font-semibold text-xl tracking-tight">Ziyy Gym | Members</h2>

@@ -6,15 +6,15 @@ import { Card, CardTitle, CardContent, CardDescription, CardFooter, CardHeader} 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
 
 export default function Page() {
     const router = useRouter();
+    const [show, setShow] = useState(false);
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [txType, setTxType] = useState("");
     const [txTitle, setTxTitle] = useState("");
@@ -23,9 +23,13 @@ export default function Page() {
     const [txPaymentAmount, setTxPaymentAmount] = useState("");
     const [txDate, setTxDate] = useState("");
 
+    useEffect(() => {
+        setShow(true);
+    }, []);
+
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className="w-full max-w-6xl py-4 md:py-8">
+            <div className={`w-full max-w-6xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
                         <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/home")}>

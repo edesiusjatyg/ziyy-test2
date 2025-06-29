@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { set } from "date-fns";
 
 interface Campaign {
     id: string;
@@ -50,7 +51,10 @@ export default function Page() {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
 
+    const [show, setShow] = useState(false);
+
     useEffect(() => {
+        setShow(true);
         // Load campaigns and activities
         const loadData = async () => {
             const campaignsRes = await fetch('/campaigns.json');
@@ -115,7 +119,7 @@ export default function Page() {
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className="w-full max-w-4xl">
+            <div className={`w-full max-w-3xl transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg p-8" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-xl px-8 py-4 mb-8" style={{ background: '#7bb3d6' }}>
                         <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/home")}>
