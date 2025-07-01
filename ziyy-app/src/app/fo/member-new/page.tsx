@@ -129,7 +129,7 @@ export default function Page() {
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className={`w-full max-w-6xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+            <div className={`w-full py-8 px-8 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
                         <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/fo")}>
@@ -153,11 +153,11 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-8 px-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pb-8 px-8">
                         {mockMembers.length === 0 && (
                             <p className="text-gray-500 col-span-full text-center">Tidak ada member baru hari ini.</p>
                         )}
-                        {mockMembers.map((member) => (
+                        {mockMembers.sort((a, b) => b.id - a.id).map((member) => (
                             <Card
                               key={member.id}
                               className="cursor-pointer hover:shadow-lg transition-shadow bg-white"
@@ -167,13 +167,15 @@ export default function Page() {
                                 <CardTitle className="flex items-center gap-2">
                                   <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
                                 </CardTitle>
-                                <CardDescription className="text-xs text-gray-500">NIK: {member.nik}</CardDescription>
                               </CardHeader>
                               <CardContent>
                                 <div className="space-y-2">
-                                  <div>{getMembershipBadge(member.membership)}</div>
+                                  <div>
+                                    <Badge variant="outline" className="text-xs text-green-700 border-green-400 bg-green-100">Member Baru</Badge>
+                                    {getMembershipBadge(member.membership)}
+                                  </div>
                                   <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
-                                  <Badge variant="outline" className="text-xs text-green-700 border-green-400 bg-green-100">Member Baru</Badge>
+                                  
                                 </div>
                               </CardContent>
                               <CardFooter className="flex gap-2 justify-end">

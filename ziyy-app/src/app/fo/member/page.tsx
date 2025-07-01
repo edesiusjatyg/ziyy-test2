@@ -38,13 +38,14 @@ export default function Page() {
     const [memberTelp, setMemberTelp] = useState("");
     const [memberType, setMemberType] = useState("");
 
+    const [searchQuery, setSearchQuery] = useState("");
     const [show, setShow] = useState(false);
     useEffect(() => { setTimeout(() => {setShow(true)}, 100); }, []);
 
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await fetch('/members.json');
+                const response = await fetch('/realMembers.json');
                 const data = await response.json();
                 setMockMembers(data.members);
             } catch (error) {
@@ -115,9 +116,14 @@ export default function Page() {
         }
     };
 
+    // Filter members by search query
+    const filteredMembers = mockMembers.filter((member) =>
+      member.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className={`w-full max-w-6xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+            <div className={`w-full py-8 px-8 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
                     <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
                         <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/fo")}>
@@ -141,11 +147,21 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 px-8 pb-8">
-                        {mockMembers.length === 0 && (
+                    <div className="flex items-center gap-2 px-8 pb-4">
+                      <Input
+                        type="text"
+                        placeholder="Cari nama member..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full max-w-xs bg-white/80 hover:bg-white focus:bg-white focus:ring-2 focus:ring-[#7bb3d6] focus:border-transparent rounded-lg shadow-sm transition-all"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 px-8 pb-8">
+                        {filteredMembers.length === 0 && (
                             <p className="text-gray-500 col-span-full text-center">Tidak ada member.</p>
                         )}
-                        {mockMembers.map((member) => (
+                        {filteredMembers.sort((a, b) => b.id - a.id).map((member) => (
                             <Card
                               key={member.id}
                               className="cursor-pointer hover:shadow-lg transition-shadow bg-white"
@@ -155,13 +171,12 @@ export default function Page() {
                                 <CardTitle className="flex items-center gap-2">
                                   <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
                                 </CardTitle>
-                                <CardDescription className="text-xs text-gray-500">NIK: {member.nik}</CardDescription>
                               </CardHeader>
                               <CardContent>
                                 <div className="space-y-2">
-                                  <div>{getMembershipBadge(member.membership)}</div>
+                                  <div>{getStatusBadge(member.status)} {getMembershipBadge(member.membership)}</div>
+                                  <div></div>
                                   <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
-                                  <div>{getStatusBadge(member.status)}</div>
                                 </div>
                               </CardContent>
                               <CardFooter className="flex gap-2 justify-end">

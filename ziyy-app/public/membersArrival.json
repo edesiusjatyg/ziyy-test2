@@ -1,0 +1,28 @@
+{
+    "membersArrival": [
+        {
+            "id": "1",
+            "name": "John Doe",
+            "arrivalDate": "2025-07-01",
+            "arrivalType": "gym"
+        },
+        {
+            "id": "2",
+            "name": "Jane Smith",
+            "arrivalDate": "2025-07-01",
+            "arrivalType": "gymPt"
+        },
+        {
+            "id": "3",
+            "name": "Bob Brown",
+            "arrivalDate": "2025-07-02",
+            "arrivalType": "gym"
+        },
+        {
+            "id": "4",
+            "name": "Charlie Davis",
+            "arrivalDate": "2025-07-02",
+            "arrivalType": "gymPt"
+        }
+    ]
+}

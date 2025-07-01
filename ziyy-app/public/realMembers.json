@@ -6,6 +6,7 @@
             "nik": "3207184404870006",
             "phone": "081331089463",
             "membership": "Couple",
+            "ptAmount": "0",
             "joinDate": "2025-04-25",
             "expiryDate": "2025-05-25",
             "status": "Expired"
@@ -27,7 +28,7 @@
             "phone": "08170004863",
             "membership": "Personal",
             "joinDate": "2025-04-25",
-            "expiryDate": "2025-04-25",
+            "expiryDate": "2025-05-25",
             "status": "Expired"
         },
         {
@@ -148,7 +149,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-25",
             "expiryDate": "2025-11-25",
-            "status": "Expired"
+            "status": "Active"
         },
         {
             "id": "017",
@@ -158,7 +159,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-26",
             "expiryDate": "2025-05-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "018",
@@ -168,7 +169,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-26",
             "expiryDate": "2025-05-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "019",
@@ -178,7 +179,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-26",
             "expiryDate": "2025-05-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "020",
@@ -188,7 +189,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-26",
             "expiryDate": "2025-05-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "021",
@@ -198,7 +199,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-26",
             "expiryDate": "2025-05-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "022",
@@ -208,7 +209,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-26",
             "expiryDate": "2025-05-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "023",
@@ -238,7 +239,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-27",
             "expiryDate": "2025-05-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "026",
@@ -248,7 +249,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-27",
             "expiryDate": "2025-05-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "027",
@@ -258,7 +259,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-27",
             "expiryDate": "2025-05-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "028",
@@ -268,7 +269,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-27",
             "expiryDate": "2025-05-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "029",
@@ -278,7 +279,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-27",
             "expiryDate": "2025-05-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "030",
@@ -288,7 +289,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-27",
             "expiryDate": "2025-05-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "031",
@@ -298,7 +299,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-27",
             "expiryDate": "2025-05-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "032",
@@ -308,7 +309,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-27",
             "expiryDate": "2025-05-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "033",
@@ -328,7 +329,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-28",
             "expiryDate": "2025-05-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "035",
@@ -338,7 +339,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-28",
             "expiryDate": "2025-05-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "036",
@@ -348,7 +349,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-28",
             "expiryDate": "2025-05-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "037",
@@ -378,7 +379,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-28",
             "expiryDate": "2025-05-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "040",
@@ -388,7 +389,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-28",
             "expiryDate": "2025-05-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "041",
@@ -398,7 +399,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-28",
             "expiryDate": "2025-05-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "042",
@@ -408,7 +409,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "043",
@@ -418,7 +419,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "044",
@@ -428,7 +429,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "045",
@@ -438,7 +439,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "046",
@@ -448,7 +449,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "047",
@@ -458,7 +459,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "048",
@@ -468,7 +469,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "049",
@@ -478,7 +479,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "050",
@@ -498,7 +499,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "052",
@@ -508,7 +509,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "053",
@@ -518,7 +519,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "054",
@@ -528,7 +529,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-29",
             "expiryDate": "2025-05-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "055",
@@ -538,7 +539,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-30",
             "expiryDate": "2025-05-30",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "056",
@@ -548,7 +549,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-30",
             "expiryDate": "2025-05-30",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "057",
@@ -558,7 +559,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-30",
             "expiryDate": "2025-05-30",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "058",
@@ -568,7 +569,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-30",
             "expiryDate": "2025-05-30",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "059",
@@ -578,7 +579,7 @@
             "membership": "Couple",
             "joinDate": "2025-04-30",
             "expiryDate": "2025-05-30",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "060",
@@ -588,7 +589,7 @@
             "membership": "Personal",
             "joinDate": "2025-04-30",
             "expiryDate": "2025-05-30",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "061",
@@ -598,7 +599,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "062",
@@ -608,7 +609,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "063",
@@ -618,7 +619,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "064",
@@ -628,7 +629,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "065",
@@ -638,7 +639,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "066",
@@ -648,7 +649,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "067",
@@ -658,7 +659,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "068",
@@ -668,7 +669,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "069",
@@ -678,7 +679,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-01",
             "expiryDate": "2025-06-01",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "070",
@@ -688,7 +689,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-02",
             "expiryDate": "2025-06-02",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "071",
@@ -698,7 +699,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-02",
             "expiryDate": "2025-06-02",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "072",
@@ -708,7 +709,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-02",
             "expiryDate": "2025-06-02",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "073",
@@ -718,7 +719,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-02",
             "expiryDate": "2025-06-02",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "074",
@@ -728,7 +729,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-02",
             "expiryDate": "2025-06-02",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "075",
@@ -738,7 +739,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-02",
             "expiryDate": "2025-06-02",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "076",
@@ -748,7 +749,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "077",
@@ -758,7 +759,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "078",
@@ -768,7 +769,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "079",
@@ -778,7 +779,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "080",
@@ -788,7 +789,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "081",
@@ -798,7 +799,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "082",
@@ -808,7 +809,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "083",
@@ -818,7 +819,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "084",
@@ -828,7 +829,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "085",
@@ -838,7 +839,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "086",
@@ -848,7 +849,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "087",
@@ -858,7 +859,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "088",
@@ -868,7 +869,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "089",
@@ -878,7 +879,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "090",
@@ -888,7 +889,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "091",
@@ -898,7 +899,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-03",
             "expiryDate": "2025-06-03",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "092",
@@ -908,7 +909,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-04",
             "expiryDate": "2025-06-04",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "093",
@@ -918,7 +919,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-05",
             "expiryDate": "2025-06-05",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "094",
@@ -928,7 +929,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-05",
             "expiryDate": "2025-06-05",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "095",
@@ -938,7 +939,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-05",
             "expiryDate": "2025-06-05",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "096",
@@ -948,7 +949,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-06",
             "expiryDate": "2025-06-06",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "097",
@@ -958,7 +959,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-06",
             "expiryDate": "2025-06-06",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "098",
@@ -968,7 +969,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-06",
             "expiryDate": "2025-06-06",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "099",
@@ -978,7 +979,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-06",
             "expiryDate": "2025-06-06",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "100",
@@ -988,7 +989,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-06",
             "expiryDate": "2025-06-06",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "101",
@@ -998,7 +999,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-06",
             "expiryDate": "2025-06-06",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "102",
@@ -1007,7 +1008,7 @@
             "phone": "08112555434",
             "membership": "Personal",
             "joinDate": "2025-05-06",
-            "expiryDate": "2025-05-06",
+            "expiryDate": "2025-06-06",
             "status": "Expired"
         },
         {
@@ -1018,7 +1019,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-06",
             "expiryDate": "2025-06-06",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "104",
@@ -1028,7 +1029,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-07",
             "expiryDate": "2025-06-07",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "105",
@@ -1038,7 +1039,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-08",
             "expiryDate": "2025-06-08",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "106",
@@ -1048,7 +1049,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-08",
             "expiryDate": "2025-06-08",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "107",
@@ -1058,7 +1059,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-08",
             "expiryDate": "2025-06-08",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "108",
@@ -1068,7 +1069,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-08",
             "expiryDate": "2025-06-08",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "109",
@@ -1078,7 +1079,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-08",
             "expiryDate": "2025-06-08",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "110",
@@ -1088,7 +1089,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-08",
             "expiryDate": "2025-06-08",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "111",
@@ -1098,7 +1099,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-09",
             "expiryDate": "2025-06-09",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "112",
@@ -1108,7 +1109,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-09",
             "expiryDate": "2025-06-09",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "113",
@@ -1118,7 +1119,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-09",
             "expiryDate": "2025-06-09",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "114",
@@ -1128,7 +1129,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-09",
             "expiryDate": "2025-06-09",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "115",
@@ -1138,7 +1139,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-09",
             "expiryDate": "2025-06-09",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "116",
@@ -1148,7 +1149,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-09",
             "expiryDate": "2025-06-09",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "117",
@@ -1158,7 +1159,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-10",
             "expiryDate": "2025-06-10",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "118",
@@ -1168,7 +1169,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-10",
             "expiryDate": "2025-06-10",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "119",
@@ -1178,7 +1179,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-10",
             "expiryDate": "2025-06-10",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "120",
@@ -1188,7 +1189,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-10",
             "expiryDate": "2025-06-10",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "121",
@@ -1198,7 +1199,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-10",
             "expiryDate": "2025-06-10",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "122",
@@ -1208,7 +1209,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-10",
             "expiryDate": "2025-06-10",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "123",
@@ -1218,7 +1219,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-11",
             "expiryDate": "2025-06-11",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "124",
@@ -1228,7 +1229,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-12",
             "expiryDate": "2025-06-12",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "125",
@@ -1238,7 +1239,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-12",
             "expiryDate": "2025-06-12",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "126",
@@ -1248,7 +1249,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-12",
             "expiryDate": "2025-06-12",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "127",
@@ -1258,7 +1259,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-12",
             "expiryDate": "2025-06-12",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "128",
@@ -1268,7 +1269,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-12",
             "expiryDate": "2025-06-12",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "129",
@@ -1278,7 +1279,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-12",
             "expiryDate": "2025-06-12",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "130",
@@ -1288,7 +1289,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-12",
             "expiryDate": "2025-06-12",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "131",
@@ -1298,7 +1299,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-12",
             "expiryDate": "2025-06-12",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "132",
@@ -1308,7 +1309,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "133",
@@ -1318,7 +1319,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "134",
@@ -1328,7 +1329,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "135",
@@ -1338,7 +1339,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "136",
@@ -1348,7 +1349,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "137",
@@ -1358,7 +1359,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "138",
@@ -1368,7 +1369,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "139",
@@ -1378,7 +1379,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "140",
@@ -1388,7 +1389,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "141",
@@ -1398,7 +1399,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "142",
@@ -1408,7 +1409,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "143",
@@ -1418,7 +1419,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "144",
@@ -1428,7 +1429,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "145",
@@ -1438,7 +1439,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-13",
             "expiryDate": "2025-06-13",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "146",
@@ -1448,7 +1449,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-14",
             "expiryDate": "2025-06-14",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "147",
@@ -1458,7 +1459,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-14",
             "expiryDate": "2025-06-14",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "148",
@@ -1468,7 +1469,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-14",
             "expiryDate": "2025-06-14",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "149",
@@ -1478,7 +1479,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-14",
             "expiryDate": "2025-06-14",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "150",
@@ -1498,7 +1499,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-14",
             "expiryDate": "2025-06-14",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "152",
@@ -1508,7 +1509,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-15",
             "expiryDate": "2025-06-15",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "153",
@@ -1518,7 +1519,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-15",
             "expiryDate": "2025-06-15",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "154",
@@ -1528,7 +1529,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-15",
             "expiryDate": "2025-06-15",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "155",
@@ -1538,7 +1539,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-15",
             "expiryDate": "2025-06-15",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "156",
@@ -1548,7 +1549,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-15",
             "expiryDate": "2025-06-15",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "157",
@@ -1558,7 +1559,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-16",
             "expiryDate": "2025-06-16",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "158",
@@ -1568,7 +1569,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-16",
             "expiryDate": "2025-06-16",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "159",
@@ -1578,7 +1579,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-16",
             "expiryDate": "2025-06-16",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "160",
@@ -1588,7 +1589,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-16",
             "expiryDate": "2025-06-16",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "161",
@@ -1598,7 +1599,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-16",
             "expiryDate": "2025-06-16",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "162",
@@ -1608,7 +1609,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-16",
             "expiryDate": "2025-06-16",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "163",
@@ -1618,7 +1619,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-19",
             "expiryDate": "2025-06-19",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "164",
@@ -1628,7 +1629,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-19",
             "expiryDate": "2025-06-19",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "165",
@@ -1638,7 +1639,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-19",
             "expiryDate": "2025-06-19",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "166",
@@ -1658,7 +1659,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-19",
             "expiryDate": "2025-06-19",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "168",
@@ -1668,7 +1669,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-19",
             "expiryDate": "2025-06-19",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "169",
@@ -1678,7 +1679,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-19",
             "expiryDate": "2025-06-19",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "170",
@@ -1688,7 +1689,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-20",
             "expiryDate": "2025-06-20",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "171",
@@ -1698,7 +1699,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-20",
             "expiryDate": "2025-06-20",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "172",
@@ -1708,7 +1709,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-20",
             "expiryDate": "2025-06-20",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "173",
@@ -1718,7 +1719,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-20",
             "expiryDate": "2025-06-20",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "174",
@@ -1728,7 +1729,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-20",
             "expiryDate": "2025-06-20",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "175",
@@ -1738,7 +1739,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-21",
             "expiryDate": "2025-06-21",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "176",
@@ -1748,7 +1749,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-21",
             "expiryDate": "2025-06-21",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "177",
@@ -1758,7 +1759,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-21",
             "expiryDate": "2025-06-21",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "178",
@@ -1768,7 +1769,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-22",
             "expiryDate": "2025-06-22",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "179",
@@ -1778,7 +1779,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-23",
             "expiryDate": "2025-06-23",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "180",
@@ -1788,7 +1789,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-23",
             "expiryDate": "2025-06-23",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "181",
@@ -1808,7 +1809,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-23",
             "expiryDate": "2025-06-23",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "183",
@@ -1818,7 +1819,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-23",
             "expiryDate": "2025-06-23",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "184",
@@ -1828,7 +1829,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-23",
             "expiryDate": "2025-06-23",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "185",
@@ -1838,7 +1839,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-23",
             "expiryDate": "2025-06-23",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "186",
@@ -1848,7 +1849,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-24",
             "expiryDate": "2025-06-24",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "187",
@@ -1858,7 +1859,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-24",
             "expiryDate": "2025-06-24",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "188",
@@ -1868,7 +1869,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-24",
             "expiryDate": "2025-06-24",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "189",
@@ -1878,7 +1879,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-24",
             "expiryDate": "2025-06-24",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "190",
@@ -1888,7 +1889,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-24",
             "expiryDate": "2025-06-24",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "191",
@@ -1898,7 +1899,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-25",
             "expiryDate": "2025-06-25",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "192",
@@ -1908,7 +1909,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-25",
             "expiryDate": "2025-06-25",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "193",
@@ -1918,7 +1919,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-26",
             "expiryDate": "2025-06-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "194",
@@ -1928,7 +1929,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-26",
             "expiryDate": "2025-06-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "195",
@@ -1938,7 +1939,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-26",
             "expiryDate": "2025-06-26",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "196",
@@ -1948,7 +1949,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-27",
             "expiryDate": "2025-06-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "197",
@@ -1958,7 +1959,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-27",
             "expiryDate": "2025-06-27",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "198",
@@ -1968,7 +1969,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-28",
             "expiryDate": "2025-06-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "199",
@@ -1978,7 +1979,7 @@
             "membership": "Couple",
             "joinDate": "2025-05-28",
             "expiryDate": "2025-06-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "200",
@@ -1988,7 +1989,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-28",
             "expiryDate": "2025-06-28",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "201",
@@ -1998,7 +1999,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-29",
             "expiryDate": "2025-06-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "202",
@@ -2008,7 +2009,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-29",
             "expiryDate": "2025-06-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "203",
@@ -2018,7 +2019,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-29",
             "expiryDate": "2025-06-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "204",
@@ -2028,7 +2029,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-29",
             "expiryDate": "2025-06-29",
-            "status": "Active"
+            "status": "Expired"
         },
         {
             "id": "205",
@@ -2038,7 +2039,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-30",
             "expiryDate": "2025-06-30",
-            "status": "NearExp"
+            "status": "Expired"
         },
         {
             "id": "206",
@@ -2048,7 +2049,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-31",
             "expiryDate": "2025-07-01",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "207",
@@ -2058,7 +2059,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-31",
             "expiryDate": "2025-07-01",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "208",
@@ -2068,7 +2069,7 @@
             "membership": "Personal",
             "joinDate": "2025-05-31",
             "expiryDate": "2025-07-01",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "209",
@@ -2076,6 +2077,7 @@
             "nik": "3402120301970003",
             "phone": "08122788999",
             "membership": "Personal",
+            "ptAmount": "10",
             "joinDate": "2025-06-01",
             "expiryDate": "2026-01-01",
             "status": "Active"
@@ -2086,6 +2088,7 @@
             "nik": "-",
             "phone": "081578311999",
             "membership": "Personal",
+            "ptAmount": "10",
             "joinDate": "2025-06-01",
             "expiryDate": "2026-01-01",
             "status": "Active"
@@ -2098,7 +2101,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-01",
             "expiryDate": "2025-07-01",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "212",
@@ -2106,9 +2109,10 @@
             "nik": "3402127005990002",
             "phone": "089661020543",
             "membership": "Personal",
+            "ptAmount": "4",
             "joinDate": "2025-06-01",
             "expiryDate": "2025-07-01",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "213",
@@ -2118,7 +2122,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-01",
             "expiryDate": "2025-07-01",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "214",
@@ -2128,7 +2132,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "215",
@@ -2138,7 +2142,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "216",
@@ -2148,7 +2152,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "217",
@@ -2158,7 +2162,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "218",
@@ -2168,7 +2172,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "219",
@@ -2178,7 +2182,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "220",
@@ -2188,7 +2192,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "221",
@@ -2198,7 +2202,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "222",
@@ -2208,7 +2212,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "223",
@@ -2216,9 +2220,10 @@
             "nik": "3402142401000002",
             "phone": "081234570847",
             "membership": "Personal",
+            "ptAmount": "8",
             "joinDate": "2025-06-02",
             "expiryDate": "2025-07-02",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "224",
@@ -2228,7 +2233,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-03",
             "expiryDate": "2025-07-03",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "225",
@@ -2238,7 +2243,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-03",
             "expiryDate": "2025-07-03",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "226",
@@ -2248,7 +2253,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-03",
             "expiryDate": "2025-07-03",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "227",
@@ -2258,7 +2263,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-03",
             "expiryDate": "2025-07-03",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "228",
@@ -2268,7 +2273,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-03",
             "expiryDate": "2025-07-03",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "229",
@@ -2278,7 +2283,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-04",
             "expiryDate": "2025-07-04",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "230",
@@ -2286,9 +2291,10 @@
             "nik": "",
             "phone": "",
             "membership": "Personal",
+            "ptAmount": "10",
             "joinDate": "2025-06-04",
             "expiryDate": "2025-07-04",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "231",
@@ -2298,17 +2304,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-04",
             "expiryDate": "2025-07-04",
-            "status": "NearExp"
-        },
-        {
-            "id": "212",
-            "name": "Noni dwi saputri",
-            "nik": "",
-            "phone": "",
-            "membership": "Personal",
-            "joinDate": "2025-06-04",
-            "expiryDate": "2025-07-04",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "232",
@@ -2318,7 +2314,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-07",
             "expiryDate": "2025-07-07",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "233",
@@ -2328,7 +2324,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-07",
             "expiryDate": "2025-07-07",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "234",
@@ -2338,7 +2334,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-07",
             "expiryDate": "2025-07-07",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "235",
@@ -2348,7 +2344,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-07",
             "expiryDate": "2025-07-07",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "236",
@@ -2358,7 +2354,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-08",
             "expiryDate": "2025-07-08",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "237",
@@ -2368,7 +2364,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-08",
             "expiryDate": "2025-07-08",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "238",
@@ -2377,8 +2373,8 @@
             "phone": "-",
             "membership": "Couple",
             "joinDate": "2025-06-08",
-            "expiryDate": "2025-06-08",
-            "status": "Expired"
+            "expiryDate": "2025-07-08",
+            "status": "Active"
         },
         {
             "id": "239",
@@ -2388,7 +2384,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-08",
             "expiryDate": "2025-07-08",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "240",
@@ -2398,7 +2394,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-09",
             "expiryDate": "2025-07-09",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "241",
@@ -2408,7 +2404,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-09",
             "expiryDate": "2025-07-09",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "242",
@@ -2418,7 +2414,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-09",
             "expiryDate": "2025-07-09",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "243",
@@ -2428,7 +2424,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-09",
             "expiryDate": "2025-07-09",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "244",
@@ -2438,7 +2434,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-09",
             "expiryDate": "2025-07-09",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "245",
@@ -2448,7 +2444,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "246",
@@ -2458,7 +2454,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "247",
@@ -2468,7 +2464,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "248",
@@ -2476,9 +2472,10 @@
             "nik": "",
             "phone": "085729736606",
             "membership": "Personal",
+            "ptAmount": "4",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "249",
@@ -2488,7 +2485,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "250",
@@ -2498,7 +2495,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "251",
@@ -2508,7 +2505,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "252",
@@ -2518,7 +2515,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "253",
@@ -2528,7 +2525,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-10",
             "expiryDate": "2025-07-10",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "254",
@@ -2538,7 +2535,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-12",
             "expiryDate": "2025-07-12",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "255",
@@ -2548,7 +2545,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-12",
             "expiryDate": "2025-07-12",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "256",
@@ -2558,7 +2555,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-12",
             "expiryDate": "2025-07-12",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "257",
@@ -2568,7 +2565,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-12",
             "expiryDate": "2025-07-12",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "258",
@@ -2578,7 +2575,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-12",
             "expiryDate": "2025-07-12",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "259",
@@ -2588,7 +2585,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-13",
             "expiryDate": "2025-07-13",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "260",
@@ -2598,7 +2595,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-13",
             "expiryDate": "2025-07-13",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "261",
@@ -2608,7 +2605,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-13",
             "expiryDate": "2025-07-13",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "262",
@@ -2618,7 +2615,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-13",
             "expiryDate": "2025-07-13",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "267",
@@ -2628,7 +2625,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-15",
             "expiryDate": "2025-07-15",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "268",
@@ -2638,7 +2635,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-15",
             "expiryDate": "2025-07-15",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "270",
@@ -2648,7 +2645,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-16",
             "expiryDate": "2025-07-16",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "271",
@@ -2656,9 +2653,10 @@
             "nik": "",
             "phone": "087839997946",
             "membership": "Personal",
+            "ptAmount": "4",
             "joinDate": "2025-06-16",
             "expiryDate": "2025-07-16",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "272",
@@ -2668,7 +2666,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-16",
             "expiryDate": "2025-07-16",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "273",
@@ -2678,7 +2676,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-16",
             "expiryDate": "2025-07-16",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "274",
@@ -2687,8 +2685,8 @@
             "phone": "",
             "membership": "Couple",
             "joinDate": "2025-06-16",
-            "expiryDate": "2025-06-16",
-            "status": "Expired"
+            "expiryDate": "2025-07-16",
+            "status": "Active"
         },
         {
             "id": "275",
@@ -2698,7 +2696,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-17",
             "expiryDate": "2025-07-17",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "276",
@@ -2708,7 +2706,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-17",
             "expiryDate": "2025-07-17",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "277",
@@ -2718,7 +2716,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-18",
             "expiryDate": "2025-07-18",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "278",
@@ -2728,7 +2726,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-18",
             "expiryDate": "2025-07-18",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "279",
@@ -2738,7 +2736,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-19",
             "expiryDate": "2025-07-19",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "280",
@@ -2748,7 +2746,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-20",
             "expiryDate": "2025-07-20",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "281",
@@ -2758,7 +2756,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-20",
             "expiryDate": "2025-07-20",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "282",
@@ -2768,7 +2766,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-20",
             "expiryDate": "2025-07-20",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "283",
@@ -2778,7 +2776,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-20",
             "expiryDate": "2025-07-20",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "284",
@@ -2788,7 +2786,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-22",
             "expiryDate": "2025-07-22",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "285",
@@ -2798,7 +2796,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-22",
             "expiryDate": "2025-07-22",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "286",
@@ -2808,7 +2806,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-23",
             "expiryDate": "2025-07-23",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "287",
@@ -2818,7 +2816,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-23",
             "expiryDate": "2025-07-23",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "289",
@@ -2828,7 +2826,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-24",
             "expiryDate": "2025-07-24",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "290",
@@ -2838,7 +2836,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-24",
             "expiryDate": "2025-07-24",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "291",
@@ -2848,7 +2846,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-25",
             "expiryDate": "2025-07-25",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "292",
@@ -2858,7 +2856,7 @@
             "membership": "Couple",
             "joinDate": "2025-06-25",
             "expiryDate": "2025-07-25",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "293",
@@ -2866,9 +2864,10 @@
             "nik": "",
             "phone": "082220135715",
             "membership": "Personal",
+            "ptAmount": "10",
             "joinDate": "2025-06-25",
             "expiryDate": "2025-07-25",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "294",
@@ -2878,7 +2877,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-27",
             "expiryDate": "2025-07-27",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "295",
@@ -2888,7 +2887,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-27",
             "expiryDate": "2025-07-27",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "296",
@@ -2898,7 +2897,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-27",
             "expiryDate": "2025-07-27",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "297",
@@ -2908,7 +2907,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-27",
             "expiryDate": "2025-07-27",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "298",
@@ -2918,7 +2917,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-27",
             "expiryDate": "2025-07-27",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "299",
@@ -2928,7 +2927,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-28",
             "expiryDate": "2025-07-28",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "300",
@@ -2938,7 +2937,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-29",
             "expiryDate": "2025-07-29",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "301",
@@ -2948,7 +2947,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-29",
             "expiryDate": "2025-07-29",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "302",
@@ -2958,7 +2957,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-29",
             "expiryDate": "2025-07-29",
-            "status": "NearExp"
+            "status": "Active"
         },
         {
             "id": "303",
@@ -2968,7 +2967,7 @@
             "membership": "Personal",
             "joinDate": "2025-06-29",
             "expiryDate": "2025-07-29",
-            "status": "NearExp"
+            "status": "Active"
         }
     ]
 }
