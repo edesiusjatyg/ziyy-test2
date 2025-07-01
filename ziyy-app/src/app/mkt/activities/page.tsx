@@ -148,11 +148,11 @@ export default function ActivitiesPage() {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Date</TableHead>
-                                        <TableHead>Username</TableHead>
+                                        <TableHead>Tanggal</TableHead>
+                                        <TableHead>Nama</TableHead>
                                         <TableHead>Campaign</TableHead>
-                                        <TableHead>Title</TableHead>
-                                        <TableHead>Description</TableHead>
+                                        <TableHead>Judul Aktivitas</TableHead>
+                                        <TableHead>Keterangan</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>

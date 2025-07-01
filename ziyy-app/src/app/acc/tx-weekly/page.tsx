@@ -196,8 +196,8 @@ export default function Page() {
             {/* Income Table Card */}
             <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
               <CardHeader>
-                <CardTitle className="text-gray-900">Pemasukan</CardTitle>
-                <CardDescription>Minggu Ini</CardDescription>
+                <CardTitle className="text-gray-900 text-center">Pemasukan</CardTitle>
+                <CardDescription className="text-center">Minggu Ini</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -217,7 +217,7 @@ export default function Page() {
                       >
                         <TableCell>{tx.date || '-'}</TableCell>
                         <TableCell>{tx.title}</TableCell>
-                        <TableCell className="font-semibold">{tx.paymentAmount}</TableCell>
+                        <TableCell>Rp {tx.paymentAmount}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -227,8 +227,8 @@ export default function Page() {
             {/* Expense Table Card */}
             <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
               <CardHeader>
-                <CardTitle className="text-gray-900">Pengeluaran</CardTitle>
-                <CardDescription>Minggu Ini</CardDescription>
+                <CardTitle className="text-gray-900 text-center">Pengeluaran</CardTitle>
+                <CardDescription className="text-center">Minggu Ini</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -248,7 +248,7 @@ export default function Page() {
                       >
                         <TableCell>{tx.date || '-'}</TableCell>
                         <TableCell>{tx.title}</TableCell>
-                        <TableCell className="font-semibold">{tx.paymentAmount}</TableCell>
+                        <TableCell>Rp {tx.paymentAmount}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -273,7 +273,7 @@ export default function Page() {
                       <Label className="text-sm font-medium text-gray-600">
                         Judul
                       </Label>
-                      <p className="text-sm">
+                      <p className="text-sm font-semibold">
                         {selectedTx.title}
                       </p>
                     </div>
@@ -287,8 +287,8 @@ export default function Page() {
                       <Label className="text-sm font-medium text-gray-600">
                         Nominal
                       </Label>
-                      <p className="text-sm font-semibold">
-                        {selectedTx.paymentAmount}
+                      <p className="text-sm">
+                        Rp {selectedTx.paymentAmount}
                       </p>
                     </div>
                     <div>

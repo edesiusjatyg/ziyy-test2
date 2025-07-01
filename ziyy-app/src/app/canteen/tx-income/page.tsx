@@ -190,21 +190,20 @@ export default function Page() {
                   <CardHeader>
                     <CardTitle className="text-gray-900 text-base flex items-center gap-2">
                       {getItemBadge(tx.itemType)}
-                      <span className="ml-2 font-semibold">{tx.txTitle}</span>
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-2">
-                            <span className="text-xs text-gray-500">Qty:</span>
-                            <span className="font-semibold">{tx.itemAmount}</span>
+                            <p className="text-xs text-gray-500">Qty:</p>
+                            <p className="text-xs text-gray-500">{tx.itemAmount}</p>
                         </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500">Nominal:</span>
-                        <span className="font-semibold">{tx.paymentAmount}</span>
+                        <p className="text-xs text-gray-500">Nominal:</p>
+                        <p className="text-xs text-gray-500">Rp {tx.paymentAmount.toLocaleString()}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500">Pembayaran:</span>
+                        <p className="text-xs text-gray-500">Pembayaran:</p>
                         {getPaymentMethodBadge(tx.paymentMethod)}
                       </div>
                     </div>

@@ -148,45 +148,31 @@ export default function Page() {
                         <Link href="/mkt/campaigns-active" className="block">
                             <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
-                                    <CardTitle className="text-gray-900">Campaign Aktif</CardTitle>
+                                    <CardTitle className="text-center">Campaign Aktif</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">{getActiveCampaigns().length}</p>
+                                    <p className="text-center">{getActiveCampaigns().length}</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/mkt/activities" className="block">
                             <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
-                                    <CardTitle className="text-gray-900">Daftar Aktivitas</CardTitle>
-                                    <CardDescription>Hari ini</CardDescription>
+                                    <CardTitle className="text-center">Aktivitas Hari Ini</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">{getTodayActivities().length}</p>
+                                    <p className="text-center">{getTodayActivities().length}</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/mkt/campaigns" className="block">
                             <Card className="bg-white rounded-xl shadow-sm justify-between hover:shadow-lg transition-all border-0 cursor-pointer h-full">
                                 <CardHeader>
-                                    <CardTitle className="text-gray-900">Daftar Campaign</CardTitle>
-                                    <CardDescription>Lihat semua campaign</CardDescription>
+                                    <CardTitle className="text-center">Daftar Campaign</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">{campaigns.length}</p>
+                                    <p className="text-center">{campaigns.length}</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                     </div>

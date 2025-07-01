@@ -171,11 +171,11 @@ export default function Page() {
                   <CardContent>
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500">Nominal:</span>
-                        <span className="font-semibold">{tx.paymentAmount}</span>
+                        <p className="text-xs text-gray-500">Nominal:</p>
+                        <p className="text-xs text-gray-500">Rp {tx.paymentAmount}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500">Pembayaran:</span>
+                        <p className="text-xs text-gray-500">Pembayaran:</p>
                         {getPaymentMethodBadge(tx.paymentMethod)}
                       </div>
                     </div>

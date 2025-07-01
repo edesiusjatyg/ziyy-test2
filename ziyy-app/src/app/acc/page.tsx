@@ -57,76 +57,59 @@ export default function Page() {
                         <Link href="/acc/tx-weekly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
-                                    <CardTitle>Pemasukan</CardTitle>
-                                    <CardDescription>Minggu ini</CardDescription>
+                                    <CardTitle className="text-center">Pemasukan</CardTitle>
+                                    <CardDescription className="text-center">Minggu ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">Rp2.400.000</p>
+                                    <p className="text-center">Rp2.400.000</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/acc/tx-weekly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
-                                    <CardTitle>Pengeluaran</CardTitle>
-                                    <CardDescription>Minggu ini</CardDescription>
+                                    <CardTitle className="text-center">Pengeluaran</CardTitle>
+                                    <CardDescription className="text-center">Minggu ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">Rp400.000</p>
+                                    <p className="text-center">Rp2.400.000</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/acc/tx-monthly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
-                                    <CardTitle>Pemasukan</CardTitle>
-                                    <CardDescription>Bulan ini</CardDescription>
+                                    <CardTitle className="text-center">Pemasukan</CardTitle>
+                                    <CardDescription className="text-center">Bulan ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">Rp12.800.000</p>
+                                    <p className="text-center">Rp2.400.000</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/acc/tx-monthly">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
-                                    <CardTitle>Pengeluaran</CardTitle>
-                                    <CardDescription>Bulan ini</CardDescription>
+                                    <CardTitle className="text-center">Pengeluaran</CardTitle>
+                                    <CardDescription className="text-center">Bulan ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">Rp2.800.000</p>
+                                    <p className="text-center">Rp2.400.000</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                         <Card className="flex flex-col justify-between bg-white py-6 px-2">
                             <CardHeader>
-                                <CardTitle>Total Kas</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-lg font-semibold">Rp22.400.000</p>
-                            </CardContent>
-                            <CardFooter className="flex-row hover:text-gray-500 transition-all"></CardFooter>
+                                    <CardTitle className="text-center">Total Kas</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-center">Rp22.400.000</p>
+                                </CardContent>
                         </Card>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-8 pb-8">
-                        <Link href="/acc/tx-monthly">
+                        <Link href="/acc/tx-list">
                             <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
                                     <CardTitle>Daftar Transaksi</CardTitle>

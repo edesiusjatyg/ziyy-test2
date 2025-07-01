@@ -54,19 +54,8 @@ export default function Page() {
       .then((res) => res.json())
       .then((data) => {
         const txs = data.txAct || [];
-
-        const now = new Date();
-        const monthStart = startOfMonth(now);
-        const monthEnd = endOfMonth(now);
-
-        const monthlyTxs = txs.filter((tx: Transaction) => {
-            if (!tx.date) return false;
-            const txDate = parseISO(tx.date);
-            return isWithinInterval(txDate, { start: monthStart, end: monthEnd });
-        });
-
-        setIncomeTx(monthlyTxs.filter((tx: Transaction) => tx.type === "pemasukan"));
-        setExpenseTx(monthlyTxs.filter((tx: Transaction) => tx.type === "pengeluaran"));
+        setIncomeTx(txs.filter((tx: Transaction) => tx.type === "pemasukan"));
+        setExpenseTx(txs.filter((tx: Transaction) => tx.type === "pengeluaran"));
       });
   }, []);
 
@@ -175,7 +164,7 @@ export default function Page() {
               <Undo2 className="text-white/80 hover:text-white transition-all"/>
             </div>
             <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
-              Ziyy Gym | Transaksi Bulanan
+              Ziyy Gym | Daftar Transaksi
             </h2>
             <div className="z-10">
               <Breadcrumb>
@@ -185,7 +174,7 @@ export default function Page() {
                       Accounting
                     </BreadcrumbLink>
                     <BreadcrumbSeparator></BreadcrumbSeparator>
-                    <BreadcrumbPage className="text-white">Transaksi Bulanan</BreadcrumbPage>
+                    <BreadcrumbPage className="text-white">Daftar Transaksi</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
@@ -196,8 +185,7 @@ export default function Page() {
             {/* Income Table Card */}
             <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
               <CardHeader>
-                <CardTitle className="text-gray-900 text-center">Pemasukan</CardTitle>
-                <CardDescription className="text-center">Bulan Ini</CardDescription>
+                <CardTitle className="text-gray-900 text-center">Seluruh Pemasukan</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -227,8 +215,7 @@ export default function Page() {
             {/* Expense Table Card */}
             <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
               <CardHeader>
-                <CardTitle className="text-gray-900 text-center">Pengeluaran</CardTitle>
-                <CardDescription className="text-center">Bulan Ini</CardDescription>
+                <CardTitle className="text-gray-900 text-center">Seluruh Pengeluaran</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>

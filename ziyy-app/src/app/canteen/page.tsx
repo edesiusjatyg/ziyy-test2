@@ -106,31 +106,21 @@ export default function Page() {
                         <Link href="/canteen/tx-income">
                             <Card className="flex flex-col justify-between bg-white hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
-                                    <CardTitle>Pemasukan</CardTitle>
-                                    <CardDescription>Hari ini</CardDescription>
+                                    <CardTitle className="text-center">Pemasukan Hari Ini</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">Rp2.400.000</p>
+                                    <p className="text-center">Rp2.400.000</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                         <Link href="/canteen/tx-expense">
                             <Card className="flex flex-col justify-between bg-white hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
                                 <CardHeader>
-                                    <CardTitle>Pengeluaran</CardTitle>
-                                    <CardDescription>Hari ini</CardDescription>
+                                    <CardTitle className="text-center">Pengeluaran Hari Ini</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg font-semibold">Rp2.400.000</p>
+                                    <p className="text-center">Rp2.400.000</p>
                                 </CardContent>
-                                <CardFooter className="flex-row hover:text-gray-500 transition-all">
-                                    <ChevronsRight className="text-[#7bb3d6]"/>
-                                    <p className="text-md">Detail</p>
-                                </CardFooter>
                             </Card>
                         </Link>
                     </div>
