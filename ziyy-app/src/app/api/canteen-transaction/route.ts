@@ -1,4 +1,4 @@
-// API route for canteen resource
+// API route for transactions resource
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    const txs = await prisma.txCanteen.findMany({ include: { item: true } });
-    return NextResponse.json(txs, { status: 200 });
+    const transactions = await prisma.txCanteen.findMany();
+    return NextResponse.json(transactions, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch canteen transactions' }, { status: 500 });
   }
@@ -16,8 +16,8 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    const tx = await prisma.txCanteen.create({ data });
-    return NextResponse.json(tx, { status: 201 });
+    const transaction = await prisma.txCanteen.create({ data });
+    return NextResponse.json(transaction, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create canteen transaction' }, { status: 400 });
   }
@@ -26,8 +26,8 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const { id, ...data } = await req.json();
-    const tx = await prisma.txCanteen.update({ where: { id }, data });
-    return NextResponse.json(tx, { status: 200 });
+    const transaction = await prisma.txCanteen.update({ where: { id }, data });
+    return NextResponse.json(transaction, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to update canteen transaction' }, { status: 400 });
   }

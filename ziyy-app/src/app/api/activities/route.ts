@@ -1,21 +1,44 @@
-// API route for activities resource
-import { NextApiRequest, NextApiResponse } from 'next';
+  // API route for activities resource
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  switch (req.method) {
-    case 'GET':
-      // TODO: Implement GET logic
-      return res.status(200).json({ message: 'GET activities' });
-    case 'POST':
-      // TODO: Implement POST logic
-      return res.status(201).json({ message: 'POST activities' });
-    case 'PUT':
-      // TODO: Implement PUT logic
-      return res.status(200).json({ message: 'PUT activities' });
-    case 'DELETE':
-      // TODO: Implement DELETE logic
-      return res.status(200).json({ message: 'DELETE activities' });
-    default:
-      return res.status(405).json({ message: 'Method Not Allowed' });
+const prisma = new PrismaClient();
+
+export async function GET() {
+  try {
+    const activities = await prisma.activityMarketing.findMany({ include: { campaign: true } });
+    return NextResponse.json(activities, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to fetch activities' }, { status: 500 });
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const data = await req.json();
+    const activity = await prisma.activityMarketing.create({ data });
+    return NextResponse.json(activity, { status: 201 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to create activity' }, { status: 400 });
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  try {
+    const { id, ...data } = await req.json();
+    const activity = await prisma.activityMarketing.update({ where: { id }, data });
+    return NextResponse.json(activity, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to update activity' }, { status: 400 });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { id } = await req.json();
+    await prisma.activityMarketing.delete({ where: { id } });
+    return NextResponse.json({ message: 'Activity deleted' }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to delete activity' }, { status: 400 });
   }
 }

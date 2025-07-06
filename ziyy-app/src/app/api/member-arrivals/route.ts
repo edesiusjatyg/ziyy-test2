@@ -1,21 +1,44 @@
 // API route for member arrivals resource
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  switch (req.method) {
-    case 'GET':
-      // TODO: Implement GET logic
-      return res.status(200).json({ message: 'GET member arrivals' });
-    case 'POST':
-      // TODO: Implement POST logic
-      return res.status(201).json({ message: 'POST member arrivals' });
-    case 'PUT':
-      // TODO: Implement PUT logic
-      return res.status(200).json({ message: 'PUT member arrivals' });
-    case 'DELETE':
-      // TODO: Implement DELETE logic
-      return res.status(200).json({ message: 'DELETE member arrivals' });
-    default:
-      return res.status(405).json({ message: 'Method Not Allowed' });
+const prisma = new PrismaClient();
+
+export async function GET() {
+  try {
+    const arrivals = await prisma.memberArrival.findMany({ include: { member: true } });
+    return NextResponse.json(arrivals, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to fetch member arrivals' }, { status: 500 });
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const data = await req.json();
+    const arrival = await prisma.memberArrival.create({ data });
+    return NextResponse.json(arrival, { status: 201 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to create member arrival' }, { status: 400 });
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  try {
+    const { id, ...data } = await req.json();
+    const arrival = await prisma.memberArrival.update({ where: { id }, data });
+    return NextResponse.json(arrival, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to update member arrival' }, { status: 400 });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { id } = await req.json();
+    await prisma.memberArrival.delete({ where: { id } });
+    return NextResponse.json({ message: 'Member arrival deleted' }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to delete member arrival' }, { status: 400 });
   }
 }
