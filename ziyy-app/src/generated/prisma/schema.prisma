@@ -1,0 +1,195 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum PaymentMethod {
+  CASH
+  TRANSFER
+  DEBIT_BRI
+  QRIS_BRI
+  DEBIT_MANDIRI
+  QRIS_MANDIRI
+  EDC_MANDIRI
+  TRANSFER_MANDIRI
+}
+
+enum MembershipType {
+  PERSONAL
+  COUPLE
+  MUAY_THAI_MEMBER
+  MUAY_THAI_PRIVATE
+}
+
+enum MemberStatus {
+  ACTIVE
+  NEAR_EXPIRY
+  EXPIRED
+}
+
+enum ArrivalType {
+  GYM
+  GYM_PT
+}
+
+enum IncidentileType {
+  GYM
+  KELAS
+  SAUNA
+  PT
+}
+
+enum IncidentileClass {
+  ZUMBA
+  BODY_FAT
+  AEROBIC
+  MUAY_THAI
+  POUND_FIT
+  STRONG_NATION
+  YOGA
+}
+
+enum TransactionType {
+  PEMASUKAN
+  PENGELUARAN
+}
+
+enum UserRole {
+  ADMIN
+  SUPERVISOR
+  FRONT_OFFICE
+  CANTEEN
+  ACCOUNTING
+  MARKETING
+}
+
+model Member {
+  id         Int             @id @default(autoincrement())
+  name       String
+  nik        String
+  phone      String
+  membership MembershipType
+  ptAmount   Int?
+  joinDate   DateTime
+  expiryDate DateTime
+  status     MemberStatus
+  arrivals   MemberArrival[]
+  couples1   Couple[]        @relation("Member1Couple")
+  couples2   Couple[]        @relation("Member2Couple")
+}
+
+model Couple {
+  id        Int    @id @default(autoincrement())
+  member1Id Int
+  member2Id Int
+  member1   Member @relation("Member1Couple", fields: [member1Id], references: [id], onDelete: Cascade)
+  member2   Member @relation("Member2Couple", fields: [member2Id], references: [id], onDelete: Cascade)
+}
+
+model MemberArrival {
+  id          Int         @id @default(autoincrement())
+  memberId    Int
+  member      Member      @relation(fields: [memberId], references: [id])
+  arrivalDate DateTime
+  arrivalType ArrivalType
+}
+
+model Incidentile {
+  id            Int               @id @default(autoincrement())
+  name          String
+  type          IncidentileType
+  class         IncidentileClass?
+  pt            Boolean
+  sauna         Boolean
+  paymentMethod PaymentMethod
+  paymentAmount Int
+  date          DateTime
+}
+
+model TxFo {
+  id            Int             @id @default(autoincrement())
+  type          TransactionType
+  title         String?
+  note          String?
+  paymentMethod PaymentMethod
+  paymentAmount Int
+  date          DateTime
+}
+
+model TxCanteen {
+  id            Int             @id @default(autoincrement())
+  type          TransactionType
+  title         String?
+  note          String?
+  itemId        Int?
+  item          CanteenItem?    @relation(fields: [itemId], references: [id])
+  itemAmount    Int?
+  paymentMethod PaymentMethod
+  paymentAmount Int
+  date          DateTime
+}
+
+model TxAccounting {
+  id            Int             @id @default(autoincrement())
+  type          TransactionType
+  title         String
+  note          String?
+  paymentMethod PaymentMethod
+  paymentAmount Int
+  date          DateTime
+}
+
+model Campaign {
+  id          Int                 @id @default(autoincrement())
+  title       String
+  description String?
+  kpi         String?
+  startDate   DateTime
+  endDate     DateTime
+  status      String // e.g. "active", "inactive"
+  activities  ActivityMarketing[]
+}
+
+model ActivityMarketing {
+  id          Int       @id @default(autoincrement())
+  username    String
+  campaignId  Int?
+  campaign    Campaign? @relation(fields: [campaignId], references: [id])
+  title       String
+  description String?
+  date        DateTime
+}
+
+model CanteenItem {
+  id         Int         @id @default(autoincrement())
+  name       String
+  price      Int
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  txCanteens TxCanteen[]
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  username     String        @unique
+  passwordHash String
+  role         UserRole
+  createdAt    DateTime      @default(now())
+  lastLogin    DateTime? // Set manually on login, not @updatedAt
+  actions      UserActions[]
+}
+
+model UserActions {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  time        DateTime @default(now())
+  description String
+}
