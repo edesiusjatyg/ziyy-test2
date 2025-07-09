@@ -2,15 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CirclePlus, ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
 type Member = {
@@ -27,7 +25,7 @@ type Member = {
 export default function Page() {
     const router = useRouter();
 
-    const [mockMembers, setMockMembers] = useState<Member[]>([]);
+    const [mockMembers, setMockMembers] = useState<Member[]>([]);   
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -45,9 +43,12 @@ export default function Page() {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await fetch('/realMembers.json');
+                const response = await fetch('/api/members');
+                if(!response.ok){
+                    throw new Error('Failed to fetch members from API')
+                }
                 const data = await response.json();
-                setMockMembers(data.members);
+                setMockMembers(data);
             } catch (error) {
                 console.error('Error fetching members:', error);
             }
@@ -71,30 +72,61 @@ export default function Page() {
         }
     };
 
-    const handleSaveEdit = () => {
+    const handleSaveEdit = async () => {
         if (selectedMember) {
-            selectedMember.name = memberName;
-            selectedMember.nik = memberNik;
-            selectedMember.phone = memberTelp;
-            for(let i = 0; i < mockMembers.length; i++) {
-                if (mockMembers[i].id === selectedMember.id) {
-                    mockMembers[i] = selectedMember;
-                    break;
+            try{
+                const response = await fetch('/api/members', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: selectedMember.id,
+                        name: memberName,
+                        nik: memberNik,
+                        phone: memberTelp,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update member (API response)');
                 }
+
+                const updatedMember = await response.json();
+                setMockMembers(mockMembers.map(member => 
+                    member.id === updatedMember.id ? updatedMember : member
+                ));
+
+                setIsEditDialogOpen(false);
+            } catch (error) {
+                console.log('Error saving edit: ', error);
             }
-            setIsEditDialogOpen(false);
         }
     };
 
-    const handleDeleteMember = () => {
+    const handleDeleteMember = async () => {
         if(selectedMember){
-            const updatedMembers = mockMembers.filter(
-                (member) => member.id !== selectedMember.id
-            );
+            try{
+                const response = await fetch('/api/members', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: selectedMember.id
+                    }),
+                });
 
-            setMockMembers(updatedMembers);
-            setIsDeleteDialogOpen(false);
-            setIsDialogOpen(false);
+                if(!response.ok){
+                    throw new Error('Failed to delete member (API response)');
+                }
+                
+                setMockMembers(mockMembers.filter(member => member.id !== selectedMember.id));
+                setIsDeleteDialogOpen(false);
+                setIsDialogOpen(false);
+            } catch(error) {
+                console.log('Error deleting member: ', error);
+            }
         }
     };
 
