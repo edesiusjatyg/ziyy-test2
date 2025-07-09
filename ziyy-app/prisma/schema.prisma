@@ -83,6 +83,8 @@ model Member {
   arrivals     MemberArrival[]
   couples1     Couple[] @relation("Member1Couple")
   couples2     Couple[] @relation("Member2Couple")
+  @@index([status])
+  @@index([expiryDate])
 }
 
 model Couple {
