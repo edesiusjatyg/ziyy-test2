@@ -35,9 +35,21 @@ export default function Page() {
 
   useEffect(() => {
     setTimeout(() => setShow(true), 100);
-    fetch("/incidentile.json")
-      .then((res) => res.json())
-      .then((data) => setIncidentiles(data.incidentile || []));
+
+    const fetchIncidentiles = async () => {
+            try {
+                const response = await fetch('/api/incidentile');
+                if(!response.ok){
+                    throw new Error('Failed to fetch incidentiles from DB through API')
+                }
+                const data = await response.json();
+                setIncidentiles(data);
+            } catch (error) {
+                console.error('Error fetching incidentiles:', error);
+            }
+        };
+
+        fetchIncidentiles();
   }, []);
 
   const handleIncidentileClick = (incidentile: Incidentile) => {
@@ -52,28 +64,61 @@ export default function Page() {
     }
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = async () => {
     if (editIncidentile) {
-      setIncidentiles((prev) =>
-        prev.map((item) => (item.id === editIncidentile.id ? editIncidentile : item))
-      );
-      setIsEditDialogOpen(false);
-      setSelectedIncidentile(editIncidentile);
+        try {
+            const response = await fetch('/api/incidentile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(editIncidentile),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to update incidentile');
+            }
+
+            const updatedIncidentile = await response.json();
+            setIncidentiles(incidentiles.map(inc => inc.id === updatedIncidentile.id ? updatedIncidentile : inc));
+
+            setIsEditDialogOpen(false);
+            setSelectedIncidentile(updatedIncidentile);
+        } catch (error) {
+            console.error('Error saving edit:', error);
+        }
     }
-  };
+};
 
   const handleDeleteClick = () => {
     setIsDeleteDialogOpen(true);
   };
 
-  const handleDeleteIncidentile = () => {
+  const handleDeleteIncidentile = async () => {
     if (selectedIncidentile) {
-      setIncidentiles((prev) => prev.filter((item) => item.id !== selectedIncidentile.id));
-      setIsDeleteDialogOpen(false);
-      setIsDialogOpen(false);
-      setSelectedIncidentile(null);
+        try {
+            const response = await fetch('/api/incidentile', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: selectedIncidentile.id }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete incidentile');
+            }
+
+            setIncidentiles((prev) => prev.filter((item) => item.id !== selectedIncidentile.id));
+            setIsDeleteDialogOpen(false);
+            setIsDialogOpen(false);
+            setSelectedIncidentile(null);
+        } catch (error) {
+            console.error('Error deleting incidentile:', error);
+        }
     }
-  };
+};
 
   const getTypeBadge = (type: string, clas: string) => {
     switch (type) {
