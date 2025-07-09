@@ -108,43 +108,69 @@ export default function Page() {
 
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
+        
+        const fetchMembers = async () => {
+            try{
+                const response = await fetch('/api/members');
+                if(!response.ok){
+                    throw new Error('Failed to fetch members from DB through API')
+                }
 
-        fetch("/realMembers.json")
-            .then(res => res.json())
-            .then(data => {
-                setMembers(data.members || []);
-                // New members: joined today
+                const data = await response.json();
+                setMembers(data);
+
                 const today = new Date().toISOString().split("T")[0];
-                setNewMembers((data.members || []).filter((m: Member) => m.joinDate === today));
-                // Near expiry members: expiryDate within 7 days
+                setNewMembers((data || []).filter((m: Member) => m.joinDate === today));
+
                 const now = new Date();
-                setNearExpMembers((data.members || []).filter((m: Member) => {
+                setNearExpMembers((data || []).filter((m: Member) => {
                     if (!m.expiryDate) return false;
                     const expiry = new Date(m.expiryDate);
                     const diff = (expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
                     return diff >= 0 && diff <= 7;
                 }));
-            });
+            } catch (error) {
+                console.error('Error fetching members:', error);
+            }
+        }
 
-        fetch("/membersArrival.json")
-            .then(res => res.json())
-            .then(data => {
-                setMemberArrival(data.membersArrival || []);
+        const fetchArrivals = async () => {
+            try{
+                const response = await fetch('/api/member-arrivals');
+                if(!response.ok){
+                    throw new Error('Failed to fetch arrivals from DB through API')
+                }
+
+                const data = await response.json();
+                setMemberArrival(data);
+
                 const today = new Date().toISOString().split("T")[0];
-                setMemberArrival(data.membersArrival.filter((arrival: Arrival) => arrival.arrivalDate === today));
-            });
+                setMemberArrival(data.filter((arrival: Arrival) => arrival.arrivalDate === today));
+            } catch (error) {
+                console.error('Error fetching arrivals:', error);
+            }
+        }
 
-        fetch("/incidentile.json")
-            .then(res => res.json())
-            .then(data => {
-                setInsCount(data.incidentile || []);
+        const fetchIncidentiles = async () => {
+            try{
+                const response = await fetch('/api/incidentile');
+                if(!response.ok){
+                    throw new Error('Failed to fetch incidentiles from DB through API')
+                }
+
+                const data = await response.json();
+                setInsCount(data);
+
                 const today = new Date().toISOString().split("T")[0];
-                setInsCount(data.incidentile.filter((i: Insidentil) => i.date === today));
-            });
+                setInsCount(data.filter((i: Insidentil) => i.date === today));
+            } catch (error) {
+                console.error('Error fetching incidentiles:', error);
+            }
+        }
 
-        fetch("/txFo.json")
-            .then(res => res.json())
-            .then(data => setTransactions(data.txFo || []));
+        fetchMembers();
+        fetchArrivals();
+        fetchIncidentiles();
     }, []);
 
     useEffect(() => {

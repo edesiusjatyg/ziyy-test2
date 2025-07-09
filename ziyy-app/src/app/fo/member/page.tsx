@@ -45,7 +45,7 @@ export default function Page() {
             try {
                 const response = await fetch('/api/members');
                 if(!response.ok){
-                    throw new Error('Failed to fetch members from API')
+                    throw new Error('Failed to fetch members from DB through API')
                 }
                 const data = await response.json();
                 setMockMembers(data);
