@@ -395,24 +395,24 @@ export default function Page() {
     };
 
     const getStatusBadge = (status: string) => {
-      if (status === "Active") {
+      if (status.toUpperCase() === "ACTIVE") {
         return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
-      } else if (status === "NearExp") {
+      } else if (status.toUpperCase() === "NEAREXP") {
         return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>;
-      } else if (status === "Expired") {
+      } else if (status.toUpperCase() === "EXPIRED") {
         return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100">Expired</Badge>;
       }
       return null;
     };
 
     const getMembershipBadge = (membership: string) => {
-      if (membership === "Personal") {
+      if (membership.toUpperCase() === "PERSONAL") {
         return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Personal</Badge>;
-      } else if (membership === "Couple") {
+      } else if (membership.toUpperCase() === "COUPLE") {
         return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Couple</Badge>;
-      } else if (membership === "MuayThaiMember") {
+      } else if (membership.toUpperCase() === "MUAY_THAI_MEMBER") {
         return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Muay Thai Member</Badge>;
-      } else if (membership === "MuayThaiPrivate") {
+      } else if (membership.toUpperCase() === "MUAY_THAI_PRIVATE") {
         return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Muay Thai Private</Badge>;
       }
       return null;
@@ -494,15 +494,17 @@ export default function Page() {
                             </CardHeader>
                             <CardContent>
                                 <ScrollArea className="h-62 w-full">
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
-                                        {nearExpMembers.length === 0 ? (
+                                    {nearExpMembers.length === 0 ? (
+                                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-3">
                                             <p className="text-gray-700 text-center w-full">Tidak ada member yang mendekati habis.</p>
-                                        ) : (
-                                            nearExpMembers.map((member) => (
+                                        </div>
+                                    ) : (
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
+                                            {nearExpMembers.map((member) => (
                                                 <Card key={member.id} className="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-3 cursor-pointer" onClick={() => handleNearExpMemberClick(member)}>
                                                     <CardContent className="flex flex-col p-2">
                                                         <p className="text-sm font-semibold text-gray-900">{member.name}</p>
-                                                        <p className="text-xs text-gray-900">Exp: {member.expiryDate}</p>
+                                                        <p className="text-xs text-gray-900">Exp: {member.expiryDate.split("T")[0]}</p>
                                                         <p className="text-xs text-gray-900">Tipe: {member.membership}</p>
                                                     </CardContent>
                                                     <CardFooter className="flex gap-2 justify-end p-2">
@@ -511,9 +513,9 @@ export default function Page() {
                                                         </Button>
                                                     </CardFooter>
                                                 </Card>
-                                            )))
-                                        }
-                                    </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </ScrollArea>
                             </CardContent>
                         </Card>
@@ -926,11 +928,11 @@ export default function Page() {
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">Expiry Date</Label>
-                                <p className="text-sm">{selectedNearExpMember.expiryDate}</p>
+                                <p className="text-sm">{selectedNearExpMember.expiryDate.split("T")[0]}</p>
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">NIK</Label>
-                                <p className="text-sm">{selectedNearExpMember.nik}</p>
+                                <p className="text-sm">{selectedNearExpMember.nik ? selectedNearExpMember.nik : "-"}</p>
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">Status</Label>
@@ -938,7 +940,7 @@ export default function Page() {
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">HP</Label>
-                                <p className="text-sm">{selectedNearExpMember.phone}</p>
+                                <p className="text-sm">{selectedNearExpMember.phone ? selectedNearExpMember.phone : "-"}</p>
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">Membership</Label>
@@ -946,7 +948,7 @@ export default function Page() {
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">Join Date</Label>
-                                <p className="text-sm">{selectedNearExpMember.joinDate}</p>
+                                <p className="text-sm">{selectedNearExpMember.joinDate.split("T")[0]}</p>
                               </div>
                             </div>
                           </div>

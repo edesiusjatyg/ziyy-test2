@@ -131,21 +131,27 @@ export default function Page() {
     };
 
     const getStatusBadge = (status: string) => {
-        if (status === "Active") {
-            return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
-        } else if (status === "NearExp") {
-            return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>;
-        } else if (status === "Expired") {
-            return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100">Expired</Badge>;
-        }
+      if (status.toUpperCase() === "ACTIVE") {
+        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
+      } else if (status.toUpperCase() === "NEAREXP") {
+        return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>;
+      } else if (status.toUpperCase() === "EXPIRED") {
+        return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100">Expired</Badge>;
+      }
+      return null;
     };
 
     const getMembershipBadge = (membership: string) => {
-        if (membership === "Personal") {
-            return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Personal</Badge>;
-        } else if (membership === "Couple") {
-            return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Couple</Badge>;
-        }
+      if (membership.toUpperCase() === "PERSONAL") {
+        return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Personal</Badge>;
+      } else if (membership.toUpperCase() === "COUPLE") {
+        return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Couple</Badge>;
+      } else if (membership.toUpperCase() === "MUAY_THAI_MEMBER") {
+        return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Muay Thai Member</Badge>;
+      } else if (membership.toUpperCase() === "MUAY_THAI_PRIVATE") {
+        return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Muay Thai Private</Badge>;
+      }
+      return null;
     };
 
     // Filter members by search query
@@ -208,7 +214,7 @@ export default function Page() {
                                 <div className="space-y-2">
                                   <div>{getStatusBadge(member.status)} {getMembershipBadge(member.membership)}</div>
                                   <div></div>
-                                  <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
+                                  <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate.split("T")[0]}</div>
                                 </div>
                               </CardContent>
                               <CardFooter className="flex gap-2 justify-end">
@@ -241,12 +247,12 @@ export default function Page() {
 
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">Expiry Date</Label>
-                                            <p className="text-sm">{selectedMember.expiryDate}</p>
+                                            <p className="text-sm">{selectedMember.expiryDate.split("T")[0]}</p>
                                         </div>
 
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">NIK</Label>
-                                            <p className="text-sm">{selectedMember.nik}</p>
+                                            <p className="text-sm">{selectedMember.nik ? selectedMember.nik : "-"}</p>
                                         </div>
 
                                         <div>
@@ -258,7 +264,7 @@ export default function Page() {
 
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">HP</Label>
-                                            <p className="text-sm">{selectedMember.phone}</p>
+                                            <p className="text-sm">{selectedMember.phone ? selectedMember.phone : "-"}</p>
                                         </div>
 
                                         <div>
@@ -270,7 +276,7 @@ export default function Page() {
 
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">Join Date</Label>
-                                            <p className="text-sm">{selectedMember.joinDate}</p>
+                                            <p className="text-sm">{selectedMember.joinDate.split("T")[0]}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -374,14 +380,7 @@ export default function Page() {
 
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="memberType" className="text-right">Tipe</Label>
-                                        <Input
-                                            id="memberType"
-                                            value={memberType}
-                                            onChange={(e) => setMemberType(e.target.value)}
-                                            placeholder="Jenis Member"
-                                            className="col-span-3"
-                                            disabled
-                                        />
+                                        {getMembershipBadge(memberType)}
                                     </div>
                                 </div>
                             </div>
