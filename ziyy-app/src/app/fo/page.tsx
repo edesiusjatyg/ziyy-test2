@@ -257,23 +257,60 @@ export default function Page() {
         setIsAddMemberDialogOpen(false);
     };
 
-    const handleAddInsSubmit = () => {
-        console.log("Ins Name:", insName);
-        console.log("Ins Type:", insType);
-        console.log("Ins Class:", insClass);
-        console.log("Ins PT:", insPt);
-        console.log("Ins Sauna:", insSauna);
-        console.log("Payment Method:", paymentMethod);
-        console.log("Payment Amount:", paymentAmount);
-        setInsName("");
-        setInsType("");
-        setInsClass("");
-        setInsPt(false);
-        setInsSauna(false);
-        setPaymentMethod("");
-        setPaymentAmount("");
-        setIsAddInsDialogOpen(false);
-    }
+    const handleAddInsSubmit = async () => {
+        try {
+            const insResponse = await fetch('/api/incidentile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: insName,
+                    type: insType.toUpperCase(),
+                    class: insClass ? insClass.toUpperCase() : null,
+                    pt: insPt,
+                    sauna: insSauna,
+                    paymentMethod: paymentMethod.toUpperCase(),
+                    paymentAmount: getInsPaymentAmount(),
+                    date: new Date().toISOString(),
+                }),
+            });
+            const insResult = await insResponse.json();
+            if (!insResponse.ok) {
+                alert(insResult.error || 'Gagal menambah insidentil.');
+                return;
+            }
+
+            const txResponse = await fetch('/api/transaction-fo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: "PEMASUKAN",
+                    title: `Insidentil - ${insName}`,
+                    note: `Insidentil ${insType}${insClass ? ` (${insClass})` : ""}${insPt ? " + PT" : ""}${insSauna ? " + Sauna" : ""}`,
+                    paymentMethod: paymentMethod.toUpperCase(),
+                    paymentAmount: getInsPaymentAmount(),
+                    date: new Date().toISOString(),
+                }),
+            });
+            const txResult = await txResponse.json();
+            if (!txResponse.ok) {
+                alert(txResult.error || 'Gagal menambah transaksi FO.');
+                return;
+            }
+
+            setInsName("");
+            setInsType("");
+            setInsClass("");
+            setInsPt(false);
+            setInsSauna(false);
+            setPaymentMethod("");
+            setPaymentAmount("");
+            setIsAddInsDialogOpen(false);
+            setInsCount([insResult, ...insCount]);
+        } catch (error) {
+            alert('Terjadi kesalahan saat menambah insidentil.');
+            console.error(error);
+        }
+    };
 
     const handleAddTxSubmit = () => {
         console.log("Transaction Type:", txType);
