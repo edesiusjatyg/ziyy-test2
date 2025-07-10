@@ -16,9 +16,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Edit, Trash2, User } from "lucide-react";
+import { MemberSearch } from "@/components/ui/member-search";
 
 interface Member {
-  id: string;
+  id: number;
   name: string;
   nik: string;
   phone: string;
@@ -67,7 +68,6 @@ export default function Page() {
     const [memberDuration, setMemberDuration] = useState("");
     const [memberPt, setMemberPt] = useState(false);
     const [memberPtAmount, setMemberPtAmount] = useState("");
-    const [absenceType, setAbsenceType] = useState("");
 
     const [insName, setInsName] = useState("");
     const [insType, setInsType] = useState("");
@@ -105,6 +105,9 @@ export default function Page() {
     const [perpanjangType, setPerpanjangType] = useState("");
     const [perpanjangDuration, setPerpanjangDuration] = useState("");
     const [perpanjangMethod, setPerpanjangMethod] = useState("");
+
+    const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
+    const [absenceType, setAbsenceType] = useState("");
 
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
@@ -145,7 +148,9 @@ export default function Page() {
                 setMemberArrival(data);
 
                 const today = new Date().toISOString().split("T")[0];
-                setMemberArrival(data.filter((arrival: Arrival) => arrival.arrivalDate === today));
+                setMemberArrival(
+                    data.filter((arrival: Arrival) => arrival.arrivalDate && arrival.arrivalDate.split("T")[0] === today)
+                );
             } catch (error) {
                 console.error('Error fetching arrivals:', error);
             }
@@ -185,13 +190,46 @@ export default function Page() {
         }
     }, [insType, insClass, insPt, insSauna, isAddInsDialogOpen]);
 
-    const handleAbsenceSubmit = () => {
-        console.log("Member Name:", memberName);
-        console.log("Absence Type:", absenceType);
-        
-        setMemberName("");
-        setAbsenceType("");
-        setIsAbsDialogOpen(false);
+    const handleAbsenceSubmit = async () => {
+        if (!selectedMemberId || !absenceType) {
+            alert("Please provide the member's name and the arrival type.");
+            return;
+        }
+
+        const selectedMember = members.find(m => m.id === selectedMemberId);
+        if (selectedMember) {
+            if (selectedMember.status.toUpperCase() === "EXPIRED") {
+                alert("Member ini sudah expired. Tidak dapat mencatat kedatangan.");
+                return;
+            }
+        }
+
+        try {
+            const response = await fetch('/api/member-arrivals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    memberId: selectedMemberId,
+                    arrivalType: absenceType.toUpperCase(),
+                }),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(result.error || 'Failed to record arrival.');
+                return;
+            }
+            
+            setMemberArrival([result, ...memberArrival]);
+            setSelectedMemberId(null);
+            setAbsenceType("");
+            setIsAbsDialogOpen(false);
+        } catch (error) {
+            console.error('Error handling arrival submission:', error);
+        }
     };
 
     const handleAddMemberSubmit = () => {
@@ -539,23 +577,23 @@ export default function Page() {
                                     </DialogHeader>
                                     <div className="grid gap-4 py-4">
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="memberName" className="text-left">
-                                                Nama
-                                            </Label>
-                                            <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Lengkap Member" className="col-span-3" />
+                                            <Label htmlFor="memberName" className="text-left">Nama</Label>
+                                            <div className="col-span-3">
+                                                <MemberSearch members={members} onSelectMember={(id) => setSelectedMemberId(id)} />
+                                            </div>
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="absenceType" className="text-left">
-                                                Kedatangan
+                                            Kedatangan
                                             </Label>
                                             <Select value={absenceType} onValueChange={setAbsenceType}>
-                                                <SelectTrigger className="col-span-3">
-                                                    <SelectValue placeholder="Pilih Tipe Kedatangan" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="gym">Gym</SelectItem>
-                                                    <SelectItem value="gymPt">Gym + PT</SelectItem>
-                                                </SelectContent>
+                                            <SelectTrigger className="col-span-3">
+                                                <SelectValue placeholder="Pilih Tipe Kedatangan" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="GYM">Gym</SelectItem>
+                                                <SelectItem value="GYM_PT">Gym + PT</SelectItem>
+                                            </SelectContent>
                                             </Select>
                                         </div>
                                     </div>

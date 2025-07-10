@@ -9,7 +9,7 @@ export async function GET() {
     const txs = await prisma.txFo.findMany();
     return NextResponse.json(txs, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch accounting transactions' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch fo transactions' }, { status: 500 });
   }
 }
 
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     const tx = await prisma.txFo.create({ data });
     return NextResponse.json(tx, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to create accounting transaction' }, { status: 400 });
+    return NextResponse.json({ error: 'Failed to create fo transaction' }, { status: 400 });
   }
 }
 
@@ -29,7 +29,7 @@ export async function PUT(req: NextRequest) {
     const tx = await prisma.txFo.update({ where: { id }, data });
     return NextResponse.json(tx, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to update accounting transaction' }, { status: 400 });
+    return NextResponse.json({ error: 'Failed to update fo transaction' }, { status: 400 });
   }
 }
 
@@ -37,8 +37,8 @@ export async function DELETE(req: NextRequest) {
   try {
     const { id } = await req.json();
     await prisma.txFo.delete({ where: { id } });
-    return NextResponse.json({ message: 'Accounting transaction deleted' }, { status: 200 });
+    return NextResponse.json({ message: 'FO transaction deleted' }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to delete accounting transaction' }, { status: 400 });
+    return NextResponse.json({ error: 'Failed to delete fo transaction' }, { status: 400 });
   }
 }
