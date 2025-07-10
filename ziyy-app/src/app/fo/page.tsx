@@ -109,70 +109,69 @@ export default function Page() {
     const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
     const [absenceType, setAbsenceType] = useState("");
 
+    const fetchMembers = async () => {
+        try{
+            const response = await fetch('/api/members');
+            if(!response.ok){
+                throw new Error('Failed to fetch members from DB through API')
+            }
+
+            const data = await response.json();
+            setMembers(data);
+
+            const today = new Date().toISOString().split("T")[0];
+            setNewMembers((data || []).filter((m: Member) => m.joinDate && m.joinDate.split("T")[0] === today));
+
+            const now = new Date();
+            setNearExpMembers((data || []).filter((m: Member) => {
+                if (!m.expiryDate) return false;
+                const expiry = new Date(m.expiryDate);
+                const diff = (expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+                return diff >= 0 && diff <= 7;
+            }));
+        } catch (error) {
+            console.error('Error fetching members:', error);
+        }
+    }
+
+    const fetchIncidentiles = async () => {
+        try{
+            const response = await fetch('/api/incidentile');
+            if(!response.ok){
+                throw new Error('Failed to fetch incidentiles from DB through API')
+            }
+
+            const data = await response.json();
+            setInsCount(data);
+
+            const today = new Date().toISOString().split("T")[0];
+            setInsCount(data.filter((i: Insidentil) => i.date && i.date.split("T")[0] === today));
+        } catch (error) {
+            console.error('Error fetching incidentiles:', error);
+        }
+    }
+
+    const fetchArrivals = async () => {
+        try{
+            const response = await fetch('/api/member-arrivals');
+            if(!response.ok){
+                throw new Error('Failed to fetch arrivals from DB through API')
+            }
+
+            const data = await response.json();
+            setMemberArrival(data);
+
+            const today = new Date().toISOString().split("T")[0];
+            setMemberArrival(
+                data.filter((arrival: Arrival) => arrival.arrivalDate && arrival.arrivalDate.split("T")[0] === today)
+            );
+        } catch (error) {
+            console.error('Error fetching arrivals:', error);
+        }
+    }
+
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
-        
-        const fetchMembers = async () => {
-            try{
-                const response = await fetch('/api/members');
-                if(!response.ok){
-                    throw new Error('Failed to fetch members from DB through API')
-                }
-
-                const data = await response.json();
-                setMembers(data);
-
-                const today = new Date().toISOString().split("T")[0];
-                setNewMembers((data || []).filter((m: Member) => m.joinDate === today));
-
-                const now = new Date();
-                setNearExpMembers((data || []).filter((m: Member) => {
-                    if (!m.expiryDate) return false;
-                    const expiry = new Date(m.expiryDate);
-                    const diff = (expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
-                    return diff >= 0 && diff <= 7;
-                }));
-            } catch (error) {
-                console.error('Error fetching members:', error);
-            }
-        }
-
-        const fetchArrivals = async () => {
-            try{
-                const response = await fetch('/api/member-arrivals');
-                if(!response.ok){
-                    throw new Error('Failed to fetch arrivals from DB through API')
-                }
-
-                const data = await response.json();
-                setMemberArrival(data);
-
-                const today = new Date().toISOString().split("T")[0];
-                setMemberArrival(
-                    data.filter((arrival: Arrival) => arrival.arrivalDate && arrival.arrivalDate.split("T")[0] === today)
-                );
-            } catch (error) {
-                console.error('Error fetching arrivals:', error);
-            }
-        }
-
-        const fetchIncidentiles = async () => {
-            try{
-                const response = await fetch('/api/incidentile');
-                if(!response.ok){
-                    throw new Error('Failed to fetch incidentiles from DB through API')
-                }
-
-                const data = await response.json();
-                setInsCount(data);
-
-                const today = new Date().toISOString().split("T")[0];
-                setInsCount(data.filter((i: Insidentil) => i.date === today));
-            } catch (error) {
-                console.error('Error fetching incidentiles:', error);
-            }
-        }
-
         fetchMembers();
         fetchArrivals();
         fetchIncidentiles();
@@ -223,38 +222,94 @@ export default function Page() {
                 return;
             }
             
-            setMemberArrival([result, ...memberArrival]);
             setSelectedMemberId(null);
             setAbsenceType("");
             setIsAbsDialogOpen(false);
+            alert(`Kedatangan ${selectedMember?.name} berhasil dicatat.`);
+            fetchArrivals();
         } catch (error) {
             console.error('Error handling arrival submission:', error);
         }
     };
 
-    const handleAddMemberSubmit = () => {
-        console.log("Member Name:", memberName);
-        console.log("Member NIK:", memberNik);
-        console.log("Member Telp:", memberTelp);
-        console.log("Couple Name:", coupleName);
-        console.log("Couple NIK:", coupleNik);
-        console.log("Couple Telp:", coupleTelp);
-        console.log("Member Type:", memberType);
-        console.log("Member Duration:", memberDuration);
-        console.log("Payment Amount:", paymentAmount);
-        console.log("Payment Method:", paymentMethod);
-        
-        setMemberName("");
-        setCoupleName("");
-        setMemberNik("");
-        setCoupleNik("");
-        setMemberTelp("");
-        setCoupleTelp("");
-        setMemberType("");
-        setMemberDuration("");
-        setPaymentAmount("");
-        setPaymentMethod("");
-        setIsAddMemberDialogOpen(false);
+    const handleAddMemberSubmit = async () => {
+        try {
+            const memberPayload: any = {
+                name: memberName,
+                nik: memberNik,
+                phone: memberTelp,
+                membership: memberType.toUpperCase(),
+                ptAmount: memberPt ? parseInt(memberPtAmount) : null,
+                joinDate: new Date().toISOString(),
+                expiryDate: (() => {
+                    const now = new Date();
+                    if (memberDuration === "1") now.setMonth(now.getMonth() + 1);
+                    else if (memberDuration === "7") now.setMonth(now.getMonth() + 7);
+                    else if (memberDuration === "15") now.setMonth(now.getMonth() + 15);
+                    return now.toISOString();
+                })(),
+                status: "ACTIVE",
+            };
+
+            let couplePayload = null;
+            if (memberType === "couple") {
+                couplePayload = {
+                    name: coupleName,
+                    nik: coupleNik,
+                    phone: coupleTelp,
+                    membership: "COUPLE",
+                    joinDate: new Date().toISOString(),
+                    expiryDate: memberPayload.expiryDate,
+                    status: "ACTIVE",
+                };
+            }
+
+            const memberRes = await fetch('/api/members', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ member: memberPayload, couple: couplePayload }),
+            });
+            const memberResult = await memberRes.json();
+            if (!memberRes.ok) {
+                alert(memberResult.error || 'Gagal menambah member.');
+                return;
+            }
+
+            const txRes = await fetch('/api/transaction-fo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: "PEMASUKAN",
+                    title: `Pendaftaran Member Baru - ${memberName}`,
+                    note: memberType === "couple" ? `Couple: ${coupleName}` : "",
+                    paymentMethod: paymentMethod.toUpperCase(),
+                    paymentAmount: getMemberPaymentAmount(),
+                    date: new Date().toISOString(),
+                }),
+            });
+            const txResult = await txRes.json();
+            if (!txRes.ok) {
+                alert(txResult.error || 'Gagal menambah transaksi FO.');
+                return;
+            }
+
+            setMemberName("");
+            setCoupleName("");
+            setMemberNik("");
+            setCoupleNik("");
+            setMemberTelp("");
+            setCoupleTelp("");
+            setMemberType("");
+            setMemberDuration("");
+            setPaymentAmount("");
+            setPaymentMethod("");
+            setIsAddMemberDialogOpen(false);
+            alert(`Member ${memberName} berhasil ditambahkan.`);
+            fetchMembers();
+        } catch (error) {
+            alert('Terjadi kesalahan saat menambah member.');
+            console.error(error);
+        }
     };
 
     const handleAddInsSubmit = async () => {
@@ -305,7 +360,8 @@ export default function Page() {
             setPaymentMethod("");
             setPaymentAmount("");
             setIsAddInsDialogOpen(false);
-            setInsCount([insResult, ...insCount]);
+            alert(`Insidentil ${insName} berhasil ditambahkan.`);
+            fetchIncidentiles();
         } catch (error) {
             alert('Terjadi kesalahan saat menambah insidentil.');
             console.error(error);
@@ -760,14 +816,14 @@ export default function Page() {
                                                     <SelectValue placeholder="Pilih Metode Pembayaran" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="cash">Cash</SelectItem>
-                                                    <SelectItem value="transfer">Transfer</SelectItem>
-                                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                    <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                    <SelectItem value="CASH">Cash</SelectItem>
+                                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -862,14 +918,14 @@ export default function Page() {
                                                     <SelectValue placeholder="Pilih Metode Pembayaran" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="cash">Cash</SelectItem>
-                                                    <SelectItem value="transfer">Transfer</SelectItem>
-                                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                    <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                    <SelectItem value="CASH">Cash</SelectItem>
+                                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -937,14 +993,14 @@ export default function Page() {
                                                         <SelectValue placeholder="Pilih Metode Pembayaran" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        <SelectItem value="cash">Cash</SelectItem>
-                                                        <SelectItem value="transfer">Transfer</SelectItem>
-                                                        <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                        <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                                        <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                                        <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                                        <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                                        <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                        <SelectItem value="CASH">Cash</SelectItem>
+                                                        <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                        <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                        <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                        <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                        <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                        <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                        <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                             </div>
@@ -1154,14 +1210,14 @@ export default function Page() {
                                   <SelectValue placeholder="Pilih Metode Pembayaran" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="cash">Cash</SelectItem>
-                                  <SelectItem value="transfer">Transfer</SelectItem>
-                                  <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                  <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                  <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                  <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                  <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                  <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                    <SelectItem value="CASH">Cash</SelectItem>
+                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>

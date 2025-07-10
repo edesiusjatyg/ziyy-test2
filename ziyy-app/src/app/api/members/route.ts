@@ -31,11 +31,23 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const data = await req.json();
-    const member = await prisma.member.create({ data });
-    return NextResponse.json(member, { status: 201 });
+    const { member, couple } = await req.json();
+    let createdMember, createdCouple;
+
+    createdMember = await prisma.member.create({ data: member });
+    if (couple) {
+      createdCouple = await prisma.member.create({ data: couple });
+      await prisma.couple.create({
+        data: {
+          member1Id: createdMember.id,
+          member2Id: createdCouple.id,
+        },
+      });
+    }
+
+    return NextResponse.json({ member: createdMember, couple: createdCouple }, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to create member' }, { status: 400 });
+    return NextResponse.json({ error: 'Failed to create member/couple' }, { status: 400 });
   }
 }
 
