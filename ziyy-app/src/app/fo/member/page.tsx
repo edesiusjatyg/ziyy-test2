@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { MembershipType } from "@/generated/prisma/client";
 
 type Member = {
     id: number;
@@ -38,6 +39,8 @@ export default function Page() {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [show, setShow] = useState(false);
+    const [coupleName, setCoupleName] = useState<string>("");
+
     useEffect(() => { setTimeout(() => {setShow(true)}, 100); }, []);
 
     useEffect(() => {
@@ -56,6 +59,24 @@ export default function Page() {
 
         fetchMembers();
     }, []);
+
+    useEffect(() => {
+        if (selectedMember && selectedMember.membership.toUpperCase() === "COUPLE") {
+            const fetchCouple = async () => {
+                try {
+                    const response = await fetch(`/api/couples?id=${selectedMember.id}`);
+                    if (!response.ok) throw new Error('Failed to fetch couple info');
+                    const data = await response.json();
+                    setCoupleName(data.coupleName || "");
+                } catch (error) {
+                    setCoupleName("");
+                }
+            };
+            fetchCouple();
+        } else {
+            setCoupleName("");
+        }
+    }, [selectedMember]);
 
     const handleMemberClick = (member: Member) => {
         setSelectedMember(member);
@@ -107,6 +128,14 @@ export default function Page() {
     const handleDeleteMember = async () => {
         if(selectedMember){
             try{
+                if (selectedMember.membership.toUpperCase() === "COUPLE") {
+                    await fetch('/api/couples', {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: selectedMember.id })
+                    });
+                }
+
                 const response = await fetch('/api/members', {
                     method: 'DELETE',
                     headers: {
@@ -120,7 +149,7 @@ export default function Page() {
                 if(!response.ok){
                     throw new Error('Failed to delete member (API response)');
                 }
-                
+
                 setMockMembers(mockMembers.filter(member => member.id !== selectedMember.id));
                 setIsDeleteDialogOpen(false);
                 setIsDialogOpen(false);
@@ -159,6 +188,11 @@ export default function Page() {
       member.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    // Count variables
+    const totalMembers = mockMembers.length;
+    const activeMembers = mockMembers.filter(m => m.status.toUpperCase() === "ACTIVE").length;
+    const expiredMembers = mockMembers.filter(m => m.status.toUpperCase() === "EXPIRED").length;
+
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
             <div className={`w-full py-8 px-8 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
@@ -193,6 +227,33 @@ export default function Page() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full max-w-xs bg-white/80 hover:bg-white focus:bg-white focus:ring-2 focus:ring-[#7bb3d6] focus:border-transparent rounded-lg shadow-sm transition-all"
                       />
+                    </div>
+
+                    <div className="grid grid-cols-6 gap-4 px-8 pt-8 pb-4">
+                        <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
+                            <CardHeader>
+                                <CardTitle className="text-gray-900 text-center">Total Member</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-lg text-gray-700 text-center">{totalMembers}</p>
+                            </CardContent>
+                        </Card>
+                        <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
+                            <CardHeader>
+                                <CardTitle className="text-gray-900 text-center">Member Aktif</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-lg text-green-700 text-center">{activeMembers}</p>
+                            </CardContent>
+                        </Card>
+                        <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
+                            <CardHeader>
+                                <CardTitle className="text-gray-900 text-center">Member Expired</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-lg text-gray-500 text-center">{expiredMembers}</p>
+                            </CardContent>
+                        </Card>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 px-8 pb-8">
@@ -244,6 +305,12 @@ export default function Page() {
                                             <Label className="text-sm font-medium text-gray-600">Nama</Label>
                                             <p className="text-sm font-semibold">{selectedMember.name}</p>
                                         </div>
+
+                                        <div hidden={selectedMember.membership.toUpperCase() !== "COUPLE"}>
+                                            <Label className="text-sm font-medium text-gray-600">Nama Couple</Label>
+                                            <p className="text-sm font-semibold">{coupleName || '-'}</p>
+                                        </div>
+
 
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">Expiry Date</Label>
@@ -353,6 +420,18 @@ export default function Page() {
                                             onChange={(e) => setMemberName(e.target.value)}
                                             placeholder="Nama Lengkap Member"
                                             className="col-span-3"
+                                        />
+                                    </div>
+
+                                    <div hidden={memberType.toUpperCase() !== "COUPLE"} className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="coupleName" className="text-right">Nama Couple</Label>
+                                        <Input
+                                            id="memberName"
+                                            value={coupleName}
+                                            onChange={(e) => setCoupleName(e.target.value)}
+                                            placeholder={coupleName ? "Nama Couple" : "-"}
+                                            className="col-span-3"
+                                            disabled
                                         />
                                     </div>
 
