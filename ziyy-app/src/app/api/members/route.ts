@@ -54,9 +54,15 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const { id, ...data } = await req.json();
-    const member = await prisma.member.update({ where: { id }, data });
+    const before = await prisma.member.findUnique({ where: { id: Number(id) } });
+    console.log("Before update:", before);
+    console.log("Updating with:", data);
+    const member = await prisma.member.update({ where: { id: Number(id) }, data });
+    const after = await prisma.member.findUnique({ where: { id: Number(id) } });
+    console.log("After update:", after);
     return NextResponse.json(member, { status: 200 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: 'Failed to update member' }, { status: 400 });
   }
 }

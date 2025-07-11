@@ -444,21 +444,68 @@ export default function Page() {
       }
     };
 
-    const handlePerpanjangSubmit = () => {
-      console.log("Perpanjang Member Name:", perpanjangName);
-      console.log("Perpanjang NIK:", perpanjangNik);
-      console.log("Perpanjang Telp:", perpanjangTelp);
-      console.log("Perpanjang Type:", perpanjangType);
-      console.log("Perpanjang Duration:", perpanjangDuration);
-      console.log("Perpanjang Method:", perpanjangMethod);
-      
-      setPerpanjangName("");
-      setPerpanjangNik("");
-      setPerpanjangTelp("");
-      setPerpanjangType("");
-      setPerpanjangDuration("");
-      setPerpanjangMethod("");
-      setIsNearExpPerpanjangDialogOpen(false);
+    const handlePerpanjangSubmit = async () => {
+      try {
+        const memberToUpdate = members.find(m => m.id === selectedNearExpMember?.id);
+        if (!memberToUpdate) {
+          alert('Member tidak ditemukan.');
+          return;
+        }
+        
+        const now = new Date();
+        let baseDate = new Date(memberToUpdate.expiryDate);
+        if (baseDate < now) baseDate = now;
+        let newExpiry = new Date(baseDate);
+        if (perpanjangDuration === "1") newExpiry.setMonth(newExpiry.getMonth() + 1);
+        else if (perpanjangDuration === "7") newExpiry.setMonth(newExpiry.getMonth() + 7);
+        else if (perpanjangDuration === "15") newExpiry.setMonth(newExpiry.getMonth() + 15);
+        
+        const putRes = await fetch('/api/members', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: memberToUpdate.id,
+            expiryDate: newExpiry.toISOString(),
+            status: 'ACTIVE',
+          }),
+        });
+        const putResult = await putRes.json();
+        if (!putRes.ok) {
+          alert(putResult.error || 'Gagal memperpanjang member.');
+          return;
+        }
+        
+        const txRes = await fetch('/api/transaction-fo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'PEMASUKAN',
+            title: `Perpanjang Member - ${perpanjangName}`,
+            note: '',
+            paymentMethod: perpanjangMethod.toUpperCase(),
+            paymentAmount: getPerpanjangAmount(),
+            date: new Date().toISOString(),
+          }),
+        });
+        const txResult = await txRes.json();
+        if (!txRes.ok) {
+          alert(txResult.error || 'Gagal menambah transaksi perpanjang.');
+          return;
+        }
+        setPerpanjangName("");
+        setPerpanjangNik("");
+        setPerpanjangTelp("");
+        setPerpanjangType("");
+        setPerpanjangDuration("");
+        setPerpanjangMethod("");
+        setIsNearExpPerpanjangDialogOpen(false);
+        setSelectedNearExpMember(null);
+        alert(`Member ${perpanjangName} berhasil diperpanjang.`);
+        fetchMembers();
+      } catch (error) {
+        alert('Terjadi kesalahan saat memperpanjang member.');
+        console.error(error);
+      }
     };
 
     const getPerpanjangAmount = () => {
@@ -1154,6 +1201,7 @@ export default function Page() {
                                 onChange={e => setPerpanjangName(e.target.value)}
                                 placeholder="Nama Lengkap Member"
                                 className="col-span-3"
+                                disabled
                               />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
@@ -1164,6 +1212,7 @@ export default function Page() {
                                 onChange={e => setPerpanjangNik(e.target.value)}
                                 placeholder="NIK Member"
                                 className="col-span-3"
+                                disabled
                               />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
@@ -1174,6 +1223,7 @@ export default function Page() {
                                 onChange={e => setPerpanjangTelp(e.target.value)}
                                 placeholder="No Telp Member"
                                 className="col-span-3"
+                                disabled
                               />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
