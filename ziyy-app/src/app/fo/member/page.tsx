@@ -219,7 +219,7 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2 px-8 pb-4">
+                    <div className="flex items-center gap-2 px-8 pb-8">
                       <Input
                         type="text"
                         placeholder="Cari nama member..."
@@ -229,7 +229,7 @@ export default function Page() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-6 gap-4 px-8 pt-8 pb-4">
+                    <div className="grid grid-cols-6 gap-4 px-8 pb-4">
                         <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 text-center">Total Member</CardTitle>
@@ -263,7 +263,7 @@ export default function Page() {
                         {filteredMembers.sort((a, b) => b.id - a.id).map((member) => (
                             <Card
                               key={member.id}
-                              className="cursor-pointer hover:shadow-lg transition-shadow bg-white"
+                              className="cursor-pointer hover:shadow-lg transition-shadow bg-white justify-between"
                               onClick={() => handleMemberClick(member)}
                             >
                               <CardHeader>

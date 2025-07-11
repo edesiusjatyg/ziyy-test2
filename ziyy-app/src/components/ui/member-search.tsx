@@ -58,25 +58,28 @@ export function MemberSearch({ members, onSelectMember }: MemberSearchProps) {
           <CommandList>
             <CommandEmpty>No member found.</CommandEmpty>
             <CommandGroup>
-              {members.map((member) => (
-                <CommandItem
-                  key={member.id}
-                  value={member.name} // Search by name
-                  onSelect={() => {
-                    setValue(member.id)
-                    onSelectMember(member.id)
-                    setOpen(false)
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === member.id ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {member.name}
-                </CommandItem>
-              ))}
+              {members
+                .slice() // create a copy
+                .sort((a, b) => b.id - a.id)
+                .map((member) => (
+                  <CommandItem
+                    key={member.id}
+                    value={member.name}
+                    onSelect={() => {
+                      setValue(member.id)
+                      onSelectMember(member.id)
+                      setOpen(false)
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === member.id ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {member.name}
+                  </CommandItem>
+                ))}
             </CommandGroup>
           </CommandList>
         </Command>
