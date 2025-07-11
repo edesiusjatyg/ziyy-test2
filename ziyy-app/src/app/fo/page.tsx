@@ -16,9 +16,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Edit, Trash2, User } from "lucide-react";
+import { MemberSearch } from "@/components/ui/member-search";
 
 interface Member {
-  id: string;
+  id: number;
   name: string;
   nik: string;
   phone: string;
@@ -67,7 +68,6 @@ export default function Page() {
     const [memberDuration, setMemberDuration] = useState("");
     const [memberPt, setMemberPt] = useState(false);
     const [memberPtAmount, setMemberPtAmount] = useState("");
-    const [absenceType, setAbsenceType] = useState("");
 
     const [insName, setInsName] = useState("");
     const [insType, setInsType] = useState("");
@@ -106,45 +106,75 @@ export default function Page() {
     const [perpanjangDuration, setPerpanjangDuration] = useState("");
     const [perpanjangMethod, setPerpanjangMethod] = useState("");
 
+    const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
+    const [absenceType, setAbsenceType] = useState("");
+
+    const fetchMembers = async () => {
+        try{
+            const response = await fetch('/api/members');
+            if(!response.ok){
+                throw new Error('Failed to fetch members from DB through API')
+            }
+
+            const data = await response.json();
+            setMembers(data);
+
+            const today = new Date().toISOString().split("T")[0];
+            setNewMembers((data || []).filter((m: Member) => m.joinDate && m.joinDate.split("T")[0] === today));
+
+            const now = new Date();
+            setNearExpMembers((data || []).filter((m: Member) => {
+                if (!m.expiryDate) return false;
+                const expiry = new Date(m.expiryDate);
+                const diff = (expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+                return diff >= 0 && diff <= 7;
+            }));
+        } catch (error) {
+            console.error('Error fetching members:', error);
+        }
+    }
+
+    const fetchIncidentiles = async () => {
+        try{
+            const response = await fetch('/api/incidentile');
+            if(!response.ok){
+                throw new Error('Failed to fetch incidentiles from DB through API')
+            }
+
+            const data = await response.json();
+            setInsCount(data);
+
+            const today = new Date().toISOString().split("T")[0];
+            setInsCount(data.filter((i: Insidentil) => i.date && i.date.split("T")[0] === today));
+        } catch (error) {
+            console.error('Error fetching incidentiles:', error);
+        }
+    }
+
+    const fetchArrivals = async () => {
+        try{
+            const response = await fetch('/api/member-arrivals');
+            if(!response.ok){
+                throw new Error('Failed to fetch arrivals from DB through API')
+            }
+
+            const data = await response.json();
+            setMemberArrival(data);
+
+            const today = new Date().toISOString().split("T")[0];
+            setMemberArrival(
+                data.filter((arrival: Arrival) => arrival.arrivalDate && arrival.arrivalDate.split("T")[0] === today)
+            );
+        } catch (error) {
+            console.error('Error fetching arrivals:', error);
+        }
+    }
+
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
-
-        fetch("/realMembers.json")
-            .then(res => res.json())
-            .then(data => {
-                setMembers(data.members || []);
-                // New members: joined today
-                const today = new Date().toISOString().split("T")[0];
-                setNewMembers((data.members || []).filter((m: Member) => m.joinDate === today));
-                // Near expiry members: expiryDate within 7 days
-                const now = new Date();
-                setNearExpMembers((data.members || []).filter((m: Member) => {
-                    if (!m.expiryDate) return false;
-                    const expiry = new Date(m.expiryDate);
-                    const diff = (expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
-                    return diff >= 0 && diff <= 7;
-                }));
-            });
-
-        fetch("/membersArrival.json")
-            .then(res => res.json())
-            .then(data => {
-                setMemberArrival(data.membersArrival || []);
-                const today = new Date().toISOString().split("T")[0];
-                setMemberArrival(data.membersArrival.filter((arrival: Arrival) => arrival.arrivalDate === today));
-            });
-
-        fetch("/incidentile.json")
-            .then(res => res.json())
-            .then(data => {
-                setInsCount(data.incidentile || []);
-                const today = new Date().toISOString().split("T")[0];
-                setInsCount(data.incidentile.filter((i: Insidentil) => i.date === today));
-            });
-
-        fetch("/txFo.json")
-            .then(res => res.json())
-            .then(data => setTransactions(data.txFo || []));
+        fetchMembers();
+        fetchArrivals();
+        fetchIncidentiles();
     }, []);
 
     useEffect(() => {
@@ -159,57 +189,184 @@ export default function Page() {
         }
     }, [insType, insClass, insPt, insSauna, isAddInsDialogOpen]);
 
-    const handleAbsenceSubmit = () => {
-        console.log("Member Name:", memberName);
-        console.log("Absence Type:", absenceType);
-        
-        setMemberName("");
-        setAbsenceType("");
-        setIsAbsDialogOpen(false);
+    const handleAbsenceSubmit = async () => {
+        if (!selectedMemberId || !absenceType) {
+            alert("Please provide the member's name and the arrival type.");
+            return;
+        }
+
+        const selectedMember = members.find(m => m.id === selectedMemberId);
+        if (selectedMember) {
+            if (selectedMember.status.toUpperCase() === "EXPIRED") {
+                alert("Member ini sudah expired. Tidak dapat mencatat kedatangan.");
+                return;
+            }
+        }
+
+        try {
+            const response = await fetch('/api/member-arrivals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    memberId: selectedMemberId,
+                    arrivalType: absenceType.toUpperCase(),
+                }),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(result.error || 'Failed to record arrival.');
+                return;
+            }
+            
+            setSelectedMemberId(null);
+            setAbsenceType("");
+            setIsAbsDialogOpen(false);
+            alert(`Kedatangan ${selectedMember?.name} berhasil dicatat.`);
+            fetchArrivals();
+        } catch (error) {
+            console.error('Error handling arrival submission:', error);
+        }
     };
 
-    const handleAddMemberSubmit = () => {
-        console.log("Member Name:", memberName);
-        console.log("Member NIK:", memberNik);
-        console.log("Member Telp:", memberTelp);
-        console.log("Couple Name:", coupleName);
-        console.log("Couple NIK:", coupleNik);
-        console.log("Couple Telp:", coupleTelp);
-        console.log("Member Type:", memberType);
-        console.log("Member Duration:", memberDuration);
-        console.log("Payment Amount:", paymentAmount);
-        console.log("Payment Method:", paymentMethod);
-        
-        setMemberName("");
-        setCoupleName("");
-        setMemberNik("");
-        setCoupleNik("");
-        setMemberTelp("");
-        setCoupleTelp("");
-        setMemberType("");
-        setMemberDuration("");
-        setPaymentAmount("");
-        setPaymentMethod("");
-        setIsAddMemberDialogOpen(false);
+    const handleAddMemberSubmit = async () => {
+        try {
+            const memberPayload: any = {
+                name: memberName,
+                nik: memberNik,
+                phone: memberTelp,
+                membership: memberType.toUpperCase(),
+                ptAmount: memberPt ? parseInt(memberPtAmount) : null,
+                joinDate: new Date().toISOString(),
+                expiryDate: (() => {
+                    const now = new Date();
+                    if (memberDuration === "1") now.setMonth(now.getMonth() + 1);
+                    else if (memberDuration === "7") now.setMonth(now.getMonth() + 7);
+                    else if (memberDuration === "15") now.setMonth(now.getMonth() + 15);
+                    return now.toISOString();
+                })(),
+                status: "ACTIVE",
+            };
+
+            let couplePayload = null;
+            if (memberType === "couple") {
+                couplePayload = {
+                    name: coupleName,
+                    nik: coupleNik,
+                    phone: coupleTelp,
+                    membership: "COUPLE",
+                    joinDate: new Date().toISOString(),
+                    expiryDate: memberPayload.expiryDate,
+                    status: "ACTIVE",
+                };
+            }
+
+            const memberRes = await fetch('/api/members', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ member: memberPayload, couple: couplePayload }),
+            });
+            const memberResult = await memberRes.json();
+            if (!memberRes.ok) {
+                alert(memberResult.error || 'Gagal menambah member.');
+                return;
+            }
+
+            const txRes = await fetch('/api/transaction-fo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: "PEMASUKAN",
+                    title: `Pendaftaran Member Baru - ${memberName}`,
+                    note: memberType === "couple" ? `Couple: ${coupleName}` : "",
+                    paymentMethod: paymentMethod.toUpperCase(),
+                    paymentAmount: getMemberPaymentAmount(),
+                    date: new Date().toISOString(),
+                }),
+            });
+            const txResult = await txRes.json();
+            if (!txRes.ok) {
+                alert(txResult.error || 'Gagal menambah transaksi FO.');
+                return;
+            }
+
+            setMemberName("");
+            setCoupleName("");
+            setMemberNik("");
+            setCoupleNik("");
+            setMemberTelp("");
+            setCoupleTelp("");
+            setMemberType("");
+            setMemberDuration("");
+            setPaymentAmount("");
+            setPaymentMethod("");
+            setIsAddMemberDialogOpen(false);
+            alert(`Member ${memberName} berhasil ditambahkan.`);
+            fetchMembers();
+        } catch (error) {
+            alert('Terjadi kesalahan saat menambah member.');
+            console.error(error);
+        }
     };
 
-    const handleAddInsSubmit = () => {
-        console.log("Ins Name:", insName);
-        console.log("Ins Type:", insType);
-        console.log("Ins Class:", insClass);
-        console.log("Ins PT:", insPt);
-        console.log("Ins Sauna:", insSauna);
-        console.log("Payment Method:", paymentMethod);
-        console.log("Payment Amount:", paymentAmount);
-        setInsName("");
-        setInsType("");
-        setInsClass("");
-        setInsPt(false);
-        setInsSauna(false);
-        setPaymentMethod("");
-        setPaymentAmount("");
-        setIsAddInsDialogOpen(false);
-    }
+    const handleAddInsSubmit = async () => {
+        try {
+            const insResponse = await fetch('/api/incidentile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: insName,
+                    type: insType.toUpperCase(),
+                    class: insClass ? insClass.toUpperCase() : null,
+                    pt: insPt,
+                    sauna: insSauna,
+                    paymentMethod: paymentMethod.toUpperCase(),
+                    paymentAmount: getInsPaymentAmount(),
+                    date: new Date().toISOString(),
+                }),
+            });
+            const insResult = await insResponse.json();
+            if (!insResponse.ok) {
+                alert(insResult.error || 'Gagal menambah insidentil.');
+                return;
+            }
+
+            const txResponse = await fetch('/api/transaction-fo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: "PEMASUKAN",
+                    title: `Insidentil - ${insName}`,
+                    note: `Insidentil ${insType}${insClass ? ` (${insClass})` : ""}${insPt ? " + PT" : ""}${insSauna ? " + Sauna" : ""}`,
+                    paymentMethod: paymentMethod.toUpperCase(),
+                    paymentAmount: getInsPaymentAmount(),
+                    date: new Date().toISOString(),
+                }),
+            });
+            const txResult = await txResponse.json();
+            if (!txResponse.ok) {
+                alert(txResult.error || 'Gagal menambah transaksi FO.');
+                return;
+            }
+
+            setInsName("");
+            setInsType("");
+            setInsClass("");
+            setInsPt(false);
+            setInsSauna(false);
+            setPaymentMethod("");
+            setPaymentAmount("");
+            setIsAddInsDialogOpen(false);
+            alert(`Insidentil ${insName} berhasil ditambahkan.`);
+            fetchIncidentiles();
+        } catch (error) {
+            alert('Terjadi kesalahan saat menambah insidentil.');
+            console.error(error);
+        }
+    };
 
     const handleAddTxSubmit = () => {
         console.log("Transaction Type:", txType);
@@ -287,21 +444,68 @@ export default function Page() {
       }
     };
 
-    const handlePerpanjangSubmit = () => {
-      console.log("Perpanjang Member Name:", perpanjangName);
-      console.log("Perpanjang NIK:", perpanjangNik);
-      console.log("Perpanjang Telp:", perpanjangTelp);
-      console.log("Perpanjang Type:", perpanjangType);
-      console.log("Perpanjang Duration:", perpanjangDuration);
-      console.log("Perpanjang Method:", perpanjangMethod);
-      
-      setPerpanjangName("");
-      setPerpanjangNik("");
-      setPerpanjangTelp("");
-      setPerpanjangType("");
-      setPerpanjangDuration("");
-      setPerpanjangMethod("");
-      setIsNearExpPerpanjangDialogOpen(false);
+    const handlePerpanjangSubmit = async () => {
+      try {
+        const memberToUpdate = members.find(m => m.id === selectedNearExpMember?.id);
+        if (!memberToUpdate) {
+          alert('Member tidak ditemukan.');
+          return;
+        }
+        
+        const now = new Date();
+        let baseDate = new Date(memberToUpdate.expiryDate);
+        if (baseDate < now) baseDate = now;
+        let newExpiry = new Date(baseDate);
+        if (perpanjangDuration === "1") newExpiry.setMonth(newExpiry.getMonth() + 1);
+        else if (perpanjangDuration === "7") newExpiry.setMonth(newExpiry.getMonth() + 7);
+        else if (perpanjangDuration === "15") newExpiry.setMonth(newExpiry.getMonth() + 15);
+        
+        const putRes = await fetch('/api/members', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: memberToUpdate.id,
+            expiryDate: newExpiry.toISOString(),
+            status: 'ACTIVE',
+          }),
+        });
+        const putResult = await putRes.json();
+        if (!putRes.ok) {
+          alert(putResult.error || 'Gagal memperpanjang member.');
+          return;
+        }
+        
+        const txRes = await fetch('/api/transaction-fo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'PEMASUKAN',
+            title: `Perpanjang Member - ${perpanjangName}`,
+            note: '',
+            paymentMethod: perpanjangMethod.toUpperCase(),
+            paymentAmount: getPerpanjangAmount(),
+            date: new Date().toISOString(),
+          }),
+        });
+        const txResult = await txRes.json();
+        if (!txRes.ok) {
+          alert(txResult.error || 'Gagal menambah transaksi perpanjang.');
+          return;
+        }
+        setPerpanjangName("");
+        setPerpanjangNik("");
+        setPerpanjangTelp("");
+        setPerpanjangType("");
+        setPerpanjangDuration("");
+        setPerpanjangMethod("");
+        setIsNearExpPerpanjangDialogOpen(false);
+        setSelectedNearExpMember(null);
+        alert(`Member ${perpanjangName} berhasil diperpanjang.`);
+        fetchMembers();
+      } catch (error) {
+        alert('Terjadi kesalahan saat memperpanjang member.');
+        console.error(error);
+      }
     };
 
     const getPerpanjangAmount = () => {
@@ -369,24 +573,24 @@ export default function Page() {
     };
 
     const getStatusBadge = (status: string) => {
-      if (status === "Active") {
+      if (status.toUpperCase() === "ACTIVE") {
         return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
-      } else if (status === "NearExp") {
+      } else if (status.toUpperCase() === "NEAREXP") {
         return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>;
-      } else if (status === "Expired") {
+      } else if (status.toUpperCase() === "EXPIRED") {
         return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100">Expired</Badge>;
       }
       return null;
     };
 
     const getMembershipBadge = (membership: string) => {
-      if (membership === "Personal") {
+      if (membership.toUpperCase() === "PERSONAL") {
         return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Personal</Badge>;
-      } else if (membership === "Couple") {
+      } else if (membership.toUpperCase() === "COUPLE") {
         return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Couple</Badge>;
-      } else if (membership === "MuayThaiMember") {
+      } else if (membership.toUpperCase() === "MUAY_THAI_MEMBER") {
         return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Muay Thai Member</Badge>;
-      } else if (membership === "MuayThaiPrivate") {
+      } else if (membership.toUpperCase() === "MUAY_THAI_PRIVATE") {
         return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Muay Thai Private</Badge>;
       }
       return null;
@@ -468,15 +672,17 @@ export default function Page() {
                             </CardHeader>
                             <CardContent>
                                 <ScrollArea className="h-62 w-full">
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
-                                        {nearExpMembers.length === 0 ? (
+                                    {nearExpMembers.length === 0 ? (
+                                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-3">
                                             <p className="text-gray-700 text-center w-full">Tidak ada member yang mendekati habis.</p>
-                                        ) : (
-                                            nearExpMembers.map((member) => (
+                                        </div>
+                                    ) : (
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
+                                            {nearExpMembers.map((member) => (
                                                 <Card key={member.id} className="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-3 cursor-pointer" onClick={() => handleNearExpMemberClick(member)}>
                                                     <CardContent className="flex flex-col p-2">
                                                         <p className="text-sm font-semibold text-gray-900">{member.name}</p>
-                                                        <p className="text-xs text-gray-900">Exp: {member.expiryDate}</p>
+                                                        <p className="text-xs text-gray-900">Exp: {member.expiryDate.split("T")[0]}</p>
                                                         <p className="text-xs text-gray-900">Tipe: {member.membership}</p>
                                                     </CardContent>
                                                     <CardFooter className="flex gap-2 justify-end p-2">
@@ -485,9 +691,9 @@ export default function Page() {
                                                         </Button>
                                                     </CardFooter>
                                                 </Card>
-                                            )))
-                                        }
-                                    </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </ScrollArea>
                             </CardContent>
                         </Card>
@@ -511,23 +717,23 @@ export default function Page() {
                                     </DialogHeader>
                                     <div className="grid gap-4 py-4">
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="memberName" className="text-left">
-                                                Nama
-                                            </Label>
-                                            <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Lengkap Member" className="col-span-3" />
+                                            <Label htmlFor="memberName" className="text-left">Nama</Label>
+                                            <div className="col-span-3">
+                                                <MemberSearch members={members} onSelectMember={(id) => setSelectedMemberId(id)} />
+                                            </div>
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="absenceType" className="text-left">
-                                                Kedatangan
+                                            Kedatangan
                                             </Label>
                                             <Select value={absenceType} onValueChange={setAbsenceType}>
-                                                <SelectTrigger className="col-span-3">
-                                                    <SelectValue placeholder="Pilih Tipe Kedatangan" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="gym">Gym</SelectItem>
-                                                    <SelectItem value="gymPt">Gym + PT</SelectItem>
-                                                </SelectContent>
+                                            <SelectTrigger className="col-span-3">
+                                                <SelectValue placeholder="Pilih Tipe Kedatangan" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="GYM">Gym</SelectItem>
+                                                <SelectItem value="GYM_PT">Gym + PT</SelectItem>
+                                            </SelectContent>
                                             </Select>
                                         </div>
                                     </div>
@@ -657,14 +863,14 @@ export default function Page() {
                                                     <SelectValue placeholder="Pilih Metode Pembayaran" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="cash">Cash</SelectItem>
-                                                    <SelectItem value="transfer">Transfer</SelectItem>
-                                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                    <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                    <SelectItem value="CASH">Cash</SelectItem>
+                                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -759,14 +965,14 @@ export default function Page() {
                                                     <SelectValue placeholder="Pilih Metode Pembayaran" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="cash">Cash</SelectItem>
-                                                    <SelectItem value="transfer">Transfer</SelectItem>
-                                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                    <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                    <SelectItem value="CASH">Cash</SelectItem>
+                                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -834,14 +1040,14 @@ export default function Page() {
                                                         <SelectValue placeholder="Pilih Metode Pembayaran" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        <SelectItem value="cash">Cash</SelectItem>
-                                                        <SelectItem value="transfer">Transfer</SelectItem>
-                                                        <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                        <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                                        <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                                        <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                                        <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                                        <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                        <SelectItem value="CASH">Cash</SelectItem>
+                                                        <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                        <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                        <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                        <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                        <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                        <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                        <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                             </div>
@@ -900,11 +1106,11 @@ export default function Page() {
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">Expiry Date</Label>
-                                <p className="text-sm">{selectedNearExpMember.expiryDate}</p>
+                                <p className="text-sm">{selectedNearExpMember.expiryDate.split("T")[0]}</p>
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">NIK</Label>
-                                <p className="text-sm">{selectedNearExpMember.nik}</p>
+                                <p className="text-sm">{selectedNearExpMember.nik ? selectedNearExpMember.nik : "-"}</p>
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">Status</Label>
@@ -912,7 +1118,7 @@ export default function Page() {
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">HP</Label>
-                                <p className="text-sm">{selectedNearExpMember.phone}</p>
+                                <p className="text-sm">{selectedNearExpMember.phone ? selectedNearExpMember.phone : "-"}</p>
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">Membership</Label>
@@ -920,7 +1126,7 @@ export default function Page() {
                               </div>
                               <div>
                                 <Label className="text-sm font-medium text-gray-600">Join Date</Label>
-                                <p className="text-sm">{selectedNearExpMember.joinDate}</p>
+                                <p className="text-sm">{selectedNearExpMember.joinDate.split("T")[0]}</p>
                               </div>
                             </div>
                           </div>
@@ -995,6 +1201,7 @@ export default function Page() {
                                 onChange={e => setPerpanjangName(e.target.value)}
                                 placeholder="Nama Lengkap Member"
                                 className="col-span-3"
+                                disabled
                               />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
@@ -1005,6 +1212,7 @@ export default function Page() {
                                 onChange={e => setPerpanjangNik(e.target.value)}
                                 placeholder="NIK Member"
                                 className="col-span-3"
+                                disabled
                               />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
@@ -1015,6 +1223,7 @@ export default function Page() {
                                 onChange={e => setPerpanjangTelp(e.target.value)}
                                 placeholder="No Telp Member"
                                 className="col-span-3"
+                                disabled
                               />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
@@ -1051,14 +1260,14 @@ export default function Page() {
                                   <SelectValue placeholder="Pilih Metode Pembayaran" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="cash">Cash</SelectItem>
-                                  <SelectItem value="transfer">Transfer</SelectItem>
-                                  <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                  <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                  <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                  <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                  <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                  <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                    <SelectItem value="CASH">Cash</SelectItem>
+                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>

@@ -2,16 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CirclePlus, ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { MembershipType } from "@/generated/prisma/client";
 
 type Member = {
     id: number;
@@ -27,7 +26,7 @@ type Member = {
 export default function Page() {
     const router = useRouter();
 
-    const [mockMembers, setMockMembers] = useState<Member[]>([]);
+    const [mockMembers, setMockMembers] = useState<Member[]>([]);   
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -40,14 +39,19 @@ export default function Page() {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [show, setShow] = useState(false);
+    const [coupleName, setCoupleName] = useState<string>("");
+
     useEffect(() => { setTimeout(() => {setShow(true)}, 100); }, []);
 
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await fetch('/realMembers.json');
+                const response = await fetch('/api/members');
+                if(!response.ok){
+                    throw new Error('Failed to fetch members from DB through API')
+                }
                 const data = await response.json();
-                setMockMembers(data.members);
+                setMockMembers(data);
             } catch (error) {
                 console.error('Error fetching members:', error);
             }
@@ -55,6 +59,24 @@ export default function Page() {
 
         fetchMembers();
     }, []);
+
+    useEffect(() => {
+        if (selectedMember && selectedMember.membership.toUpperCase() === "COUPLE") {
+            const fetchCouple = async () => {
+                try {
+                    const response = await fetch(`/api/couples?id=${selectedMember.id}`);
+                    if (!response.ok) throw new Error('Failed to fetch couple info');
+                    const data = await response.json();
+                    setCoupleName(data.coupleName || "");
+                } catch (error) {
+                    setCoupleName("");
+                }
+            };
+            fetchCouple();
+        } else {
+            setCoupleName("");
+        }
+    }, [selectedMember]);
 
     const handleMemberClick = (member: Member) => {
         setSelectedMember(member);
@@ -71,55 +93,105 @@ export default function Page() {
         }
     };
 
-    const handleSaveEdit = () => {
+    const handleSaveEdit = async () => {
         if (selectedMember) {
-            selectedMember.name = memberName;
-            selectedMember.nik = memberNik;
-            selectedMember.phone = memberTelp;
-            for(let i = 0; i < mockMembers.length; i++) {
-                if (mockMembers[i].id === selectedMember.id) {
-                    mockMembers[i] = selectedMember;
-                    break;
+            try{
+                const response = await fetch('/api/members', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: selectedMember.id,
+                        name: memberName,
+                        nik: memberNik,
+                        phone: memberTelp,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update member (API response)');
                 }
+
+                const updatedMember = await response.json();
+                setMockMembers(mockMembers.map(member => 
+                    member.id === updatedMember.id ? updatedMember : member
+                ));
+
+                setIsEditDialogOpen(false);
+            } catch (error) {
+                console.log('Error saving edit: ', error);
             }
-            setIsEditDialogOpen(false);
         }
     };
 
-    const handleDeleteMember = () => {
+    const handleDeleteMember = async () => {
         if(selectedMember){
-            const updatedMembers = mockMembers.filter(
-                (member) => member.id !== selectedMember.id
-            );
+            try{
+                if (selectedMember.membership.toUpperCase() === "COUPLE") {
+                    await fetch('/api/couples', {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: selectedMember.id })
+                    });
+                }
 
-            setMockMembers(updatedMembers);
-            setIsDeleteDialogOpen(false);
-            setIsDialogOpen(false);
+                const response = await fetch('/api/members', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: selectedMember.id
+                    }),
+                });
+
+                if(!response.ok){
+                    throw new Error('Failed to delete member (API response)');
+                }
+
+                setMockMembers(mockMembers.filter(member => member.id !== selectedMember.id));
+                setIsDeleteDialogOpen(false);
+                setIsDialogOpen(false);
+            } catch(error) {
+                console.log('Error deleting member: ', error);
+            }
         }
     };
 
     const getStatusBadge = (status: string) => {
-        if (status === "Active") {
-            return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
-        } else if (status === "NearExp") {
-            return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>;
-        } else if (status === "Expired") {
-            return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100">Expired</Badge>;
-        }
+      if (status.toUpperCase() === "ACTIVE") {
+        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
+      } else if (status.toUpperCase() === "NEAREXP") {
+        return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>;
+      } else if (status.toUpperCase() === "EXPIRED") {
+        return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100">Expired</Badge>;
+      }
+      return null;
     };
 
     const getMembershipBadge = (membership: string) => {
-        if (membership === "Personal") {
-            return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Personal</Badge>;
-        } else if (membership === "Couple") {
-            return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Couple</Badge>;
-        }
+      if (membership.toUpperCase() === "PERSONAL") {
+        return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Personal</Badge>;
+      } else if (membership.toUpperCase() === "COUPLE") {
+        return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Couple</Badge>;
+      } else if (membership.toUpperCase() === "MUAY_THAI_MEMBER") {
+        return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Muay Thai Member</Badge>;
+      } else if (membership.toUpperCase() === "MUAY_THAI_PRIVATE") {
+        return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Muay Thai Private</Badge>;
+      }
+      return null;
     };
 
     // Filter members by search query
     const filteredMembers = mockMembers.filter((member) =>
       member.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    // Count variables
+    const totalMembers = mockMembers.length;
+    const activeMembers = mockMembers.filter(m => m.status.toUpperCase() === "ACTIVE").length;
+    const expiredMembers = mockMembers.filter(m => m.status.toUpperCase() === "EXPIRED").length;
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
@@ -147,7 +219,7 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2 px-8 pb-4">
+                    <div className="flex items-center gap-2 px-8 pb-8">
                       <Input
                         type="text"
                         placeholder="Cari nama member..."
@@ -157,6 +229,33 @@ export default function Page() {
                       />
                     </div>
 
+                    <div className="grid grid-cols-6 gap-4 px-8 pb-4">
+                        <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
+                            <CardHeader>
+                                <CardTitle className="text-gray-900 text-center">Total Member</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-lg text-gray-700 text-center">{totalMembers}</p>
+                            </CardContent>
+                        </Card>
+                        <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
+                            <CardHeader>
+                                <CardTitle className="text-gray-900 text-center">Member Aktif</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-lg text-green-700 text-center">{activeMembers}</p>
+                            </CardContent>
+                        </Card>
+                        <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
+                            <CardHeader>
+                                <CardTitle className="text-gray-900 text-center">Member Expired</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-lg text-gray-500 text-center">{expiredMembers}</p>
+                            </CardContent>
+                        </Card>
+                    </div>
+
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 px-8 pb-8">
                         {filteredMembers.length === 0 && (
                             <p className="text-gray-500 col-span-full text-center">Tidak ada member.</p>
@@ -164,7 +263,7 @@ export default function Page() {
                         {filteredMembers.sort((a, b) => b.id - a.id).map((member) => (
                             <Card
                               key={member.id}
-                              className="cursor-pointer hover:shadow-lg transition-shadow bg-white"
+                              className="cursor-pointer hover:shadow-lg transition-shadow bg-white justify-between"
                               onClick={() => handleMemberClick(member)}
                             >
                               <CardHeader>
@@ -176,7 +275,7 @@ export default function Page() {
                                 <div className="space-y-2">
                                   <div>{getStatusBadge(member.status)} {getMembershipBadge(member.membership)}</div>
                                   <div></div>
-                                  <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
+                                  <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate.split("T")[0]}</div>
                                 </div>
                               </CardContent>
                               <CardFooter className="flex gap-2 justify-end">
@@ -207,14 +306,20 @@ export default function Page() {
                                             <p className="text-sm font-semibold">{selectedMember.name}</p>
                                         </div>
 
+                                        <div hidden={selectedMember.membership.toUpperCase() !== "COUPLE"}>
+                                            <Label className="text-sm font-medium text-gray-600">Nama Couple</Label>
+                                            <p className="text-sm font-semibold">{coupleName || '-'}</p>
+                                        </div>
+
+
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">Expiry Date</Label>
-                                            <p className="text-sm">{selectedMember.expiryDate}</p>
+                                            <p className="text-sm">{selectedMember.expiryDate.split("T")[0]}</p>
                                         </div>
 
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">NIK</Label>
-                                            <p className="text-sm">{selectedMember.nik}</p>
+                                            <p className="text-sm">{selectedMember.nik ? selectedMember.nik : "-"}</p>
                                         </div>
 
                                         <div>
@@ -226,7 +331,7 @@ export default function Page() {
 
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">HP</Label>
-                                            <p className="text-sm">{selectedMember.phone}</p>
+                                            <p className="text-sm">{selectedMember.phone ? selectedMember.phone : "-"}</p>
                                         </div>
 
                                         <div>
@@ -238,7 +343,7 @@ export default function Page() {
 
                                         <div>
                                             <Label className="text-sm font-medium text-gray-600">Join Date</Label>
-                                            <p className="text-sm">{selectedMember.joinDate}</p>
+                                            <p className="text-sm">{selectedMember.joinDate.split("T")[0]}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -318,6 +423,18 @@ export default function Page() {
                                         />
                                     </div>
 
+                                    <div hidden={memberType.toUpperCase() !== "COUPLE"} className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="coupleName" className="text-right">Nama Couple</Label>
+                                        <Input
+                                            id="memberName"
+                                            value={coupleName}
+                                            onChange={(e) => setCoupleName(e.target.value)}
+                                            placeholder={coupleName ? "Nama Couple" : "-"}
+                                            className="col-span-3"
+                                            disabled
+                                        />
+                                    </div>
+
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="memberNik" className="text-right">NIK</Label>
                                         <Input
@@ -342,14 +459,7 @@ export default function Page() {
 
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="memberType" className="text-right">Tipe</Label>
-                                        <Input
-                                            id="memberType"
-                                            value={memberType}
-                                            onChange={(e) => setMemberType(e.target.value)}
-                                            placeholder="Jenis Member"
-                                            className="col-span-3"
-                                            disabled
-                                        />
+                                        {getMembershipBadge(memberType)}
                                     </div>
                                 </div>
                             </div>

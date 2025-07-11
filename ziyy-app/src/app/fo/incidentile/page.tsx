@@ -10,6 +10,7 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbS
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
+import { set } from "date-fns";
 
 interface Incidentile {
   id: string;
@@ -35,9 +36,21 @@ export default function Page() {
 
   useEffect(() => {
     setTimeout(() => setShow(true), 100);
-    fetch("/incidentile.json")
-      .then((res) => res.json())
-      .then((data) => setIncidentiles(data.incidentile || []));
+
+    const fetchIncidentiles = async () => {
+            try {
+                const response = await fetch('/api/incidentile');
+                if(!response.ok){
+                    throw new Error('Failed to fetch incidentiles from DB through API')
+                }
+                const data = await response.json();
+                setIncidentiles(data);
+            } catch (error) {
+                console.error('Error fetching incidentiles:', error);
+            }
+        };
+
+        fetchIncidentiles();
   }, []);
 
   const handleIncidentileClick = (incidentile: Incidentile) => {
@@ -52,13 +65,32 @@ export default function Page() {
     }
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = async () => {
     if (editIncidentile) {
-      setIncidentiles((prev) =>
-        prev.map((item) => (item.id === editIncidentile.id ? editIncidentile : item))
-      );
-      setIsEditDialogOpen(false);
-      setSelectedIncidentile(editIncidentile);
+        try {
+            const response = await fetch('/api/incidentile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(editIncidentile),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to update incidentile');
+            }
+
+            const updatedIncidentile = await response.json();
+            setIncidentiles(incidentiles.map(inc => inc.id === updatedIncidentile.id ? updatedIncidentile : inc));
+
+            setIsEditDialogOpen(false);
+            setIsDialogOpen(false);
+            setEditIncidentile(null);
+            setSelectedIncidentile(updatedIncidentile);
+        } catch (error) {
+            console.error('Error saving edit:', error);
+        }
     }
   };
 
@@ -66,103 +98,83 @@ export default function Page() {
     setIsDeleteDialogOpen(true);
   };
 
-  const handleDeleteIncidentile = () => {
+  const handleDeleteIncidentile = async () => {
     if (selectedIncidentile) {
-      setIncidentiles((prev) => prev.filter((item) => item.id !== selectedIncidentile.id));
-      setIsDeleteDialogOpen(false);
-      setIsDialogOpen(false);
-      setSelectedIncidentile(null);
+        try {
+            const response = await fetch('/api/incidentile', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: selectedIncidentile.id }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete incidentile');
+            }
+
+            setIsDeleteDialogOpen(false);
+            setIsDialogOpen(false);
+            setSelectedIncidentile(null);
+        } catch (error) {
+            console.error('Error deleting incidentile:', error);
+        }
     }
-  };
+};
 
   const getTypeBadge = (type: string, clas: string) => {
     switch (type) {
-      case "gym": return <Badge className="bg-sky-100 text-sky-800">Gym</Badge>;
-      case "kelas":
+      case "GYM": return <Badge className="bg-sky-100 text-sky-800">Gym</Badge>;
+      case "KELAS":
         switch (clas) {
-            case "zumba": return <Badge className="bg-green-100 text-green-800">Kelas Zumba</Badge>;
-            case "poundFit": return <Badge className="bg-green-100 text-green-800">Kelas Pound Fit</Badge>;
-            case "bodyFat": return <Badge className="bg-green-100 text-green-800">Kelas Body Fat</Badge>;
-            case "yoga": return <Badge className="bg-green-100 text-green-800">Kelas Yoga</Badge>;
-            case "aerobic": return <Badge className="bg-green-100 text-green-800">Kelas Aerobic</Badge>;
-            case "muayThai": return <Badge className="bg-green-100 text-green-800">Kelas Muay Thai</Badge>;
+            case "ZUMBA": return <Badge className="bg-green-100 text-green-800">Kelas Zumba</Badge>;
+            case "POUND_FIT": return <Badge className="bg-green-100 text-green-800">Kelas Pound Fit</Badge>;
+            case "BODY_FAT": return <Badge className="bg-green-100 text-green-800">Kelas Body Fat</Badge>;
+            case "YOGA": return <Badge className="bg-green-100 text-green-800">Kelas Yoga</Badge>;
+            case "AEROBIC": return <Badge className="bg-green-100 text-green-800">Kelas Aerobic</Badge>;
+            case "MUAY_THAI": return <Badge className="bg-green-100 text-green-800">Kelas Muay Thai</Badge>;
+            case "STRONG_NATION": return <Badge className="bg-green-100 text-green-800">Kelas Strong Nation</Badge>;
         }
-      case "pt": return <Badge className="bg-yellow-100 text-yellow-800">PT</Badge>;
-      case "sauna": return <Badge className="bg-orange-100 text-orange-800">Sauna</Badge>;
+      case "PT": return <Badge className="bg-yellow-100 text-yellow-800">PT</Badge>;
+      case "SAUNA": return <Badge className="bg-orange-100 text-orange-800">Sauna</Badge>;
       default: return null;
     }
   };
 
   const getDialogTypeBadge = (type: string) => {
     switch (type) {
-      case "gym": return <Badge className="bg-sky-100 text-sky-800">Gym</Badge>;
-      case "kelas": return <Badge className="bg-green-100 text-green-800">Kelas</Badge>;
-      case "pt": return <Badge className="bg-yellow-100 text-yellow-800">PT</Badge>;
-      case "sauna": return <Badge className="bg-orange-100 text-orange-800">Sauna</Badge>;
+      case "GYM": return <Badge className="bg-sky-100 text-sky-800">Gym</Badge>;
+      case "KELAS": return <Badge className="bg-green-100 text-green-800">Kelas</Badge>;
+      case "PT": return <Badge className="bg-yellow-100 text-yellow-800">PT</Badge>;
+      case "SAUNA": return <Badge className="bg-orange-100 text-orange-800">Sauna</Badge>;
       default: return null;
     }
   };
 
   const getDialogClassBadge = (clas: string) => {
     switch (clas) {
-        case "zumba": return <Badge className="bg-green-100 text-green-800">Kelas Zumba</Badge>;
-        case "poundFit": return <Badge className="bg-green-100 text-green-800">Kelas Pound Fit</Badge>;
-        case "bodyFat": return <Badge className="bg-green-100 text-green-800">Kelas Body Fat</Badge>;
-        case "yoga": return <Badge className="bg-green-100 text-green-800">Kelas Yoga</Badge>;
-        case "aerobic": return <Badge className="bg-green-100 text-green-800">Kelas Aerobic</Badge>;
-        case "muayThai": return <Badge className="bg-green-100 text-green-800">Kelas Muay Thai</Badge>;
+        case "ZUMBA": return <Badge className="bg-green-100 text-green-800">Kelas Zumba</Badge>;
+        case "POUND_FIT": return <Badge className="bg-green-100 text-green-800">Kelas Pound Fit</Badge>;
+        case "BODY_FAT": return <Badge className="bg-green-100 text-green-800">Kelas Body Fat</Badge>;
+        case "YOGA": return <Badge className="bg-green-100 text-green-800">Kelas Yoga</Badge>;
+        case "AEROBIC": return <Badge className="bg-green-100 text-green-800">Kelas Aerobic</Badge>;
+        case "MUAY_THAI": return <Badge className="bg-green-100 text-green-800">Kelas Muay Thai</Badge>;
+        case "STRONG_NATION": return <Badge className="bg-green-100 text-green-800">Kelas Strong Nation</Badge>;
+        default: return null;
     }
   };
 
   const getPaymentMethodBadge = (paymentMethod: string) => {
-    if (paymentMethod === "cash") {
-      return (
-        <Badge className="bg-green-100 text-green-800">
-          Cash
-        </Badge>
-      );
-    } else if (paymentMethod === "transfer") {
-      return (
-        <Badge className="bg-green-100 text-green-800">
-          Transfer
-        </Badge>
-      );
-    } else if (paymentMethod === "debitBri") {
-      return (
-        <Badge className="bg-orange-100 text-orange-800">
-          Debit BRI
-        </Badge>
-      );
-    } else if (paymentMethod === "qrisBri") {
-      return (
-        <Badge className="bg-orange-100 text-orange-800">
-          QRIS BRI
-        </Badge>
-      );
-    } else if (paymentMethod === "debitMdr") {
-      return (
-        <Badge className="bg-indigo-100 text-indigo-800">
-          Debit Mandiri
-        </Badge>
-      );
-    } else if (paymentMethod === "qrisMdr") {
-      return (
-        <Badge className="bg-indigo-100 text-indigo-800">
-          QRIS Mandiri
-        </Badge>
-      );
-    } else if (paymentMethod === "edcMdr") {
-      return (
-        <Badge className="bg-indigo-100 text-indigo-800">
-          EDC Mandiri
-        </Badge>
-      );
-    } else if (paymentMethod === "transferMdr") {
-      return (
-        <Badge className="bg-indigo-100 text-indigo-800">
-          Transfer Mandiri
-        </Badge>
-      );
+    switch (paymentMethod) {
+      case "CASH": return <Badge className="bg-green-100 text-green-800">Cash</Badge>;
+      case "TRANSFER": return <Badge className="bg-green-100 text-green-800">Transfer</Badge>;
+      case "DEBIT_BRI": return <Badge className="bg-orange-100 text-orange-800">Debit BRI</Badge>;
+      case "QRIS_BRI": return <Badge className="bg-orange-100 text-orange-800">QRIS BRI</Badge>;
+      case "DEBIT_MANDIRI": return <Badge className="bg-indigo-100 text-indigo-800">Debit Mandiri</Badge>;
+      case "QRIS_MANDIRI": return <Badge className="bg-indigo-100 text-indigo-800">QRIS Mandiri</Badge>;
+      case "EDC_MANDIRI": return <Badge className="bg-indigo-100 text-indigo-800">EDC Mandiri</Badge>;
+      case "TRANSFER_MANDIRI": return <Badge className="bg-indigo-100 text-indigo-800">Transfer Mandiri</Badge>;
+      default: return null;
     }
   };
 
@@ -197,7 +209,7 @@ export default function Page() {
                 <CardContent>
                   <div className="space-y-2">
                     <div>{getTypeBadge(incidentile.type, incidentile.class)}</div>
-                    <div className="text-xs text-gray-500">Tanggal: {incidentile.date}</div>
+                    <div className="text-xs text-gray-500">Tanggal: {incidentile.date.split("T")[0]}</div>
                     <div className="text-xs text-gray-500">Nominal: Rp {incidentile.paymentAmount.toLocaleString()}</div>
                   </div>
                 </CardContent>
@@ -223,7 +235,7 @@ export default function Page() {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-gray-600">Tanggal</span>
-                      <p className="text-sm">{selectedIncidentile.date}</p>
+                      <p className="text-sm">{selectedIncidentile.date.split("T")[0]}</p>
                     </div>
                     <div>
                       <span className="text-sm font-medium text-gray-600">Jenis</span>
@@ -274,7 +286,7 @@ export default function Page() {
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                       <Label htmlFor="editDate" className="text-left">Tanggal</Label>
-                      <Input id="editDate" className="col-span-3" value={editIncidentile.date} onChange={e => setEditIncidentile({ ...editIncidentile, date: e.target.value })} />
+                      <Input id="editDate" className="col-span-3" value={editIncidentile.date.split("T")[0]} onChange={e => setEditIncidentile({ ...editIncidentile, date: e.target.value })} />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                       <Label htmlFor="editNominal" className="text-left">Nominal</Label>

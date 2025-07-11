@@ -2,15 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CirclePlus, ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
+import { ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
 type Member = {
@@ -27,7 +25,7 @@ type Member = {
 export default function Page() {
     const router = useRouter();
 
-    const [mockMembers, setMockMembers] = useState<Member[]>([]);
+    const [newMembers, setNewMembers] = useState<Member[]>([]);
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -45,27 +43,26 @@ export default function Page() {
 
       const fetchMembers = async () => {
           try {
-              const response = await fetch('/members.json');
-              const data = await response.json();
+              const response = await fetch('/api/members');
+              if (!response.ok) {
+                throw new Error("Failed to fetch members");
+              }
+              const allMembers: Member[] = await response.json();
 
-              const today = new Date();
-              const todayString = today.toISOString().split('T')[0];
-
-              const todayMembers = data.members.filter((member: Member) => {
-                  const memberJoinDate = new Date(member.joinDate);
-                  const memberJoinDateString = memberJoinDate.toISOString().split('T')[0];
-                  
-                  return memberJoinDateString === todayString;
+              const today = new Date().toISOString().split('T')[0];
+              const todayMembers = allMembers.filter((member) => {
+                  const joinDate = new Date(member.joinDate).toISOString().split('T')[0];
+                  return joinDate === today;
               });
 
-              setMockMembers(todayMembers);
+              setNewMembers(todayMembers);
           } catch (error) {
               console.error('Error fetching members:', error);
           }
       };
 
       fetchMembers();
-  }, []);
+    }, []);
 
     const handleMemberClick = (member: Member) => {
         setSelectedMember(member);
@@ -82,329 +79,243 @@ export default function Page() {
         }
     };
 
-    const handleSaveEdit = () => {
+    const handleSaveEdit = async () => {
         if (selectedMember) {
-            selectedMember.name = memberName;
-            selectedMember.nik = memberNik;
-            selectedMember.phone = memberTelp;
-            for(let i = 0; i < mockMembers.length; i++) {
-                if (mockMembers[i].id === selectedMember.id) {
-                    mockMembers[i] = selectedMember;
-                    break;
+            try {
+                const response = await fetch('/api/members', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: selectedMember.id,
+                        name: memberName,
+                        nik: memberNik,
+                        phone: memberTelp,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to update member");
                 }
+                const updatedMember = await response.json();
+
+                setNewMembers(newMembers.map(m => m.id === updatedMember.id ? updatedMember : m));
+                setSelectedMember(updatedMember);
+                setIsEditDialogOpen(false);
+            } catch (error) {
+                console.error("Error saving member:", error);
             }
-            setIsEditDialogOpen(false);
         }
     };
 
-    const handleDeleteMember = () => {
+    const handleDeleteMember = async () => {
         if(selectedMember){
-            const updatedMembers = mockMembers.filter(
-                (member) => member.id !== selectedMember.id
-            );
+            try {
+                const response = await fetch('/api/members', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: selectedMember.id }),
+                });
 
-            setMockMembers(updatedMembers);
-            setIsDeleteDialogOpen(false);
-            setIsDialogOpen(false);
+                if (!response.ok) {
+                    throw new Error("Failed to delete member");
+                }
+                
+                setNewMembers(newMembers.filter((member) => member.id !== selectedMember.id));
+                setIsDeleteDialogOpen(false);
+                setIsDialogOpen(false);
+            } catch (error) {
+                console.error("Error deleting member:", error);
+            }
         }
     };
 
     const getStatusBadge = (status: string) => {
-        if (status === "Active") {
-            return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
-        } else if (status === "NearExp") {
-            return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>;
-        } else if (status === "Exp") {
-            return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100">Expired</Badge>;
-        }
+      if (status.toUpperCase() === "ACTIVE") {
+        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Aktif</Badge>;
+      } else if (status.toUpperCase() === "NEAREXP") {
+        return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Akan Habis</Badge>;
+      } else if (status.toUpperCase() === "EXPIRED") {
+        return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100">Expired</Badge>;
+      }
+      return null;
     };
 
     const getMembershipBadge = (membership: string) => {
-        if (membership === "Personal") {
-            return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Personal</Badge>;
-        } else if (membership === "Couple") {
-            return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Couple</Badge>;
-        }
+      if (membership.toUpperCase() === "PERSONAL") {
+        return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Personal</Badge>;
+      } else if (membership.toUpperCase() === "COUPLE") {
+        return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Couple</Badge>;
+      } else if (membership.toUpperCase() === "MUAY_THAI_MEMBER") {
+        return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Muay Thai Member</Badge>;
+      } else if (membership.toUpperCase() === "MUAY_THAI_PRIVATE") {
+        return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Muay Thai Private</Badge>;
+      }
+      return null;
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
-            <div className={`w-full py-8 px-8 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
-                <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-                    <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/fo")}>
-                            <Undo2 className="text-white/80 hover:text-white transition-all"/>
-                        </div>
-                        <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
-                            Ziyy Gym | Member Baru
-                        </h2>
-                        <div className="z-10">
-                            <Breadcrumb>
-                                <BreadcrumbList>
-                                    <BreadcrumbItem>
-                                        <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
-                                            FO
-                                        </BreadcrumbLink>
-                                        <BreadcrumbSeparator></BreadcrumbSeparator>
-                                        <BreadcrumbPage className="text-white">Member Baru</BreadcrumbPage>
-                                    </BreadcrumbItem>
-                                </BreadcrumbList>
-                            </Breadcrumb>
-                        </div>
-                    </div>
+      <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
+          <div className={`w-full py-8 px-8 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
+              <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
+                  <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
+                      <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/fo")}>
+                          <Undo2 className="text-white/80 hover:text-white transition-all"/>
+                      </div>
+                      <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
+                          Ziyy Gym | Member Baru
+                      </h2>
+                      <div className="z-10">
+                          <Breadcrumb>
+                              <BreadcrumbList>
+                                  <BreadcrumbItem>
+                                      <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
+                                          FO
+                                      </BreadcrumbLink>
+                                      <BreadcrumbSeparator></BreadcrumbSeparator>
+                                      <BreadcrumbPage className="text-white">Member Baru</BreadcrumbPage>
+                                  </BreadcrumbItem>
+                              </BreadcrumbList>
+                          </Breadcrumb>
+                      </div>
+                  </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pb-8 px-8">
-                        {mockMembers.length === 0 && (
-                            <p className="text-gray-500 col-span-full text-center">Tidak ada member baru hari ini.</p>
-                        )}
-                        {mockMembers.sort((a, b) => b.id - a.id).map((member) => (
-                            <Card
-                              key={member.id}
-                              className="cursor-pointer hover:shadow-lg transition-shadow bg-white"
-                              onClick={() => handleMemberClick(member)}
-                            >
-                              <CardHeader>
-                                <CardTitle className="flex items-center gap-2">
-                                  <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
-                                </CardTitle>
-                              </CardHeader>
-                              <CardContent>
-                                <div className="space-y-2">
-                                  <div>
-                                    <Badge variant="outline" className="text-xs text-green-700 border-green-400 bg-green-100">Member Baru</Badge>
-                                    {getMembershipBadge(member.membership)}
-                                  </div>
-                                  <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate}</div>
-                                  
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pb-8 px-8">
+                      {newMembers.length === 0 && (
+                          <p className="text-gray-500 col-span-full text-center">Tidak ada member baru hari ini.</p>
+                      )}
+                      {newMembers.sort((a, b) => b.id - a.id).map((member) => (
+                          <Card
+                            key={member.id}
+                            className="cursor-pointer hover:shadow-lg transition-shadow bg-white"
+                            onClick={() => handleMemberClick(member)}
+                          >
+                            <CardHeader>
+                              <CardTitle className="flex items-center gap-2">
+                                <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
+                              </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <div className="space-y-2">
+                                <div>
+                                  <Badge variant="outline" className="text-xs text-green-700 border-green-400 bg-green-100">Member Baru</Badge>
+                                  {getMembershipBadge(member.membership)}
                                 </div>
-                              </CardContent>
-                              <CardFooter className="flex gap-2 justify-end">
-                                <ChevronsRight className="text-[#7bb3d6] h-4 w-4" />
-                                <p className="text-sm">Detail</p>
-                              </CardFooter>
-                            </Card>
-                        ))}
-                    </div>
-
-                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <User className="h-5 w-5" />
-                Member Details
-              </DialogTitle>
-              <DialogDescription>
-                Informasi detail tentang member.
-              </DialogDescription>
-            </DialogHeader>
-
-            {selectedMember && (
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label className="text-sm font-medium text-gray-600">
-                      Nama
-                    </Label>
-                    <p className="text-sm font-semibold">
-                      {selectedMember.name}
-                    </p>
+                                <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate.split("T")[0]}</div>
+                              </div>
+                            </CardContent>
+                            <CardFooter className="flex gap-2 justify-end">
+                              <ChevronsRight className="text-[#7bb3d6] h-4 w-4" />
+                              <p className="text-sm">Detail</p>
+                            </CardFooter>
+                          </Card>
+                      ))}
                   </div>
 
-                  <div>
-                    <Label className="text-sm font-medium text-gray-600">
-                      Expiry Date
-                    </Label>
-                    <p className="text-sm">{selectedMember.expiryDate}</p>
-                  </div>
+                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                      <DialogContent className="max-w-md">
+                        <DialogHeader>
+                          <DialogTitle className="flex items-center gap-2">
+                            <User className="h-5 w-5" />
+                            Member Details
+                          </DialogTitle>
+                          <DialogDescription>
+                            Informasi detail tentang member.
+                          </DialogDescription>
+                        </DialogHeader>
 
-                  <div>
-                    <Label className="text-sm font-medium text-gray-600">
-                      NIK
-                    </Label>
-                    <p className="text-sm">{selectedMember.nik}</p>
-                  </div>
+                        {selectedMember && (
+                          <div className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <Label className="text-sm font-medium text-gray-600">Nama</Label>
+                                <p className="text-sm font-semibold">{selectedMember.name}</p>
+                              </div>
+                              <div>
+                                <Label className="text-sm font-medium text-gray-600">Expiry Date</Label>
+                                <p className="text-sm">{selectedMember.expiryDate.split("T")[0]}</p>
+                              </div>
+                              <div>
+                                <Label className="text-sm font-medium text-gray-600">NIK</Label>
+                                <p className="text-sm">{selectedMember.nik ? selectedMember.nik : "-"}</p>
+                              </div>
+                              <div>
+                                <Label className="text-sm font-medium text-gray-600">Status</Label>
+                                <div className="mt-1">{getStatusBadge(selectedMember.status)}</div>
+                              </div>
+                              <div>
+                                <Label className="text-sm font-medium text-gray-600">HP</Label>
+                                <p className="text-sm">{selectedMember.phone ? selectedMember.phone : "-"}</p>
+                              </div>
+                              <div>
+                                <Label className="text-sm font-medium text-gray-600">Membership</Label>
+                                <div className="mt-1">{getMembershipBadge(selectedMember.membership)}</div>
+                              </div>
+                              <div>
+                                <Label className="text-sm font-medium text-gray-600">Join Date</Label>
+                                <p className="text-sm">{selectedMember.joinDate.split("T")[0]}</p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
 
-                  <div>
-                    <Label className="text-sm font-medium text-gray-600">
-                      Status
-                    </Label>
-                    <div className="mt-1">
-                      {getStatusBadge(selectedMember.status)}
-                    </div>
-                  </div>
+                        <DialogFooter className="flex gap-2">
+                          <Button variant="outline" className="flex items-center gap-2 hover:cursor-pointer" onClick={handleEditClick}>
+                            <Edit className="h-4 w-4" /> Edit
+                          </Button>
+                          <Button variant="destructive" className="flex items-center gap-2 hover:cursor-pointer" onClick={() => setIsDeleteDialogOpen(true)}>
+                            <Trash2 className="h-4 w-4" /> Delete
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                  </Dialog>
 
-                  <div>
-                    <Label className="text-sm font-medium text-gray-600">
-                      HP
-                    </Label>
-                    <p className="text-sm">{selectedMember.phone}</p>
-                  </div>
+                  <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                    <DialogContent className="max-w-md">
+                      <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2"> <Trash2 className="h-5 w-5" /> Delete Member</DialogTitle>
+                        <DialogDescription>Are you sure you want to delete this member?</DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter className="flex gap-2">
+                        <Button variant="outline" className="flex items-center gap-2 hover:cursor-pointer" onClick={() => setIsDeleteDialogOpen(false)}>Cancel</Button>
+                        <Button variant="destructive" className="flex items-center gap-2 hover:cursor-pointer" onClick={handleDeleteMember}>Continue</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
 
-                  <div>
-                    <Label className="text-sm font-medium text-gray-600">
-                      Membership
-                    </Label>
-                    <div className="mt-1">
-                      {getMembershipBadge(selectedMember.membership)}
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className="text-sm font-medium text-gray-600">
-                      Join Date
-                    </Label>
-                    <p className="text-sm">{selectedMember.joinDate}</p>
-                  </div>
-                </div>
+                  <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                    <DialogContent className="max-w-md">
+                      <DialogHeader>
+                          <DialogTitle className="flex items-center gap-2"> <Edit className="h-5 w-5" /> Edit Member</DialogTitle>
+                          <DialogDescription>Edit member information.</DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                          <div className="grid gap-4 py-4">
+                              <div className="grid grid-cols-4 items-center gap-4">
+                                  <Label htmlFor="memberName" className="text-right">Nama</Label>
+                                  <Input id="memberName" value={memberName} onChange={(e) => setMemberName(e.target.value)} placeholder="Nama Lengkap Member" className="col-span-3"/>
+                              </div>
+                              <div className="grid grid-cols-4 items-center gap-4">
+                                  <Label htmlFor="memberNik" className="text-right">NIK</Label>
+                                  <Input id="memberNik" value={memberNik} onChange={(e) => setMemberNik(e.target.value)} placeholder="NIK Member" className="col-span-3"/>
+                              </div>
+                              <div className="grid grid-cols-4 items-center gap-4">
+                                  <Label htmlFor="memberTelp" className="text-right">No Telp</Label>
+                                  <Input id="memberTelp" value={memberTelp} onChange={(e) => setMemberTelp(e.target.value)} placeholder="No Telp Member" className="col-span-3"/>
+                              </div>
+                              <div className="grid grid-cols-4 items-center gap-4">
+                                  <Label htmlFor="memberType" className="text-right">Tipe</Label>
+                                  <Input id="memberType" value={memberType} onChange={(e) => setMemberType(e.target.value)} placeholder="Jenis Member" className="col-span-3" disabled/>
+                              </div>
+                          </div>
+                      </div>
+                      <DialogFooter className="flex gap-2">
+                          <Button variant="outline" onClick={() => setIsEditDialogOpen(false)} className="flex items-center gap-2 hover:cursor-pointer">Cancel</Button>
+                          <Button variant="default" onClick={handleSaveEdit} className="flex items-center gap-2 hover:cursor-pointer">Save</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
               </div>
-            )}
-
-            <DialogFooter className="flex gap-2">
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 hover:cursor-pointer"
-                onClick={handleEditClick}
-              >
-                <Edit className="h-4 w-4" />
-                Edit
-              </Button>
-              <Button
-                variant="destructive"
-                className="flex items-center gap-2 hover:cursor-pointer"
-                onClick={() => {
-                  setIsDeleteDialogOpen(true);
-                }}
-              >
-                <Trash2 className="h-4 w-4" />
-                Delete
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <Trash2 className="h-5 w-5" />
-                Delete Member
-              </DialogTitle>
-              <DialogDescription>
-                Are you sure you want to delete this member?
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter className="flex gap-2">
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 hover:cursor-pointer"
-                onClick={() => {
-                  setIsDeleteDialogOpen(false);
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="destructive"
-                className="flex items-center gap-2 hover:cursor-pointer"
-                onClick={handleDeleteMember}
-              >
-                Continue
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-                <DialogTitle className="flex items-center gap-2">
-                    <Edit className="h-5 w-5" />
-                    Edit Member
-                </DialogTitle>
-                <DialogDescription>Edit member information.</DialogDescription>
-            </DialogHeader>
-
-            <div className="space-y-4">
-                <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="memberName" className="text-right">
-                        Nama
-                    </Label>
-                    <Input
-                        id="memberName"
-                        value={memberName}
-                        onChange={(e) => setMemberName(e.target.value)}
-                        placeholder="Nama Lengkap Member"
-                        className="col-span-3"
-                    />
-                    </div>
-
-                    <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="memberNik" className="text-right">
-                        NIK
-                    </Label>
-                    <Input
-                        id="memberNik"
-                        value={memberNik}
-                        onChange={(e) => setMemberNik(e.target.value)}
-                        placeholder="NIK Member"
-                        className="col-span-3"
-                    />
-                    </div>
-
-                    <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="memberTelp" className="text-right">
-                        No Telp
-                    </Label>
-                    <Input
-                        id="memberTelp"
-                        value={memberTelp}
-                        onChange={(e) => setMemberTelp(e.target.value)}
-                        placeholder="No Telp Member"
-                        className="col-span-3"
-                    />
-                    </div>
-
-                    <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="memberType" className="text-right">
-                        Tipe
-                    </Label>
-                    <Input
-                        id="memberType"
-                        value={memberType}
-                        onChange={(e) => setMemberType(e.target.value)}
-                        placeholder="Jenis Member"
-                        className="col-span-3"
-                        disabled
-                    />
-                    </div>
-                </div>
-            </div>
-
-            <DialogFooter className="flex gap-2">
-                <Button
-                    variant="outline"
-                    onClick={() => {
-                        setIsEditDialogOpen(false);
-                    }}
-                    className="flex items-center gap-2 hover:cursor-pointer"
-                >
-                    Cancel
-                </Button>
-                <Button
-                    variant="default"
-                    onClick={() => {
-                        handleSaveEdit();
-                    }}
-                    className="flex items-center gap-2 hover:cursor-pointer"
-                >
-                    Save
-                </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-                </div>
-            </div>
-        </div>
+          </div>
+      </div>
     );
 }

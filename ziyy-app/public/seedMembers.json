@@ -1,0 +1,2676 @@
+{
+  "members": [
+    {
+      "name": "Nisfi Laela",
+      "nik": "3207184404870006",
+      "phone": "081331089463",
+      "membership": "Couple",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Ade Giyarman",
+      "nik": "6212030509980001",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Mbah Ben",
+      "nik": "340216220860001",
+      "phone": "08170004863",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Hanura Bayu Pambudi",
+      "nik": "3323071708980001",
+      "phone": "081328456684",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Afif",
+      "nik": "3471132407960001",
+      "phone": "087838378163",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Fahmi Raehandhang",
+      "nik": "",
+      "phone": "085777592296",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Ir. Rosmeiti",
+      "nik": "3471035105690001",
+      "phone": "08122958414",
+      "membership": "Couple",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Mardhiyah",
+      "nik": "3402144709640001",
+      "phone": "08122734296",
+      "membership": "Couple",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Esti Mardiani",
+      "nik": "3471134104680003",
+      "phone": "08122958288",
+      "membership": "Couple",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Dwi Puspita Sari",
+      "nik": "3471114110780001",
+      "phone": "081392750576",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Faiq Fadhillah",
+      "nik": "3471133010000002",
+      "phone": "081226075799",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Bayu Widyantoro",
+      "nik": "3311121803930005",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Imam Kurniawan",
+      "nik": "3471132604000001",
+      "phone": "085743861148",
+      "membership": "Couple",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Richo Nurdini",
+      "nik": "",
+      "phone": "087842798915",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-05-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Gilang Aditya Rangga Dio",
+      "nik": "1871102212910005",
+      "phone": "081232999393",
+      "membership": "Personal",
+      "joinDate": "2025-04-25",
+      "expiryDate": "2025-11-25",
+      "status": "Active"
+    },
+    {
+      "name": "Nurcholis",
+      "nik": "3402121306850005",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-04-26",
+      "expiryDate": "2025-05-26",
+      "status": "Expired"
+    },
+    {
+      "name": "Ninda Uswatun Khasanah",
+      "nik": "3520035905990002",
+      "phone": "085859693030",
+      "membership": "Personal",
+      "joinDate": "2025-04-26",
+      "expiryDate": "2025-05-26",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammad Irfan Rizqullah",
+      "nik": "3402122312020002",
+      "phone": "082323343759",
+      "membership": "Personal",
+      "joinDate": "2025-04-26",
+      "expiryDate": "2025-05-26",
+      "status": "Expired"
+    },
+    {
+      "name": "Aulia Emma Pratiwi",
+      "nik": "3402124711000002",
+      "phone": "081326579571",
+      "membership": "Personal",
+      "joinDate": "2025-04-26",
+      "expiryDate": "2025-05-26",
+      "status": "Expired"
+    },
+    {
+      "name": "inas rafika putri",
+      "nik": "3471135609960001",
+      "phone": "082220041116",
+      "membership": "Couple",
+      "joinDate": "2025-04-26",
+      "expiryDate": "2025-05-26",
+      "status": "Expired"
+    },
+    {
+      "name": "Efrem",
+      "nik": "6474030512950001",
+      "phone": "08220033337",
+      "membership": "Personal",
+      "joinDate": "2025-04-26",
+      "expiryDate": "2025-05-26",
+      "status": "Expired"
+    },
+    {
+      "name": "Hendrik pattipeilohy",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2026-07-27",
+      "status": "Active"
+    },
+    {
+      "name": "Marcellino pattpeilohy",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2026-07-27",
+      "status": "Active"
+    },
+    {
+      "name": "Bpk Eko",
+      "nik": "3521132907800002",
+      "phone": "089690630006",
+      "membership": "Personal",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2025-05-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Abdullah Bilqafi",
+      "nik": "7101191904840001",
+      "phone": "08393144447",
+      "membership": "Personal",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2025-05-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Noor Alliya Salma",
+      "nik": "3471044308020001",
+      "phone": "082133780939",
+      "membership": "Couple",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2025-05-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Rahmi Fauzieyah",
+      "nik": "7271036609990002",
+      "phone": "087722029629",
+      "membership": "Personal",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2025-05-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Couple Alliya",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2025-05-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Rian Fatah",
+      "nik": "3373021609900001",
+      "phone": "081389527951",
+      "membership": "Personal",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2025-05-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Hussein",
+      "nik": "3246073802030012",
+      "phone": "081211140745",
+      "membership": "Personal",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2025-05-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Akmal Niyaz Hanafi",
+      "nik": "",
+      "phone": "0858706602868",
+      "membership": "Personal",
+      "joinDate": "2025-04-27",
+      "expiryDate": "2025-05-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Gilang Syach Putra",
+      "nik": "3402122305000002",
+      "phone": "08882888220",
+      "membership": "Personal",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-11-28",
+      "status": "Active"
+    },
+    {
+      "name": "Oktavia Putri",
+      "nik": "340212581001003",
+      "phone": "081326980303",
+      "membership": "Couple",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-05-28",
+      "status": "Expired"
+    },
+    {
+      "name": "Briananda",
+      "nik": "3471132402990001",
+      "phone": "081226462747",
+      "membership": "Personal",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-05-28",
+      "status": "Expired"
+    },
+    {
+      "name": "Yohanes Budi Saputro",
+      "nik": "3320072905860004",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-05-28",
+      "status": "Expired"
+    },
+    {
+      "name": "Renny W",
+      "nik": "3471146206760001",
+      "phone": "0811292157",
+      "membership": "Personal",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-11-28",
+      "status": "Active"
+    },
+    {
+      "name": "Gatu Suwasono",
+      "nik": "3471143107740001",
+      "phone": "08122762277",
+      "membership": "Personal",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-11-28",
+      "status": "Active"
+    },
+    {
+      "name": "Randu Tuwuhan Angin",
+      "nik": "3403091508060001",
+      "phone": "081387981100",
+      "membership": "Personal",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-05-28",
+      "status": "Expired"
+    },
+    {
+      "name": "Ainul Yaqien Abdul",
+      "nik": "6101010805040004",
+      "phone": "082148952220",
+      "membership": "Personal",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-05-28",
+      "status": "Expired"
+    },
+    {
+      "name": "Arofi Nurdiansyah",
+      "nik": "3402122106070001",
+      "phone": "0895401225308",
+      "membership": "Personal",
+      "joinDate": "2025-04-28",
+      "expiryDate": "2025-05-28",
+      "status": "Expired"
+    },
+    {
+      "name": "Edy Prabowo",
+      "nik": "3402122402720006",
+      "phone": "0811253428",
+      "membership": "Personal",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Falihah Faiz Listyoputra",
+      "nik": "3471132211060001",
+      "phone": "081227385022",
+      "membership": "Personal",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Bayu",
+      "nik": "",
+      "phone": "081233746168",
+      "membership": "Personal",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Tegar arya",
+      "nik": "",
+      "phone": "08233029688",
+      "membership": "Couple",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Risqi dermawan",
+      "nik": "3209282805040003",
+      "phone": "08979046749",
+      "membership": "Couple",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Fidelia akita abigael",
+      "nik": "3471115806000001",
+      "phone": "082242748708",
+      "membership": "Personal",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Denis anggia pertiwi",
+      "nik": "3402124512950001",
+      "phone": "085702210195",
+      "membership": "Couple",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Ryan setiawan saputra",
+      "nik": "3471140105950001",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Galih setyo ardi",
+      "nik": "3323090908880002",
+      "phone": "087734279929",
+      "membership": "Personal",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-11-29",
+      "status": "Active"
+    },
+    {
+      "name": "Galih Alexander",
+      "nik": "34021215020603332",
+      "phone": "08882003001",
+      "membership": "Personal",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Desi",
+      "nik": "3506236212910002",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Gilang Wicaksono",
+      "nik": "3323103105900001",
+      "phone": "085729083197",
+      "membership": "Couple",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Eva",
+      "nik": "",
+      "phone": "087738484949",
+      "membership": "Personal",
+      "joinDate": "2025-04-29",
+      "expiryDate": "2025-05-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Raden Jagad Takdir R",
+      "nik": "3471080701000002",
+      "phone": "081217883826",
+      "membership": "Personal",
+      "joinDate": "2025-04-30",
+      "expiryDate": "2025-05-30",
+      "status": "Expired"
+    },
+    {
+      "name": "Nanang Purwanto",
+      "nik": "3311101807980006",
+      "phone": "0858803335048",
+      "membership": "Couple",
+      "joinDate": "2025-04-30",
+      "expiryDate": "2025-05-30",
+      "status": "Expired"
+    },
+    {
+      "name": "Fira",
+      "nik": "",
+      "phone": "085961419946",
+      "membership": "Personal",
+      "joinDate": "2025-04-30",
+      "expiryDate": "2025-05-30",
+      "status": "Expired"
+    },
+    {
+      "name": "Ben",
+      "nik": "",
+      "phone": "085256555872",
+      "membership": "Personal",
+      "joinDate": "2025-04-30",
+      "expiryDate": "2025-05-30",
+      "status": "Expired"
+    },
+    {
+      "name": "Heri",
+      "nik": "",
+      "phone": "088291191190",
+      "membership": "Couple",
+      "joinDate": "2025-04-30",
+      "expiryDate": "2025-05-30",
+      "status": "Expired"
+    },
+    {
+      "name": "Yona",
+      "nik": "",
+      "phone": "0895330100001",
+      "membership": "Personal",
+      "joinDate": "2025-04-30",
+      "expiryDate": "2025-05-30",
+      "status": "Expired"
+    },
+    {
+      "name": "Trilaksana putra",
+      "nik": "1271093012960002",
+      "phone": "085156229523",
+      "membership": "Personal",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "dafa",
+      "nik": "3471142406000001",
+      "phone": "081904006061",
+      "membership": "Couple",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "adinda",
+      "nik": "3402125407000001",
+      "phone": "085729800041",
+      "membership": "Couple",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "Nameer ahmad andhoko",
+      "nik": "3273061709070003",
+      "phone": "0895601178800",
+      "membership": "Couple",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "Hibban jalu wiraseno",
+      "nik": "3404100908070001",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "Kenzie Agung widyatama",
+      "nik": "3471142607080001",
+      "phone": "082180073784",
+      "membership": "Couple",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "Arya",
+      "nik": "",
+      "phone": "082180073784",
+      "membership": "Couple",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "Fikri",
+      "nik": "",
+      "phone": "087819245516",
+      "membership": "Personal",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "Rahmat danny konoras",
+      "nik": "820630051103003",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-01",
+      "expiryDate": "2025-06-01",
+      "status": "Expired"
+    },
+    {
+      "name": "Valsausa hasna yolanda",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-02",
+      "expiryDate": "2025-06-02",
+      "status": "Expired"
+    },
+    {
+      "name": "Wiranti esti indrayani",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-02",
+      "expiryDate": "2025-06-02",
+      "status": "Expired"
+    },
+    {
+      "name": "Qonita",
+      "nik": "3273011703990002",
+      "phone": "082211161174",
+      "membership": "Couple",
+      "joinDate": "2025-05-02",
+      "expiryDate": "2025-06-02",
+      "status": "Expired"
+    },
+    {
+      "name": "Luthfi Qolby",
+      "nik": "",
+      "phone": "083843430859",
+      "membership": "Couple",
+      "joinDate": "2025-05-02",
+      "expiryDate": "2025-06-02",
+      "status": "Expired"
+    },
+    {
+      "name": "Bu Eni",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-02",
+      "expiryDate": "2025-06-02",
+      "status": "Expired"
+    },
+    {
+      "name": "Tika",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-02",
+      "expiryDate": "2025-06-02",
+      "status": "Expired"
+    },
+    {
+      "name": "hanan malik",
+      "nik": "",
+      "phone": "081227598445",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "khoirunissa",
+      "nik": "",
+      "phone": "082134114149",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "arka",
+      "nik": "",
+      "phone": "087772576519",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "izan",
+      "nik": "",
+      "phone": "081227692193",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "alfath",
+      "nik": "",
+      "phone": "083162909974",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "arta",
+      "nik": "",
+      "phone": "0895613757799",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammad irfan",
+      "nik": "177102020796002",
+      "phone": "082280460303",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Fitta Jenifer",
+      "nik": "61710168060300006",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Fahrul",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Panut Indarko",
+      "nik": "1402070103030002",
+      "phone": "085156590675",
+      "membership": "Couple",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Anto",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammad Faisal Hanan",
+      "nik": "34004081709020001",
+      "phone": "081392065870",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Ardhi rahmanto",
+      "nik": "3471140505860001",
+      "phone": "085643159126",
+      "membership": "Couple",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Novi marlinda",
+      "nik": "3307075811890006",
+      "phone": "081227774742",
+      "membership": "Personal",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Darma prasetyanto",
+      "nik": "3402120212940005",
+      "phone": "081233305121",
+      "membership": "Couple",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Fakhrul yuansa",
+      "nik": "3402121508950002",
+      "phone": "085643687506",
+      "membership": "Couple",
+      "joinDate": "2025-05-03",
+      "expiryDate": "2025-06-03",
+      "status": "Expired"
+    },
+    {
+      "name": "Dzafran abiredya marsam",
+      "nik": "3471132604080003",
+      "phone": "082134157450",
+      "membership": "Personal",
+      "joinDate": "2025-05-04",
+      "expiryDate": "2025-06-04",
+      "status": "Expired"
+    },
+    {
+      "name": "Omi",
+      "nik": "",
+      "phone": "082142187010",
+      "membership": "Personal",
+      "joinDate": "2025-05-05",
+      "expiryDate": "2025-06-05",
+      "status": "Expired"
+    },
+    {
+      "name": "Naila",
+      "nik": "3471114512010001",
+      "phone": "081224119646",
+      "membership": "Couple",
+      "joinDate": "2025-05-05",
+      "expiryDate": "2025-06-05",
+      "status": "Expired"
+    },
+    {
+      "name": "Gusti Rjakalana",
+      "nik": "3471133006010001",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-05",
+      "expiryDate": "2025-06-05",
+      "status": "Expired"
+    },
+    {
+      "name": "Aji",
+      "nik": "",
+      "phone": "081313310636",
+      "membership": "Couple",
+      "joinDate": "2025-05-06",
+      "expiryDate": "2025-06-06",
+      "status": "Expired"
+    },
+    {
+      "name": "Aldo Handani Marandika",
+      "nik": "16011405053930009",
+      "phone": "0821349635437",
+      "membership": "Personal",
+      "joinDate": "2025-05-06",
+      "expiryDate": "2025-06-06",
+      "status": "Expired"
+    },
+    {
+      "name": "Afifa",
+      "nik": "",
+      "phone": "083867804030",
+      "membership": "Personal",
+      "joinDate": "2025-05-06",
+      "expiryDate": "2025-06-06",
+      "status": "Expired"
+    },
+    {
+      "name": "Gesit Arya",
+      "nik": "",
+      "phone": "081261553094",
+      "membership": "Personal",
+      "joinDate": "2025-05-06",
+      "expiryDate": "2025-06-06",
+      "status": "Expired"
+    },
+    {
+      "name": "Safangatul Hidayah",
+      "nik": "3307076312960006",
+      "phone": "088980479026",
+      "membership": "Personal",
+      "joinDate": "2025-05-06",
+      "expiryDate": "2025-06-06",
+      "status": "Expired"
+    },
+    {
+      "name": "Al maghribi langlang guritno",
+      "nik": "3404080109070001",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-06",
+      "expiryDate": "2025-06-06",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammmad malik husein",
+      "nik": "3401042907000002",
+      "phone": "08112555434",
+      "membership": "Personal",
+      "joinDate": "2025-05-06",
+      "expiryDate": "2025-06-06",
+      "status": "Expired"
+    },
+    {
+      "name": "Faiq akmal fadjar",
+      "nik": "3471142109020003",
+      "phone": "081238248562",
+      "membership": "Personal",
+      "joinDate": "2025-05-06",
+      "expiryDate": "2025-06-06",
+      "status": "Expired"
+    },
+    {
+      "name": "Suluh Pamuji",
+      "nik": "3374070906870001",
+      "phone": "085640598883",
+      "membership": "Personal",
+      "joinDate": "2025-05-07",
+      "expiryDate": "2025-06-07",
+      "status": "Expired"
+    },
+    {
+      "name": "Heri Siswanto",
+      "nik": "3318121206920002",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-08",
+      "expiryDate": "2025-06-08",
+      "status": "Expired"
+    },
+    {
+      "name": "Amanda Madya",
+      "nik": "3322185109020001",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-08",
+      "expiryDate": "2025-06-08",
+      "status": "Expired"
+    },
+    {
+      "name": "Abdul Ghafur",
+      "nik": "1302100106010004",
+      "phone": "082171720743",
+      "membership": "Personal",
+      "joinDate": "2025-05-08",
+      "expiryDate": "2025-06-08",
+      "status": "Expired"
+    },
+    {
+      "name": "M. Farrel Ravindinata",
+      "nik": "3471141107010002",
+      "phone": "082220899421",
+      "membership": "Personal",
+      "joinDate": "2025-05-08",
+      "expiryDate": "2025-06-08",
+      "status": "Expired"
+    },
+    {
+      "name": "Novi Narulitasari",
+      "nik": "3310226706010002",
+      "phone": "082227187935",
+      "membership": "Personal",
+      "joinDate": "2025-05-08",
+      "expiryDate": "2025-06-08",
+      "status": "Expired"
+    },
+    {
+      "name": "Ali",
+      "nik": "",
+      "phone": "083808169691",
+      "membership": "Personal",
+      "joinDate": "2025-05-08",
+      "expiryDate": "2025-06-08",
+      "status": "Expired"
+    },
+    {
+      "name": "fadil",
+      "nik": "",
+      "phone": "082274555097",
+      "membership": "Couple",
+      "joinDate": "2025-05-09",
+      "expiryDate": "2025-06-09",
+      "status": "Expired"
+    },
+    {
+      "name": "aden",
+      "nik": "",
+      "phone": "085936729285",
+      "membership": "Couple",
+      "joinDate": "2025-05-09",
+      "expiryDate": "2025-06-09",
+      "status": "Expired"
+    },
+    {
+      "name": "galuh",
+      "nik": "",
+      "phone": "085729106121",
+      "membership": "Couple",
+      "joinDate": "2025-05-09",
+      "expiryDate": "2025-06-09",
+      "status": "Expired"
+    },
+    {
+      "name": "tyo",
+      "nik": "",
+      "phone": "085855509367",
+      "membership": "Couple",
+      "joinDate": "2025-05-09",
+      "expiryDate": "2025-06-09",
+      "status": "Expired"
+    },
+    {
+      "name": "galih santosa wibawa",
+      "nik": "",
+      "phone": "081903744482",
+      "membership": "Couple",
+      "joinDate": "2025-05-09",
+      "expiryDate": "2025-06-09",
+      "status": "Expired"
+    },
+    {
+      "name": "bayu aji pamungkas (gnti galang)",
+      "nik": "",
+      "phone": "081215744935",
+      "membership": "Couple",
+      "joinDate": "2025-05-09",
+      "expiryDate": "2025-06-09",
+      "status": "Expired"
+    },
+    {
+      "name": "Huga",
+      "nik": "",
+      "phone": "0895614622000",
+      "membership": "Personal",
+      "joinDate": "2025-05-10",
+      "expiryDate": "2025-06-10",
+      "status": "Expired"
+    },
+    {
+      "name": "Ahmad Rasyid Hadiwijaya",
+      "nik": "3471022006030002",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-10",
+      "expiryDate": "2025-06-10",
+      "status": "Expired"
+    },
+    {
+      "name": "Rahardian Yusuf Yoga",
+      "nik": "",
+      "phone": "081226514900",
+      "membership": "Couple",
+      "joinDate": "2025-05-10",
+      "expiryDate": "2025-06-10",
+      "status": "Expired"
+    },
+    {
+      "name": "Shofian Sulistyo",
+      "nik": "3471120103000003",
+      "phone": "08975021136",
+      "membership": "Couple",
+      "joinDate": "2025-05-10",
+      "expiryDate": "2025-06-10",
+      "status": "Expired"
+    },
+    {
+      "name": "Pranaradja Janto",
+      "nik": "3404122412710001",
+      "phone": "08156873435",
+      "membership": "Personal",
+      "joinDate": "2025-05-10",
+      "expiryDate": "2025-06-10",
+      "status": "Expired"
+    },
+    {
+      "name": "Hakim Adha mahendra",
+      "nik": "3402122302020001",
+      "phone": "082122959454",
+      "membership": "Personal",
+      "joinDate": "2025-05-10",
+      "expiryDate": "2025-06-10",
+      "status": "Expired"
+    },
+    {
+      "name": "Elfi nur widyanigrum",
+      "nik": "3402126011030005",
+      "phone": "0895327849070",
+      "membership": "Personal",
+      "joinDate": "2025-05-11",
+      "expiryDate": "2025-06-11",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammad Daffa huberta",
+      "nik": "",
+      "phone": "081327518527",
+      "membership": "Personal",
+      "joinDate": "2025-05-12",
+      "expiryDate": "2025-06-12",
+      "status": "Expired"
+    },
+    {
+      "name": "ivan (member lama)",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-12",
+      "expiryDate": "2025-06-12",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhamamd satriyo wahyu",
+      "nik": "3402150906010003",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-12",
+      "expiryDate": "2025-06-12",
+      "status": "Expired"
+    },
+    {
+      "name": "Yuni",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-12",
+      "expiryDate": "2025-06-12",
+      "status": "Expired"
+    },
+    {
+      "name": "Fahrul",
+      "nik": "",
+      "phone": "085815468188",
+      "membership": "Personal",
+      "joinDate": "2025-05-12",
+      "expiryDate": "2025-06-12",
+      "status": "Expired"
+    },
+    {
+      "name": "Yusuf",
+      "nik": "",
+      "phone": "0859131313458",
+      "membership": "Personal",
+      "joinDate": "2025-05-12",
+      "expiryDate": "2025-06-12",
+      "status": "Expired"
+    },
+    {
+      "name": "Callysta",
+      "nik": "",
+      "phone": "081233433907",
+      "membership": "Couple",
+      "joinDate": "2025-05-12",
+      "expiryDate": "2025-06-12",
+      "status": "Expired"
+    },
+    {
+      "name": "Ellya",
+      "nik": "",
+      "phone": "08782422002",
+      "membership": "Couple",
+      "joinDate": "2025-05-12",
+      "expiryDate": "2025-06-12",
+      "status": "Expired"
+    },
+    {
+      "name": "Atika Cahya",
+      "nik": "",
+      "phone": "087836259924",
+      "membership": "Personal",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Hari",
+      "nik": "",
+      "phone": "081804229005",
+      "membership": "Personal",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Ahmad Kavin Adzka",
+      "nik": "3510232203990002",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Reta aptasari putri sigit",
+      "nik": "3471134906090002",
+      "phone": "085712017193",
+      "membership": "Couple",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Aska",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Aldila Christian (Raval)",
+      "nik": "3471082612860001",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Novia Fery",
+      "nik": "3402155311960001",
+      "phone": "088228746421",
+      "membership": "Couple",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Hasyim",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Pipit",
+      "nik": "3471035302950002",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Ibnu Raharja",
+      "nik": "3402121012760009",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Diva mawarni",
+      "nik": "3502084405040001",
+      "phone": "085855665604",
+      "membership": "Personal",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammad auliamumtaz",
+      "nik": "3402120704990003",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Morgana mendonca dos santos",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Alaide monteiro barbosa romao",
+      "nik": "",
+      "phone": "0895386302610",
+      "membership": "Couple",
+      "joinDate": "2025-05-13",
+      "expiryDate": "2025-06-13",
+      "status": "Expired"
+    },
+    {
+      "name": "Bagus Mahendra",
+      "nik": "",
+      "phone": "087739282991",
+      "membership": "Personal",
+      "joinDate": "2025-05-14",
+      "expiryDate": "2025-06-14",
+      "status": "Expired"
+    },
+    {
+      "name": "Iza",
+      "nik": "",
+      "phone": "081291821299",
+      "membership": "Couple",
+      "joinDate": "2025-05-14",
+      "expiryDate": "2025-06-14",
+      "status": "Expired"
+    },
+    {
+      "name": "Zaka",
+      "nik": "",
+      "phone": "081779241758",
+      "membership": "Personal",
+      "joinDate": "2025-05-14",
+      "expiryDate": "2025-06-14",
+      "status": "Expired"
+    },
+    {
+      "name": "Feri",
+      "nik": "",
+      "phone": "088232949201",
+      "membership": "Personal",
+      "joinDate": "2025-05-14",
+      "expiryDate": "2025-06-14",
+      "status": "Expired"
+    },
+    {
+      "name": "Sigit Priyo Utomo",
+      "nik": "",
+      "phone": "085100554454",
+      "membership": "Personal",
+      "joinDate": "2025-05-14",
+      "expiryDate": "2025-12-14",
+      "status": "Active"
+    },
+    {
+      "name": "Niko",
+      "nik": "",
+      "phone": "081322662013",
+      "membership": "Personal",
+      "joinDate": "2025-05-14",
+      "expiryDate": "2025-06-14",
+      "status": "Expired"
+    },
+    {
+      "name": "Seventri",
+      "nik": "3402122408740008",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-15",
+      "expiryDate": "2025-06-15",
+      "status": "Expired"
+    },
+    {
+      "name": "Willy",
+      "nik": "",
+      "phone": "082133166928",
+      "membership": "Personal",
+      "joinDate": "2025-05-15",
+      "expiryDate": "2025-06-15",
+      "status": "Expired"
+    },
+    {
+      "name": "Ferdi Noor Korniawan",
+      "nik": "3471140207830001",
+      "phone": "08773824110",
+      "membership": "Personal",
+      "joinDate": "2025-05-15",
+      "expiryDate": "2025-06-15",
+      "status": "Expired"
+    },
+    {
+      "name": "ahmad fatin",
+      "nik": "",
+      "phone": "081359555187",
+      "membership": "Personal",
+      "joinDate": "2025-05-15",
+      "expiryDate": "2025-06-15",
+      "status": "Expired"
+    },
+    {
+      "name": "Zaki Haidar",
+      "nik": "",
+      "phone": "081227847772",
+      "membership": "Personal",
+      "joinDate": "2025-05-15",
+      "expiryDate": "2025-06-15",
+      "status": "Expired"
+    },
+    {
+      "name": "Fakhri Ali",
+      "nik": "",
+      "phone": "083106220177",
+      "membership": "Couple",
+      "joinDate": "2025-05-16",
+      "expiryDate": "2025-06-16",
+      "status": "Expired"
+    },
+    {
+      "name": "Naufal",
+      "nik": "",
+      "phone": "082245322883",
+      "membership": "Couple",
+      "joinDate": "2025-05-16",
+      "expiryDate": "2025-06-16",
+      "status": "Expired"
+    },
+    {
+      "name": "Teddy Setiawan",
+      "nik": "",
+      "phone": "089648566672",
+      "membership": "Personal",
+      "joinDate": "2025-05-16",
+      "expiryDate": "2025-06-16",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammad Hasan Ihsanudin",
+      "nik": "3402120605930001",
+      "phone": "081386537977",
+      "membership": "Personal",
+      "joinDate": "2025-05-16",
+      "expiryDate": "2025-06-16",
+      "status": "Expired"
+    },
+    {
+      "name": "Haryo Widagdo",
+      "nik": "3402120808910003",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-16",
+      "expiryDate": "2025-06-16",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammad Daffa Ulin",
+      "nik": "3471142504010002",
+      "phone": "0895360395862",
+      "membership": "Personal",
+      "joinDate": "2025-05-16",
+      "expiryDate": "2025-06-16",
+      "status": "Expired"
+    },
+    {
+      "name": "Rizqi bagus selamet budi",
+      "nik": "",
+      "phone": "089636377377",
+      "membership": "Personal",
+      "joinDate": "2025-05-19",
+      "expiryDate": "2025-06-19",
+      "status": "Expired"
+    },
+    {
+      "name": "Andre Honji Hacaryo",
+      "nik": "3404061904860005",
+      "phone": "082224066688",
+      "membership": "Couple",
+      "joinDate": "2025-05-19",
+      "expiryDate": "2025-06-19",
+      "status": "Expired"
+    },
+    {
+      "name": "Kay",
+      "nik": "",
+      "phone": "081316887141",
+      "membership": "Couple",
+      "joinDate": "2025-05-19",
+      "expiryDate": "2025-06-19",
+      "status": "Expired"
+    },
+    {
+      "name": "Hidayat",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-19",
+      "expiryDate": "2025-12-19",
+      "status": "Active"
+    },
+    {
+      "name": "rafa",
+      "nik": "",
+      "phone": "089630037037",
+      "membership": "Personal",
+      "joinDate": "2025-05-19",
+      "expiryDate": "2025-06-19",
+      "status": "Expired"
+    },
+    {
+      "name": "andriani",
+      "nik": "",
+      "phone": "08888429379",
+      "membership": "Couple",
+      "joinDate": "2025-05-19",
+      "expiryDate": "2025-06-19",
+      "status": "Expired"
+    },
+    {
+      "name": "oto",
+      "nik": "",
+      "phone": "08888429396",
+      "membership": "Couple",
+      "joinDate": "2025-05-19",
+      "expiryDate": "2025-06-19",
+      "status": "Expired"
+    },
+    {
+      "name": "Angga Setiabudi",
+      "nik": "3471140605970002",
+      "phone": "081215399589",
+      "membership": "Personal",
+      "joinDate": "2025-05-20",
+      "expiryDate": "2025-06-20",
+      "status": "Expired"
+    },
+    {
+      "name": "Ari prasetyo",
+      "nik": "",
+      "phone": "088233218128",
+      "membership": "Personal",
+      "joinDate": "2025-05-20",
+      "expiryDate": "2025-06-20",
+      "status": "Expired"
+    },
+    {
+      "name": "Rizky Ageng Suhardi",
+      "nik": "3304090101030005",
+      "phone": "0882007558084",
+      "membership": "Personal",
+      "joinDate": "2025-05-20",
+      "expiryDate": "2025-06-20",
+      "status": "Expired"
+    },
+    {
+      "name": "Rafi Ardianto",
+      "nik": "3201132507010008",
+      "phone": "0895380203048",
+      "membership": "Personal",
+      "joinDate": "2025-05-20",
+      "expiryDate": "2025-06-20",
+      "status": "Expired"
+    },
+    {
+      "name": "Galih Mukti",
+      "nik": "",
+      "phone": "085717028982",
+      "membership": "Personal",
+      "joinDate": "2025-05-20",
+      "expiryDate": "2025-06-20",
+      "status": "Expired"
+    },
+    {
+      "name": "Rudy Trilaksono",
+      "nik": "3402122404860001",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-21",
+      "expiryDate": "2025-06-21",
+      "status": "Expired"
+    },
+    {
+      "name": "Anom",
+      "nik": "",
+      "phone": "081227274374",
+      "membership": "Couple",
+      "joinDate": "2025-05-21",
+      "expiryDate": "2025-06-21",
+      "status": "Expired"
+    },
+    {
+      "name": "Suryo",
+      "nik": "",
+      "phone": "0895362348308",
+      "membership": "Personal",
+      "joinDate": "2025-05-21",
+      "expiryDate": "2025-06-21",
+      "status": "Expired"
+    },
+    {
+      "name": "Biaggi joladha Guna",
+      "nik": "",
+      "phone": "085643434077",
+      "membership": "Personal",
+      "joinDate": "2025-05-22",
+      "expiryDate": "2025-06-22",
+      "status": "Expired"
+    },
+    {
+      "name": "Risqa Amalia",
+      "nik": "",
+      "phone": "082278027100",
+      "membership": "Personal",
+      "joinDate": "2025-05-23",
+      "expiryDate": "2025-06-23",
+      "status": "Expired"
+    },
+    {
+      "name": "Dani",
+      "nik": "",
+      "phone": "081352404060",
+      "membership": "Couple",
+      "joinDate": "2025-05-23",
+      "expiryDate": "2025-06-23",
+      "status": "Expired"
+    },
+    {
+      "name": "Tata",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-23",
+      "expiryDate": "2025-05-23",
+      "status": "Expired"
+    },
+    {
+      "name": "Davia mia amanda",
+      "nik": "3402124401030003",
+      "phone": "089620776562",
+      "membership": "Personal",
+      "joinDate": "2025-05-23",
+      "expiryDate": "2025-06-23",
+      "status": "Expired"
+    },
+    {
+      "name": "Richwan Kristiadi",
+      "nik": "",
+      "phone": "081328714378",
+      "membership": "Personal",
+      "joinDate": "2025-05-23",
+      "expiryDate": "2025-06-23",
+      "status": "Expired"
+    },
+    {
+      "name": "Bpk Sarjiya",
+      "nik": "3401050807730013",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-23",
+      "expiryDate": "2025-06-23",
+      "status": "Expired"
+    },
+    {
+      "name": "Anthoni Teguh Jaya",
+      "nik": "",
+      "phone": "08170409119",
+      "membership": "Personal",
+      "joinDate": "2025-05-23",
+      "expiryDate": "2025-06-23",
+      "status": "Expired"
+    },
+    {
+      "name": "Muhammad Faizal Awalludin",
+      "nik": "3201072701950002",
+      "phone": "085155449127",
+      "membership": "Personal",
+      "joinDate": "2025-05-24",
+      "expiryDate": "2025-06-24",
+      "status": "Expired"
+    },
+    {
+      "name": "Elias Marcus Cristianto",
+      "nik": "",
+      "phone": "089620964833",
+      "membership": "Personal",
+      "joinDate": "2025-05-24",
+      "expiryDate": "2025-06-24",
+      "status": "Expired"
+    },
+    {
+      "name": "Kadek wiryawan",
+      "nik": "5171012207970012",
+      "phone": "08113802207",
+      "membership": "Personal",
+      "joinDate": "2025-05-24",
+      "expiryDate": "2025-06-24",
+      "status": "Expired"
+    },
+    {
+      "name": "Valentino Lionel",
+      "nik": "",
+      "phone": "0895358685715",
+      "membership": "Couple",
+      "joinDate": "2025-05-24",
+      "expiryDate": "2025-06-24",
+      "status": "Expired"
+    },
+    {
+      "name": "Daniel Risky",
+      "nik": "",
+      "phone": "081916297070",
+      "membership": "Couple",
+      "joinDate": "2025-05-24",
+      "expiryDate": "2025-06-24",
+      "status": "Expired"
+    },
+    {
+      "name": "Dhea Eka Puspitasari",
+      "nik": "3404106605990002",
+      "phone": "085952895077",
+      "membership": "Couple",
+      "joinDate": "2025-05-25",
+      "expiryDate": "2025-06-25",
+      "status": "Expired"
+    },
+    {
+      "name": "",
+      "nik": "",
+      "phone": "085952895077",
+      "membership": "Couple",
+      "joinDate": "2025-05-25",
+      "expiryDate": "2025-06-25",
+      "status": "Expired"
+    },
+    {
+      "name": "Susana Sumarsih",
+      "nik": "",
+      "phone": "08994523833",
+      "membership": "Couple",
+      "joinDate": "2025-05-26",
+      "expiryDate": "2025-06-26",
+      "status": "Expired"
+    },
+    {
+      "name": "",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-05-26",
+      "expiryDate": "2025-06-26",
+      "status": "Expired"
+    },
+    {
+      "name": "Andrian Dwi Utomo",
+      "nik": "3471121512930001",
+      "phone": "08886599584",
+      "membership": "Personal",
+      "joinDate": "2025-05-26",
+      "expiryDate": "2025-06-26",
+      "status": "Expired"
+    },
+    {
+      "name": "Jasoet martohartono",
+      "nik": "1807162204870001",
+      "phone": "081325601881",
+      "membership": "Personal",
+      "joinDate": "2025-05-27",
+      "expiryDate": "2025-06-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Prio Trisatria",
+      "nik": "3402121711910004",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-27",
+      "expiryDate": "2025-06-27",
+      "status": "Expired"
+    },
+    {
+      "name": "Hariyanto",
+      "nik": "5205052905910006",
+      "phone": "087739463469",
+      "membership": "Couple",
+      "joinDate": "2025-05-28",
+      "expiryDate": "2025-06-28",
+      "status": "Expired"
+    },
+    {
+      "name": "iin elvandari",
+      "nik": "",
+      "phone": "082131773714",
+      "membership": "Couple",
+      "joinDate": "2025-05-28",
+      "expiryDate": "2025-06-28",
+      "status": "Expired"
+    },
+    {
+      "name": "Ali Muhammad Al Gibran",
+      "nik": "",
+      "phone": "0818271155",
+      "membership": "Personal",
+      "joinDate": "2025-05-28",
+      "expiryDate": "2025-06-28",
+      "status": "Expired"
+    },
+    {
+      "name": "Heru Andreanto",
+      "nik": "",
+      "phone": "081271100955",
+      "membership": "Personal",
+      "joinDate": "2025-05-29",
+      "expiryDate": "2025-06-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Ahmad Najib Almubarok",
+      "nik": "3510231411000003",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-29",
+      "expiryDate": "2025-06-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Nova eko saputro",
+      "nik": "",
+      "phone": "089652337241",
+      "membership": "Personal",
+      "joinDate": "2025-05-29",
+      "expiryDate": "2025-06-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Yulening",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-29",
+      "expiryDate": "2025-06-29",
+      "status": "Expired"
+    },
+    {
+      "name": "Rendi Nur Hermanto",
+      "nik": "3402122804950002",
+      "phone": "089640251860",
+      "membership": "Personal",
+      "joinDate": "2025-05-30",
+      "expiryDate": "2025-06-30",
+      "status": "Expired"
+    },
+    {
+      "name": "Fadhil Amadan",
+      "nik": "3523162004950001",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-05-31",
+      "expiryDate": "2025-07-01",
+      "status": "Active"
+    },
+    {
+      "name": "Iskandar firyanata",
+      "nik": "320409270190003",
+      "phone": "082136262012",
+      "membership": "Personal",
+      "joinDate": "2025-05-31",
+      "expiryDate": "2025-07-01",
+      "status": "Active"
+    },
+    {
+      "name": "Rani melisa azizah",
+      "nik": "35270355005920014",
+      "phone": "082242750020",
+      "membership": "Personal",
+      "joinDate": "2025-05-31",
+      "expiryDate": "2025-07-01",
+      "status": "Active"
+    },
+    {
+      "name": "Steven Giono",
+      "nik": "3402120301970003",
+      "phone": "08122788999",
+      "membership": "Personal",
+      "ptAmount": 10,
+      "joinDate": "2025-06-01",
+      "expiryDate": "2026-01-01",
+      "status": "Active"
+    },
+    {
+      "name": "Singkono",
+      "nik": "",
+      "phone": "081578311999",
+      "membership": "Personal",
+      "ptAmount": 10,
+      "joinDate": "2025-06-01",
+      "expiryDate": "2026-01-01",
+      "status": "Active"
+    },
+    {
+      "name": "Arief hidayatullah",
+      "nik": "3524101409920001",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-06-01",
+      "expiryDate": "2025-07-01",
+      "status": "Active"
+    },
+    {
+      "name": "Noni dwi saputri",
+      "nik": "3402127005990002",
+      "phone": "089661020543",
+      "membership": "Personal",
+      "ptAmount": 4,
+      "joinDate": "2025-06-01",
+      "expiryDate": "2025-07-01",
+      "status": "Active"
+    },
+    {
+      "name": "Muhammad faris nafiuzzaqi",
+      "nik": "3329112302050002",
+      "phone": "082338383261",
+      "membership": "Personal",
+      "joinDate": "2025-06-01",
+      "expiryDate": "2025-07-01",
+      "status": "Active"
+    },
+    {
+      "name": "Ugra Wijaya",
+      "nik": "",
+      "phone": "081228947340",
+      "membership": "Couple",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Diana Hakim",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Cherishmalia Aisah",
+      "nik": "",
+      "phone": "081320777668",
+      "membership": "Personal",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Raden Mas Yoga",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Max",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Oka",
+      "nik": "",
+      "phone": "082221484082",
+      "membership": "Personal",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Donatus aldo nugroho",
+      "nik": "8171022909060001",
+      "phone": "085156020728",
+      "membership": "Couple",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Christofero manignolan",
+      "nik": "8171020801080002",
+      "phone": "081340957723",
+      "membership": "Couple",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Febriarto Dwi Nugroho",
+      "nik": "3404162802900001",
+      "phone": "081393773974",
+      "membership": "Personal",
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "daffa wuri hasanain",
+      "nik": "3402142401000002",
+      "phone": "081234570847",
+      "membership": "Personal",
+      "ptAmount": 8,
+      "joinDate": "2025-06-02",
+      "expiryDate": "2025-07-02",
+      "status": "Active"
+    },
+    {
+      "name": "Ahmad Riky Ardiyansyah",
+      "nik": "",
+      "phone": "087803197409",
+      "membership": "Personal",
+      "joinDate": "2025-06-03",
+      "expiryDate": "2025-07-03",
+      "status": "Active"
+    },
+    {
+      "name": "Suyati",
+      "nik": "3404124502860001",
+      "phone": "085878220334",
+      "membership": "Personal",
+      "joinDate": "2025-06-03",
+      "expiryDate": "2025-07-03",
+      "status": "Active"
+    },
+    {
+      "name": "Momo",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-03",
+      "expiryDate": "2025-07-03",
+      "status": "Active"
+    },
+    {
+      "name": "Endra Kurniawan",
+      "nik": "3402120103950003",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-06-03",
+      "expiryDate": "2025-07-03",
+      "status": "Active"
+    },
+    {
+      "name": "Muhammad Rizky Abdul",
+      "nik": "",
+      "phone": "08968444322",
+      "membership": "Personal",
+      "joinDate": "2025-06-03",
+      "expiryDate": "2025-07-03",
+      "status": "Active"
+    },
+    {
+      "name": "Sam",
+      "nik": "",
+      "phone": "082138726649",
+      "membership": "Personal",
+      "joinDate": "2025-06-04",
+      "expiryDate": "2025-07-04",
+      "status": "Active"
+    },
+    {
+      "name": "Amel",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "ptAmount": 10,
+      "joinDate": "2025-06-04",
+      "expiryDate": "2025-07-04",
+      "status": "Active"
+    },
+    {
+      "name": "Abay",
+      "nik": "",
+      "phone": "",
+      "membership": "Personal",
+      "joinDate": "2025-06-04",
+      "expiryDate": "2025-07-04",
+      "status": "Active"
+    },
+    {
+      "name": "Gilang Satria",
+      "nik": "",
+      "phone": "08112653696",
+      "membership": "Personal",
+      "joinDate": "2025-06-07",
+      "expiryDate": "2025-07-07",
+      "status": "Active"
+    },
+    {
+      "name": "Fandi Ilham",
+      "nik": "",
+      "phone": "081229648688",
+      "membership": "Personal",
+      "joinDate": "2025-06-07",
+      "expiryDate": "2025-07-07",
+      "status": "Active"
+    },
+    {
+      "name": "Wendi",
+      "nik": "",
+      "phone": "085869615711",
+      "membership": "Personal",
+      "joinDate": "2025-06-07",
+      "expiryDate": "2025-07-07",
+      "status": "Active"
+    },
+    {
+      "name": "Eko Susilo",
+      "nik": "",
+      "phone": "087739194441",
+      "membership": "Personal",
+      "joinDate": "2025-06-07",
+      "expiryDate": "2025-07-07",
+      "status": "Active"
+    },
+    {
+      "name": "Kasanova Hermawan",
+      "nik": "34710827048330003",
+      "phone": "087761964237",
+      "membership": "Personal",
+      "joinDate": "2025-06-08",
+      "expiryDate": "2025-07-08",
+      "status": "Active"
+    },
+    {
+      "name": "Faqih dhia firdaus",
+      "nik": "",
+      "phone": "0895375080005",
+      "membership": "Couple",
+      "joinDate": "2025-06-08",
+      "expiryDate": "2025-07-08",
+      "status": "Active"
+    },
+    {
+      "name": "Afris",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-08",
+      "expiryDate": "2025-07-08",
+      "status": "Active"
+    },
+    {
+      "name": "Danu arman",
+      "nik": "3671051902860005",
+      "phone": "0816665141",
+      "membership": "Personal",
+      "joinDate": "2025-06-08",
+      "expiryDate": "2025-07-08",
+      "status": "Active"
+    },
+    {
+      "name": "Ariz Zaki",
+      "nik": "",
+      "phone": "085786756781",
+      "membership": "Personal",
+      "joinDate": "2025-06-09",
+      "expiryDate": "2025-07-09",
+      "status": "Active"
+    },
+    {
+      "name": "Adam Pamungkas",
+      "nik": "9171012807020001",
+      "phone": "0882005960491",
+      "membership": "Personal",
+      "joinDate": "2025-06-09",
+      "expiryDate": "2025-07-09",
+      "status": "Active"
+    },
+    {
+      "name": "danendra harfi ghaza putra",
+      "nik": "",
+      "phone": "087774210404",
+      "membership": "Couple",
+      "joinDate": "2025-06-09",
+      "expiryDate": "2025-07-09",
+      "status": "Active"
+    },
+    {
+      "name": "aryo wijasena saputra",
+      "nik": "",
+      "phone": "0895387920106",
+      "membership": "Couple",
+      "joinDate": "2025-06-09",
+      "expiryDate": "2025-07-09",
+      "status": "Active"
+    },
+    {
+      "name": "putri pinalia harahap",
+      "nik": "",
+      "phone": "082287466565",
+      "membership": "Personal",
+      "joinDate": "2025-06-09",
+      "expiryDate": "2025-07-09",
+      "status": "Active"
+    },
+    {
+      "name": "Zulhakim",
+      "nik": "",
+      "phone": "081226920655",
+      "membership": "Personal",
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Monica marta rani",
+      "nik": "",
+      "phone": "0895321899368",
+      "membership": "Personal",
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Kaysa jinan",
+      "nik": "",
+      "phone": "081333976033",
+      "membership": "Personal",
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Sanggrok tri pamko",
+      "nik": "",
+      "phone": "085729736606",
+      "membership": "Personal",
+      "ptAmount": 4,
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Devaylo trisda",
+      "nik": "",
+      "phone": "081259479588",
+      "membership": "Personal",
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Antony",
+      "nik": "",
+      "phone": "085775717375",
+      "membership": "Couple",
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Shabrina",
+      "nik": "Couple",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Muhammad Yusuf",
+      "nik": "",
+      "phone": "085293314758",
+      "membership": "Personal",
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Novi dian",
+      "nik": "",
+      "phone": "081903732336",
+      "membership": "Personal",
+      "joinDate": "2025-06-10",
+      "expiryDate": "2025-07-10",
+      "status": "Active"
+    },
+    {
+      "name": "Muhammad fauzan",
+      "nik": "",
+      "phone": "085179789182",
+      "membership": "Personal",
+      "joinDate": "2025-06-12",
+      "expiryDate": "2025-07-12",
+      "status": "Active"
+    },
+    {
+      "name": "Rajendra Deevan Nayottama",
+      "nik": "",
+      "phone": "082116161725",
+      "membership": "Personal",
+      "joinDate": "2025-06-12",
+      "expiryDate": "2025-07-12",
+      "status": "Active"
+    },
+    {
+      "name": "Haydar dzaky",
+      "nik": "",
+      "phone": "087718888104",
+      "membership": "Personal",
+      "joinDate": "2025-06-12",
+      "expiryDate": "2025-07-12",
+      "status": "Active"
+    },
+    {
+      "name": "Alhimna arsya ghina",
+      "nik": "",
+      "phone": "089667849956",
+      "membership": "Personal",
+      "joinDate": "2025-06-12",
+      "expiryDate": "2025-07-12",
+      "status": "Active"
+    },
+    {
+      "name": "Titus junior",
+      "nik": "",
+      "phone": "081575768",
+      "membership": "Personal",
+      "joinDate": "2025-06-12",
+      "expiryDate": "2025-07-12",
+      "status": "Active"
+    },
+    {
+      "name": "Anatasya",
+      "nik": "",
+      "phone": "081248906538",
+      "membership": "Personal",
+      "joinDate": "2025-06-13",
+      "expiryDate": "2025-07-13",
+      "status": "Active"
+    },
+    {
+      "name": "Wira",
+      "nik": "",
+      "phone": "082193338715",
+      "membership": "Couple",
+      "joinDate": "2025-06-13",
+      "expiryDate": "2025-07-13",
+      "status": "Active"
+    },
+    {
+      "name": "Dewa",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-13",
+      "expiryDate": "2025-07-13",
+      "status": "Active"
+    },
+    {
+      "name": "Rizki Anugrah",
+      "nik": "",
+      "phone": "08989265031",
+      "membership": "Personal",
+      "joinDate": "2025-06-13",
+      "expiryDate": "2025-07-13",
+      "status": "Active"
+    },
+    {
+      "name": "Rendy Armansyah",
+      "nik": "",
+      "phone": "081283338435",
+      "membership": "Personal",
+      "joinDate": "2025-06-15",
+      "expiryDate": "2025-07-15",
+      "status": "Active"
+    },
+    {
+      "name": "Zulhakim",
+      "nik": "",
+      "phone": "082226555597",
+      "membership": "Personal",
+      "joinDate": "2025-06-15",
+      "expiryDate": "2025-07-15",
+      "status": "Active"
+    },
+    {
+      "name": "Ari Kurniawan",
+      "nik": "",
+      "phone": "081949135477",
+      "membership": "Personal",
+      "joinDate": "2025-06-16",
+      "expiryDate": "2025-07-16",
+      "status": "Active"
+    },
+    {
+      "name": "Bagas Chandra",
+      "nik": "",
+      "phone": "087839997946",
+      "membership": "Personal",
+      "ptAmount": 4,
+      "joinDate": "2025-06-16",
+      "expiryDate": "2025-07-16",
+      "status": "Active"
+    },
+    {
+      "name": "Nadia Putri",
+      "nik": "1608036609020001",
+      "phone": "085709967304",
+      "membership": "Personal",
+      "joinDate": "2025-06-16",
+      "expiryDate": "2025-07-16",
+      "status": "Active"
+    },
+    {
+      "name": "Julang Arya Duta",
+      "nik": "",
+      "phone": "081326023241",
+      "membership": "Couple",
+      "joinDate": "2025-06-16",
+      "expiryDate": "2025-07-16",
+      "status": "Active"
+    },
+    {
+      "name": "Humansa",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-16",
+      "expiryDate": "2025-07-16",
+      "status": "Active"
+    },
+    {
+      "name": "Nissa Nur Aisya",
+      "nik": "",
+      "phone": "088902856546",
+      "membership": "Couple",
+      "joinDate": "2025-06-17",
+      "expiryDate": "2025-07-17",
+      "status": "Active"
+    },
+    {
+      "name": "Syafni Danadiaksa",
+      "nik": "",
+      "phone": "081370470414",
+      "membership": "Couple",
+      "joinDate": "2025-06-17",
+      "expiryDate": "2025-07-17",
+      "status": "Active"
+    },
+    {
+      "name": "Aldo",
+      "nik": "",
+      "phone": "085741011418",
+      "membership": "Couple",
+      "joinDate": "2025-06-18",
+      "expiryDate": "2025-07-18",
+      "status": "Active"
+    },
+    {
+      "name": "Kinan",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-18",
+      "expiryDate": "2025-07-18",
+      "status": "Active"
+    },
+    {
+      "name": "Ayu",
+      "nik": "",
+      "phone": "081802726206",
+      "membership": "Personal",
+      "joinDate": "2025-06-19",
+      "expiryDate": "2025-07-19",
+      "status": "Active"
+    },
+    {
+      "name": "Enggara friday",
+      "nik": "",
+      "phone": "081229479486",
+      "membership": "Personal",
+      "joinDate": "2025-06-20",
+      "expiryDate": "2025-07-20",
+      "status": "Active"
+    },
+    {
+      "name": "Bangkit Tri",
+      "nik": "",
+      "phone": "089661743300",
+      "membership": "Personal",
+      "joinDate": "2025-06-20",
+      "expiryDate": "2025-07-20",
+      "status": "Active"
+    },
+    {
+      "name": "Bayu Hermawan",
+      "nik": "",
+      "phone": "087788982221",
+      "membership": "Couple",
+      "joinDate": "2025-06-20",
+      "expiryDate": "2025-07-20",
+      "status": "Active"
+    },
+    {
+      "name": "Joan De Arc Zefanya Aurea A",
+      "nik": "",
+      "phone": "089648762459",
+      "membership": "Couple",
+      "joinDate": "2025-06-20",
+      "expiryDate": "2025-07-20",
+      "status": "Active"
+    },
+    {
+      "name": "Abdurrahman",
+      "nik": "347104200900001",
+      "phone": "081390304029",
+      "membership": "Couple",
+      "joinDate": "2025-06-22",
+      "expiryDate": "2025-07-22",
+      "status": "Active"
+    },
+    {
+      "name": "Jessica",
+      "nik": "",
+      "phone": "",
+      "membership": "Couple",
+      "joinDate": "2025-06-22",
+      "expiryDate": "2025-07-22",
+      "status": "Active"
+    },
+    {
+      "name": "Tedy gunawan",
+      "nik": "",
+      "phone": "081228429788",
+      "membership": "Personal",
+      "joinDate": "2025-06-23",
+      "expiryDate": "2025-07-23",
+      "status": "Active"
+    },
+    {
+      "name": "Al shabani",
+      "nik": "",
+      "phone": "081296880886",
+      "membership": "Personal",
+      "joinDate": "2025-06-23",
+      "expiryDate": "2025-07-23",
+      "status": "Active"
+    },
+    {
+      "name": "Robi",
+      "nik": "",
+      "phone": "089662535574",
+      "membership": "Couple",
+      "joinDate": "2025-06-24",
+      "expiryDate": "2025-07-24",
+      "status": "Active"
+    },
+    {
+      "name": "Gogo",
+      "nik": "",
+      "phone": "085600763175",
+      "membership": "Couple",
+      "joinDate": "2025-06-24",
+      "expiryDate": "2025-07-24",
+      "status": "Active"
+    },
+    {
+      "name": "Arwhen",
+      "nik": "",
+      "phone": "0817427119",
+      "membership": "Couple",
+      "joinDate": "2025-06-25",
+      "expiryDate": "2025-07-25",
+      "status": "Active"
+    },
+    {
+      "name": "Anno",
+      "nik": "",
+      "phone": "0817427118",
+      "membership": "Couple",
+      "joinDate": "2025-06-25",
+      "expiryDate": "2025-07-25",
+      "status": "Active"
+    },
+    {
+      "name": "Calista Sp",
+      "nik": "",
+      "phone": "082220135715",
+      "membership": "Personal",
+      "ptAmount": 10,
+      "joinDate": "2025-06-25",
+      "expiryDate": "2025-07-25",
+      "status": "Active"
+    },
+    {
+      "name": "Habib Ahmarudin",
+      "nik": "1802241810970003",
+      "phone": "089629148247",
+      "membership": "Personal",
+      "joinDate": "2025-06-27",
+      "expiryDate": "2025-07-27",
+      "status": "Active"
+    },
+    {
+      "name": "Dian Rockmad",
+      "nik": "3402152510910001",
+      "phone": "081326849933",
+      "membership": "Personal",
+      "joinDate": "2025-06-27",
+      "expiryDate": "2025-07-27",
+      "status": "Active"
+    },
+    {
+      "name": "Damar Saloka",
+      "nik": "3305072412920001",
+      "phone": "085747499663",
+      "membership": "Personal",
+      "joinDate": "2025-06-27",
+      "expiryDate": "2025-07-27",
+      "status": "Active"
+    },
+    {
+      "name": "Bagus Achmad",
+      "nik": "3576020111020002",
+      "phone": "082134934275",
+      "membership": "Personal",
+      "joinDate": "2025-06-27",
+      "expiryDate": "2025-07-27",
+      "status": "Active"
+    },
+    {
+      "name": "Devon Arrazaq",
+      "nik": "3212152503000001",
+      "phone": "08872532000",
+      "membership": "Personal",
+      "joinDate": "2025-06-27",
+      "expiryDate": "2025-07-27",
+      "status": "Active"
+    },
+    {
+      "name": "Imam Rizwandy",
+      "nik": "",
+      "phone": "089678772997",
+      "membership": "Personal",
+      "joinDate": "2025-06-28",
+      "expiryDate": "2025-07-28",
+      "status": "Active"
+    },
+    {
+      "name": "Abang Dalil",
+      "nik": "",
+      "phone": "082335292228",
+      "membership": "Personal",
+      "joinDate": "2025-06-29",
+      "expiryDate": "2025-07-29",
+      "status": "Active"
+    },
+    {
+      "name": "Budi Suryo",
+      "nik": "",
+      "phone": "08112554519",
+      "membership": "Personal",
+      "joinDate": "2025-06-29",
+      "expiryDate": "2025-07-29",
+      "status": "Active"
+    },
+    {
+      "name": "Donny Agusta",
+      "nik": "",
+      "phone": "081328004531",
+      "membership": "Personal",
+      "joinDate": "2025-06-29",
+      "expiryDate": "2025-07-29",
+      "status": "Active"
+    },
+    {
+      "name": "Vavian arkan naufal",
+      "nik": "",
+      "phone": "081385627974",
+      "membership": "Personal",
+      "joinDate": "2025-06-29",
+      "expiryDate": "2025-07-29",
+      "status": "Active"
+    }
+  ]
+}

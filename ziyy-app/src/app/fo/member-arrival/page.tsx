@@ -9,11 +9,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
+// Updated interface to match the API response
 interface MemberArrival {
   id: number;
-  name: string;
   arrivalDate: string;
   arrivalType: string;
+  member: {
+    name: string;
+  };
 }
 
 export default function Page() {
@@ -26,16 +29,31 @@ export default function Page() {
   useEffect(() => {
     setTimeout(() => setShow(true), 100);
 
-    fetch("/membersArrival.json")
-      .then((res) => res.json())
-      .then((data) => setArrivals(data.membersArrival || []));
+    const fetchArrivals = async () => {
+        try{
+            const response = await fetch('/api/member-arrivals');
+            if(!response.ok){
+                throw new Error('Failed to fetch arrivals from DB through API')
+            }
+            const data = await response.json();
+            setArrivals(data);
+            const today = new Date().toISOString().split("T")[0];
+            setArrivals(
+                data.filter((arrival: MemberArrival) => arrival.arrivalDate && arrival.arrivalDate.split("T")[0] === today)
+            );
+        } catch (error) {
+            console.error('Error fetching arrivals:', error);
+        }
+    }
+
+    fetchArrivals();
   }, []);
 
   const getArrivalBadge = (arrivalType: string) => {
     switch (arrivalType) {
-      case "gym":
+      case "GYM":
         return <Badge className="bg-sky-100 text-sky-800 hover:bg-sky-100">Gym</Badge>;
-      case "gymPt":
+      case "GYM_PT":
         return <Badge className="bg-sky-100 text-sky-800 hover:bg-sky-100">Gym + PT</Badge>;
     }
   };
@@ -45,14 +63,30 @@ export default function Page() {
         setIsDeleteDialogOpen(true);
     };
 
-    const handleDeleteArrival = () => {
+    const handleDeleteArrival = async () => {
         if(selected){
-            const updated = arrivals.filter(
-                (arr) => arr.id !== selected.id
-            );
+            try {
+                const response = await fetch('/api/member-arrivals', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: selected.id }),
+                });
 
-            setArrivals(updated);
-            setIsDeleteDialogOpen(false);
+                if (!response.ok) {
+                    throw new Error("Failed to delete arrival");
+                }
+
+                const updated = arrivals.filter(
+                    (arr) => arr.id !== selected.id
+                );
+                setArrivals(updated);
+                setIsDeleteDialogOpen(false);
+
+            } catch (error) {
+                console.error("Error deleting arrival:", error);
+            }
         }
     };
 
@@ -87,18 +121,18 @@ export default function Page() {
               <p className="text-gray-500 col-span-full text-center">Tidak ada kedatangan member.</p>
             )}
             {arrivals.sort((a, b) => b.id - a.id).map((arrival) => (
-              <Card key={arrival.id} className="bg-white">
+              <Card key={arrival.id} className="bg-white justify-between">
                 <CardHeader>
                   <div className="flex items-center justify-between w-full">
                     <CardTitle className="flex items-center gap-2">
-                      {arrival.name}
+                        {arrival.member.name}
                     </CardTitle>
                     <Trash2 className="text-xs hover:cursor-pointer" onClick={() => handleClick(arrival)}/>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-xs text-gray-500">Tanggal: {arrival.arrivalDate}</div>
                   <div className="text-xs text-gray-500">{getArrivalBadge(arrival.arrivalType)}</div>
+                  <div className="text-xs text-gray-500">Tanggal: {new Date(arrival.arrivalDate).toLocaleDateString()}</div>
                 </CardContent>
               </Card>
             ))}
