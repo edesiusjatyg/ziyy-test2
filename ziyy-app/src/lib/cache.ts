@@ -3,8 +3,7 @@ import { CacheService } from './redis';
 // Cache-aside pattern implementation for your API endpoints
 export class ApiCache {
     private static readonly CACHE_PREFIX = 'ziyy_gym:';
-    private static readonly DEFAULT_TTL = 300; // 5 minutes for frequently changing data
-    private static readonly LONG_TTL = 3600; // 1 hour for stable data
+    private static readonly DEFAULT_TTL = 3600;
 
     // Generate cache keys
     private static key(type: string, identifier?: string | number): string {
@@ -59,6 +58,78 @@ export class ApiCache {
         await CacheService.set(this.key('statistic_counts'), counts, 60); // 1 minute TTL
     }
 
+    // Couple cache
+    static async getCouple(memberId: number): Promise<any | null> {
+        return await CacheService.get(this.key('couple', memberId));
+    }
+
+    static async setCouple(memberId: number, couple: any): Promise<void> {
+        await CacheService.set(this.key('couple', memberId), couple, this.DEFAULT_TTL);
+    }
+
+    // Transaction FO cache
+    static async getTxFo(): Promise<any[] | null> {
+        return await CacheService.get(this.key('txFo'));
+    }
+
+    static async setTxFo(txs: any[]): Promise<void> {
+        await CacheService.set(this.key('txFo'), txs, this.DEFAULT_TTL);
+    }
+
+    // Transaction Canteen cache
+    static async getTxCanteen(): Promise<any[] | null> {
+        return await CacheService.get(this.key('txCanteen'));
+    }
+
+    static async setTxCanteen(txs: any[]): Promise<void> {
+        await CacheService.set(this.key('txCanteen'), txs, this.DEFAULT_TTL);
+    }
+
+    // Transaction Accounting cache
+    static async getTxAccounting(): Promise<any[] | null> {
+        return await CacheService.get(this.key('txAccounting'));
+    }
+
+    static async setTxAccounting(txs: any[]): Promise<void> {
+        await CacheService.set(this.key('txAccounting'), txs, this.DEFAULT_TTL);
+    }
+
+    // Activities cache
+    static async getActivities(): Promise<any[] | null> {
+        return await CacheService.get(this.key('activities'));
+    }
+
+    static async setActivities(activities: any[]): Promise<void> {
+        await CacheService.set(this.key('activities'), activities, this.DEFAULT_TTL);
+    }
+
+    // Campaigns cache
+    static async getCampaigns(): Promise<any[] | null> {
+        return await CacheService.get(this.key('campaigns'));
+    }
+
+    static async setCampaigns(campaigns: any[]): Promise<void> {
+        await CacheService.set(this.key('campaigns'), campaigns, this.DEFAULT_TTL);
+    }
+
+    // Users cache
+    static async getUsers(): Promise<any[] | null> {
+        return await CacheService.get(this.key('users'));
+    }
+
+    static async setUsers(users: any[]): Promise<void> {
+        await CacheService.set(this.key('users'), users, this.DEFAULT_TTL);
+    }
+
+    // Canteen with items cache (separate from transaction-canteen)
+    static async getCanteenWithItems(): Promise<any[] | null> {
+        return await CacheService.get(this.key('canteenWithItems'));
+    }
+
+    static async setCanteenWithItems(txs: any[]): Promise<void> {
+        await CacheService.set(this.key('canteenWithItems'), txs, this.DEFAULT_TTL);
+    }
+
     // Invalidation methods
     static async invalidateMembers(): Promise<void> {
         await CacheService.invalidatePattern(`${this.CACHE_PREFIX}member*`);
@@ -73,6 +144,41 @@ export class ApiCache {
     static async invalidateIncidentiles(): Promise<void> {
         await CacheService.del(this.key('incidentiles'));
         await CacheService.del(this.key('statistic_counts'));
+    }
+
+    static async invalidateCouple(memberId: number): Promise<void> {
+        await CacheService.del(this.key('couple', memberId));
+    }
+
+    static async invalidateTxFo(): Promise<void> {
+        await CacheService.del(this.key('txFo'));
+        await CacheService.del(this.key('statistic_counts'));
+    }
+
+    static async invalidateTxCanteen(): Promise<void> {
+        await CacheService.del(this.key('txCanteen'));
+        await CacheService.del(this.key('statistic_counts'));
+    }
+
+    static async invalidateTxAccounting(): Promise<void> {
+        await CacheService.del(this.key('txAccounting'));
+        await CacheService.del(this.key('statistic_counts'));
+    }
+
+    static async invalidateActivities(): Promise<void> {
+        await CacheService.del(this.key('activities'));
+    }
+
+    static async invalidateCampaigns(): Promise<void> {
+        await CacheService.del(this.key('campaigns'));
+    }
+
+    static async invalidateUsers(): Promise<void> {
+        await CacheService.del(this.key('users'));
+    }
+
+    static async invalidateCanteenWithItems(): Promise<void> {
+        await CacheService.del(this.key('canteenWithItems'));
     }
 
     static async invalidateAll(): Promise<void> {

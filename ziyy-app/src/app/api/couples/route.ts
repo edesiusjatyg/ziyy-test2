@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '../../../generated/prisma/client';
+import { ApiCache } from '../../../lib/cache';
 
 const prisma = new PrismaClient();
 
@@ -8,18 +9,29 @@ export async function GET(req: NextRequest) {
   const id = Number(searchParams.get('id'));
   if (!id) return NextResponse.json({ error: 'No member id provided' }, { status: 400 });
   try {
-    const couple = await prisma.couple.findFirst({
-      where: {
-        OR: [
-          { member1Id: id },
-          { member2Id: id }
-        ]
-      },
-      include: {
-        member1: true,
-        member2: true
-      }
-    });
+    // Try to get from cache first
+    let couple = await ApiCache.getCouple(id);
+    
+    if (!couple) {
+      console.log('🔥 COUPLE CACHE MISS - Fetching from database');
+      couple = await prisma.couple.findFirst({
+        where: {
+          OR: [
+            { member1Id: id },
+            { member2Id: id }
+          ]
+        },
+        include: {
+          member1: true,
+          member2: true
+        }
+      });
+      await ApiCache.setCouple(id, couple);
+      console.log('💾 Couple cached for next request');
+    } else {
+      console.log('⚡ COUPLE CACHE HIT - Returning cached data');
+    }
+    
     if (!couple) return NextResponse.json({ coupleName: null }, { status: 200 });
     // Return the other member's name
     let coupleName = null;
@@ -48,6 +60,12 @@ export async function DELETE(req: NextRequest) {
     }
 
     await prisma.couple.delete({ where: { id: couple.id } });
+    
+    // Invalidate couple cache for both members
+    await ApiCache.invalidateCouple(couple.member1Id);
+    await ApiCache.invalidateCouple(couple.member2Id);
+    console.log('🗑️ Couple cache invalidated after deletion');
+    
     return NextResponse.json({ message: 'Couple linkage deleted' }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete couple linkage' }, { status: 400 });
