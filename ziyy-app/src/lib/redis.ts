@@ -1,11 +1,11 @@
 import { createClient } from 'redis';
 
 const client = createClient({
-    username: 'default',
-    password: 'u3W94A5hv9aEiufVhntQmGap4aMP0JLf',
+    username: process.env.REDIS_USERNAME,
+    password: process.env.REDIS_PASSWORD,
     socket: {
-        host: 'redis-16516.c89.us-east-1-3.ec2.redns.redis-cloud.com',
-        port: 16516
+        host: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT, 10) : 6379,
     }
 });
 
@@ -23,7 +23,7 @@ const connectRedis = async () => {
 
 // Cache utility with cache-aside pattern
 export class CacheService {
-    private static TTL = 3600; // 1 hour default TTL
+    private static TTL = parseInt(process.env.CACHE_TTL_DEFAULT || '3600', 10); // Default TTL from env
 
     static async get<T>(key: string): Promise<T | null> {
         try {

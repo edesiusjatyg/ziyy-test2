@@ -3,7 +3,7 @@ import { CacheService } from './redis';
 // Cache-aside pattern implementation for your API endpoints
 export class ApiCache {
     private static readonly CACHE_PREFIX = 'ziyy_gym:';
-    private static readonly DEFAULT_TTL = 3600;
+    private static readonly DEFAULT_TTL = parseInt(process.env.CACHE_TTL_DEFAULT || '3600', 10);
 
     // Generate cache keys
     private static key(type: string, identifier?: string | number): string {
@@ -55,7 +55,8 @@ export class ApiCache {
     }
 
     static async setStatisticCounts(counts: any): Promise<void> {
-        await CacheService.set(this.key('statistic_counts'), counts, 60); // 1 minute TTL
+        const statisticTTL = parseInt(process.env.CACHE_TTL_STATISTICS || '60', 10); // 1 minute TTL for statistics
+        await CacheService.set(this.key('statistic_counts'), counts, statisticTTL);
     }
 
     // Couple cache
@@ -203,7 +204,7 @@ export class ApiCache {
 export function withCache<T>(
     cacheKey: string,
     dbOperation: () => Promise<T>,
-    ttl: number = 300
+    ttl: number = parseInt(process.env.CACHE_TTL_DEFAULT || '3600', 10)
 ) {
     return async (): Promise<T> => {
         // Try to get from cache first
