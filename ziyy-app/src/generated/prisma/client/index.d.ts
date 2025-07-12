@@ -16456,6 +16456,7 @@ export namespace Prisma {
 
   export type CanteenItemWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name_price?: CanteenItemNamePriceCompoundUniqueInput
     AND?: CanteenItemWhereInput | CanteenItemWhereInput[]
     OR?: CanteenItemWhereInput[]
     NOT?: CanteenItemWhereInput | CanteenItemWhereInput[]
@@ -16464,7 +16465,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CanteenItem"> | Date | string
     updatedAt?: DateTimeFilter<"CanteenItem"> | Date | string
     txCanteens?: TxCanteenListRelationFilter
-  }, "id">
+  }, "id" | "name_price">
 
   export type CanteenItemOrderByWithAggregationInput = {
     id?: SortOrder
@@ -18076,6 +18077,11 @@ export namespace Prisma {
 
   export type TxCanteenOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type CanteenItemNamePriceCompoundUniqueInput = {
+    name: string
+    price: number
   }
 
   export type CanteenItemCountOrderByAggregateInput = {

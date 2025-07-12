@@ -130,6 +130,15 @@ export class ApiCache {
         await CacheService.set(this.key('canteenWithItems'), txs, this.DEFAULT_TTL);
     }
 
+    // Canteen Items cache (menu items)
+    static async getCanteenItems(): Promise<any[] | null> {
+        return await CacheService.get(this.key('canteenItems'));
+    }
+
+    static async setCanteenItems(items: any[]): Promise<void> {
+        await CacheService.set(this.key('canteenItems'), items, this.DEFAULT_TTL);
+    }
+
     // Invalidation methods
     static async invalidateMembers(): Promise<void> {
         await CacheService.invalidatePattern(`${this.CACHE_PREFIX}member*`);
@@ -179,6 +188,10 @@ export class ApiCache {
 
     static async invalidateCanteenWithItems(): Promise<void> {
         await CacheService.del(this.key('canteenWithItems'));
+    }
+
+    static async invalidateCanteenItems(): Promise<void> {
+        await CacheService.del(this.key('canteenItems'));
     }
 
     static async invalidateAll(): Promise<void> {

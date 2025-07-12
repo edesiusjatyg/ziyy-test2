@@ -83,8 +83,12 @@ model Member {
   arrivals     MemberArrival[]
   couples1     Couple[] @relation("Member1Couple")
   couples2     Couple[] @relation("Member2Couple")
+  @@index([name])
+  @@index([nik])
+  @@index([phone])
   @@index([status])
   @@index([expiryDate])
+  @@index([status, expiryDate])
 }
 
 model Couple {
@@ -101,6 +105,9 @@ model MemberArrival {
   member        Member   @relation(fields: [memberId], references: [id])
   arrivalDate   DateTime
   arrivalType   ArrivalType
+  @@index([memberId])
+  @@index([arrivalDate])
+  @@index([arrivalDate, memberId])
 }
 
 model Incidentile {
@@ -113,6 +120,9 @@ model Incidentile {
   paymentMethod PaymentMethod
   paymentAmount Int
   date          DateTime
+  @@index([date])
+  @@index([type])
+  @@index([name])
 }
 
 model TxFo {
@@ -123,6 +133,9 @@ model TxFo {
     paymentMethod PaymentMethod
     paymentAmount Int
     date          DateTime
+    @@index([type])
+    @@index([date])
+    @@index([date, type])
 }
 
 model TxCanteen {
@@ -136,6 +149,10 @@ model TxCanteen {
   paymentMethod PaymentMethod
   paymentAmount Int
   date          DateTime
+  @@index([type])
+  @@index([itemId])
+  @@index([date])
+  @@index([date, type])
 }
 
 model TxAccounting {
@@ -146,6 +163,9 @@ model TxAccounting {
   paymentMethod PaymentMethod
   paymentAmount Int
   date          DateTime
+  @@index([type])
+  @@index([date])
+  @@index([date, type])
 }
 
 model Campaign {
@@ -157,6 +177,9 @@ model Campaign {
   endDate       DateTime
   status        String   // e.g. "active", "inactive"
   activities    ActivityMarketing[]
+  @@index([status])
+  @@index([startDate])
+  @@index([endDate])
 }
 
 model ActivityMarketing {
@@ -167,6 +190,9 @@ model ActivityMarketing {
   title         String
   description   String?
   date          DateTime
+  @@index([username])
+  @@index([campaignId])
+  @@index([date])
 }
 
 model CanteenItem {
@@ -176,6 +202,8 @@ model CanteenItem {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   txCanteens    TxCanteen[]
+  @@index([name])
+  @@unique([name, price]) // Ensure unique items by name and price
 }
 
 model User {
@@ -187,6 +215,7 @@ model User {
   createdAt    DateTime @default(now())
   lastLogin    DateTime? // Set manually on login, not @updatedAt
   actions      UserActions[]
+  @@index([role])
 }
 
 model UserActions {
@@ -195,4 +224,6 @@ model UserActions {
   user        User     @relation(fields: [userId], references: [id])
   time        DateTime @default(now())
   description String
+  @@index([userId])
+  @@index([userId, time])
 }
