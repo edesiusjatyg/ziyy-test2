@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '../../../generated/prisma/client';
+import { ApiCache } from '../../../lib/cache';
 
 const prisma = new PrismaClient();
 
@@ -21,7 +22,19 @@ export async function GET(req: NextRequest) {
         },
       });
     } else {
-      members = await prisma.member.findMany();
+      // Try to get all members from cache first
+      members = await ApiCache.getMembers();
+      
+      if (!members) {
+        console.log('🔥 CACHE MISS - Fetching from database');
+        // If not in cache, fetch from database
+        members = await prisma.member.findMany();
+        // Store in cache for next time
+        await ApiCache.setMembers(members);
+        console.log('💾 Data cached for next request');
+      } else {
+        console.log('⚡ CACHE HIT - Returning cached data');
+      }
     }
     return NextResponse.json(members, { status: 200 });
   } catch (error) {
@@ -45,6 +58,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    await ApiCache.invalidateMembers();
+
     return NextResponse.json({ member: createdMember, couple: createdCouple }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create member/couple' }, { status: 400 });
@@ -60,6 +75,9 @@ export async function PUT(req: NextRequest) {
     const member = await prisma.member.update({ where: { id: Number(id) }, data });
     const after = await prisma.member.findUnique({ where: { id: Number(id) } });
     console.log("After update:", after);
+    
+    await ApiCache.invalidateMembers();
+    
     return NextResponse.json(member, { status: 200 });
   } catch (error) {
     console.error(error);
@@ -71,6 +89,9 @@ export async function DELETE(req: NextRequest) {
   try {
     const { id } = await req.json();
     await prisma.member.delete({ where: { id } });
+    
+    await ApiCache.invalidateMembers();
+    
     return NextResponse.json({ message: 'Member deleted' }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete member' }, { status: 400 });
