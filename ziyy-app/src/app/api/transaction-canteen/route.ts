@@ -12,7 +12,12 @@ export async function GET() {
     
     if (!transactions) {
       console.log('🔥 TRANSACTION-CANTEEN CACHE MISS - Fetching from database');
-      transactions = await prisma.txCanteen.findMany();
+      transactions = await prisma.txCanteen.findMany({
+        include: {
+          item: true
+        },
+        orderBy: { date: 'desc' }
+      });
       await ApiCache.setTxCanteen(transactions);
       console.log('💾 Transaction-Canteen cached for next request');
     } else {

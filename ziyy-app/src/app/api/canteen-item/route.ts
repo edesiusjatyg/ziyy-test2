@@ -1,4 +1,3 @@
-// API route for canteen items resource
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '../../../generated/prisma/client';
 import { ApiCache } from '../../../lib/cache';
