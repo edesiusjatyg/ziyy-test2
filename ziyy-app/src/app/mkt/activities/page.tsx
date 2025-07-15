@@ -11,16 +11,20 @@ import { Input } from "@/components/ui/input";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 interface Activity {
-    id: string;
+    id: number;
     username: string;
-    campaignId: string;
+    campaignId: number;
     title: string;
     description: string;
     date: string;
+    campaign?: {
+        id: number;
+        title: string;
+    };
 }
 
 interface Campaign {
-    id: string;
+    id: number;
     title: string;
 }
 
@@ -33,6 +37,7 @@ export default function ActivitiesPage() {
     const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     // Form states
     const [username, setUsername] = useState("");
@@ -44,18 +49,32 @@ export default function ActivitiesPage() {
 
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
-
-        const loadData = async () => {
-            const activitiesRes = await fetch('/activityMkt.json');
-            const activitiesData = await activitiesRes.json();
-            setActivities(activitiesData.activities);
-
-            const campaignsRes = await fetch('/campaigns.json');
-            const campaignsData = await campaignsRes.json();
-            setCampaigns(campaignsData.campaigns);
-        };
         loadData();
     }, []);
+
+    const loadData = async () => {
+        try {
+            setLoading(true);
+            
+            // Load activities
+            const activitiesResponse = await fetch('/api/activities');
+            if (activitiesResponse.ok) {
+                const activitiesData = await activitiesResponse.json();
+                setActivities(activitiesData);
+            }
+
+            // Load campaigns
+            const campaignsResponse = await fetch('/api/campaigns');
+            if (campaignsResponse.ok) {
+                const campaignsData = await campaignsResponse.json();
+                setCampaigns(campaignsData);
+            }
+        } catch (error) {
+            console.error('Error loading data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleActivityClick = (activity: Activity) => {
         setSelectedActivity(activity);
@@ -65,7 +84,7 @@ export default function ActivitiesPage() {
     const handleEditClick = () => {
         if (selectedActivity) {
             setUsername(selectedActivity.username);
-            setSelectedCampaign(selectedActivity.campaignId);
+            setSelectedCampaign(selectedActivity.campaignId.toString());
             setActivityTitle(selectedActivity.title);
             setActivityDesc(selectedActivity.description);
             setIsViewDialogOpen(false);
@@ -73,22 +92,37 @@ export default function ActivitiesPage() {
         }
     };
 
-    const handleEditSubmit = () => {
+    const handleEditSubmit = async () => {
         if (selectedActivity) {
-            const updatedActivity = {
-                ...selectedActivity,
-                username,
-                campaignId: selectedCampaign,
-                title: activityTitle,
-                description: activityDesc,
-            };
+            try {
+                const response = await fetch(`/api/activities`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: selectedActivity.id,
+                        username,
+                        campaignId: parseInt(selectedCampaign),
+                        title: activityTitle,
+                        description: activityDesc,
+                    }),
+                });
 
-            setActivities(activities.map(activity => 
-                activity.id === selectedActivity.id ? updatedActivity : activity
-            ));
-
-            setIsEditDialogOpen(false);
-            resetForm();
+                if (response.ok) {
+                    const updatedActivity = await response.json();
+                    setActivities(activities.map(activity => 
+                        activity.id === selectedActivity.id ? updatedActivity : activity
+                    ));
+                    setIsEditDialogOpen(false);
+                    resetForm();
+                } else {
+                    alert('Failed to update activity');
+                }
+            } catch (error) {
+                console.error('Error updating activity:', error);
+                alert('Failed to update activity');
+            }
         }
     };
 
@@ -97,11 +131,28 @@ export default function ActivitiesPage() {
         setIsDeleteDialogOpen(true);
     };
 
-    const handleDeleteConfirm = () => {
+    const handleDeleteConfirm = async () => {
         if (selectedActivity) {
-            setActivities(activities.filter(activity => activity.id !== selectedActivity.id));
-            setIsDeleteDialogOpen(false);
-            setSelectedActivity(null);
+            try {
+                const response = await fetch(`/api/activities`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: selectedActivity.id }),
+                });
+
+                if (response.ok) {
+                    setActivities(activities.filter(activity => activity.id !== selectedActivity.id));
+                    setIsDeleteDialogOpen(false);
+                    setSelectedActivity(null);
+                } else {
+                    alert('Failed to delete activity');
+                }
+            } catch (error) {
+                console.error('Error deleting activity:', error);
+                alert('Failed to delete activity');
+            }
         }
     };
 
@@ -113,7 +164,7 @@ export default function ActivitiesPage() {
         setSelectedActivity(null);
     };
 
-    const getCampaignTitle = (campaignId: string) => {
+    const getCampaignTitle = (campaignId: number) => {
         return campaigns.find(campaign => campaign.id === campaignId)?.title || 'Unknown Campaign';
     };
 
@@ -156,19 +207,27 @@ export default function ActivitiesPage() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {activities.map((activity) => (
-                                        <TableRow 
-                                            key={activity.id} 
-                                            className="cursor-pointer hover:bg-blue-50 transition-colors"
-                                            onClick={() => handleActivityClick(activity)}
-                                        >
-                                            <TableCell>{activity.date}</TableCell>
-                                            <TableCell>{activity.username}</TableCell>
-                                            <TableCell>{getCampaignTitle(activity.campaignId)}</TableCell>
-                                            <TableCell>{activity.title}</TableCell>
-                                            <TableCell>{activity.description}</TableCell>
+                                    {loading ? (
+                                        <TableRow>
+                                            <TableCell colSpan={5} className="text-center py-8">
+                                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                                            </TableCell>
                                         </TableRow>
-                                    ))}
+                                    ) : (
+                                        activities.map((activity) => (
+                                            <TableRow 
+                                                key={activity.id} 
+                                                className="cursor-pointer hover:bg-blue-50 transition-colors"
+                                                onClick={() => handleActivityClick(activity)}
+                                            >
+                                                <TableCell>{activity.date.split("T")[0]}</TableCell>
+                                                <TableCell>{activity.username}</TableCell>
+                                                <TableCell>{activity.campaign?.title || getCampaignTitle(activity.campaignId)}</TableCell>
+                                                <TableCell>{activity.title}</TableCell>
+                                                <TableCell>{activity.description}</TableCell>
+                                            </TableRow>
+                                        ))
+                                    )}
                                 </TableBody>
                             </Table>
                         </div>
@@ -186,7 +245,7 @@ export default function ActivitiesPage() {
                                 <div className="grid grid-cols-2 gap-4 py-4">
                                     <div>
                                         <Label>Tanggal</Label>
-                                        <p className="mt-1">{selectedActivity.date}</p>
+                                        <p className="mt-1">{selectedActivity.date.split("T")[0]}</p>
                                     </div>
                                     <div>
                                         <Label>Nama</Label>

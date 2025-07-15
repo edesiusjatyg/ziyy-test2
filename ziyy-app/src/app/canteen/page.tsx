@@ -226,7 +226,7 @@ export default function Page() {
                                 <CardContent>
                                     {loading?
                                         <p className="text-center text-gray-500">
-                                            Loading...
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
                                         </p> : 
                                         <p className="text-center">
                                             {formatCurrency(totalIncome)}
@@ -243,7 +243,7 @@ export default function Page() {
                                 <CardContent>
                                     {loading?
                                         <p className="text-center text-gray-500">
-                                            Loading...
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
                                         </p> : 
                                         <p className="text-center">
                                             {formatCurrency(totalExpense)}
@@ -390,7 +390,10 @@ export default function Page() {
                             </CardHeader>
                             <CardContent>
                                 {loading ? (
-                                    <p className="text-center text-gray-500">Loading...</p>
+                                    <p className="text-center text-gray-500">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto">
+                                        </div>
+                                    </p>
                                 ) : (
                                     <Table>
                                         <TableHeader>
