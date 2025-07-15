@@ -11,11 +11,24 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { formatCurrency } from "@/lib/format";
+
+interface Transaction {
+    id: number;
+    type: 'PEMASUKAN' | 'PENGELUARAN';
+    title: string;
+    note?: string;
+    paymentMethod: string;
+    paymentAmount: number;
+    date: string;
+}
 
 export default function Page() {
     const router = useRouter();
     const [show, setShow] = useState(false);
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [loading, setLoading] = useState(true);
     const [txType, setTxType] = useState("");
     const [txTitle, setTxTitle] = useState("");
     const [txNote, setTxNote] = useState("");
@@ -25,7 +38,112 @@ export default function Page() {
 
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
+        loadTransactions();
     }, []);
+
+    const loadTransactions = async () => {
+        try {
+            const response = await fetch('/api/transaction-accounting');
+            if (response.ok) {
+                const data = await response.json();
+                setTransactions(data);
+            }
+        } catch (error) {
+            console.error('Error fetching transactions:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleAddTransaction = async () => {
+        if (!txType || !txTitle || !txPaymentAmount || !txDate) return;
+
+        try {
+            const response = await fetch('/api/transaction-accounting', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: txType.toUpperCase(),
+                    title: txTitle,
+                    note: txNote || null,
+                    paymentMethod: txPaymentMethod,
+                    paymentAmount: parseInt(txPaymentAmount),
+                    date: new Date(txDate).toISOString(),
+                }),
+            });
+
+            if (response.ok) {
+                loadTransactions(); // Reload data
+                setIsAddDialogOpen(false);
+                // Clear form
+                setTxType("");
+                setTxTitle("");
+                setTxNote("");
+                setTxPaymentMethod("");
+                setTxPaymentAmount("");
+                setTxDate("");
+            }
+        } catch (error) {
+            console.error('Error adding transaction:', error);
+        }
+    };
+
+    // Calculate statistics
+    const getWeeklyStats = () => {
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        
+        const weeklyTransactions = transactions.filter(tx => 
+            new Date(tx.date) >= oneWeekAgo
+        );
+        
+        const income = weeklyTransactions
+            .filter(tx => tx.type === 'PEMASUKAN')
+            .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+        
+        const expense = weeklyTransactions
+            .filter(tx => tx.type === 'PENGELUARAN')
+            .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+        
+        return { income, expense };
+    };
+
+    const getMonthlyStats = () => {
+        const oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+        
+        const monthlyTransactions = transactions.filter(tx => 
+            new Date(tx.date) >= oneMonthAgo
+        );
+        
+        const income = monthlyTransactions
+            .filter(tx => tx.type === 'PEMASUKAN')
+            .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+        
+        const expense = monthlyTransactions
+            .filter(tx => tx.type === 'PENGELUARAN')
+            .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+        
+        return { income, expense };
+    };
+
+    const getTotalCash = () => {
+        const totalIncome = transactions
+            .filter(tx => tx.type === 'PEMASUKAN')
+            .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+        
+        const totalExpense = transactions
+            .filter(tx => tx.type === 'PENGELUARAN')
+            .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+        
+        return totalIncome - totalExpense;
+    };
+
+    const weeklyStats = getWeeklyStats();
+    const monthlyStats = getMonthlyStats();
+    const totalCash = getTotalCash();
 
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
@@ -61,7 +179,14 @@ export default function Page() {
                                     <CardDescription className="text-center">Minggu ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">Rp2.400.000</p>
+                                    {loading?
+                                        <p className="text-center text-gray-500">
+                                            Loading...
+                                        </p> : 
+                                        <p className="text-center">
+                                            {formatCurrency(weeklyStats.income)}
+                                        </p>
+                                    }
                                 </CardContent>
                             </Card>
                         </Link>
@@ -72,7 +197,14 @@ export default function Page() {
                                     <CardDescription className="text-center">Minggu ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">Rp2.400.000</p>
+                                    {loading?
+                                        <p className="text-center text-gray-500">
+                                            Loading...
+                                        </p> : 
+                                        <p className="text-center">
+                                            {formatCurrency(weeklyStats.expense)}
+                                        </p>
+                                    }
                                 </CardContent>
                             </Card>
                         </Link>
@@ -83,7 +215,14 @@ export default function Page() {
                                     <CardDescription className="text-center">Bulan ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">Rp2.400.000</p>
+                                    {loading?
+                                        <p className="text-center text-gray-500">
+                                            Loading...
+                                        </p> : 
+                                        <p className="text-center">
+                                            {formatCurrency(monthlyStats.income)}
+                                        </p>
+                                    }
                                 </CardContent>
                             </Card>
                         </Link>
@@ -94,7 +233,14 @@ export default function Page() {
                                     <CardDescription className="text-center">Bulan ini</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">Rp2.400.000</p>
+                                    {loading?
+                                        <p className="text-center text-gray-500">
+                                            Loading...
+                                        </p> : 
+                                        <p className="text-center">
+                                            {formatCurrency(monthlyStats.expense)}
+                                        </p>
+                                    }
                                 </CardContent>
                             </Card>
                         </Link>
@@ -103,7 +249,14 @@ export default function Page() {
                                     <CardTitle className="text-center">Total Kas</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">Rp22.400.000</p>
+                                    {loading?
+                                        <p className="text-center text-gray-500">
+                                            Loading...
+                                        </p> : 
+                                        <p className="text-center">
+                                            {formatCurrency(totalCash)}
+                                        </p>
+                                    }
                                 </CardContent>
                         </Card>
                     </div>
@@ -166,14 +319,14 @@ export default function Page() {
                                             <SelectValue placeholder="Pilih Metode Pembayaran" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="cash">Cash</SelectItem>
-                                            <SelectItem value="transfer">Transfer</SelectItem>
-                                            <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                            <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                                            <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                            <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                            <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                            <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                            <SelectItem value="CASH">Cash</SelectItem>
+                                            <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                            <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                            <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                            <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                            <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                            <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                            <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -193,7 +346,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button type="submit" onClick={() => setIsAddDialogOpen(false)} disabled={!txType || !txTitle || !txPaymentAmount || !txDate}>
+                                <Button type="submit" onClick={handleAddTransaction} disabled={!txType || !txTitle || !txPaymentAmount || !txDate}>
                                     Tambah Transaksi
                                 </Button>
                             </DialogFooter>
