@@ -31,6 +31,7 @@ export default function Page() {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [memberName, setMemberName] = useState("");
     const [memberNik, setMemberNik] = useState("");
@@ -46,6 +47,7 @@ export default function Page() {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
+                setIsLoading(true);
                 const response = await fetch('/api/members');
                 if(!response.ok){
                     throw new Error('Failed to fetch members from DB through API')
@@ -54,6 +56,8 @@ export default function Page() {
                 setMockMembers(data);
             } catch (error) {
                 console.error('Error fetching members:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -235,7 +239,13 @@ export default function Page() {
                                 <CardTitle className="text-gray-900 text-center">Total Member</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-lg text-gray-700 text-center">{totalMembers}</p>
+                                {isLoading ? (
+                                    <div className="flex justify-center">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                    </div>
+                                ) : (
+                                    <p className="text-lg text-gray-700 text-center">{totalMembers}</p>
+                                )}
                             </CardContent>
                         </Card>
                         <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
@@ -243,7 +253,13 @@ export default function Page() {
                                 <CardTitle className="text-gray-900 text-center">Member Aktif</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-lg text-green-700 text-center">{activeMembers}</p>
+                                {isLoading ? (
+                                    <div className="flex justify-center">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                    </div>
+                                ) : (
+                                    <p className="text-lg text-green-700 text-center">{activeMembers}</p>
+                                )}
                             </CardContent>
                         </Card>
                         <Card className="bg-white rounded-xl shadow-sm border-0 h-full">
@@ -251,39 +267,53 @@ export default function Page() {
                                 <CardTitle className="text-gray-900 text-center">Member Expired</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-lg text-gray-500 text-center">{expiredMembers}</p>
+                                {isLoading ? (
+                                    <div className="flex justify-center">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                    </div>
+                                ) : (
+                                    <p className="text-lg text-gray-500 text-center">{expiredMembers}</p>
+                                )}
                             </CardContent>
                         </Card>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 px-8 pb-8">
-                        {filteredMembers.length === 0 && (
-                            <p className="text-gray-500 col-span-full text-center">Tidak ada member.</p>
+                        {isLoading ? (
+                            <div className="flex justify-center col-span-full">
+                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                            </div>
+                        ) : (
+                            <>
+                                {filteredMembers.length === 0 && (
+                                    <p className="text-gray-500 col-span-full text-center">Tidak ada member.</p>
+                                )}
+                                {filteredMembers.sort((a, b) => b.id - a.id).map((member) => (
+                                    <Card
+                                        key={member.id}
+                                        className="cursor-pointer hover:shadow-lg transition-shadow bg-white justify-between"
+                                        onClick={() => handleMemberClick(member)}
+                                    >
+                                        <CardHeader>
+                                            <CardTitle className="flex items-center gap-2">
+                                                <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
+                                            </CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div className="space-y-2">
+                                                <div>{getStatusBadge(member.status)} {getMembershipBadge(member.membership)}</div>
+                                                <div></div>
+                                                <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate.split("T")[0]}</div>
+                                            </div>
+                                        </CardContent>
+                                        <CardFooter className="flex gap-2 justify-end">
+                                            <ChevronsRight className="text-[#7bb3d6] h-4 w-4" />
+                                            <p className="text-sm">Detail</p>
+                                        </CardFooter>
+                                    </Card>
+                                ))}
+                            </>
                         )}
-                        {filteredMembers.sort((a, b) => b.id - a.id).map((member) => (
-                            <Card
-                              key={member.id}
-                              className="cursor-pointer hover:shadow-lg transition-shadow bg-white justify-between"
-                              onClick={() => handleMemberClick(member)}
-                            >
-                              <CardHeader>
-                                <CardTitle className="flex items-center gap-2">
-                                  <User className="w-5 h-5 text-[#7bb3d6]" /> {member.name}
-                                </CardTitle>
-                              </CardHeader>
-                              <CardContent>
-                                <div className="space-y-2">
-                                  <div>{getStatusBadge(member.status)} {getMembershipBadge(member.membership)}</div>
-                                  <div></div>
-                                  <div className="text-xs text-gray-500">Berlaku s/d: {member.expiryDate.split("T")[0]}</div>
-                                </div>
-                              </CardContent>
-                              <CardFooter className="flex gap-2 justify-end">
-                                <ChevronsRight className="text-[#7bb3d6] h-4 w-4" />
-                                <p className="text-sm">Detail</p>
-                              </CardFooter>
-                            </Card>
-                        ))}
                     </div>
 
                     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
