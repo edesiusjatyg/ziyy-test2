@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Undo2 } from "lucide-react";
-import { startOfWeek, endOfWeek, parseISO, isWithinInterval, startOfMonth, endOfMonth } from "date-fns";
+import { parseISO, isWithinInterval, startOfMonth, endOfMonth } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -19,14 +19,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { formatCurrency } from "@/lib/format";
 
 type Transaction = {
   id: number;
   date: string;
-  type: string;
+  type: "PEMASUKAN" | "PENGELUARAN";
   title: string;
-  note: string;
-  paymentAmount: string;
+  note?: string;
+  paymentAmount: number;
   paymentMethod: string;
 };
 
@@ -39,6 +40,7 @@ export default function Page() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Edit state
   const [editTitle, setEditTitle] = useState("");
@@ -47,27 +49,34 @@ export default function Page() {
   const [editPaymentMethod, setEditPaymentMethod] = useState("");
   const [editDate, setEditDate] = useState("");
 
+  const loadTransactions = async () => {
+    try {
+      const response = await fetch('/api/transaction-accounting');
+      if (!response.ok) throw new Error('Failed to fetch transactions');
+      const data = await response.json();
+      
+      const now = new Date();
+      const monthStart = startOfMonth(now);
+      const monthEnd = endOfMonth(now);
+
+      const monthlyTxs = data.filter((tx: Transaction) => {
+        if (!tx.date) return false;
+        const txDate = parseISO(tx.date);
+        return isWithinInterval(txDate, { start: monthStart, end: monthEnd });
+      });
+
+      setIncomeTx(monthlyTxs.filter((tx: Transaction) => tx.type === "PEMASUKAN"));
+      setExpenseTx(monthlyTxs.filter((tx: Transaction) => tx.type === "PENGELUARAN"));
+    } catch (error) {
+      console.error('Error loading transactions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     setTimeout(() => {setShow(true)}, 100);
-
-    fetch("/txAct.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const txs = data.txAct || [];
-
-        const now = new Date();
-        const monthStart = startOfMonth(now);
-        const monthEnd = endOfMonth(now);
-
-        const monthlyTxs = txs.filter((tx: Transaction) => {
-            if (!tx.date) return false;
-            const txDate = parseISO(tx.date);
-            return isWithinInterval(txDate, { start: monthStart, end: monthEnd });
-        });
-
-        setIncomeTx(monthlyTxs.filter((tx: Transaction) => tx.type === "pemasukan"));
-        setExpenseTx(monthlyTxs.filter((tx: Transaction) => tx.type === "pengeluaran"));
-      });
+    loadTransactions();
   }, []);
 
   // Dialog handlers
@@ -75,89 +84,111 @@ export default function Page() {
     setSelectedTx(tx);
     setIsDialogOpen(true);
   };
+  
   const handleEditClick = () => {
     if (!selectedTx) return;
     setEditTitle(selectedTx.title);
-    setEditNote(selectedTx.note);
-    setEditPaymentAmount(selectedTx.paymentAmount);
+    setEditNote(selectedTx.note || "");
+    setEditPaymentAmount(selectedTx.paymentAmount.toString());
     setEditPaymentMethod(selectedTx.paymentMethod);
-    setEditDate(selectedTx.date);
+    setEditDate(selectedTx.date.split('T')[0]);
     setIsEditDialogOpen(true);
   };
-  const handleSaveEdit = () => {
+  
+  const handleSaveEdit = async () => {
     if (!selectedTx) return;
-    const updatedTx = {
-      ...selectedTx,
-      title: editTitle,
-      note: editNote,
-      paymentAmount: editPaymentAmount,
-      paymentMethod: editPaymentMethod,
-      date: editDate,
-    };
-    if (selectedTx.type === "pemasukan") {
-      setIncomeTx((prev) => prev.map((tx) => (tx.id === selectedTx.id ? updatedTx : tx)));
-    } else {
-      setExpenseTx((prev) => prev.map((tx) => (tx.id === selectedTx.id ? updatedTx : tx)));
+    
+    try {
+      const updatedData = {
+        id: selectedTx.id,
+        title: editTitle,
+        note: editNote,
+        paymentAmount: parseInt(editPaymentAmount),
+        paymentMethod: editPaymentMethod,
+        date: editDate,
+        type: selectedTx.type
+      };
+      
+      const response = await fetch('/api/transaction-accounting', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData)
+      });
+      
+      if (!response.ok) throw new Error('Failed to update transaction');
+      
+      await loadTransactions();
+      setIsEditDialogOpen(false);
+      setIsDialogOpen(false);
+    } catch (error) {
+      console.error('Error updating transaction:', error);
     }
-    setSelectedTx(updatedTx);
-    setIsEditDialogOpen(false);
-    setIsDialogOpen(false);
   };
-  const handleDeleteTx = () => {
+  
+  const handleDeleteTx = async () => {
     if (!selectedTx) return;
-    if (selectedTx.type === "pemasukan") {
-      setIncomeTx((prev) => prev.filter((tx) => tx.id !== selectedTx.id));
-    } else {
-      setExpenseTx((prev) => prev.filter((tx) => tx.id !== selectedTx.id));
+    
+    try {
+      const response = await fetch('/api/transaction-accounting', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: selectedTx.id })
+      });
+      
+      if (!response.ok) throw new Error('Failed to delete transaction');
+      
+      await loadTransactions();
+      setIsDeleteDialogOpen(false);
+      setIsDialogOpen(false);
+      setSelectedTx(null);
+    } catch (error) {
+      console.error('Error deleting transaction:', error);
     }
-    setIsDeleteDialogOpen(false);
-    setIsDialogOpen(false);
-    setSelectedTx(null);
   };
   const getPaymentMethodBadge = (paymentMethod: string) => {
-    if (paymentMethod === "cash") {
+    if (paymentMethod === "CASH") {
       return (
         <span className="bg-green-100 text-green-800 rounded px-2 py-1 text-xs">
           Cash
         </span>
       );
-    } else if (paymentMethod === "transfer") {
+    } else if (paymentMethod === "TRANSFER") {
       return (
         <span className="bg-green-100 text-green-800 rounded px-2 py-1 text-xs">
           Transfer
         </span>
       );
-    } else if (paymentMethod === "debitBri") {
+    } else if (paymentMethod === "DEBIT_BRI") {
       return (
         <span className="bg-orange-100 text-orange-800 rounded px-2 py-1 text-xs">
           Debit BRI
         </span>
       );
-    } else if (paymentMethod === "qrisBri") {
+    } else if (paymentMethod === "QRIS_BRI") {
       return (
         <span className="bg-orange-100 text-orange-800 rounded px-2 py-1 text-xs">
           QRIS BRI
         </span>
       );
-    } else if (paymentMethod === "debitMdr") {
+    } else if (paymentMethod === "DEBIT_MANDIRI") {
       return (
         <span className="bg-indigo-100 text-indigo-800 rounded px-2 py-1 text-xs">
           Debit Mandiri
         </span>
       );
-    } else if (paymentMethod === "qrisMdr") {
+    } else if (paymentMethod === "QRIS_MANDIRI") {
       return (
         <span className="bg-indigo-100 text-indigo-800 rounded px-2 py-1 text-xs">
           QRIS Mandiri
         </span>
       );
-    } else if (paymentMethod === "edcMdr") {
+    } else if (paymentMethod === "EDC_MANDIRI") {
       return (
         <span className="bg-indigo-100 text-indigo-800 rounded px-2 py-1 text-xs">
           EDC Mandiri
         </span>
       );
-    } else if (paymentMethod === "transferMdr") {
+    } else if (paymentMethod === "TRANSFER_MANDIRI") {
       return (
         <span className="bg-indigo-100 text-indigo-800 rounded px-2 py-1 text-xs">
           Transfer Mandiri
@@ -215,9 +246,9 @@ export default function Page() {
                         className="cursor-pointer hover:bg-blue-50 transition-colors"
                         onClick={() => handleTxClick(tx)}
                       >
-                        <TableCell>{tx.date || '-'}</TableCell>
+                        <TableCell>{tx.date ? new Date(tx.date).toLocaleDateString('id-ID') : '-'}</TableCell>
                         <TableCell>{tx.title}</TableCell>
-                        <TableCell>Rp {tx.paymentAmount}</TableCell>
+                        <TableCell>{formatCurrency(tx.paymentAmount)}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -246,9 +277,9 @@ export default function Page() {
                         className="cursor-pointer hover:bg-blue-50 transition-colors"
                         onClick={() => handleTxClick(tx)}
                       >
-                        <TableCell>{tx.date || '-'}</TableCell>
+                        <TableCell>{tx.date ? new Date(tx.date).toLocaleDateString('id-ID') : '-'}</TableCell>
                         <TableCell>{tx.title}</TableCell>
-                        <TableCell>Rp {tx.paymentAmount}</TableCell>
+                        <TableCell>{formatCurrency(tx.paymentAmount)}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -281,14 +312,14 @@ export default function Page() {
                       <Label className="text-sm font-medium text-gray-600">
                         Keterangan
                       </Label>
-                      <p className="text-sm">{selectedTx.note}</p>
+                      <p className="text-sm">{selectedTx.note || '-'}</p>
                     </div>
                     <div>
                       <Label className="text-sm font-medium text-gray-600">
                         Nominal
                       </Label>
                       <p className="text-sm">
-                        Rp {selectedTx.paymentAmount}
+                        {formatCurrency(selectedTx.paymentAmount)}
                       </p>
                     </div>
                     <div>
@@ -339,14 +370,14 @@ export default function Page() {
                         <SelectValue placeholder="Pilih Metode Pembayaran" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="cash">Cash</SelectItem>
-                        <SelectItem value="transfer">Transfer</SelectItem>
-                        <SelectItem value="debitBri">Debit BRI</SelectItem>
-                        <SelectItem value="qrisBri">QRIS BRI</SelectItem>
-                        <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                        <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                        <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                        <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                        <SelectItem value="CASH">Cash</SelectItem>
+                        <SelectItem value="TRANSFER">Transfer</SelectItem>
+                        <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                        <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                        <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                        <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                        <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                        <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
