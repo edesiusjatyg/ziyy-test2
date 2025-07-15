@@ -9,15 +9,15 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { setHeapSnapshotNearHeapLimit } from "v8";
 
 interface Campaign {
-    id: string;
+    id: number;
     title: string;
-    description: string;
-    kpi: string;
+    description: string | null;
+    kpi: string | null;
     startDate: string;
     endDate: string;
+    status: 'ACTIVE' | 'INACTIVE' | 'COMPLETED';
 }
 
 export default function Page() {
@@ -28,6 +28,7 @@ export default function Page() {
     const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     // Form states
     const [campaignTitle, setCampaignTitle] = useState("");
@@ -40,21 +41,32 @@ export default function Page() {
 
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
-
-        const loadData = async () => {
-            const campaignsRes = await fetch('/campaigns.json');
-            const campaignsData = await campaignsRes.json();
-            const today = new Date().toISOString().split('T')[0];
-            
-            // Filter active campaigns
-            const activeCampaigns = campaignsData.campaigns.filter((campaign: Campaign) =>
-                campaign.startDate <= today && campaign.endDate >= today
-            );
-            
-            setCampaigns(activeCampaigns);
-        };
-        loadData();
+        loadActiveCampaigns();
     }, []);
+
+    const loadActiveCampaigns = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('/api/campaigns');
+            if (response.ok) {
+                const data = await response.json();
+                const today = new Date().toISOString().split('T')[0];
+                
+                // Filter active campaigns
+                const activeCampaigns = data.filter((campaign: Campaign) =>
+                    campaign.status === 'ACTIVE' && 
+                    campaign.startDate <= today && 
+                    campaign.endDate >= today
+                );
+                
+                setCampaigns(activeCampaigns);
+            }
+        } catch (error) {
+            console.error('Error loading active campaigns:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleCampaignClick = (campaign: Campaign) => {
         setSelectedCampaign(campaign);
@@ -64,8 +76,8 @@ export default function Page() {
     const handleEditClick = () => {
         if (selectedCampaign) {
             setCampaignTitle(selectedCampaign.title);
-            setCampaignDesc(selectedCampaign.description);
-            setCampaignKpi(selectedCampaign.kpi);
+            setCampaignDesc(selectedCampaign.description || "");
+            setCampaignKpi(selectedCampaign.kpi || "");
             setStartDate(selectedCampaign.startDate);
             setEndDate(selectedCampaign.endDate);
             setIsViewDialogOpen(false);
@@ -73,23 +85,39 @@ export default function Page() {
         }
     };
 
-    const handleEditSubmit = () => {
+    const handleEditSubmit = async () => {
         if (selectedCampaign) {
-            const updatedCampaign = {
-                ...selectedCampaign,
-                title: campaignTitle,
-                description: campaignDesc,
-                kpi: campaignKpi,
-                startDate,
-                endDate,
-            };
+            try {
+                const response = await fetch(`/api/campaigns`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: selectedCampaign.id,
+                        title: campaignTitle,
+                        description: campaignDesc,
+                        kpi: campaignKpi,
+                        startDate,
+                        endDate,
+                        status: selectedCampaign.status
+                    }),
+                });
 
-            setCampaigns(campaigns.map(campaign => 
-                campaign.id === selectedCampaign.id ? updatedCampaign : campaign
-            ));
-
-            setIsEditDialogOpen(false);
-            resetForm();
+                if (response.ok) {
+                    const updatedCampaign = await response.json();
+                    setCampaigns(campaigns.map(campaign => 
+                        campaign.id === selectedCampaign.id ? updatedCampaign : campaign
+                    ));
+                    setIsEditDialogOpen(false);
+                    resetForm();
+                } else {
+                    alert('Failed to update campaign');
+                }
+            } catch (error) {
+                console.error('Error updating campaign:', error);
+                alert('Failed to update campaign');
+            }
         }
     };
 
@@ -98,11 +126,28 @@ export default function Page() {
         setIsDeleteDialogOpen(true);
     };
 
-    const handleDeleteConfirm = () => {
+    const handleDeleteConfirm = async () => {
         if (selectedCampaign) {
-            setCampaigns(campaigns.filter(campaign => campaign.id !== selectedCampaign.id));
-            setIsDeleteDialogOpen(false);
-            setSelectedCampaign(null);
+            try {
+                const response = await fetch(`/api/campaigns`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: selectedCampaign.id }),
+                });
+
+                if (response.ok) {
+                    setCampaigns(campaigns.filter(campaign => campaign.id !== selectedCampaign.id));
+                    setIsDeleteDialogOpen(false);
+                    setSelectedCampaign(null);
+                } else {
+                    alert('Failed to delete campaign');
+                }
+            } catch (error) {
+                console.error('Error deleting campaign:', error);
+                alert('Failed to delete campaign');
+            }
         }
     };
 
@@ -151,32 +196,38 @@ export default function Page() {
 
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-8 pb-8">
-                        {campaigns.map((campaign) => (
-                            <Card 
-                                key={campaign.id} 
-                                className="cursor-pointer hover:shadow-lg transition-shadow bg-white/80"
-                                onClick={() => handleCampaignClick(campaign)}
-                            >
-                                <CardHeader>
-                                    <CardTitle>{campaign.title}</CardTitle>
-                                    <CardDescription>{campaign.description}</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-2">
-                                        <p><span className="font-semibold">KPI:</span> {campaign.kpi}</p>
-                                        <p><span className="font-semibold">Days Remaining:</span> {getDaysRemaining(campaign.endDate)}</p>
-                                        <div className="h-2 bg-gray-200 rounded-full mt-2">
-                                            <div 
-                                                className="h-2 bg-blue-500 rounded-full"
-                                                style={{ 
-                                                    width: `${Math.min(100, 100 * (getDaysRemaining(campaign.endDate) / 30))}%`
-                                                }}
-                                            ></div>
+                        {loading ? (
+                            <div className="col-span-full flex justify-center items-center py-8">
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                            </div>
+                        ) : (
+                            campaigns.map((campaign) => (
+                                <Card 
+                                    key={campaign.id} 
+                                    className="cursor-pointer hover:shadow-lg transition-shadow bg-white/80"
+                                    onClick={() => handleCampaignClick(campaign)}
+                                >
+                                    <CardHeader>
+                                        <CardTitle>{campaign.title}</CardTitle>
+                                        <CardDescription>{campaign.description}</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="space-y-2">
+                                            <p><span className="font-semibold">KPI:</span> {campaign.kpi}</p>
+                                            <p><span className="font-semibold">Days Remaining:</span> {getDaysRemaining(campaign.endDate)}</p>
+                                            <div className="h-2 bg-gray-200 rounded-full mt-2">
+                                                <div 
+                                                    className="h-2 bg-blue-500 rounded-full"
+                                                    style={{ 
+                                                        width: `${Math.min(100, 100 * (getDaysRemaining(campaign.endDate) / 30))}%`
+                                                    }}
+                                                ></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
+                                    </CardContent>
+                                </Card>
+                            ))
+                        )}
                     </div>
 
                     {/* View Dialog */}
@@ -202,11 +253,11 @@ export default function Page() {
                                     </div>
                                     <div>
                                         <Label>Dari</Label>
-                                        <p className="mt-1">{selectedCampaign.startDate}</p>
+                                        <p className="mt-1">{selectedCampaign.startDate.split("T")[0]}</p>
                                     </div>
                                     <div>
                                         <Label>Sampai</Label>
-                                        <p className="mt-1">{selectedCampaign.endDate}</p>
+                                        <p className="mt-1">{selectedCampaign.endDate.split("T")[0]}</p>
                                     </div>
                                     <div>
                                         <Label>Sisa Hari</Label>

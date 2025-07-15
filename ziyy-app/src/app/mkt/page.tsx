@@ -10,23 +10,24 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { set } from "date-fns";
 
 interface Campaign {
-    id: string;
+    id: number;
     title: string;
-    description: string;
-    kpi: string;
+    description: string | null;
+    kpi: string | null;
     startDate: string;
     endDate: string;
+    status: string;
 }
 
 interface Activity {
-    id: string;
+    id: number;
     username: string;
-    campaignId: string;
+    campaignId: number | null;
+    campaign?: Campaign;
     title: string;
-    description: string;
+    description: string | null;
     date: string;
 }
 
@@ -37,6 +38,7 @@ export default function Page() {
     const [isAddCampaignDialogOpen, setIsAddCampaignDialogOpen] = useState(false);
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [activities, setActivities] = useState<Activity[]>([]);
+    const [loading, setLoading] = useState(true);
 
     // Activity form states
     const [activityTitle, setActivityTitle] = useState("");
@@ -53,18 +55,32 @@ export default function Page() {
 
     const [show, setShow] = useState(false);
 
+    const loadData = async () => {
+        try {
+            setLoading(true);
+            
+            // Load campaigns
+            const campaignsResponse = await fetch('/api/campaigns');
+            if (campaignsResponse.ok) {
+                const campaignsData = await campaignsResponse.json();
+                setCampaigns(campaignsData);
+            }
+
+            // Load activities
+            const activitiesResponse = await fetch('/api/activities');
+            if (activitiesResponse.ok) {
+                const activitiesData = await activitiesResponse.json();
+                setActivities(activitiesData);
+            }
+        } catch (error) {
+            console.error('Error loading data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
-        
-        const loadData = async () => {
-            const campaignsRes = await fetch('/campaigns.json');
-            const campaignsData = await campaignsRes.json();
-            setCampaigns(campaignsData.campaigns);
-
-            const activitiesRes = await fetch('/activityMkt.json');
-            const activitiesData = await activitiesRes.json();
-            setActivities(activitiesData.activities);
-        };
         loadData();
     }, []);
 
@@ -80,41 +96,85 @@ export default function Page() {
         return activities.filter(activity => activity.date === today);
     };
 
-    const handleAddActivity = () => {
-        const newActivity = {
-            id: (activities.length + 1).toString(),
-            username,
-            campaignId: selectedCampaign,
-            title: activityTitle,
-            description: activityDesc,
-            date: new Date().toISOString().split('T')[0]
-        };
+    const handleAddActivity = async () => {
+        if (!activityTitle.trim() || !activityDesc.trim() || !selectedCampaign || !username.trim()) {
+            alert('Please fill in all fields');
+            return;
+        }
 
-        setActivities([...activities, newActivity]);
-        setActivityTitle("");
-        setActivityDesc("");
-        setSelectedCampaign("");
-        setUsername("");
-        setIsAddActivityDialogOpen(false);
+        try {
+            const response = await fetch('/api/activities', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: activityTitle,
+                    description: activityDesc,
+                    campaignId: parseInt(selectedCampaign),
+                    username: username
+                }),
+            });
+
+            if (response.ok) {
+                const newActivity = await response.json();
+                setActivities([...activities, newActivity]);
+                
+                // Reset form
+                setActivityTitle("");
+                setActivityDesc("");
+                setSelectedCampaign("");
+                setUsername("");
+                setIsAddActivityDialogOpen(false);
+            } else {
+                alert('Failed to add activity');
+            }
+        } catch (error) {
+            console.error('Error adding activity:', error);
+            alert('Failed to add activity');
+        }
     };
 
-    const handleAddCampaign = () => {
-        const newCampaign = {
-            id: (campaigns.length + 1).toString(),
-            title: campaignTitle,
-            description: campaignDesc,
-            kpi: campaignKpi,
-            startDate,
-            endDate
-        };
+    const handleAddCampaign = async () => {
+        if (!campaignTitle.trim() || !campaignDesc.trim() || !campaignKpi.trim() || !startDate || !endDate) {
+            alert('Please fill in all fields');
+            return;
+        }
 
-        setCampaigns([...campaigns, newCampaign]);
-        setCampaignTitle("");
-        setCampaignDesc("");
-        setCampaignKpi("");
-        setStartDate("");
-        setEndDate("");
-        setIsAddCampaignDialogOpen(false);
+        try {
+            const response = await fetch('/api/campaigns', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: campaignTitle,
+                    description: campaignDesc,
+                    kpi: campaignKpi,
+                    startDate: startDate,
+                    endDate: endDate,
+                    status: 'ACTIVE'
+                }),
+            });
+
+            if (response.ok) {
+                const newCampaign = await response.json();
+                setCampaigns([...campaigns, newCampaign]);
+                
+                // Reset form
+                setCampaignTitle("");
+                setCampaignDesc("");
+                setCampaignKpi("");
+                setStartDate("");
+                setEndDate("");
+                setIsAddCampaignDialogOpen(false);
+            } else {
+                alert('Failed to add campaign');
+            }
+        } catch (error) {
+            console.error('Error adding campaign:', error);
+            alert('Failed to add campaign');
+        }
     };
 
     return (
@@ -151,7 +211,13 @@ export default function Page() {
                                     <CardTitle className="text-center">Campaign Aktif</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">{getActiveCampaigns().length}</p>
+                                    <p className="text-center">
+                                        {loading ? (
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mx-auto"></div>
+                                        ) : (
+                                            getActiveCampaigns().length
+                                        )}
+                                    </p>
                                 </CardContent>
                             </Card>
                         </Link>
@@ -161,7 +227,13 @@ export default function Page() {
                                     <CardTitle className="text-center">Aktivitas Hari Ini</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">{getTodayActivities().length}</p>
+                                    <p className="text-center">
+                                        {loading ? (
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mx-auto"></div>
+                                        ) : (
+                                            getTodayActivities().length
+                                        )}
+                                    </p>
                                 </CardContent>
                             </Card>
                         </Link>
@@ -171,7 +243,13 @@ export default function Page() {
                                     <CardTitle className="text-center">Daftar Campaign</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">{campaigns.length}</p>
+                                    <p className="text-center">
+                                        {loading ? (
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mx-auto"></div>
+                                        ) : (
+                                            campaigns.length
+                                        )}
+                                    </p>
                                 </CardContent>
                             </Card>
                         </Link>
