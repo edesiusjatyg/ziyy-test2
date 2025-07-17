@@ -10,7 +10,30 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { formatCurrency } from "@/lib/format";
 import Link from "next/link";
+
+interface CanteenItem {
+    id: number;
+    name: string;
+    price: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+interface Transaction {
+    id: number;
+    type: 'PEMASUKAN' | 'PENGELUARAN';
+    title?: string;
+    note?: string;
+    itemId?: number;
+    item?: CanteenItem;
+    itemAmount?: number;
+    paymentMethod: string;
+    paymentAmount: number;
+    date: string;
+}
 
 export default function Page() {
     const router = useRouter();
@@ -26,54 +49,146 @@ export default function Page() {
 
     const [totalIncome, setTotalIncome] = useState(0);
     const [totalExpense, setTotalExpense] = useState(0);
+    const [canteenItems, setCanteenItems] = useState<CanteenItem[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [isAddItemDialogOpen, setIsAddItemDialogOpen] = useState(false);
+    const [newItemName, setNewItemName] = useState("");
+    const [newItemPrice, setNewItemPrice] = useState("");
 
     const [show, setShow] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
+        loadData();
+    }, []);
 
-        fetch("/txCanteen.json")
-            .then(res => res.json())
-            .then(data => {
-                const today = new Date().toISOString().split("T")[0];
-                const txs = data.txCanteen || [];
-                const todaysTxs = txs.filter((tx: any) => tx.date === today);
+    const loadData = async () => {
+        try {
+            // Fetch canteen items
+            const itemsResponse = await fetch('/api/canteen-item');
+            if (itemsResponse.ok) {
+                const items = await itemsResponse.json();
+                setCanteenItems(items);
+            }
 
-                const income = todaysTxs
-                    .filter((tx: any) => tx.txType === "pemasukan")
-                    .reduce((sum: number, tx: any) => sum + Number(tx.paymentAmount), 0);
+            // Fetch transactions
+            const transactionsResponse = await fetch('/api/transaction-canteen');
+            if (transactionsResponse.ok) {
+                const transactions: Transaction[] = await transactionsResponse.json();
+                
+                // Calculate today's totals
+                const today = new Date().toISOString().split('T')[0];
+                const todayTransactions = transactions.filter(tx => 
+                    tx.date.startsWith(today)
+                );
 
-                const expense = todaysTxs
-                    .filter((tx: any) => tx.txType === "pengeluaran")
-                    .reduce((sum: number, tx: any) => sum + Number(tx.paymentAmount), 0);
+                const income = todayTransactions
+                    .filter(tx => tx.type === 'PEMASUKAN')
+                    .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+
+                const expense = todayTransactions
+                    .filter(tx => tx.type === 'PENGELUARAN')
+                    .reduce((sum, tx) => sum + tx.paymentAmount, 0);
 
                 setTotalIncome(income);
                 setTotalExpense(expense);
-            });
-    }, []);
-
-    const handleAddTxSubmit = () => {
-        console.log("Transaction Type:", txType);
-        if(txType === "pemasukan") {
-            console.log("Item Type:", itemType);
-            console.log("Item Amount:", itemAmount);
-            console.log("Payment Amount:", paymentAmount);
-            console.log("Payment Method:", paymentMethod);
-        }else {
-            console.log("Transaction Title: ", txTitle);
-            console.log("Transaction Note: ", txNote);
-            console.log("Payment Amount:", paymentAmount);
-            console.log("Payment Method:", paymentMethod);
+            }
+        } catch (error) {
+            console.error('Error loading data:', error);
+        } finally {
+            setLoading(false);
         }
-        
-        setTxType("");
-        setTxTitle("");
-        setTxNote("");
-        setItemType("");
-        setItemAmount("");
-        setPaymentAmount("");
-        setPaymentMethod("");
-        setIsAddTxDialogOpen(false);
+    };
+
+    // Calculate total amount when item or quantity changes
+    useEffect(() => {
+        if (txType === "pemasukan" && itemType && itemAmount) {
+            const selectedItem = canteenItems.find(item => 
+                item.name.toLowerCase() === itemType
+            );
+            if (selectedItem) {
+                const total = selectedItem.price * parseInt(itemAmount);
+                setPaymentAmount(total.toString());
+            }
+        }
+    }, [itemType, itemAmount, canteenItems, txType]);
+
+    const handleAddTxSubmit = async () => {
+        try {
+            const transactionData = {
+                type: txType.toUpperCase(),
+                paymentMethod: paymentMethod,
+                paymentAmount: parseInt(paymentAmount),
+                date: new Date().toISOString(),
+                ...(txType === "pemasukan" && {
+                    title: "Pembelian "+canteenItems.find(item => item.name.toLowerCase() === itemType)?.name,
+                    itemId: canteenItems.find(item => item.name.toLowerCase() === itemType)?.id,
+                    itemAmount: parseInt(itemAmount) || 1
+                }),
+                ...(txType === "pengeluaran" && {
+                    title: txTitle,
+                    note: txNote
+                })
+            };
+
+            const response = await fetch('/api/transaction-canteen', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(transactionData),
+            });
+
+            if (response.ok) {
+                // Reset form
+                setTxType("");
+                setTxTitle("");
+                setTxNote("");
+                setItemType("");
+                setItemAmount("");
+                setPaymentAmount("");
+                setPaymentMethod("");
+                setIsAddTxDialogOpen(false);
+                
+                // Reload data
+                loadData();
+            } else {
+                console.error('Failed to create transaction');
+            }
+        } catch (error) {
+            console.error('Error creating transaction:', error);
+        }
+    }
+
+    const handleAddItemSubmit = async () => {
+        try {
+            const itemData = {
+                name: newItemName,
+                price: parseInt(newItemPrice)
+            };
+
+            const response = await fetch('/api/canteen-item', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(itemData),
+            });
+
+            if (response.ok) {
+                // Reset form
+                setNewItemName("");
+                setNewItemPrice("");
+                setIsAddItemDialogOpen(false);
+                
+                // Reload data
+                loadData();
+            } else {
+                console.error('Failed to create item');
+            }
+        } catch (error) {
+            console.error('Error creating item:', error);
+        }
     }
     
     return (
@@ -109,7 +224,14 @@ export default function Page() {
                                     <CardTitle className="text-center">Pemasukan Hari Ini</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">Rp2.400.000</p>
+                                    {loading?
+                                        <p className="text-center text-gray-500">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                        </p> : 
+                                        <p className="text-center">
+                                            {formatCurrency(totalIncome)}
+                                        </p>
+                                    }
                                 </CardContent>
                             </Card>
                         </Link>
@@ -119,7 +241,14 @@ export default function Page() {
                                     <CardTitle className="text-center">Pengeluaran Hari Ini</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-center">Rp2.400.000</p>
+                                    {loading?
+                                        <p className="text-center text-gray-500">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                        </p> : 
+                                        <p className="text-center">
+                                            {formatCurrency(totalExpense)}
+                                        </p>
+                                    }
                                 </CardContent>
                             </Card>
                         </Link>
@@ -167,16 +296,11 @@ export default function Page() {
                                                     <SelectValue placeholder="Pilih Item" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="cleoKecil">Cleo Kecil</SelectItem>
-                                                    <SelectItem value="cleoSedang">Cleo Sedang</SelectItem>
-                                                    <SelectItem value="cleoBesar">Cleo Besar</SelectItem>
-                                                    <SelectItem value="bcaa">BCAA</SelectItem>
-                                                    <SelectItem value="protein">Whey Protein</SelectItem>
-                                                    <SelectItem value="creatine">Creatine</SelectItem>
-                                                    <SelectItem value="hilo">Hilo</SelectItem>
-                                                    <SelectItem value="tropicana">Tropicana</SelectItem>
-                                                    <SelectItem value="americano">Americano</SelectItem>
-                                                    <SelectItem value="latte">latte</SelectItem>
+                                                    {canteenItems.map((item) => (
+                                                        <SelectItem key={item.id} value={item.name.toLowerCase()}>
+                                                            {item.name}
+                                                        </SelectItem>
+                                                    ))}
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -193,14 +317,14 @@ export default function Page() {
                                                     <SelectValue placeholder="Pilih Metode Pembayaran" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="cash">Cash</SelectItem>
-                                                    <SelectItem value="transfer">Transfer</SelectItem>
-                                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS BRI</SelectItem>
-                                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                    <SelectItem value="CASH">Cash</SelectItem>
+                                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -208,7 +332,9 @@ export default function Page() {
                                             <Label htmlFor="paymentAmount" className="text-right">
                                                 Jumlah
                                             </Label>
-                                            <Input id="paymentAmount" type="number" value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} placeholder="Jumlah Pembayaran" className="w-32 col-span-3" />
+                                            <p className="font-semibold text-sm">
+                                                {loading ? "Loading..." : formatCurrency(paymentAmount ? parseInt(paymentAmount) : 0)}
+                                            </p>
                                         </div>
                                     </div>
                                     <div hidden={!(txType === "pengeluaran")} className="grid gap-4">
@@ -229,14 +355,14 @@ export default function Page() {
                                                     <SelectValue placeholder="Pilih Metode Pembayaran" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="cash">Cash</SelectItem>
-                                                    <SelectItem value="transfer">Transfer</SelectItem>
-                                                    <SelectItem value="debitBri">Debit BRI</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS BRI</SelectItem>
-                                                    <SelectItem value="debitMdr">Debit Mandiri</SelectItem>
-                                                    <SelectItem value="qrisMdr">QRIS Mandiri</SelectItem>
-                                                    <SelectItem value="edcMdr">EDC Mandiri</SelectItem>
-                                                    <SelectItem value="transferMdr">Transfer Mandiri</SelectItem>
+                                                    <SelectItem value="CASH">Cash</SelectItem>
+                                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -255,6 +381,39 @@ export default function Page() {
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-6 px-8 pb-8">
+                        <Card className="bg-white shadow-lg">
+                            <CardHeader>
+                                <CardTitle className="text-center">Daftar Menu</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                {loading ? (
+                                    <p className="text-center text-gray-500">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto">
+                                        </div>
+                                    </p>
+                                ) : (
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow>
+                                                <TableHead>Item</TableHead>
+                                                <TableHead className="text-right">Harga</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {canteenItems.map((item) => (
+                                                <TableRow key={item.id}>
+                                                    <TableCell className="font-medium">{item.name}</TableCell>
+                                                    <TableCell className="text-right">{formatCurrency(item.price)}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                )}
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
             </div>

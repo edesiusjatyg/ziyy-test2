@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { CirclePlus, Undo2, Info } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -90,6 +90,7 @@ export default function Page() {
     const [memberArrival, setMemberArrival] = useState<Arrival[]>([]);
     const [insCount, setInsCount] = useState<Insidentil[]>([]);
     const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     // Add state for near-expiry member dialog
     type NullableMember = Member | null;
@@ -172,10 +173,23 @@ export default function Page() {
 
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
-        fetchMembers();
-        fetchArrivals();
-        fetchIncidentiles();
+        loadAllData();
     }, []);
+
+    const loadAllData = async () => {
+        setLoading(true);
+        try {
+            await Promise.all([
+                fetchMembers(),
+                fetchArrivals(),
+                fetchIncidentiles()
+            ]);
+        } catch (error) {
+            console.error('Error loading data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         if (isAddMemberDialogOpen) {
@@ -629,7 +643,13 @@ export default function Page() {
                                     <CardTitle className="text-gray-900 text-center">Total Member</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg text-gray-700 text-center">{members.length}</p>
+                                    {loading ? (
+                                        <div className="flex justify-center">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                        </div>
+                                    ) : (
+                                        <p className="text-lg text-gray-700 text-center">{members.length}</p>
+                                    )}
                                 </CardContent>
                             </Card>
                         </Link>
@@ -639,7 +659,13 @@ export default function Page() {
                                     <CardTitle className="text-gray-900 text-center">Member Baru</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg text-gray-700 text-center">{newMembers.length}</p>
+                                    {loading ? (
+                                        <div className="flex justify-center">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                        </div>
+                                    ) : (
+                                        <p className="text-lg text-gray-700 text-center">{newMembers.length}</p>
+                                    )}
                                 </CardContent>
                             </Card>
                         </Link>
@@ -649,7 +675,13 @@ export default function Page() {
                                     <CardTitle className="text-gray-900 text-center">Kedatangan Member</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg text-gray-700 text-center">{memberArrival.length}</p>
+                                    {loading ? (
+                                        <div className="flex justify-center">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                        </div>
+                                    ) : (
+                                        <p className="text-lg text-gray-700 text-center">{memberArrival.length}</p>
+                                    )}
                                 </CardContent>
                             </Card>
                         </Link>
@@ -659,7 +691,13 @@ export default function Page() {
                                     <CardTitle className="text-gray-900 text-center">Insidentil Hari Ini</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-lg text-gray-700 text-center">{insCount.length}</p>
+                                    {loading ? (
+                                        <div className="flex justify-center">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                        </div>
+                                    ) : (
+                                        <p className="text-lg text-gray-700 text-center">{insCount.length}</p>
+                                    )}
                                 </CardContent>
                             </Card>
                         </Link>
@@ -671,30 +709,36 @@ export default function Page() {
                                 <CardTitle className="text-gray-900 text-center">Member Mendekati Habis ({nearExpMembers.length})</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <ScrollArea className="h-62 w-full">
-                                    {nearExpMembers.length === 0 ? (
-                                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-3">
-                                            <p className="text-gray-700 text-center w-full">Tidak ada member yang mendekati habis.</p>
-                                        </div>
-                                    ) : (
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
-                                            {nearExpMembers.map((member) => (
-                                                <Card key={member.id} className="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-3 cursor-pointer" onClick={() => handleNearExpMemberClick(member)}>
-                                                    <CardContent className="flex flex-col p-2">
-                                                        <p className="text-sm font-semibold text-gray-900">{member.name}</p>
-                                                        <p className="text-xs text-gray-900">Exp: {member.expiryDate.split("T")[0]}</p>
-                                                        <p className="text-xs text-gray-900">Tipe: {member.membership}</p>
-                                                    </CardContent>
-                                                    <CardFooter className="flex gap-2 justify-end p-2">
-                                                        <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10 cursor-pointer" onClick={e => { e.stopPropagation(); handleContact(member); }}>
-                                                            Contact
-                                                        </Button>
-                                                    </CardFooter>
-                                                </Card>
-                                            ))}
-                                        </div>
-                                    )}
-                                </ScrollArea>
+                                {loading ? (
+                                    <div className="flex justify-center">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                    </div>
+                                ) : (
+                                    <ScrollArea className="h-62 w-full">
+                                        {nearExpMembers.length === 0 ? (
+                                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-3">
+                                                <p className="text-gray-700 text-center w-full">Tidak ada member yang mendekati habis.</p>
+                                            </div>
+                                        ) : (
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
+                                                {nearExpMembers.map((member) => (
+                                                    <Card key={member.id} className="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-3 cursor-pointer" onClick={() => handleNearExpMemberClick(member)}>
+                                                        <CardContent className="flex flex-col p-2">
+                                                            <p className="text-sm font-semibold text-gray-900">{member.name}</p>
+                                                            <p className="text-xs text-gray-900">Exp: {member.expiryDate.split("T")[0]}</p>
+                                                            <p className="text-xs text-gray-900">Tipe: {member.membership}</p>
+                                                        </CardContent>
+                                                        <CardFooter className="flex gap-2 justify-end p-2">
+                                                            <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10 cursor-pointer" onClick={e => { e.stopPropagation(); handleContact(member); }}>
+                                                                Contact
+                                                            </Button>
+                                                        </CardFooter>
+                                                    </Card>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </ScrollArea>
+                                )}
                             </CardContent>
                         </Card>
 
