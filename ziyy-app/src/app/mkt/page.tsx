@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { hasMktCrudAccess } from "@/lib/rbac";
 import { CirclePlus, ChevronsRight, Undo2 } from "lucide-react";
 import { Card, CardTitle, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -33,6 +35,13 @@ interface Activity {
 
 export default function Page() {
     const router = useRouter();
+    const { data: session } = useSession();
+
+    // Permission checks
+    const canCreate = session?.user?.role ? hasMktCrudAccess(session.user.role, "CREATE") : false;
+    const canRead = session?.user?.role ? hasMktCrudAccess(session.user.role, "READ") : false;
+    const canUpdate = session?.user?.role ? hasMktCrudAccess(session.user.role, "UPDATE") : false;
+    const canDelete = session?.user?.role ? hasMktCrudAccess(session.user.role, "DELETE") : false;
 
     const [isAddActivityDialogOpen, setIsAddActivityDialogOpen] = useState(false);
     const [isAddCampaignDialogOpen, setIsAddCampaignDialogOpen] = useState(false);
@@ -256,6 +265,7 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-6 px-8 pb-8">
+                        {canCreate && (
                         <Dialog open={isAddCampaignDialogOpen} onOpenChange={setIsAddCampaignDialogOpen}>
                             <DialogTrigger asChild>
                                 <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer">
@@ -336,7 +346,9 @@ export default function Page() {
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
+                        )}
 
+                        {canCreate && (
                         <Dialog open={isAddActivityDialogOpen} onOpenChange={setIsAddActivityDialogOpen}>
                             <DialogTrigger asChild>
                                 <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer">
@@ -413,6 +425,7 @@ export default function Page() {
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
+                        )}
                     </div>
                 </div>
             </div>

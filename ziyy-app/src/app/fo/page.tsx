@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CirclePlus, Undo2, Info } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { CirclePlus, Undo2, Info, Phone } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -17,6 +18,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Edit, Trash2, User } from "lucide-react";
 import { MemberSearch } from "@/components/ui/member-search";
+import { hasFoCrudAccess } from "@/lib/rbac";
 
 interface Member {
   id: number;
@@ -50,7 +52,14 @@ interface Insidentil {
 
 export default function Page() {
     const router = useRouter();
+    const { data: session } = useSession();
     const [show, setShow] = useState(false);
+
+    // Check permissions
+    const canCreate = session?.user?.role ? hasFoCrudAccess(session.user.role, "CREATE") : false;
+    const canRead = session?.user?.role ? hasFoCrudAccess(session.user.role, "READ") : false;
+    const canUpdate = session?.user?.role ? hasFoCrudAccess(session.user.role, "UPDATE") : false;
+    const canDelete = session?.user?.role ? hasFoCrudAccess(session.user.role, "DELETE") : false;
 
     const [isAbsDialogOpen, setIsAbsDialogOpen] = useState(false);
     const [isAddMemberDialogOpen, setIsAddMemberDialogOpen] = useState(false);
@@ -722,14 +731,15 @@ export default function Page() {
                                         ) : (
                                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
                                                 {nearExpMembers.map((member) => (
-                                                    <Card key={member.id} className="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-3 cursor-pointer" onClick={() => handleNearExpMemberClick(member)}>
+                                                    <Card key={member.id} className="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-3 cursor-pointer justify-between" onClick={() => handleNearExpMemberClick(member)}>
                                                         <CardContent className="flex flex-col p-2">
                                                             <p className="text-sm font-semibold text-gray-900">{member.name}</p>
                                                             <p className="text-xs text-gray-900">Exp: {member.expiryDate.split("T")[0]}</p>
                                                             <p className="text-xs text-gray-900">Tipe: {member.membership}</p>
                                                         </CardContent>
                                                         <CardFooter className="flex gap-2 justify-end p-2">
-                                                            <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10 cursor-pointer" onClick={e => { e.stopPropagation(); handleContact(member); }}>
+                                                            <Button size="sm" variant="outline" className="text-[#7bb3d6] border-[#7bb3d6] hover:bg-[#7bb3d6]/10 cursor-pointer transition-all" onClick={e => { e.stopPropagation(); handleContact(member); }}>
+                                                                <Phone className="w-4 h-4"/>
                                                                 Contact
                                                             </Button>
                                                         </CardFooter>
@@ -743,6 +753,7 @@ export default function Page() {
                         </Card>
 
                         <div className="grid grid-row-4 md:grid-row-4 gap-4">
+                            {canCreate && (
                             <Dialog open={isAbsDialogOpen} onOpenChange={setIsAbsDialogOpen}>
                                 <DialogTrigger asChild>
                                     <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
@@ -788,16 +799,18 @@ export default function Page() {
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
+                            )}
 
-                            <Dialog open={isAddMemberDialogOpen} onOpenChange={setIsAddMemberDialogOpen}>
-                                <DialogTrigger asChild>
-                                    <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
-                                        <CardContent className="flex flex-row items-center gap-2">
-                                            <CirclePlus className="text-[#7bb3d6]" />
-                                            <p className="text-md text-gray-900">Tambah Member Baru</p>
-                                        </CardContent>
-                                    </Card>
-                                </DialogTrigger>
+                            {canCreate && (
+                                <Dialog open={isAddMemberDialogOpen} onOpenChange={setIsAddMemberDialogOpen}>
+                                    <DialogTrigger asChild>
+                                        <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                                            <CardContent className="flex flex-row items-center gap-2">
+                                                <CirclePlus className="text-[#7bb3d6]" />
+                                                <p className="text-md text-gray-900">Tambah Member Baru</p>
+                                            </CardContent>
+                                        </Card>
+                                    </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px]">
                                     <DialogHeader>
                                         <DialogTitle>Tambah Member Baru</DialogTitle>
@@ -934,10 +947,12 @@ export default function Page() {
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
+                            )}
 
-                            <Dialog open={isAddInsDialogOpen} onOpenChange={setIsAddInsDialogOpen}>
-                                <DialogTrigger asChild>
-                                    <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                            {canCreate && (
+                                <Dialog open={isAddInsDialogOpen} onOpenChange={setIsAddInsDialogOpen}>
+                                    <DialogTrigger asChild>
+                                        <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
                                         <CardContent className="flex flex-row items-center gap-2">
                                             <CirclePlus className="text-[#7bb3d6]" />
                                             <p className="text-md text-gray-900">Tambah Insidentil Baru</p>
@@ -1036,7 +1051,9 @@ export default function Page() {
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
+                            )}
 
+                            {canCreate && (
                             <Dialog open={isAddTxDialogOpen} onOpenChange={setIsAddTxDialogOpen}>
                                 <DialogTrigger asChild>
                                     <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
@@ -1109,7 +1126,8 @@ export default function Page() {
                                         </Button>
                                     </DialogFooter>
                                 </DialogContent>
-                            </Dialog> 
+                            </Dialog>
+                            )} 
                         </div>
                     </div>
 
@@ -1176,6 +1194,7 @@ export default function Page() {
                           </div>
                         )}
                         <DialogFooter className="flex gap-2">
+                          {canCreate && (
                           <Button
                             variant="outline"
                             className="flex items-center gap-2 hover:cursor-pointer"
@@ -1184,6 +1203,8 @@ export default function Page() {
                             <Edit className="h-4 w-4" />
                             Perpanjang
                           </Button>
+                          )}
+                          {canDelete && (
                           <Button
                             variant="destructive"
                             className="flex items-center gap-2 hover:cursor-pointer"
@@ -1192,6 +1213,7 @@ export default function Page() {
                             <Trash2 className="h-4 w-4" />
                             Delete
                           </Button>
+                          )}
                         </DialogFooter>
                       </DialogContent>
                     </Dialog>

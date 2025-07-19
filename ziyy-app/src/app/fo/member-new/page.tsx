@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { ChevronsRight, Edit, Trash2, User, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { hasFoCrudAccess } from "@/lib/rbac";
 
 type Member = {
     id: number;
@@ -24,6 +26,13 @@ type Member = {
 
 export default function Page() {
     const router = useRouter();
+    const { data: session } = useSession();
+
+    // Permission checks
+    const canCreate = session?.user?.role ? hasFoCrudAccess(session.user.role, "CREATE") : false;
+    const canRead = session?.user?.role ? hasFoCrudAccess(session.user.role, "READ") : false;
+    const canUpdate = session?.user?.role ? hasFoCrudAccess(session.user.role, "UPDATE") : false;
+    const canDelete = session?.user?.role ? hasFoCrudAccess(session.user.role, "DELETE") : false;
 
     const [newMembers, setNewMembers] = useState<Member[]>([]);
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
@@ -259,12 +268,16 @@ export default function Page() {
                         )}
 
                         <DialogFooter className="flex gap-2">
+                          {canUpdate && (
                           <Button variant="outline" className="flex items-center gap-2 hover:cursor-pointer" onClick={handleEditClick}>
                             <Edit className="h-4 w-4" /> Edit
                           </Button>
+                          )}
+                          {canDelete && (
                           <Button variant="destructive" className="flex items-center gap-2 hover:cursor-pointer" onClick={() => setIsDeleteDialogOpen(true)}>
                             <Trash2 className="h-4 w-4" /> Delete
                           </Button>
+                          )}
                         </DialogFooter>
                       </DialogContent>
                   </Dialog>
