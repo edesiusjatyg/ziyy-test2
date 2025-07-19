@@ -62,23 +62,32 @@ export default function Page() {
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
             <div className="w-full max-w-3xl py-8 px-4 transition-all duration-500" style={{ opacity: show ? 1 : 0}}>
                 <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-                    <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-6" style={{ background: '#7bb3d6' }}>
-                        <div className="flex items-center gap-2 cursor-pointer z-10 text-white/80 hover:text-white transition-all" onClick={handleLogout}>
+                    <div className="flex items-center rounded-t-2xl px-4 md:px-8 py-4 mb-6 relative" style={{ background: '#7bb3d6' }}>
+                        {/* Left: Logout Button - Fixed Width */}
+                        <div className="flex items-center gap-2 cursor-pointer text-white/80 hover:text-white transition-all w-20 justify-start" onClick={handleLogout}>
                             <LogOut className="w-4 h-4 transition-all" />
-                            <p className="transition-all">Logout</p>
+                            <span className="hidden sm:inline transition-all">Logout</span>
                         </div>
-                        <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
-                            Ziyy Gym
-                        </h2>
-                        <Breadcrumb>
-                            <BreadcrumbList>
+                        
+                        {/* Center: Title - Takes remaining space and centers content */}
+                        <div className="flex-1 flex justify-center">
+                            <h2 className="text-white font-semibold text-lg md:text-xl tracking-tight text-center">
+                                Ziyy Gym
+                            </h2>
+                        </div>
+                        
+                        {/* Right: Breadcrumb - Fixed Width */}
+                        <div className="w-20 flex justify-end">
+                            <Breadcrumb>
+                                <BreadcrumbList>
                                     <BreadcrumbItem>
-                                        <BreadcrumbLink href="/" className="text-white/90 hover:text-white font-medium">
-                                        Home
-                                    </BreadcrumbLink>
-                            </BreadcrumbItem>
-                    </BreadcrumbList>
-                        </Breadcrumb>
+                                        <BreadcrumbLink href="/" className="text-white/90 hover:text-white font-medium text-sm md:text-base">
+                                            Home
+                                        </BreadcrumbLink>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 pb-6 px-6">

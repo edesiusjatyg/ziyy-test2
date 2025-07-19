@@ -166,22 +166,30 @@ export default function Page() {
       <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
           <div className={`w-full py-8 px-8 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
               <div className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg" style={{ boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.08)' }}>
-                  <div className="flex flex-col md:flex-row items-center justify-between rounded-t-2xl px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
-                      <div className="flex items-center gap-2 cursor-pointer z-10" onClick={() => router.push("/fo")}>
-                          <Undo2 className="text-white/80 hover:text-white transition-all"/>
+                  <div className="flex items-center rounded-t-2xl px-4 md:px-8 py-4 mb-8 relative" style={{ background: '#7bb3d6' }}>
+                      {/* Left: Back Button - Fixed Width */}
+                      <div className="flex items-center gap-2 cursor-pointer text-white/80 hover:text-white transition-all w-32 justify-start" onClick={() => router.push("/fo")}>
+                          <Undo2 className="w-4 h-4 transition-all" />
+                          <span className="hidden sm:inline transition-all">Back</span>
                       </div>
-                      <h2 className="text-white font-semibold text-xl tracking-tight absolute left-1/2 -translate-x-1/2 z-0">
-                          Ziyy Gym | Member Baru
-                      </h2>
-                      <div className="z-10">
+                      
+                      {/* Center: Title - Takes remaining space and centers content */}
+                      <div className="flex-1 flex justify-center">
+                          <h2 className="text-white font-semibold text-lg md:text-xl tracking-tight text-center">
+                              Ziyy Gym
+                          </h2>
+                      </div>
+                      
+                      {/* Right: Breadcrumb - Fixed Width to match left side */}
+                      <div className="w-32 flex justify-end">
                           <Breadcrumb>
                               <BreadcrumbList>
                                   <BreadcrumbItem>
-                                      <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all">
+                                      <BreadcrumbLink href="/fo" className="text-white/80 hover:text-white transition-all text-sm md:text-base">
                                           FO
                                       </BreadcrumbLink>
                                       <BreadcrumbSeparator></BreadcrumbSeparator>
-                                      <BreadcrumbPage className="text-white">Member Baru</BreadcrumbPage>
+                                      <BreadcrumbPage className="text-white text-sm md:text-base">Member Baru</BreadcrumbPage>
                                   </BreadcrumbItem>
                               </BreadcrumbList>
                           </Breadcrumb>
