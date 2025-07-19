@@ -55,6 +55,9 @@ export default function SignInPage() {
                         <h2 className="text-white font-semibold text-xl tracking-tight">
                             Ziyy Gym
                         </h2>
+                        <p className="text-white/80 text-sm mt-1">
+                            Login System
+                        </p>
                     </div>
 
                     <div className="px-8 pb-8">
