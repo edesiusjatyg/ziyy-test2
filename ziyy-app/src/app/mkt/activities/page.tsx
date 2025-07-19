@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { hasMktCrudAccess } from "@/lib/rbac";
 import { Undo2, Trash2, Edit } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -30,6 +32,13 @@ interface Campaign {
 
 export default function ActivitiesPage() {
     const router = useRouter();
+    const { data: session } = useSession();
+
+    // Permission checks
+    const canCreate = session?.user?.role ? hasMktCrudAccess(session.user.role, "CREATE") : false;
+    const canRead = session?.user?.role ? hasMktCrudAccess(session.user.role, "READ") : false;
+    const canUpdate = session?.user?.role ? hasMktCrudAccess(session.user.role, "UPDATE") : false;
+    const canDelete = session?.user?.role ? hasMktCrudAccess(session.user.role, "DELETE") : false;
 
     const [activities, setActivities] = useState<Activity[]>([]);
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -266,6 +275,7 @@ export default function ActivitiesPage() {
                                 </div>
                             )}
                             <DialogFooter>
+                                {canUpdate && (
                                 <Button
                                     variant="outline"
                                     className="flex items-center gap-2 hover:cursor-pointer"
@@ -274,6 +284,8 @@ export default function ActivitiesPage() {
                                     <Edit className="h-4 w-4" />
                                     Edit
                                 </Button>
+                                )}
+                                {canDelete && (
                                 <Button
                                     variant="destructive"
                                     className="flex items-center gap-2 hover:cursor-pointer"
@@ -282,6 +294,7 @@ export default function ActivitiesPage() {
                                     <Trash2 className="h-4 w-4" />
                                     Delete
                                 </Button>
+                                )}
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>

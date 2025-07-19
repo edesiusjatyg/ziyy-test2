@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 async function seedUsers() {
   // Create default admin user
-  const hashedPassword = await bcrypt.hash("admin123", 10)
+  const hashedPassword = await bcrypt.hash("123", 10)
   
   const admin = await prisma.user.upsert({
     where: { username: "admin" },
@@ -23,26 +23,32 @@ async function seedUsers() {
     {
       username: "frontoffice",
       email: "fo@ziyyy.gym",
-      password: "fo123",
+      password: "123",
       role: "FRONT_OFFICE" as const,
     },
     {
       username: "canteen",
       email: "canteen@ziyyy.gym",
-      password: "canteen123",
+      password: "123",
       role: "CANTEEN" as const,
     },
     {
       username: "accounting",
       email: "accounting@ziyyy.gym",
-      password: "acc123",
+      password: "123",
       role: "ACCOUNTING" as const,
     },
     {
       username: "marketing",
       email: "marketing@ziyyy.gym",
-      password: "mkt123",
+      password: "123",
       role: "MARKETING" as const,
+    },
+    {
+      username: "supervisor",
+      email: "supervisor@ziyyy.gym",
+      password: "123",
+      role: "SUPERVISOR" as const,
     },
   ]
 

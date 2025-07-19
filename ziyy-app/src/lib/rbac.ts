@@ -122,6 +122,10 @@ export function hasAccCrudAccess(userRole: UserRole, permission: CrudPermission)
   return hasRoleAccess(userRole, ACC_PERMISSIONS[permission])
 }
 
+export function hasMktCrudAccess(userRole: UserRole, permission: CrudPermission): boolean {
+  return hasRoleAccess(userRole, MKT_PERMISSIONS[permission])
+}
+
 export function getRoleDisplayName(role: UserRole): string {
   const displayNames = {
     ADMIN: "Admin",
