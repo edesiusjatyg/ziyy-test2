@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { Undo2, Trash2 } from "lucide-react";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { hasFoCrudAccess } from "@/lib/rbac";
 
 // Updated interface to match the API response
 interface MemberArrival {
@@ -21,6 +23,14 @@ interface MemberArrival {
 
 export default function Page() {
   const router = useRouter();
+  const { data: session } = useSession();
+
+  // Permission checks
+  const canCreate = session?.user?.role ? hasFoCrudAccess(session.user.role, "CREATE") : false;
+  const canRead = session?.user?.role ? hasFoCrudAccess(session.user.role, "READ") : false;
+  const canUpdate = session?.user?.role ? hasFoCrudAccess(session.user.role, "UPDATE") : false;
+  const canDelete = session?.user?.role ? hasFoCrudAccess(session.user.role, "DELETE") : false;
+
   const [arrivals, setArrivals] = useState<MemberArrival[]>([]);
   const [selected, setSelected] = useState<MemberArrival | null>(null);
   const [show, setShow] = useState(false);
@@ -37,10 +47,10 @@ export default function Page() {
             }
             const data = await response.json();
             setArrivals(data);
-            const today = new Date().toISOString().split("T")[0];
-            setArrivals(
-                data.filter((arrival: MemberArrival) => arrival.arrivalDate && arrival.arrivalDate.split("T")[0] === today)
-            );
+            // const today = new Date().toISOString().split("T")[0];
+            // setArrivals(
+            //     data.filter((arrival: MemberArrival) => arrival.arrivalDate && arrival.arrivalDate.split("T")[0] === today)
+            // );
         } catch (error) {
             console.error('Error fetching arrivals:', error);
         }
@@ -127,12 +137,14 @@ export default function Page() {
                     <CardTitle className="flex items-center gap-2">
                         {arrival.member.name}
                     </CardTitle>
+                    {canDelete && (
                     <Trash2 className="text-xs hover:cursor-pointer" onClick={() => handleClick(arrival)}/>
+                    )}
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-xs text-gray-500">{getArrivalBadge(arrival.arrivalType)}</div>
                   <div className="text-xs text-gray-500">Tanggal: {new Date(arrival.arrivalDate).toLocaleDateString()}</div>
+                  <div className="text-xs text-gray-500">{getArrivalBadge(arrival.arrivalType)}</div>
                 </CardContent>
               </Card>
             ))}

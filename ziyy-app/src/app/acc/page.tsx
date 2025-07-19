@@ -2,6 +2,8 @@
 
 import { CirclePlus, ChevronsRight, Undo2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { hasAccCrudAccess } from "@/lib/rbac";
 import { Card, CardTitle, CardContent, CardDescription, CardFooter, CardHeader} from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
@@ -25,6 +27,14 @@ interface Transaction {
 
 export default function Page() {
     const router = useRouter();
+    const { data: session } = useSession();
+
+    // Permission checks
+    const canCreate = session?.user?.role ? hasAccCrudAccess(session.user.role, "CREATE") : false;
+    const canRead = session?.user?.role ? hasAccCrudAccess(session.user.role, "READ") : false;
+    const canUpdate = session?.user?.role ? hasAccCrudAccess(session.user.role, "UPDATE") : false;
+    const canDelete = session?.user?.role ? hasAccCrudAccess(session.user.role, "DELETE") : false;
+
     const [show, setShow] = useState(false);
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -274,6 +284,7 @@ export default function Page() {
                                 </CardFooter>
                             </Card>
                         </Link>
+                        {canCreate && (
                         <Card className="flex flex-col justify-between bg-white hover:bg-white/90 hover:shadow-lg py-6 px-2 cursor-pointer transition-all" onClick={() => setIsAddDialogOpen(true)}>
                             <CardHeader>
                                 <CardTitle>Tambah Transaksi</CardTitle>
@@ -284,6 +295,7 @@ export default function Page() {
                                 <p className="text-md">Tambah</p>
                             </CardFooter>
                         </Card>
+                        )}
                     </div>
                     <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                         <DialogContent className="max-w-md">
