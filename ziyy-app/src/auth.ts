@@ -18,45 +18,51 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Username and password are required");
         }
 
-        // Find user in database
-        const user = await prisma.user.findUnique({
-          where: {
-            username: credentials.username as string,
-          },
-        });
+        try {
+          // Find user in database
+          const user = await prisma.user.findUnique({
+            where: {
+              username: credentials.username as string,
+            },
+          });
 
-        if (!user) {
-          throw new Error("Invalid credentials");
+          if (!user) {
+            throw new Error("Invalid credentials");
+          }
+
+          // Verify password
+          const isPasswordValid = await bcrypt.compare(
+            credentials.password as string,
+            user.passwordHash
+          );
+
+          if (!isPasswordValid) {
+            throw new Error("Invalid credentials");
+          }
+
+          // Update last login
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { lastLogin: new Date() },
+          });
+
+          // Return user object (without password)
+          return {
+            id: user.id.toString(),
+            username: user.username,
+            email: user.email,
+            role: user.role,
+          };
+        } catch (error) {
+          console.error("Auth error:", error);
+          return null;
         }
-
-        // Verify password
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password as string,
-          user.passwordHash
-        );
-
-        if (!isPasswordValid) {
-          throw new Error("Invalid credentials");
-        }
-
-        // Update last login
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { lastLogin: new Date() },
-        });
-
-        // Return user object (without password)
-        return {
-          id: user.id.toString(),
-          username: user.username,
-          email: user.email,
-          role: user.role,
-        };
       },
     }),
   ],
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -78,4 +84,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/signin",
   },
+  debug: process.env.NODE_ENV === "development", // Enable debug in development
 });

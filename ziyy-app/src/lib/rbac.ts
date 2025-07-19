@@ -18,6 +18,18 @@ export const ROUTE_PERMISSIONS = {
   "/acc": ["ADMIN", "SUPERVISOR", "ACCOUNTING"],
   "/mkt": ["ADMIN", "SUPERVISOR", "MARKETING"],
   "/mgmt": ["ADMIN"],
+  "/api/members": ["ADMIN", "SUPERVISOR", "FRONT_OFFICE"],
+  "/api/member-arrivals": ["ADMIN", "SUPERVISOR", "FRONT_OFFICE"],
+  "/api/activities": ["ADMIN", "SUPERVISOR", "MARKETING"],
+  "/api/campaigns": ["ADMIN", "SUPERVISOR", "MARKETING"],
+  "/api/canteen": ["ADMIN", "SUPERVISOR", "CANTEEN"],
+  "/api/canteen-item": ["ADMIN", "SUPERVISOR", "CANTEEN"],
+  "/api/transaction-canteen": ["ADMIN", "SUPERVISOR", "CANTEEN"],
+  "/api/transaction-accounting": ["ADMIN", "SUPERVISOR", "ACCOUNTING"],
+  "/api/transaction-fo": ["ADMIN", "SUPERVISOR", "FRONT_OFFICE"],
+  "/api/incidentile": ["ADMIN", "SUPERVISOR", "FRONT_OFFICE"],
+  "/api/couples": ["ADMIN", "SUPERVISOR", "FRONT_OFFICE"],
+  "/api/statistic": ["ADMIN", "SUPERVISOR", "ACCOUNTING"],
 } as const
 
 // Module permissions for the home page cards
@@ -101,6 +113,10 @@ export function hasModuleAccess(userRole: UserRole, module: keyof typeof MODULE_
 
 export function hasFoCrudAccess(userRole: UserRole, permission: CrudPermission): boolean {
   return hasRoleAccess(userRole, FO_PERMISSIONS[permission])
+}
+
+export function hasCanteenCrudAccess(userRole: UserRole, permission: CrudPermission): boolean {
+  return hasRoleAccess(userRole, CANTEEN_PERMISSIONS[permission])
 }
 
 export function getRoleDisplayName(role: UserRole): string {

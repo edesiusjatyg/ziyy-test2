@@ -7,6 +7,9 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth
   const userRole = req.auth?.user?.role
 
+  // Debug logging for production
+  console.log(`Middleware: ${nextUrl.pathname}, isLoggedIn: ${isLoggedIn}, role: ${userRole}`)
+
   // Define public routes that don't require authentication
   const publicRoutes = ['/signin', '/api/auth', '/unauthorized']
   
@@ -17,11 +20,13 @@ export default auth((req) => {
 
   // If not logged in and trying to access protected route, redirect to signin
   if (!isLoggedIn && !isPublicRoute) {
+    console.log(`Redirecting to signin: ${nextUrl.pathname}`)
     return NextResponse.redirect(new URL('/signin', nextUrl))
   }
 
   // If logged in and trying to access signin, redirect to home
   if (isLoggedIn && nextUrl.pathname === '/signin') {
+    console.log(`Redirecting authenticated user to home`)
     return NextResponse.redirect(new URL('/home', nextUrl))
   }
 

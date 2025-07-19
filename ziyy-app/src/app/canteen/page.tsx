@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { CirclePlus, ChevronsRight, Undo2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -12,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/format";
+import { hasCanteenCrudAccess } from "@/lib/rbac";
 import Link from "next/link";
 
 interface CanteenItem {
@@ -37,6 +39,13 @@ interface Transaction {
 
 export default function Page() {
     const router = useRouter();
+    const { data: session } = useSession();
+
+    // Permission checks
+    const canCreate = session?.user?.role ? hasCanteenCrudAccess(session.user.role, "CREATE") : false;
+    const canRead = session?.user?.role ? hasCanteenCrudAccess(session.user.role, "READ") : false;
+    const canUpdate = session?.user?.role ? hasCanteenCrudAccess(session.user.role, "UPDATE") : false;
+    const canDelete = session?.user?.role ? hasCanteenCrudAccess(session.user.role, "DELETE") : false;
 
     const [isAddTxDialogOpen, setIsAddTxDialogOpen] = useState(false);
     const [txType, setTxType] = useState("");
@@ -255,6 +264,7 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-1 gap-6 px-8 pb-8">
+                        {canCreate && (
                         <Dialog open={isAddTxDialogOpen} onOpenChange={setIsAddTxDialogOpen}>
                             <DialogTrigger asChild>
                                 <Card className="flex flex-col justify-between bg-white hover:shadow-lg py-6 px-2 cursor-pointer transition-all">
@@ -381,6 +391,7 @@ export default function Page() {
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
+                        )}
                     </div>
 
                     <div className="grid grid-cols-1 gap-6 px-8 pb-8">
