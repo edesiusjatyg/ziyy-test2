@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { hasAccCrudAccess } from "@/lib/rbac";
 import { Undo2 } from "lucide-react";
 import { parseISO, isWithinInterval, startOfMonth, endOfMonth } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -33,6 +35,14 @@ type Transaction = {
 
 export default function Page() {
   const router = useRouter();
+  const { data: session } = useSession();
+
+  // Permission checks
+  const canCreate = session?.user?.role ? hasAccCrudAccess(session.user.role, "CREATE") : false;
+  const canRead = session?.user?.role ? hasAccCrudAccess(session.user.role, "READ") : false;
+  const canUpdate = session?.user?.role ? hasAccCrudAccess(session.user.role, "UPDATE") : false;
+  const canDelete = session?.user?.role ? hasAccCrudAccess(session.user.role, "DELETE") : false;
+
   const [show, setShow] = useState(false);
   const [incomeTx, setIncomeTx] = useState<Transaction[]>([]);
   const [expenseTx, setExpenseTx] = useState<Transaction[]>([]);
@@ -299,7 +309,7 @@ export default function Page() {
               </DialogHeader>
               {selectedTx && (
                 <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     <div>
                       <Label className="text-sm font-medium text-gray-600">
                         Judul
@@ -334,8 +344,12 @@ export default function Page() {
                 </div>
               )}
               <DialogFooter className="flex gap-2 mt-4">
+                {canUpdate && (
                 <Button variant="outline" className="flex items-center gap-2" onClick={handleEditClick}><Edit className="h-4 w-4" />Edit</Button>
+                )}
+                {canDelete && (
                 <Button variant="destructive" className="flex items-center gap-2" onClick={() => setIsDeleteDialogOpen(true)}><Trash2 className="h-4 w-4" />Delete</Button>
+                )}
               </DialogFooter>
             </DialogContent>
           </Dialog>

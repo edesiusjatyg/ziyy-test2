@@ -32,7 +32,6 @@ export const ROUTE_PERMISSIONS = {
   "/api/statistic": ["ADMIN", "SUPERVISOR", "ACCOUNTING"],
 } as const
 
-// Module permissions for the home page cards
 export const MODULE_PERMISSIONS = {
   fo: ["ADMIN", "SUPERVISOR", "FRONT_OFFICE"],
   canteen: ["ADMIN", "SUPERVISOR", "CANTEEN"],
@@ -117,6 +116,10 @@ export function hasFoCrudAccess(userRole: UserRole, permission: CrudPermission):
 
 export function hasCanteenCrudAccess(userRole: UserRole, permission: CrudPermission): boolean {
   return hasRoleAccess(userRole, CANTEEN_PERMISSIONS[permission])
+}
+
+export function hasAccCrudAccess(userRole: UserRole, permission: CrudPermission): boolean {
+  return hasRoleAccess(userRole, ACC_PERMISSIONS[permission])
 }
 
 export function getRoleDisplayName(role: UserRole): string {
