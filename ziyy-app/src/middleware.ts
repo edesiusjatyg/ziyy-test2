@@ -1,41 +1,48 @@
-import { auth } from "@/auth"
+import { auth } from "./auth"
+import { hasRouteAccess } from "./lib/rbac"
 import { NextResponse } from "next/server"
-import { hasRouteAccess } from "@/lib/rbac"
 
 export default auth((req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
   const userRole = req.auth?.user?.role
 
-  // Debug logging for production
-  console.log(`Middleware: ${nextUrl.pathname}, isLoggedIn: ${isLoggedIn}, role: ${userRole}`)
+  // Remove debug logging for production
+  const isDev = process.env.NODE_ENV === 'development';
+  if (isDev) {
+    console.log(`Middleware: ${nextUrl.pathname}, isLoggedIn: ${isLoggedIn}, role: ${userRole}`)
+  }
 
-  // Define public routes that don't require authentication
-  const publicRoutes = ['/signin', '/api/auth', '/unauthorized']
+  // Public routes that don't need authentication
+  const isPublicRoute = nextUrl.pathname === "/signin" || nextUrl.pathname === "/signup"
   
-  // Check if current route is public
-  const isPublicRoute = publicRoutes.some(route => 
-    nextUrl.pathname.startsWith(route)
-  )
+  // Root path handling
+  if (nextUrl.pathname === "/") {
+    if (isLoggedIn) {
+      return NextResponse.redirect(new URL("/home", nextUrl))
+    } else {
+      return NextResponse.redirect(new URL("/signin", nextUrl))
+    }
+  }
 
-  // If not logged in and trying to access protected route, redirect to signin
+  // If not logged in and trying to access protected route
   if (!isLoggedIn && !isPublicRoute) {
-    console.log(`Redirecting to signin: ${nextUrl.pathname}`)
-    return NextResponse.redirect(new URL('/signin', nextUrl))
+    return NextResponse.redirect(new URL("/signin", nextUrl))
   }
 
-  // If logged in and trying to access signin, redirect to home
-  if (isLoggedIn && nextUrl.pathname === '/signin') {
-    console.log(`Redirecting authenticated user to home`)
-    return NextResponse.redirect(new URL('/home', nextUrl))
+  // If logged in and trying to access auth pages, redirect to home
+  if (isLoggedIn && isPublicRoute) {
+    return NextResponse.redirect(new URL("/home", nextUrl))
   }
 
-  // Role-based authorization for protected routes
-  if (isLoggedIn && userRole && !isPublicRoute && nextUrl.pathname !== '/unauthorized') {
-    // Check if user has access to the requested route
-    if (!hasRouteAccess(userRole, nextUrl.pathname)) {
-      // Redirect to an unauthorized page or back to home
-      return NextResponse.redirect(new URL('/unauthorized', nextUrl))
+  // Check route permissions for logged-in users
+  if (isLoggedIn && userRole) {
+    const hasAccess = hasRouteAccess(userRole, nextUrl.pathname)
+    if (!hasAccess) {
+      if (isDev) {
+        console.log(`Access denied for ${userRole} to ${nextUrl.pathname}`)
+      }
+      return NextResponse.redirect(new URL("/unauthorized", nextUrl))
     }
   }
 
@@ -43,10 +50,5 @@ export default auth((req) => {
 })
 
 export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }
