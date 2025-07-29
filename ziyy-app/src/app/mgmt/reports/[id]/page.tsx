@@ -106,7 +106,7 @@ export default function Page() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
+            <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
                     <p className="mt-2 text-gray-600">Loading report...</p>
@@ -220,155 +220,6 @@ export default function Page() {
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Data Transaksi</CardTitle>
-                                    <CardDescription>Ringkasan transaksi periode ini</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between">
-                                            <span>Pendapatan FO:</span>
-                                            <span className="font-semibold">{formatCurrency(reportData.foTotalIncome)}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Pendapatan Kantin:</span>
-                                            <span className="font-semibold">{formatCurrency(reportData.canteenTotalIncome)}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Pendapatan Lainnya:</span>
-                                            <span className="font-semibold">{formatCurrency(reportData.accountingTotalIncome)}</span>
-                                        </div>
-                                        <div className="flex justify-between border-t pt-4">
-                                            <span>Total Pendapatan:</span>
-                                            <span className="font-semibold text-green-600">
-                                                {formatCurrency(reportData.foTotalIncome + reportData.canteenTotalIncome + reportData.accountingTotalIncome)}
-                                            </span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Total Pengeluaran:</span>
-                                            <span className="font-semibold text-red-600">{formatCurrency(reportData.foTotalExpenses + reportData.canteenTotalExpenses + reportData.accountingTotalExpenses)}</span>
-                                        </div>
-                                        <div className="flex justify-between border-t pt-4">
-                                            <span className="font-medium">Net Pendapatan:</span>
-                                            <span className={`font-bold ${reportData.netIncome >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                                {formatCurrency(reportData.netIncome)}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Data Member</CardTitle>
-                                    <CardDescription>Ringkasan member periode ini</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between">
-                                            <span>Total Member:</span>
-                                            <span className="font-semibold">{reportData.totalMembers}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Member Aktif:</span>
-                                            <span className="font-semibold text-green-600">{reportData.activeMembers}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Member Expired:</span>
-                                            <span className="font-semibold text-red-600">{reportData.expiredMembers}</span>
-                                        </div>
-                                        <div className="flex justify-between border-t pt-4">
-                                            <span>Total Insidentil:</span>
-                                            <span className="font-semibold">{reportData.incidentiles}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Insidentil Gym:</span>
-                                            <span className="font-semibold">{reportData.incidentilesGym}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Insidentil Kelas:</span>
-                                            <span className="font-semibold">{reportData.incidentilesClass}</span>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Rekap Marketing</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between">
-                                            <span>Campaign Selesai:</span>
-                                            <span className="font-semibold">{reportData.finishedCampaigns}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Campaign Names:</span>
-                                            <span className="font-semibold">{reportData.finishedCampaignNames.length}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Aktivitas Selesai:</span>
-                                            <span className="font-semibold">{reportData.finishedCampaignActivities.length}</span>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Rekap Front Office</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between">
-                                            <span>Member Baru:</span>
-                                            <span className="font-semibold">{reportData.newMembers}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Perpanjangan:</span>
-                                            <span className="font-semibold">{reportData.renewals}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Total Insidentil:</span>
-                                            <span className="font-semibold">{reportData.incidentiles}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Total Pendapatan:</span>
-                                            <span className="font-semibold text-green-600">{formatCurrency(reportData.foTotalIncome)}</span>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Rekap Kantin</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-4">
-                                        <div className="space-y-4">
-                                            {Array.isArray(reportData.canteenItemsSold) && reportData.canteenItemsSold.length > 0 ? (
-                                                reportData.canteenItemsSold.map((item: any, index: number) => (
-                                                    <div key={index} className="flex justify-between items-center">
-                                                        <span>{item.name}</span>
-                                                        <span className="font-semibold">{item.quantity} terjual</span>
-                                                    </div>
-                                                ))
-                                            ) : (
-                                                <div className="text-gray-500">Tidak ada data penjualan</div>
-                                            )}
-                                        </div>
-
-                                        <div className="flex justify-between border-t pt-4">
-                                            <span>Total Pendapatan:</span>
-                                            <span className="font-semibold text-green-600">{formatCurrency(reportData.canteenTotalIncome)}</span>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
                             <Card>
                                 <CardHeader>
                                     <CardTitle>Line Chart - Member Aktif</CardTitle>
@@ -499,6 +350,155 @@ export default function Page() {
                                         Total insidentil kelas selama 6 bulan terakhir
                                     </div>
                                 </CardFooter>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Data Transaksi</CardTitle>
+                                    <CardDescription>Ringkasan transaksi periode ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between">
+                                            <span>Pendapatan FO:</span>
+                                            <span className="font-semibold">{formatCurrency(reportData.foTotalIncome)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Pendapatan Kantin:</span>
+                                            <span className="font-semibold">{formatCurrency(reportData.canteenTotalIncome)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Pendapatan Lainnya:</span>
+                                            <span className="font-semibold">{formatCurrency(reportData.accountingTotalIncome)}</span>
+                                        </div>
+                                        <div className="flex justify-between border-t pt-4">
+                                            <span>Total Pendapatan:</span>
+                                            <span className="font-semibold text-green-600">
+                                                {formatCurrency(reportData.foTotalIncome + reportData.canteenTotalIncome + reportData.accountingTotalIncome)}
+                                            </span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Total Pengeluaran:</span>
+                                            <span className="font-semibold text-red-600">{formatCurrency(reportData.foTotalExpenses + reportData.canteenTotalExpenses + reportData.accountingTotalExpenses)}</span>
+                                        </div>
+                                        <div className="flex justify-between border-t pt-4">
+                                            <span className="font-medium">Net Pendapatan:</span>
+                                            <span className={`font-bold ${reportData.netIncome >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {formatCurrency(reportData.netIncome)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Data Member</CardTitle>
+                                    <CardDescription>Ringkasan member periode ini</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between">
+                                            <span>Total Member:</span>
+                                            <span className="font-semibold">{reportData.totalMembers}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Member Aktif:</span>
+                                            <span className="font-semibold text-green-600">{reportData.activeMembers}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Member Expired:</span>
+                                            <span className="font-semibold text-red-600">{reportData.expiredMembers}</span>
+                                        </div>
+                                        <div className="flex justify-between border-t pt-4">
+                                            <span>Total Insidentil:</span>
+                                            <span className="font-semibold">{reportData.incidentiles}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Insidentil Gym:</span>
+                                            <span className="font-semibold">{reportData.incidentilesGym}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Insidentil Kelas:</span>
+                                            <span className="font-semibold">{reportData.incidentilesClass}</span>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Rekap Kantin</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-4">
+                                        <div className="space-y-4">
+                                            {Array.isArray(reportData.canteenItemsSold) && reportData.canteenItemsSold.length > 0 ? (
+                                                reportData.canteenItemsSold.map((item: any, index: number) => (
+                                                    <div key={index} className="flex justify-between items-center">
+                                                        <span>{item.name}</span>
+                                                        <span className="font-semibold">{item.quantity} terjual</span>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <div className="text-gray-500">Tidak ada data penjualan</div>
+                                            )}
+                                        </div>
+
+                                        <div className="flex justify-between border-t pt-4">
+                                            <span>Total Pendapatan:</span>
+                                            <span className="font-semibold text-green-600">{formatCurrency(reportData.canteenTotalIncome)}</span>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Rekap Front Office</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between">
+                                            <span>Member Baru:</span>
+                                            <span className="font-semibold">{reportData.newMembers}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Perpanjangan:</span>
+                                            <span className="font-semibold">{reportData.renewals}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Total Insidentil:</span>
+                                            <span className="font-semibold">{reportData.incidentiles}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Total Pendapatan:</span>
+                                            <span className="font-semibold text-green-600">{formatCurrency(reportData.foTotalIncome)}</span>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Rekap Marketing</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between">
+                                            <span>Campaign Selesai:</span>
+                                            <span className="font-semibold">{reportData.finishedCampaigns}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Campaign Names:</span>
+                                            <span className="font-semibold">{reportData.finishedCampaignNames.length}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Aktivitas Selesai:</span>
+                                            <span className="font-semibold">{reportData.finishedCampaignActivities.length}</span>
+                                        </div>
+                                    </div>
+                                </CardContent>
                             </Card>
                         </div>
                     </div>

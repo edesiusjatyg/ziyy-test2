@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { TrafficCone, Construction, Undo2, Dot } from "lucide-react";
+import { Undo2, Users, Cog, BookText } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbItem, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 export default function Page() {
@@ -42,11 +43,25 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 pb-4 px-8">
-                        <p>hi</p>
-                        <p>hi</p>
-                        <p>hi</p>
-                        <p>hi</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-8 px-8">
+                        <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={() => router.push('/mgmt/reports')}>
+                            <CardHeader className="flex flex-col items-center justify-center">
+                                <CardTitle className="text-xl font-semibold">Reports</CardTitle>
+                                <BookText className="w-20 h-36 text-[#629dc9] stroke-1" />
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-center text-gray-600">Lihat laporan bulanan</p>
+                            </CardContent>
+                        </Card>
+                        <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={() => router.push('/mgmt/staff')}>
+                            <CardHeader className="flex flex-col items-center justify-center">
+                                <CardTitle className="text-xl font-semibold">Staff Gym</CardTitle>
+                                <Users className="w-20 h-36 text-[#629dc9] stroke-1" />
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-center text-gray-600">Lihat dan kelola staff</p>
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
             </div>

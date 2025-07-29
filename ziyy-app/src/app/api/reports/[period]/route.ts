@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { period: string } }
+  { params }: { params: Promise<{ period: string }> }
 ) {
   try {
     const session = await auth();
