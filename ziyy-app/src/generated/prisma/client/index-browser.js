@@ -233,9 +233,42 @@ exports.Prisma.UserActionsScalarFieldEnum = {
   description: 'description'
 };
 
+exports.Prisma.MonthlyReportScalarFieldEnum = {
+  id: 'id',
+  period: 'period',
+  displayName: 'displayName',
+  totalMembers: 'totalMembers',
+  activeMembers: 'activeMembers',
+  expiredMembers: 'expiredMembers',
+  newMembers: 'newMembers',
+  renewals: 'renewals',
+  incidentiles: 'incidentiles',
+  incidentilesGym: 'incidentilesGym',
+  incidentilesClass: 'incidentilesClass',
+  canteenItemsSold: 'canteenItemsSold',
+  finishedCampaigns: 'finishedCampaigns',
+  finishedCampaignNames: 'finishedCampaignNames',
+  finishedCampaignActivities: 'finishedCampaignActivities',
+  foTotalIncome: 'foTotalIncome',
+  canteenTotalIncome: 'canteenTotalIncome',
+  accountingTotalIncome: 'accountingTotalIncome',
+  foTotalExpenses: 'foTotalExpenses',
+  canteenTotalExpenses: 'canteenTotalExpenses',
+  accountingTotalExpenses: 'accountingTotalExpenses',
+  netIncome: 'netIncome',
+  cashBalance: 'cashBalance',
+  status: 'status',
+  generatedAt: 'generatedAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -246,6 +279,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.MembershipType = exports.$Enums.MembershipType = {
   PERSONAL: 'PERSONAL',
@@ -307,6 +346,11 @@ exports.UserRole = exports.$Enums.UserRole = {
   MARKETING: 'MARKETING'
 };
 
+exports.ReportStatus = exports.$Enums.ReportStatus = {
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
 exports.Prisma.ModelName = {
   Member: 'Member',
   Couple: 'Couple',
@@ -319,7 +363,8 @@ exports.Prisma.ModelName = {
   ActivityMarketing: 'ActivityMarketing',
   CanteenItem: 'CanteenItem',
   User: 'User',
-  UserActions: 'UserActions'
+  UserActions: 'UserActions',
+  MonthlyReport: 'MonthlyReport'
 };
 
 /**

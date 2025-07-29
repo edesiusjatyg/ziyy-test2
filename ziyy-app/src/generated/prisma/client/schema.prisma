@@ -70,6 +70,11 @@ enum UserRole {
   MARKETING
 }
 
+enum ReportStatus {
+  IN_PROGRESS
+  COMPLETED
+}
+
 model Member {
   id         Int             @id @default(autoincrement())
   name       String
@@ -237,4 +242,36 @@ model UserActions {
 
   @@index([userId])
   @@index([userId, time])
+}
+
+model MonthlyReport {
+  id                         Int          @id @default(autoincrement())
+  period                     String       @unique
+  displayName                String       @default("")
+  totalMembers               Int          @default(0)
+  activeMembers              Int          @default(0)
+  expiredMembers             Int          @default(0)
+  newMembers                 Int          @default(0)
+  renewals                   Int          @default(0)
+  incidentiles               Int          @default(0)
+  incidentilesGym            Int          @default(0)
+  incidentilesClass          Int          @default(0)
+  canteenItemsSold           Json         @default("{}")
+  finishedCampaigns          Int          @default(0)
+  finishedCampaignNames      String[]     @default([])
+  finishedCampaignActivities String[]     @default([])
+  foTotalIncome              BigInt       @default(0)
+  canteenTotalIncome         BigInt       @default(0)
+  accountingTotalIncome      BigInt       @default(0)
+  foTotalExpenses            BigInt       @default(0)
+  canteenTotalExpenses       BigInt       @default(0)
+  accountingTotalExpenses    BigInt       @default(0)
+  netIncome                  BigInt       @default(0)
+  cashBalance                BigInt       @default(0)
+  status                     ReportStatus
+  generatedAt                DateTime     @default(now())
+  updatedAt                  DateTime     @default(now()) @updatedAt
+
+  @@index([period])
+  @@index([status])
 }

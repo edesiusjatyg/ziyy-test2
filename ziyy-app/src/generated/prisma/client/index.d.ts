@@ -73,6 +73,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type UserActions = $Result.DefaultSelection<Prisma.$UserActionsPayload>
+/**
+ * Model MonthlyReport
+ * 
+ */
+export type MonthlyReport = $Result.DefaultSelection<Prisma.$MonthlyReportPayload>
 
 /**
  * Enums
@@ -161,6 +166,14 @@ export const UserRole: {
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
+
+export const ReportStatus: {
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
+export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
+
 }
 
 export type PaymentMethod = $Enums.PaymentMethod
@@ -194,6 +207,10 @@ export const TransactionType: typeof $Enums.TransactionType
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type ReportStatus = $Enums.ReportStatus
+
+export const ReportStatus: typeof $Enums.ReportStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -439,6 +456,16 @@ export class PrismaClient<
     * ```
     */
   get userActions(): Prisma.UserActionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.monthlyReport`: Exposes CRUD operations for the **MonthlyReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MonthlyReports
+    * const monthlyReports = await prisma.monthlyReport.findMany()
+    * ```
+    */
+  get monthlyReport(): Prisma.MonthlyReportDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -890,7 +917,8 @@ export namespace Prisma {
     ActivityMarketing: 'ActivityMarketing',
     CanteenItem: 'CanteenItem',
     User: 'User',
-    UserActions: 'UserActions'
+    UserActions: 'UserActions',
+    MonthlyReport: 'MonthlyReport'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -909,7 +937,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "member" | "couple" | "memberArrival" | "incidentile" | "txFo" | "txCanteen" | "txAccounting" | "campaign" | "activityMarketing" | "canteenItem" | "user" | "userActions"
+      modelProps: "member" | "couple" | "memberArrival" | "incidentile" | "txFo" | "txCanteen" | "txAccounting" | "campaign" | "activityMarketing" | "canteenItem" | "user" | "userActions" | "monthlyReport"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1801,6 +1829,80 @@ export namespace Prisma {
           }
         }
       }
+      MonthlyReport: {
+        payload: Prisma.$MonthlyReportPayload<ExtArgs>
+        fields: Prisma.MonthlyReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MonthlyReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MonthlyReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          findFirst: {
+            args: Prisma.MonthlyReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MonthlyReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          findMany: {
+            args: Prisma.MonthlyReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>[]
+          }
+          create: {
+            args: Prisma.MonthlyReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          createMany: {
+            args: Prisma.MonthlyReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MonthlyReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>[]
+          }
+          delete: {
+            args: Prisma.MonthlyReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          update: {
+            args: Prisma.MonthlyReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.MonthlyReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MonthlyReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MonthlyReportUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>[]
+          }
+          upsert: {
+            args: Prisma.MonthlyReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          aggregate: {
+            args: Prisma.MonthlyReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMonthlyReport>
+          }
+          groupBy: {
+            args: Prisma.MonthlyReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MonthlyReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MonthlyReportCountArgs<ExtArgs>
+            result: $Utils.Optional<MonthlyReportCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1897,6 +1999,7 @@ export namespace Prisma {
     canteenItem?: CanteenItemOmit
     user?: UserOmit
     userActions?: UserActionsOmit
+    monthlyReport?: MonthlyReportOmit
   }
 
   /* Types for Logging */
@@ -15471,6 +15574,1364 @@ export namespace Prisma {
 
 
   /**
+   * Model MonthlyReport
+   */
+
+  export type AggregateMonthlyReport = {
+    _count: MonthlyReportCountAggregateOutputType | null
+    _avg: MonthlyReportAvgAggregateOutputType | null
+    _sum: MonthlyReportSumAggregateOutputType | null
+    _min: MonthlyReportMinAggregateOutputType | null
+    _max: MonthlyReportMaxAggregateOutputType | null
+  }
+
+  export type MonthlyReportAvgAggregateOutputType = {
+    id: number | null
+    totalMembers: number | null
+    activeMembers: number | null
+    expiredMembers: number | null
+    newMembers: number | null
+    renewals: number | null
+    incidentiles: number | null
+    incidentilesGym: number | null
+    incidentilesClass: number | null
+    finishedCampaigns: number | null
+    foTotalIncome: number | null
+    canteenTotalIncome: number | null
+    accountingTotalIncome: number | null
+    foTotalExpenses: number | null
+    canteenTotalExpenses: number | null
+    accountingTotalExpenses: number | null
+    netIncome: number | null
+    cashBalance: number | null
+  }
+
+  export type MonthlyReportSumAggregateOutputType = {
+    id: number | null
+    totalMembers: number | null
+    activeMembers: number | null
+    expiredMembers: number | null
+    newMembers: number | null
+    renewals: number | null
+    incidentiles: number | null
+    incidentilesGym: number | null
+    incidentilesClass: number | null
+    finishedCampaigns: number | null
+    foTotalIncome: bigint | null
+    canteenTotalIncome: bigint | null
+    accountingTotalIncome: bigint | null
+    foTotalExpenses: bigint | null
+    canteenTotalExpenses: bigint | null
+    accountingTotalExpenses: bigint | null
+    netIncome: bigint | null
+    cashBalance: bigint | null
+  }
+
+  export type MonthlyReportMinAggregateOutputType = {
+    id: number | null
+    period: string | null
+    displayName: string | null
+    totalMembers: number | null
+    activeMembers: number | null
+    expiredMembers: number | null
+    newMembers: number | null
+    renewals: number | null
+    incidentiles: number | null
+    incidentilesGym: number | null
+    incidentilesClass: number | null
+    finishedCampaigns: number | null
+    foTotalIncome: bigint | null
+    canteenTotalIncome: bigint | null
+    accountingTotalIncome: bigint | null
+    foTotalExpenses: bigint | null
+    canteenTotalExpenses: bigint | null
+    accountingTotalExpenses: bigint | null
+    netIncome: bigint | null
+    cashBalance: bigint | null
+    status: $Enums.ReportStatus | null
+    generatedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MonthlyReportMaxAggregateOutputType = {
+    id: number | null
+    period: string | null
+    displayName: string | null
+    totalMembers: number | null
+    activeMembers: number | null
+    expiredMembers: number | null
+    newMembers: number | null
+    renewals: number | null
+    incidentiles: number | null
+    incidentilesGym: number | null
+    incidentilesClass: number | null
+    finishedCampaigns: number | null
+    foTotalIncome: bigint | null
+    canteenTotalIncome: bigint | null
+    accountingTotalIncome: bigint | null
+    foTotalExpenses: bigint | null
+    canteenTotalExpenses: bigint | null
+    accountingTotalExpenses: bigint | null
+    netIncome: bigint | null
+    cashBalance: bigint | null
+    status: $Enums.ReportStatus | null
+    generatedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MonthlyReportCountAggregateOutputType = {
+    id: number
+    period: number
+    displayName: number
+    totalMembers: number
+    activeMembers: number
+    expiredMembers: number
+    newMembers: number
+    renewals: number
+    incidentiles: number
+    incidentilesGym: number
+    incidentilesClass: number
+    canteenItemsSold: number
+    finishedCampaigns: number
+    finishedCampaignNames: number
+    finishedCampaignActivities: number
+    foTotalIncome: number
+    canteenTotalIncome: number
+    accountingTotalIncome: number
+    foTotalExpenses: number
+    canteenTotalExpenses: number
+    accountingTotalExpenses: number
+    netIncome: number
+    cashBalance: number
+    status: number
+    generatedAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MonthlyReportAvgAggregateInputType = {
+    id?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    finishedCampaigns?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+  }
+
+  export type MonthlyReportSumAggregateInputType = {
+    id?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    finishedCampaigns?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+  }
+
+  export type MonthlyReportMinAggregateInputType = {
+    id?: true
+    period?: true
+    displayName?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    finishedCampaigns?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+    status?: true
+    generatedAt?: true
+    updatedAt?: true
+  }
+
+  export type MonthlyReportMaxAggregateInputType = {
+    id?: true
+    period?: true
+    displayName?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    finishedCampaigns?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+    status?: true
+    generatedAt?: true
+    updatedAt?: true
+  }
+
+  export type MonthlyReportCountAggregateInputType = {
+    id?: true
+    period?: true
+    displayName?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    canteenItemsSold?: true
+    finishedCampaigns?: true
+    finishedCampaignNames?: true
+    finishedCampaignActivities?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+    status?: true
+    generatedAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MonthlyReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MonthlyReport to aggregate.
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MonthlyReports to fetch.
+     */
+    orderBy?: MonthlyReportOrderByWithRelationInput | MonthlyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MonthlyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MonthlyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MonthlyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MonthlyReports
+    **/
+    _count?: true | MonthlyReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MonthlyReportAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MonthlyReportSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MonthlyReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MonthlyReportMaxAggregateInputType
+  }
+
+  export type GetMonthlyReportAggregateType<T extends MonthlyReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateMonthlyReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMonthlyReport[P]>
+      : GetScalarType<T[P], AggregateMonthlyReport[P]>
+  }
+
+
+
+
+  export type MonthlyReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MonthlyReportWhereInput
+    orderBy?: MonthlyReportOrderByWithAggregationInput | MonthlyReportOrderByWithAggregationInput[]
+    by: MonthlyReportScalarFieldEnum[] | MonthlyReportScalarFieldEnum
+    having?: MonthlyReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MonthlyReportCountAggregateInputType | true
+    _avg?: MonthlyReportAvgAggregateInputType
+    _sum?: MonthlyReportSumAggregateInputType
+    _min?: MonthlyReportMinAggregateInputType
+    _max?: MonthlyReportMaxAggregateInputType
+  }
+
+  export type MonthlyReportGroupByOutputType = {
+    id: number
+    period: string
+    displayName: string
+    totalMembers: number
+    activeMembers: number
+    expiredMembers: number
+    newMembers: number
+    renewals: number
+    incidentiles: number
+    incidentilesGym: number
+    incidentilesClass: number
+    canteenItemsSold: JsonValue
+    finishedCampaigns: number
+    finishedCampaignNames: string[]
+    finishedCampaignActivities: string[]
+    foTotalIncome: bigint
+    canteenTotalIncome: bigint
+    accountingTotalIncome: bigint
+    foTotalExpenses: bigint
+    canteenTotalExpenses: bigint
+    accountingTotalExpenses: bigint
+    netIncome: bigint
+    cashBalance: bigint
+    status: $Enums.ReportStatus
+    generatedAt: Date
+    updatedAt: Date
+    _count: MonthlyReportCountAggregateOutputType | null
+    _avg: MonthlyReportAvgAggregateOutputType | null
+    _sum: MonthlyReportSumAggregateOutputType | null
+    _min: MonthlyReportMinAggregateOutputType | null
+    _max: MonthlyReportMaxAggregateOutputType | null
+  }
+
+  type GetMonthlyReportGroupByPayload<T extends MonthlyReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MonthlyReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MonthlyReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MonthlyReportGroupByOutputType[P]>
+            : GetScalarType<T[P], MonthlyReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MonthlyReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    period?: boolean
+    displayName?: boolean
+    totalMembers?: boolean
+    activeMembers?: boolean
+    expiredMembers?: boolean
+    newMembers?: boolean
+    renewals?: boolean
+    incidentiles?: boolean
+    incidentilesGym?: boolean
+    incidentilesClass?: boolean
+    canteenItemsSold?: boolean
+    finishedCampaigns?: boolean
+    finishedCampaignNames?: boolean
+    finishedCampaignActivities?: boolean
+    foTotalIncome?: boolean
+    canteenTotalIncome?: boolean
+    accountingTotalIncome?: boolean
+    foTotalExpenses?: boolean
+    canteenTotalExpenses?: boolean
+    accountingTotalExpenses?: boolean
+    netIncome?: boolean
+    cashBalance?: boolean
+    status?: boolean
+    generatedAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["monthlyReport"]>
+
+  export type MonthlyReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    period?: boolean
+    displayName?: boolean
+    totalMembers?: boolean
+    activeMembers?: boolean
+    expiredMembers?: boolean
+    newMembers?: boolean
+    renewals?: boolean
+    incidentiles?: boolean
+    incidentilesGym?: boolean
+    incidentilesClass?: boolean
+    canteenItemsSold?: boolean
+    finishedCampaigns?: boolean
+    finishedCampaignNames?: boolean
+    finishedCampaignActivities?: boolean
+    foTotalIncome?: boolean
+    canteenTotalIncome?: boolean
+    accountingTotalIncome?: boolean
+    foTotalExpenses?: boolean
+    canteenTotalExpenses?: boolean
+    accountingTotalExpenses?: boolean
+    netIncome?: boolean
+    cashBalance?: boolean
+    status?: boolean
+    generatedAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["monthlyReport"]>
+
+  export type MonthlyReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    period?: boolean
+    displayName?: boolean
+    totalMembers?: boolean
+    activeMembers?: boolean
+    expiredMembers?: boolean
+    newMembers?: boolean
+    renewals?: boolean
+    incidentiles?: boolean
+    incidentilesGym?: boolean
+    incidentilesClass?: boolean
+    canteenItemsSold?: boolean
+    finishedCampaigns?: boolean
+    finishedCampaignNames?: boolean
+    finishedCampaignActivities?: boolean
+    foTotalIncome?: boolean
+    canteenTotalIncome?: boolean
+    accountingTotalIncome?: boolean
+    foTotalExpenses?: boolean
+    canteenTotalExpenses?: boolean
+    accountingTotalExpenses?: boolean
+    netIncome?: boolean
+    cashBalance?: boolean
+    status?: boolean
+    generatedAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["monthlyReport"]>
+
+  export type MonthlyReportSelectScalar = {
+    id?: boolean
+    period?: boolean
+    displayName?: boolean
+    totalMembers?: boolean
+    activeMembers?: boolean
+    expiredMembers?: boolean
+    newMembers?: boolean
+    renewals?: boolean
+    incidentiles?: boolean
+    incidentilesGym?: boolean
+    incidentilesClass?: boolean
+    canteenItemsSold?: boolean
+    finishedCampaigns?: boolean
+    finishedCampaignNames?: boolean
+    finishedCampaignActivities?: boolean
+    foTotalIncome?: boolean
+    canteenTotalIncome?: boolean
+    accountingTotalIncome?: boolean
+    foTotalExpenses?: boolean
+    canteenTotalExpenses?: boolean
+    accountingTotalExpenses?: boolean
+    netIncome?: boolean
+    cashBalance?: boolean
+    status?: boolean
+    generatedAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MonthlyReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "period" | "displayName" | "totalMembers" | "activeMembers" | "expiredMembers" | "newMembers" | "renewals" | "incidentiles" | "incidentilesGym" | "incidentilesClass" | "canteenItemsSold" | "finishedCampaigns" | "finishedCampaignNames" | "finishedCampaignActivities" | "foTotalIncome" | "canteenTotalIncome" | "accountingTotalIncome" | "foTotalExpenses" | "canteenTotalExpenses" | "accountingTotalExpenses" | "netIncome" | "cashBalance" | "status" | "generatedAt" | "updatedAt", ExtArgs["result"]["monthlyReport"]>
+
+  export type $MonthlyReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MonthlyReport"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      period: string
+      displayName: string
+      totalMembers: number
+      activeMembers: number
+      expiredMembers: number
+      newMembers: number
+      renewals: number
+      incidentiles: number
+      incidentilesGym: number
+      incidentilesClass: number
+      canteenItemsSold: Prisma.JsonValue
+      finishedCampaigns: number
+      finishedCampaignNames: string[]
+      finishedCampaignActivities: string[]
+      foTotalIncome: bigint
+      canteenTotalIncome: bigint
+      accountingTotalIncome: bigint
+      foTotalExpenses: bigint
+      canteenTotalExpenses: bigint
+      accountingTotalExpenses: bigint
+      netIncome: bigint
+      cashBalance: bigint
+      status: $Enums.ReportStatus
+      generatedAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["monthlyReport"]>
+    composites: {}
+  }
+
+  type MonthlyReportGetPayload<S extends boolean | null | undefined | MonthlyReportDefaultArgs> = $Result.GetResult<Prisma.$MonthlyReportPayload, S>
+
+  type MonthlyReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MonthlyReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MonthlyReportCountAggregateInputType | true
+    }
+
+  export interface MonthlyReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MonthlyReport'], meta: { name: 'MonthlyReport' } }
+    /**
+     * Find zero or one MonthlyReport that matches the filter.
+     * @param {MonthlyReportFindUniqueArgs} args - Arguments to find a MonthlyReport
+     * @example
+     * // Get one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MonthlyReportFindUniqueArgs>(args: SelectSubset<T, MonthlyReportFindUniqueArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MonthlyReport that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MonthlyReportFindUniqueOrThrowArgs} args - Arguments to find a MonthlyReport
+     * @example
+     * // Get one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MonthlyReportFindUniqueOrThrowArgs>(args: SelectSubset<T, MonthlyReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MonthlyReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportFindFirstArgs} args - Arguments to find a MonthlyReport
+     * @example
+     * // Get one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MonthlyReportFindFirstArgs>(args?: SelectSubset<T, MonthlyReportFindFirstArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MonthlyReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportFindFirstOrThrowArgs} args - Arguments to find a MonthlyReport
+     * @example
+     * // Get one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MonthlyReportFindFirstOrThrowArgs>(args?: SelectSubset<T, MonthlyReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MonthlyReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MonthlyReports
+     * const monthlyReports = await prisma.monthlyReport.findMany()
+     * 
+     * // Get first 10 MonthlyReports
+     * const monthlyReports = await prisma.monthlyReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const monthlyReportWithIdOnly = await prisma.monthlyReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MonthlyReportFindManyArgs>(args?: SelectSubset<T, MonthlyReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MonthlyReport.
+     * @param {MonthlyReportCreateArgs} args - Arguments to create a MonthlyReport.
+     * @example
+     * // Create one MonthlyReport
+     * const MonthlyReport = await prisma.monthlyReport.create({
+     *   data: {
+     *     // ... data to create a MonthlyReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends MonthlyReportCreateArgs>(args: SelectSubset<T, MonthlyReportCreateArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MonthlyReports.
+     * @param {MonthlyReportCreateManyArgs} args - Arguments to create many MonthlyReports.
+     * @example
+     * // Create many MonthlyReports
+     * const monthlyReport = await prisma.monthlyReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MonthlyReportCreateManyArgs>(args?: SelectSubset<T, MonthlyReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MonthlyReports and returns the data saved in the database.
+     * @param {MonthlyReportCreateManyAndReturnArgs} args - Arguments to create many MonthlyReports.
+     * @example
+     * // Create many MonthlyReports
+     * const monthlyReport = await prisma.monthlyReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MonthlyReports and only return the `id`
+     * const monthlyReportWithIdOnly = await prisma.monthlyReport.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MonthlyReportCreateManyAndReturnArgs>(args?: SelectSubset<T, MonthlyReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MonthlyReport.
+     * @param {MonthlyReportDeleteArgs} args - Arguments to delete one MonthlyReport.
+     * @example
+     * // Delete one MonthlyReport
+     * const MonthlyReport = await prisma.monthlyReport.delete({
+     *   where: {
+     *     // ... filter to delete one MonthlyReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MonthlyReportDeleteArgs>(args: SelectSubset<T, MonthlyReportDeleteArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MonthlyReport.
+     * @param {MonthlyReportUpdateArgs} args - Arguments to update one MonthlyReport.
+     * @example
+     * // Update one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MonthlyReportUpdateArgs>(args: SelectSubset<T, MonthlyReportUpdateArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MonthlyReports.
+     * @param {MonthlyReportDeleteManyArgs} args - Arguments to filter MonthlyReports to delete.
+     * @example
+     * // Delete a few MonthlyReports
+     * const { count } = await prisma.monthlyReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MonthlyReportDeleteManyArgs>(args?: SelectSubset<T, MonthlyReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MonthlyReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MonthlyReports
+     * const monthlyReport = await prisma.monthlyReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MonthlyReportUpdateManyArgs>(args: SelectSubset<T, MonthlyReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MonthlyReports and returns the data updated in the database.
+     * @param {MonthlyReportUpdateManyAndReturnArgs} args - Arguments to update many MonthlyReports.
+     * @example
+     * // Update many MonthlyReports
+     * const monthlyReport = await prisma.monthlyReport.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MonthlyReports and only return the `id`
+     * const monthlyReportWithIdOnly = await prisma.monthlyReport.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MonthlyReportUpdateManyAndReturnArgs>(args: SelectSubset<T, MonthlyReportUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MonthlyReport.
+     * @param {MonthlyReportUpsertArgs} args - Arguments to update or create a MonthlyReport.
+     * @example
+     * // Update or create a MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.upsert({
+     *   create: {
+     *     // ... data to create a MonthlyReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MonthlyReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MonthlyReportUpsertArgs>(args: SelectSubset<T, MonthlyReportUpsertArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MonthlyReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportCountArgs} args - Arguments to filter MonthlyReports to count.
+     * @example
+     * // Count the number of MonthlyReports
+     * const count = await prisma.monthlyReport.count({
+     *   where: {
+     *     // ... the filter for the MonthlyReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends MonthlyReportCountArgs>(
+      args?: Subset<T, MonthlyReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MonthlyReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MonthlyReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MonthlyReportAggregateArgs>(args: Subset<T, MonthlyReportAggregateArgs>): Prisma.PrismaPromise<GetMonthlyReportAggregateType<T>>
+
+    /**
+     * Group by MonthlyReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MonthlyReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MonthlyReportGroupByArgs['orderBy'] }
+        : { orderBy?: MonthlyReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MonthlyReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMonthlyReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MonthlyReport model
+   */
+  readonly fields: MonthlyReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MonthlyReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MonthlyReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MonthlyReport model
+   */
+  interface MonthlyReportFieldRefs {
+    readonly id: FieldRef<"MonthlyReport", 'Int'>
+    readonly period: FieldRef<"MonthlyReport", 'String'>
+    readonly displayName: FieldRef<"MonthlyReport", 'String'>
+    readonly totalMembers: FieldRef<"MonthlyReport", 'Int'>
+    readonly activeMembers: FieldRef<"MonthlyReport", 'Int'>
+    readonly expiredMembers: FieldRef<"MonthlyReport", 'Int'>
+    readonly newMembers: FieldRef<"MonthlyReport", 'Int'>
+    readonly renewals: FieldRef<"MonthlyReport", 'Int'>
+    readonly incidentiles: FieldRef<"MonthlyReport", 'Int'>
+    readonly incidentilesGym: FieldRef<"MonthlyReport", 'Int'>
+    readonly incidentilesClass: FieldRef<"MonthlyReport", 'Int'>
+    readonly canteenItemsSold: FieldRef<"MonthlyReport", 'Json'>
+    readonly finishedCampaigns: FieldRef<"MonthlyReport", 'Int'>
+    readonly finishedCampaignNames: FieldRef<"MonthlyReport", 'String[]'>
+    readonly finishedCampaignActivities: FieldRef<"MonthlyReport", 'String[]'>
+    readonly foTotalIncome: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly canteenTotalIncome: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly accountingTotalIncome: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly foTotalExpenses: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly canteenTotalExpenses: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly accountingTotalExpenses: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly netIncome: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly cashBalance: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly status: FieldRef<"MonthlyReport", 'ReportStatus'>
+    readonly generatedAt: FieldRef<"MonthlyReport", 'DateTime'>
+    readonly updatedAt: FieldRef<"MonthlyReport", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MonthlyReport findUnique
+   */
+  export type MonthlyReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReport to fetch.
+     */
+    where: MonthlyReportWhereUniqueInput
+  }
+
+  /**
+   * MonthlyReport findUniqueOrThrow
+   */
+  export type MonthlyReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReport to fetch.
+     */
+    where: MonthlyReportWhereUniqueInput
+  }
+
+  /**
+   * MonthlyReport findFirst
+   */
+  export type MonthlyReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReport to fetch.
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MonthlyReports to fetch.
+     */
+    orderBy?: MonthlyReportOrderByWithRelationInput | MonthlyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MonthlyReports.
+     */
+    cursor?: MonthlyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MonthlyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MonthlyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MonthlyReports.
+     */
+    distinct?: MonthlyReportScalarFieldEnum | MonthlyReportScalarFieldEnum[]
+  }
+
+  /**
+   * MonthlyReport findFirstOrThrow
+   */
+  export type MonthlyReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReport to fetch.
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MonthlyReports to fetch.
+     */
+    orderBy?: MonthlyReportOrderByWithRelationInput | MonthlyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MonthlyReports.
+     */
+    cursor?: MonthlyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MonthlyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MonthlyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MonthlyReports.
+     */
+    distinct?: MonthlyReportScalarFieldEnum | MonthlyReportScalarFieldEnum[]
+  }
+
+  /**
+   * MonthlyReport findMany
+   */
+  export type MonthlyReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReports to fetch.
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MonthlyReports to fetch.
+     */
+    orderBy?: MonthlyReportOrderByWithRelationInput | MonthlyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MonthlyReports.
+     */
+    cursor?: MonthlyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MonthlyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MonthlyReports.
+     */
+    skip?: number
+    distinct?: MonthlyReportScalarFieldEnum | MonthlyReportScalarFieldEnum[]
+  }
+
+  /**
+   * MonthlyReport create
+   */
+  export type MonthlyReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MonthlyReport.
+     */
+    data: XOR<MonthlyReportCreateInput, MonthlyReportUncheckedCreateInput>
+  }
+
+  /**
+   * MonthlyReport createMany
+   */
+  export type MonthlyReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MonthlyReports.
+     */
+    data: MonthlyReportCreateManyInput | MonthlyReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MonthlyReport createManyAndReturn
+   */
+  export type MonthlyReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The data used to create many MonthlyReports.
+     */
+    data: MonthlyReportCreateManyInput | MonthlyReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MonthlyReport update
+   */
+  export type MonthlyReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MonthlyReport.
+     */
+    data: XOR<MonthlyReportUpdateInput, MonthlyReportUncheckedUpdateInput>
+    /**
+     * Choose, which MonthlyReport to update.
+     */
+    where: MonthlyReportWhereUniqueInput
+  }
+
+  /**
+   * MonthlyReport updateMany
+   */
+  export type MonthlyReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MonthlyReports.
+     */
+    data: XOR<MonthlyReportUpdateManyMutationInput, MonthlyReportUncheckedUpdateManyInput>
+    /**
+     * Filter which MonthlyReports to update
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * Limit how many MonthlyReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MonthlyReport updateManyAndReturn
+   */
+  export type MonthlyReportUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The data used to update MonthlyReports.
+     */
+    data: XOR<MonthlyReportUpdateManyMutationInput, MonthlyReportUncheckedUpdateManyInput>
+    /**
+     * Filter which MonthlyReports to update
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * Limit how many MonthlyReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MonthlyReport upsert
+   */
+  export type MonthlyReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MonthlyReport to update in case it exists.
+     */
+    where: MonthlyReportWhereUniqueInput
+    /**
+     * In case the MonthlyReport found by the `where` argument doesn't exist, create a new MonthlyReport with this data.
+     */
+    create: XOR<MonthlyReportCreateInput, MonthlyReportUncheckedCreateInput>
+    /**
+     * In case the MonthlyReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MonthlyReportUpdateInput, MonthlyReportUncheckedUpdateInput>
+  }
+
+  /**
+   * MonthlyReport delete
+   */
+  export type MonthlyReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter which MonthlyReport to delete.
+     */
+    where: MonthlyReportWhereUniqueInput
+  }
+
+  /**
+   * MonthlyReport deleteMany
+   */
+  export type MonthlyReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MonthlyReports to delete
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * Limit how many MonthlyReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MonthlyReport without action
+   */
+  export type MonthlyReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -15633,12 +17094,51 @@ export namespace Prisma {
   export type UserActionsScalarFieldEnum = (typeof UserActionsScalarFieldEnum)[keyof typeof UserActionsScalarFieldEnum]
 
 
+  export const MonthlyReportScalarFieldEnum: {
+    id: 'id',
+    period: 'period',
+    displayName: 'displayName',
+    totalMembers: 'totalMembers',
+    activeMembers: 'activeMembers',
+    expiredMembers: 'expiredMembers',
+    newMembers: 'newMembers',
+    renewals: 'renewals',
+    incidentiles: 'incidentiles',
+    incidentilesGym: 'incidentilesGym',
+    incidentilesClass: 'incidentilesClass',
+    canteenItemsSold: 'canteenItemsSold',
+    finishedCampaigns: 'finishedCampaigns',
+    finishedCampaignNames: 'finishedCampaignNames',
+    finishedCampaignActivities: 'finishedCampaignActivities',
+    foTotalIncome: 'foTotalIncome',
+    canteenTotalIncome: 'canteenTotalIncome',
+    accountingTotalIncome: 'accountingTotalIncome',
+    foTotalExpenses: 'foTotalExpenses',
+    canteenTotalExpenses: 'canteenTotalExpenses',
+    accountingTotalExpenses: 'accountingTotalExpenses',
+    netIncome: 'netIncome',
+    cashBalance: 'cashBalance',
+    status: 'status',
+    generatedAt: 'generatedAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MonthlyReportScalarFieldEnum = (typeof MonthlyReportScalarFieldEnum)[keyof typeof MonthlyReportScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -15655,6 +17155,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -15820,6 +17329,48 @@ export namespace Prisma {
    * Reference to a field of type 'UserRole[]'
    */
   export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReportStatus'
+   */
+  export type EnumReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReportStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReportStatus[]'
+   */
+  export type ListEnumReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReportStatus[]'>
     
 
 
@@ -16610,6 +18161,165 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"UserActions"> | string
   }
 
+  export type MonthlyReportWhereInput = {
+    AND?: MonthlyReportWhereInput | MonthlyReportWhereInput[]
+    OR?: MonthlyReportWhereInput[]
+    NOT?: MonthlyReportWhereInput | MonthlyReportWhereInput[]
+    id?: IntFilter<"MonthlyReport"> | number
+    period?: StringFilter<"MonthlyReport"> | string
+    displayName?: StringFilter<"MonthlyReport"> | string
+    totalMembers?: IntFilter<"MonthlyReport"> | number
+    activeMembers?: IntFilter<"MonthlyReport"> | number
+    expiredMembers?: IntFilter<"MonthlyReport"> | number
+    newMembers?: IntFilter<"MonthlyReport"> | number
+    renewals?: IntFilter<"MonthlyReport"> | number
+    incidentiles?: IntFilter<"MonthlyReport"> | number
+    incidentilesGym?: IntFilter<"MonthlyReport"> | number
+    incidentilesClass?: IntFilter<"MonthlyReport"> | number
+    canteenItemsSold?: JsonFilter<"MonthlyReport">
+    finishedCampaigns?: IntFilter<"MonthlyReport"> | number
+    finishedCampaignNames?: StringNullableListFilter<"MonthlyReport">
+    finishedCampaignActivities?: StringNullableListFilter<"MonthlyReport">
+    foTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    canteenTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    accountingTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    foTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    canteenTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    accountingTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    netIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    cashBalance?: BigIntFilter<"MonthlyReport"> | bigint | number
+    status?: EnumReportStatusFilter<"MonthlyReport"> | $Enums.ReportStatus
+    generatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
+    updatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
+  }
+
+  export type MonthlyReportOrderByWithRelationInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    canteenItemsSold?: SortOrder
+    finishedCampaigns?: SortOrder
+    finishedCampaignNames?: SortOrder
+    finishedCampaignActivities?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MonthlyReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    period?: string
+    AND?: MonthlyReportWhereInput | MonthlyReportWhereInput[]
+    OR?: MonthlyReportWhereInput[]
+    NOT?: MonthlyReportWhereInput | MonthlyReportWhereInput[]
+    displayName?: StringFilter<"MonthlyReport"> | string
+    totalMembers?: IntFilter<"MonthlyReport"> | number
+    activeMembers?: IntFilter<"MonthlyReport"> | number
+    expiredMembers?: IntFilter<"MonthlyReport"> | number
+    newMembers?: IntFilter<"MonthlyReport"> | number
+    renewals?: IntFilter<"MonthlyReport"> | number
+    incidentiles?: IntFilter<"MonthlyReport"> | number
+    incidentilesGym?: IntFilter<"MonthlyReport"> | number
+    incidentilesClass?: IntFilter<"MonthlyReport"> | number
+    canteenItemsSold?: JsonFilter<"MonthlyReport">
+    finishedCampaigns?: IntFilter<"MonthlyReport"> | number
+    finishedCampaignNames?: StringNullableListFilter<"MonthlyReport">
+    finishedCampaignActivities?: StringNullableListFilter<"MonthlyReport">
+    foTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    canteenTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    accountingTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    foTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    canteenTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    accountingTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    netIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    cashBalance?: BigIntFilter<"MonthlyReport"> | bigint | number
+    status?: EnumReportStatusFilter<"MonthlyReport"> | $Enums.ReportStatus
+    generatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
+    updatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
+  }, "id" | "period">
+
+  export type MonthlyReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    canteenItemsSold?: SortOrder
+    finishedCampaigns?: SortOrder
+    finishedCampaignNames?: SortOrder
+    finishedCampaignActivities?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MonthlyReportCountOrderByAggregateInput
+    _avg?: MonthlyReportAvgOrderByAggregateInput
+    _max?: MonthlyReportMaxOrderByAggregateInput
+    _min?: MonthlyReportMinOrderByAggregateInput
+    _sum?: MonthlyReportSumOrderByAggregateInput
+  }
+
+  export type MonthlyReportScalarWhereWithAggregatesInput = {
+    AND?: MonthlyReportScalarWhereWithAggregatesInput | MonthlyReportScalarWhereWithAggregatesInput[]
+    OR?: MonthlyReportScalarWhereWithAggregatesInput[]
+    NOT?: MonthlyReportScalarWhereWithAggregatesInput | MonthlyReportScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    period?: StringWithAggregatesFilter<"MonthlyReport"> | string
+    displayName?: StringWithAggregatesFilter<"MonthlyReport"> | string
+    totalMembers?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    activeMembers?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    expiredMembers?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    newMembers?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    renewals?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    incidentiles?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    incidentilesGym?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    incidentilesClass?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    canteenItemsSold?: JsonWithAggregatesFilter<"MonthlyReport">
+    finishedCampaigns?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    finishedCampaignNames?: StringNullableListFilter<"MonthlyReport">
+    finishedCampaignActivities?: StringNullableListFilter<"MonthlyReport">
+    foTotalIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    canteenTotalIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    accountingTotalIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    foTotalExpenses?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    canteenTotalExpenses?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    accountingTotalExpenses?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    netIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    cashBalance?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    status?: EnumReportStatusWithAggregatesFilter<"MonthlyReport"> | $Enums.ReportStatus
+    generatedAt?: DateTimeWithAggregatesFilter<"MonthlyReport"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MonthlyReport"> | Date | string
+  }
+
   export type MemberCreateInput = {
     name: string
     nik: string
@@ -17382,6 +19092,206 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     time?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MonthlyReportCreateInput = {
+    period: string
+    displayName?: string
+    totalMembers?: number
+    activeMembers?: number
+    expiredMembers?: number
+    newMembers?: number
+    renewals?: number
+    incidentiles?: number
+    incidentilesGym?: number
+    incidentilesClass?: number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: number
+    finishedCampaignNames?: MonthlyReportCreatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportCreatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: bigint | number
+    canteenTotalIncome?: bigint | number
+    accountingTotalIncome?: bigint | number
+    foTotalExpenses?: bigint | number
+    canteenTotalExpenses?: bigint | number
+    accountingTotalExpenses?: bigint | number
+    netIncome?: bigint | number
+    cashBalance?: bigint | number
+    status: $Enums.ReportStatus
+    generatedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MonthlyReportUncheckedCreateInput = {
+    id?: number
+    period: string
+    displayName?: string
+    totalMembers?: number
+    activeMembers?: number
+    expiredMembers?: number
+    newMembers?: number
+    renewals?: number
+    incidentiles?: number
+    incidentilesGym?: number
+    incidentilesClass?: number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: number
+    finishedCampaignNames?: MonthlyReportCreatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportCreatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: bigint | number
+    canteenTotalIncome?: bigint | number
+    accountingTotalIncome?: bigint | number
+    foTotalExpenses?: bigint | number
+    canteenTotalExpenses?: bigint | number
+    accountingTotalExpenses?: bigint | number
+    netIncome?: bigint | number
+    cashBalance?: bigint | number
+    status: $Enums.ReportStatus
+    generatedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MonthlyReportUpdateInput = {
+    period?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    totalMembers?: IntFieldUpdateOperationsInput | number
+    activeMembers?: IntFieldUpdateOperationsInput | number
+    expiredMembers?: IntFieldUpdateOperationsInput | number
+    newMembers?: IntFieldUpdateOperationsInput | number
+    renewals?: IntFieldUpdateOperationsInput | number
+    incidentiles?: IntFieldUpdateOperationsInput | number
+    incidentilesGym?: IntFieldUpdateOperationsInput | number
+    incidentilesClass?: IntFieldUpdateOperationsInput | number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: IntFieldUpdateOperationsInput | number
+    finishedCampaignNames?: MonthlyReportUpdatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportUpdatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    foTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MonthlyReportUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    period?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    totalMembers?: IntFieldUpdateOperationsInput | number
+    activeMembers?: IntFieldUpdateOperationsInput | number
+    expiredMembers?: IntFieldUpdateOperationsInput | number
+    newMembers?: IntFieldUpdateOperationsInput | number
+    renewals?: IntFieldUpdateOperationsInput | number
+    incidentiles?: IntFieldUpdateOperationsInput | number
+    incidentilesGym?: IntFieldUpdateOperationsInput | number
+    incidentilesClass?: IntFieldUpdateOperationsInput | number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: IntFieldUpdateOperationsInput | number
+    finishedCampaignNames?: MonthlyReportUpdatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportUpdatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    foTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MonthlyReportCreateManyInput = {
+    id?: number
+    period: string
+    displayName?: string
+    totalMembers?: number
+    activeMembers?: number
+    expiredMembers?: number
+    newMembers?: number
+    renewals?: number
+    incidentiles?: number
+    incidentilesGym?: number
+    incidentilesClass?: number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: number
+    finishedCampaignNames?: MonthlyReportCreatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportCreatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: bigint | number
+    canteenTotalIncome?: bigint | number
+    accountingTotalIncome?: bigint | number
+    foTotalExpenses?: bigint | number
+    canteenTotalExpenses?: bigint | number
+    accountingTotalExpenses?: bigint | number
+    netIncome?: bigint | number
+    cashBalance?: bigint | number
+    status: $Enums.ReportStatus
+    generatedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MonthlyReportUpdateManyMutationInput = {
+    period?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    totalMembers?: IntFieldUpdateOperationsInput | number
+    activeMembers?: IntFieldUpdateOperationsInput | number
+    expiredMembers?: IntFieldUpdateOperationsInput | number
+    newMembers?: IntFieldUpdateOperationsInput | number
+    renewals?: IntFieldUpdateOperationsInput | number
+    incidentiles?: IntFieldUpdateOperationsInput | number
+    incidentilesGym?: IntFieldUpdateOperationsInput | number
+    incidentilesClass?: IntFieldUpdateOperationsInput | number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: IntFieldUpdateOperationsInput | number
+    finishedCampaignNames?: MonthlyReportUpdatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportUpdatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    foTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MonthlyReportUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    period?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    totalMembers?: IntFieldUpdateOperationsInput | number
+    activeMembers?: IntFieldUpdateOperationsInput | number
+    expiredMembers?: IntFieldUpdateOperationsInput | number
+    newMembers?: IntFieldUpdateOperationsInput | number
+    renewals?: IntFieldUpdateOperationsInput | number
+    incidentiles?: IntFieldUpdateOperationsInput | number
+    incidentilesGym?: IntFieldUpdateOperationsInput | number
+    incidentilesClass?: IntFieldUpdateOperationsInput | number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: IntFieldUpdateOperationsInput | number
+    finishedCampaignNames?: MonthlyReportUpdatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportUpdatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    foTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -18243,6 +20153,230 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type EnumReportStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumReportStatusFilter<$PrismaModel> | $Enums.ReportStatus
+  }
+
+  export type MonthlyReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    canteenItemsSold?: SortOrder
+    finishedCampaigns?: SortOrder
+    finishedCampaignNames?: SortOrder
+    finishedCampaignActivities?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MonthlyReportAvgOrderByAggregateInput = {
+    id?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    finishedCampaigns?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+  }
+
+  export type MonthlyReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    finishedCampaigns?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MonthlyReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    finishedCampaigns?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MonthlyReportSumOrderByAggregateInput = {
+    id?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    finishedCampaigns?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type EnumReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.ReportStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumReportStatusFilter<$PrismaModel>
+    _max?: NestedEnumReportStatusFilter<$PrismaModel>
+  }
 
   export type MemberArrivalCreateNestedManyWithoutMemberInput = {
     create?: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput> | MemberArrivalCreateWithoutMemberInput[] | MemberArrivalUncheckedCreateWithoutMemberInput[]
@@ -18652,6 +20786,36 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutActionsInput, UserUpdateWithoutActionsInput>, UserUncheckedUpdateWithoutActionsInput>
   }
 
+  export type MonthlyReportCreatefinishedCampaignNamesInput = {
+    set: string[]
+  }
+
+  export type MonthlyReportCreatefinishedCampaignActivitiesInput = {
+    set: string[]
+  }
+
+  export type MonthlyReportUpdatefinishedCampaignNamesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type MonthlyReportUpdatefinishedCampaignActivitiesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type EnumReportStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ReportStatus
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -18987,6 +21151,73 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type NestedEnumReportStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumReportStatusFilter<$PrismaModel> | $Enums.ReportStatus
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedEnumReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.ReportStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumReportStatusFilter<$PrismaModel>
+    _max?: NestedEnumReportStatusFilter<$PrismaModel>
   }
 
   export type MemberArrivalCreateWithoutMemberInput = {
