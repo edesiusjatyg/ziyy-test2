@@ -257,6 +257,9 @@ exports.Prisma.MonthlyReportScalarFieldEnum = {
   accountingTotalExpenses: 'accountingTotalExpenses',
   netIncome: 'netIncome',
   cashBalance: 'cashBalance',
+  memberChartData: 'memberChartData',
+  incGymChartData: 'incGymChartData',
+  incClassChartData: 'incClassChartData',
   status: 'status',
   generatedAt: 'generatedAt',
   updatedAt: 'updatedAt'

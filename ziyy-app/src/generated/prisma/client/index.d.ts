@@ -15703,6 +15703,9 @@ export namespace Prisma {
     accountingTotalExpenses: number
     netIncome: number
     cashBalance: number
+    memberChartData: number
+    incGymChartData: number
+    incClassChartData: number
     status: number
     generatedAt: number
     updatedAt: number
@@ -15828,6 +15831,9 @@ export namespace Prisma {
     accountingTotalExpenses?: true
     netIncome?: true
     cashBalance?: true
+    memberChartData?: true
+    incGymChartData?: true
+    incClassChartData?: true
     status?: true
     generatedAt?: true
     updatedAt?: true
@@ -15944,6 +15950,9 @@ export namespace Prisma {
     accountingTotalExpenses: bigint
     netIncome: bigint
     cashBalance: bigint
+    memberChartData: JsonValue
+    incGymChartData: JsonValue
+    incClassChartData: JsonValue
     status: $Enums.ReportStatus
     generatedAt: Date
     updatedAt: Date
@@ -15992,6 +16001,9 @@ export namespace Prisma {
     accountingTotalExpenses?: boolean
     netIncome?: boolean
     cashBalance?: boolean
+    memberChartData?: boolean
+    incGymChartData?: boolean
+    incClassChartData?: boolean
     status?: boolean
     generatedAt?: boolean
     updatedAt?: boolean
@@ -16021,6 +16033,9 @@ export namespace Prisma {
     accountingTotalExpenses?: boolean
     netIncome?: boolean
     cashBalance?: boolean
+    memberChartData?: boolean
+    incGymChartData?: boolean
+    incClassChartData?: boolean
     status?: boolean
     generatedAt?: boolean
     updatedAt?: boolean
@@ -16050,6 +16065,9 @@ export namespace Prisma {
     accountingTotalExpenses?: boolean
     netIncome?: boolean
     cashBalance?: boolean
+    memberChartData?: boolean
+    incGymChartData?: boolean
+    incClassChartData?: boolean
     status?: boolean
     generatedAt?: boolean
     updatedAt?: boolean
@@ -16079,12 +16097,15 @@ export namespace Prisma {
     accountingTotalExpenses?: boolean
     netIncome?: boolean
     cashBalance?: boolean
+    memberChartData?: boolean
+    incGymChartData?: boolean
+    incClassChartData?: boolean
     status?: boolean
     generatedAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MonthlyReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "period" | "displayName" | "totalMembers" | "activeMembers" | "expiredMembers" | "newMembers" | "renewals" | "incidentiles" | "incidentilesGym" | "incidentilesClass" | "canteenItemsSold" | "finishedCampaigns" | "finishedCampaignNames" | "finishedCampaignActivities" | "foTotalIncome" | "canteenTotalIncome" | "accountingTotalIncome" | "foTotalExpenses" | "canteenTotalExpenses" | "accountingTotalExpenses" | "netIncome" | "cashBalance" | "status" | "generatedAt" | "updatedAt", ExtArgs["result"]["monthlyReport"]>
+  export type MonthlyReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "period" | "displayName" | "totalMembers" | "activeMembers" | "expiredMembers" | "newMembers" | "renewals" | "incidentiles" | "incidentilesGym" | "incidentilesClass" | "canteenItemsSold" | "finishedCampaigns" | "finishedCampaignNames" | "finishedCampaignActivities" | "foTotalIncome" | "canteenTotalIncome" | "accountingTotalIncome" | "foTotalExpenses" | "canteenTotalExpenses" | "accountingTotalExpenses" | "netIncome" | "cashBalance" | "memberChartData" | "incGymChartData" | "incClassChartData" | "status" | "generatedAt" | "updatedAt", ExtArgs["result"]["monthlyReport"]>
 
   export type $MonthlyReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MonthlyReport"
@@ -16113,6 +16134,9 @@ export namespace Prisma {
       accountingTotalExpenses: bigint
       netIncome: bigint
       cashBalance: bigint
+      memberChartData: Prisma.JsonValue
+      incGymChartData: Prisma.JsonValue
+      incClassChartData: Prisma.JsonValue
       status: $Enums.ReportStatus
       generatedAt: Date
       updatedAt: Date
@@ -16562,6 +16586,9 @@ export namespace Prisma {
     readonly accountingTotalExpenses: FieldRef<"MonthlyReport", 'BigInt'>
     readonly netIncome: FieldRef<"MonthlyReport", 'BigInt'>
     readonly cashBalance: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly memberChartData: FieldRef<"MonthlyReport", 'Json'>
+    readonly incGymChartData: FieldRef<"MonthlyReport", 'Json'>
+    readonly incClassChartData: FieldRef<"MonthlyReport", 'Json'>
     readonly status: FieldRef<"MonthlyReport", 'ReportStatus'>
     readonly generatedAt: FieldRef<"MonthlyReport", 'DateTime'>
     readonly updatedAt: FieldRef<"MonthlyReport", 'DateTime'>
@@ -17118,6 +17145,9 @@ export namespace Prisma {
     accountingTotalExpenses: 'accountingTotalExpenses',
     netIncome: 'netIncome',
     cashBalance: 'cashBalance',
+    memberChartData: 'memberChartData',
+    incGymChartData: 'incGymChartData',
+    incClassChartData: 'incClassChartData',
     status: 'status',
     generatedAt: 'generatedAt',
     updatedAt: 'updatedAt'
@@ -18188,6 +18218,9 @@ export namespace Prisma {
     accountingTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
     netIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
     cashBalance?: BigIntFilter<"MonthlyReport"> | bigint | number
+    memberChartData?: JsonFilter<"MonthlyReport">
+    incGymChartData?: JsonFilter<"MonthlyReport">
+    incClassChartData?: JsonFilter<"MonthlyReport">
     status?: EnumReportStatusFilter<"MonthlyReport"> | $Enums.ReportStatus
     generatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
     updatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
@@ -18217,6 +18250,9 @@ export namespace Prisma {
     accountingTotalExpenses?: SortOrder
     netIncome?: SortOrder
     cashBalance?: SortOrder
+    memberChartData?: SortOrder
+    incGymChartData?: SortOrder
+    incClassChartData?: SortOrder
     status?: SortOrder
     generatedAt?: SortOrder
     updatedAt?: SortOrder
@@ -18249,6 +18285,9 @@ export namespace Prisma {
     accountingTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
     netIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
     cashBalance?: BigIntFilter<"MonthlyReport"> | bigint | number
+    memberChartData?: JsonFilter<"MonthlyReport">
+    incGymChartData?: JsonFilter<"MonthlyReport">
+    incClassChartData?: JsonFilter<"MonthlyReport">
     status?: EnumReportStatusFilter<"MonthlyReport"> | $Enums.ReportStatus
     generatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
     updatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
@@ -18278,6 +18317,9 @@ export namespace Prisma {
     accountingTotalExpenses?: SortOrder
     netIncome?: SortOrder
     cashBalance?: SortOrder
+    memberChartData?: SortOrder
+    incGymChartData?: SortOrder
+    incClassChartData?: SortOrder
     status?: SortOrder
     generatedAt?: SortOrder
     updatedAt?: SortOrder
@@ -18315,6 +18357,9 @@ export namespace Prisma {
     accountingTotalExpenses?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
     netIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
     cashBalance?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    memberChartData?: JsonWithAggregatesFilter<"MonthlyReport">
+    incGymChartData?: JsonWithAggregatesFilter<"MonthlyReport">
+    incClassChartData?: JsonWithAggregatesFilter<"MonthlyReport">
     status?: EnumReportStatusWithAggregatesFilter<"MonthlyReport"> | $Enums.ReportStatus
     generatedAt?: DateTimeWithAggregatesFilter<"MonthlyReport"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MonthlyReport"> | Date | string
@@ -19117,6 +19162,9 @@ export namespace Prisma {
     accountingTotalExpenses?: bigint | number
     netIncome?: bigint | number
     cashBalance?: bigint | number
+    memberChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    incClassChartData?: JsonNullValueInput | InputJsonValue
     status: $Enums.ReportStatus
     generatedAt?: Date | string
     updatedAt?: Date | string
@@ -19146,6 +19194,9 @@ export namespace Prisma {
     accountingTotalExpenses?: bigint | number
     netIncome?: bigint | number
     cashBalance?: bigint | number
+    memberChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    incClassChartData?: JsonNullValueInput | InputJsonValue
     status: $Enums.ReportStatus
     generatedAt?: Date | string
     updatedAt?: Date | string
@@ -19174,6 +19225,9 @@ export namespace Prisma {
     accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
     netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
     cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    memberChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    incClassChartData?: JsonNullValueInput | InputJsonValue
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19203,6 +19257,9 @@ export namespace Prisma {
     accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
     netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
     cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    memberChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    incClassChartData?: JsonNullValueInput | InputJsonValue
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19232,6 +19289,9 @@ export namespace Prisma {
     accountingTotalExpenses?: bigint | number
     netIncome?: bigint | number
     cashBalance?: bigint | number
+    memberChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    incClassChartData?: JsonNullValueInput | InputJsonValue
     status: $Enums.ReportStatus
     generatedAt?: Date | string
     updatedAt?: Date | string
@@ -19260,6 +19320,9 @@ export namespace Prisma {
     accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
     netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
     cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    memberChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    incClassChartData?: JsonNullValueInput | InputJsonValue
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19289,6 +19352,9 @@ export namespace Prisma {
     accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
     netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
     cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    memberChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    incClassChartData?: JsonNullValueInput | InputJsonValue
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20227,6 +20293,9 @@ export namespace Prisma {
     accountingTotalExpenses?: SortOrder
     netIncome?: SortOrder
     cashBalance?: SortOrder
+    memberChartData?: SortOrder
+    incGymChartData?: SortOrder
+    incClassChartData?: SortOrder
     status?: SortOrder
     generatedAt?: SortOrder
     updatedAt?: SortOrder

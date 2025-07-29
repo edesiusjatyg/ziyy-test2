@@ -11,37 +11,38 @@ import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 interface ReportData {
+    id: number;
     period: string;
     displayName: string;
-    frontOffice: {
-        newMembers: number;
-        renewals: number;
-        revenue: number;
-        incidentiles: number;
-        totalMembers: number;
-        activeMembers: number;
-        expiredMembers: number;
-    };
-    canteen: {
-        totalTransactions: number;
-        revenue: number;
-        topItems: { name: string; quantity: number }[];
-    };
-    accounting: {
-        cashBalance: number;
-        totalIncome: number;
-        totalExpenses: number;
-        netProfit: number;
-        transactionCount: number;
-    };
-    marketing: {
-        activeCampaigns: number;
-        completedActivities: number;
-        reach: number;
-    };
+    totalMembers: number;
+    activeMembers: number;
+    expiredMembers: number;
+    newMembers: number;
+    renewals: number;
+    incidentiles: number;
+    incidentilesGym: number;
+    incidentilesClass: number;
+    canteenItemsSold: any[]; // JSON data
+    finishedCampaigns: number;
+    finishedCampaignNames: string[];
+    finishedCampaignActivities: string[];
+    foTotalIncome: number;
+    canteenTotalIncome: number;
+    accountingTotalIncome: number;
+    foTotalExpenses: number;
+    canteenTotalExpenses: number;
+    accountingTotalExpenses: number;
+    netIncome: number;
+    cashBalance: number;
+    memberChartData: { month: string; activeMembers: number }[];
+    incGymChartData: { month: string; incidentiles: number }[];
+    incClassChartData: { month: string; incidentiles: number }[];
+    status: string;
+    generatedAt: string;
+    updatedAt: string;
 }
 
-export default function ReportDetailPage() {
+export default function Page() {
     const router = useRouter();
     const params = useParams();
     const [show, setShow] = useState(false);
@@ -58,78 +59,46 @@ export default function ReportDetailPage() {
             label: "Member Aktif",
             color: "#7bb3d6",
         },
+        incidentiles: {
+            label: "Insidentil",
+            color: "#82ca9d",
+        },
     } satisfies ChartConfig
 
-    const chartData = [
-        { month: "Jan", activeMembers: 0 },
-        { month: "Feb", activeMembers: 0 },
-        { month: "Mar", activeMembers: 0 },
-        { month: "Apr", activeMembers: 12 },
-        { month: "May", activeMembers: 48 },
-        { month: "Jun", activeMembers: 96 },
-    ];
+    const memberChartData = reportData?.memberChartData || [];
+    const incGymChartData = reportData?.incGymChartData || [];
+    const incClassChartData = reportData?.incClassChartData || [];
 
     const loadReportData = async () => {
         try {
-            // In a real app, you'd fetch this from an API
-            // For now, we'll generate mock data based on the period
             const period = params.id as string;
-            const [year, month] = period.split('-');
-            const monthNames = [
-                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-            ];
-            const displayName = `${monthNames[parseInt(month) - 1]} ${year}`;
+            const response = await fetch(`/api/reports/${period}`);
+            
+            if (response.ok) {
+                const dbReport = await response.json();
+                setReportData(dbReport);
+                return;
+            }
 
-            // Generate realistic member counts
-            const totalMembers = Math.floor(Math.random() * 200) + 80; // 80-280 total members
-            const expiredMembers = Math.floor(totalMembers * 0.1) + Math.floor(Math.random() * 15); // 10% + some variance
-            const activeMembers = totalMembers - expiredMembers;
-            const newMembers = Math.floor(Math.random() * 30) + 5; // 5-35 new members
-            const renewals = Math.floor(Math.random() * 20) + 3; // 3-23 renewals
-
-            // Mock data generation
-            const mockData: ReportData = {
-                period,
-                displayName,
-                frontOffice: {
-                    newMembers,
-                    renewals,
-                    revenue: Math.floor(Math.random() * 5000000) + 1000000,
-                    incidentiles: Math.floor(Math.random() * 100) + 1, // 1-100 incidentiles
-                    totalMembers,
-                    activeMembers,
-                    expiredMembers
-                },
-                canteen: {
-                    totalTransactions: Math.floor(Math.random() * 200) + 50,
-                    revenue: Math.floor(Math.random() * 2000000) + 500000,
-                    topItems: [
-                        { name: "Americano", quantity: Math.floor(Math.random() * 100) + 20 },
-                        { name: "Creatine", quantity: Math.floor(Math.random() * 80) + 15 },
-                        { name: "Cleo Besar", quantity: Math.floor(Math.random() * 120) + 30 }
-                    ]
-                },
-                accounting: {
-                    cashBalance: Math.floor(Math.random() * 1000000) + 100000,
-                    totalIncome: Math.floor(Math.random() * 8000000) + 2000000,
-                    totalExpenses: Math.floor(Math.random() * 6000000) + 1000000,
-                    netProfit: 0, // Will be calculated
-                    transactionCount: Math.floor(Math.random() * 150) + 50
-                },
-                marketing: {
-                    activeCampaigns: Math.floor(Math.random() * 8) + 2,
-                    completedActivities: Math.floor(Math.random() * 20) + 5,
-                    reach: Math.floor(Math.random() * 5000) + 1000
+            if (response.status === 404) {
+                const generateResponse = await fetch('/api/reports/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ period })
+                });
+                
+                if (generateResponse.ok) {
+                    const newReport = await generateResponse.json();
+                    setReportData(newReport);
+                    return;
                 }
-            };
-
-            // Calculate net profit
-            mockData.accounting.netProfit = mockData.frontOffice.revenue + mockData.canteen.revenue + mockData.accounting.totalIncome - mockData.accounting.totalExpenses;
-
-            setReportData(mockData);
+            }
+            
+            throw new Error('Failed to load or generate report');
+            
         } catch (error) {
             console.error('Error loading report data:', error);
+            setReportData(null);
         } finally {
             setLoading(false);
         }
@@ -200,8 +169,8 @@ export default function ReportDetailPage() {
                                     <Users className="h-4 w-4 text-muted-foreground" />
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="text-2xl font-bold">{reportData.frontOffice.totalMembers}</div>
-                                    <p className="text-xs text-muted-foreground">{reportData.frontOffice.activeMembers} aktif, {reportData.frontOffice.expiredMembers} expired</p>
+                                    <div className="text-2xl font-bold">{reportData.totalMembers}</div>
+                                    <p className="text-xs text-muted-foreground">{reportData.activeMembers} aktif, {reportData.expiredMembers} expired</p>
                                 </CardContent>
                             </Card>
 
@@ -211,8 +180,8 @@ export default function ReportDetailPage() {
                                     <Users className="h-4 w-4 text-muted-foreground" />
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="text-2xl font-bold">{reportData.frontOffice.newMembers}</div>
-                                    <p className="text-xs text-muted-foreground">+{reportData.frontOffice.renewals} perpanjangan</p>
+                                    <div className="text-2xl font-bold">{reportData.newMembers}</div>
+                                    <p className="text-xs text-muted-foreground">+{reportData.renewals} perpanjangan</p>
                                 </CardContent>
                             </Card>
 
@@ -222,7 +191,8 @@ export default function ReportDetailPage() {
                                     <User className="h-4 w-4 text-muted-foreground" />
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="text-2xl font-bold">{reportData.frontOffice.incidentiles}</div>
+                                    <div className="text-2xl font-bold">{reportData.incidentiles}</div>
+                                    <p className="text-xs text-muted-foreground">Gym: {reportData.incidentilesGym}, Kelas: {reportData.incidentilesClass}</p>
                                 </CardContent>
                             </Card>
 
@@ -232,8 +202,8 @@ export default function ReportDetailPage() {
                                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                                 </CardHeader>
                                 <CardContent>
-                                    <div className={`text-2xl font-bold ${reportData.accounting.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                        {formatCurrency(reportData.accounting.netProfit)}
+                                    <div className={`text-2xl font-bold ${reportData.netIncome >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                        {formatCurrency(reportData.netIncome)}
                                         </div>
                                 </CardContent>
                             </Card>
@@ -244,12 +214,12 @@ export default function ReportDetailPage() {
                                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="text-2xl font-bold">{formatCurrency(reportData.accounting.cashBalance)}</div>
+                                    <div className="text-2xl font-bold">{formatCurrency(reportData.cashBalance)}</div>
                                 </CardContent>
                             </Card>
                         </div>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                             <Card>
                                 <CardHeader>
                                     <CardTitle>Data Transaksi</CardTitle>
@@ -259,30 +229,30 @@ export default function ReportDetailPage() {
                                     <div className="space-y-4">
                                         <div className="flex justify-between">
                                             <span>Pendapatan FO:</span>
-                                            <span className="font-semibold">{formatCurrency(reportData.frontOffice.revenue)}</span>
+                                            <span className="font-semibold">{formatCurrency(reportData.foTotalIncome)}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Pendapatan Kantin:</span>
-                                            <span className="font-semibold">{formatCurrency(reportData.canteen.revenue)}</span>
+                                            <span className="font-semibold">{formatCurrency(reportData.canteenTotalIncome)}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Pendapatan Lainnya:</span>
-                                            <span className="font-semibold">{formatCurrency(reportData.accounting.totalIncome)}</span>
+                                            <span className="font-semibold">{formatCurrency(reportData.accountingTotalIncome)}</span>
                                         </div>
                                         <div className="flex justify-between border-t pt-4">
                                             <span>Total Pendapatan:</span>
                                             <span className="font-semibold text-green-600">
-                                                {formatCurrency(reportData.frontOffice.revenue + reportData.canteen.revenue + reportData.accounting.totalIncome)}
+                                                {formatCurrency(reportData.foTotalIncome + reportData.canteenTotalIncome + reportData.accountingTotalIncome)}
                                             </span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Total Pengeluaran:</span>
-                                            <span className="font-semibold text-red-600">{formatCurrency(reportData.accounting.totalExpenses)}</span>
+                                            <span className="font-semibold text-red-600">{formatCurrency(reportData.foTotalExpenses + reportData.canteenTotalExpenses + reportData.accountingTotalExpenses)}</span>
                                         </div>
                                         <div className="flex justify-between border-t pt-4">
                                             <span className="font-medium">Net Pendapatan:</span>
-                                            <span className={`font-bold ${reportData.accounting.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                                {formatCurrency(reportData.accounting.netProfit)}
+                                            <span className={`font-bold ${reportData.netIncome >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {formatCurrency(reportData.netIncome)}
                                             </span>
                                         </div>
                                     </div>
@@ -298,27 +268,27 @@ export default function ReportDetailPage() {
                                     <div className="space-y-4">
                                         <div className="flex justify-between">
                                             <span>Total Member:</span>
-                                            <span className="font-semibold">{reportData.frontOffice.totalMembers}</span>
+                                            <span className="font-semibold">{reportData.totalMembers}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Member Aktif:</span>
-                                            <span className="font-semibold text-green-600">{reportData.frontOffice.activeMembers}</span>
+                                            <span className="font-semibold text-green-600">{reportData.activeMembers}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Member Expired:</span>
-                                            <span className="font-semibold text-red-600">{reportData.frontOffice.expiredMembers}</span>
+                                            <span className="font-semibold text-red-600">{reportData.expiredMembers}</span>
                                         </div>
                                         <div className="flex justify-between border-t pt-4">
                                             <span>Total Insidentil:</span>
-                                            <span className="font-semibold">{reportData.frontOffice.incidentiles}</span>
+                                            <span className="font-semibold">{reportData.incidentiles}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span>Insidentil Gym :</span>
-                                            <span className="font-semibold">{reportData.frontOffice.activeMembers}</span>
+                                            <span>Insidentil Gym:</span>
+                                            <span className="font-semibold">{reportData.incidentilesGym}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span>Insidentil Kelas :</span>
-                                            <span className="font-semibold">{reportData.frontOffice.expiredMembers}</span>
+                                            <span>Insidentil Kelas:</span>
+                                            <span className="font-semibold">{reportData.incidentilesClass}</span>
                                         </div>
                                     </div>
                                 </CardContent>
@@ -332,15 +302,15 @@ export default function ReportDetailPage() {
                                     <div className="space-y-4">
                                         <div className="flex justify-between">
                                             <span>Campaign Selesai:</span>
-                                            <span className="font-semibold">{reportData.marketing.activeCampaigns}</span>
+                                            <span className="font-semibold">{reportData.finishedCampaigns}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Campaign Names:</span>
+                                            <span className="font-semibold">{reportData.finishedCampaignNames.length}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Aktivitas Selesai:</span>
-                                            <span className="font-semibold">{reportData.marketing.completedActivities}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>Total Reach:</span>
-                                            <span className="font-semibold">{reportData.marketing.reach.toLocaleString()}</span>
+                                            <span className="font-semibold">{reportData.finishedCampaignActivities.length}</span>
                                         </div>
                                     </div>
                                 </CardContent>
@@ -354,19 +324,19 @@ export default function ReportDetailPage() {
                                     <div className="space-y-4">
                                         <div className="flex justify-between">
                                             <span>Member Baru:</span>
-                                            <span className="font-semibold">{reportData.frontOffice.newMembers}</span>
+                                            <span className="font-semibold">{reportData.newMembers}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Perpanjangan:</span>
-                                            <span className="font-semibold">{reportData.frontOffice.renewals}</span>
+                                            <span className="font-semibold">{reportData.renewals}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Total Insidentil:</span>
-                                            <span className="font-semibold">{reportData.frontOffice.incidentiles}</span>
+                                            <span className="font-semibold">{reportData.incidentiles}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Total Pendapatan:</span>
-                                            <span className="font-semibold text-green-600">{formatCurrency(reportData.frontOffice.revenue)}</span>
+                                            <span className="font-semibold text-green-600">{formatCurrency(reportData.foTotalIncome)}</span>
                                         </div>
                                     </div>
                                 </CardContent>
@@ -379,17 +349,21 @@ export default function ReportDetailPage() {
                                 <CardContent>
                                     <div className="space-y-4">
                                         <div className="space-y-4">
-                                            {reportData.canteen.topItems.map((item, index) => (
-                                                <div key={index} className="flex justify-between items-center">
-                                                    <span className="">{item.name}</span>
-                                                    <span className="font-semibold">{item.quantity} terjual</span>
-                                                </div>
-                                            ))}
+                                            {Array.isArray(reportData.canteenItemsSold) && reportData.canteenItemsSold.length > 0 ? (
+                                                reportData.canteenItemsSold.map((item: any, index: number) => (
+                                                    <div key={index} className="flex justify-between items-center">
+                                                        <span>{item.name}</span>
+                                                        <span className="font-semibold">{item.quantity} terjual</span>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <div className="text-gray-500">Tidak ada data penjualan</div>
+                                            )}
                                         </div>
 
                                         <div className="flex justify-between border-t pt-4">
                                             <span>Total Pendapatan:</span>
-                                            <span className="font-semibold text-green-600">{formatCurrency(reportData.canteen.revenue)}</span>
+                                            <span className="font-semibold text-green-600">{formatCurrency(reportData.canteenTotalIncome)}</span>
                                         </div>
                                     </div>
                                 </CardContent>
@@ -398,13 +372,13 @@ export default function ReportDetailPage() {
                             <Card>
                                 <CardHeader>
                                     <CardTitle>Line Chart - Member Aktif</CardTitle>
-                                    <CardDescription>April - Agustus 2025</CardDescription>
+                                    <CardDescription>6 Bulan Terakhir</CardDescription>
                                 </CardHeader>
                                 <CardContent>
                                     <ChartContainer config={chartConfig}>
                                         <LineChart
                                             accessibilityLayer
-                                            data={chartData}
+                                            data={memberChartData}
                                             margin={{
                                             left: 12,
                                             right: 12,
@@ -434,7 +408,95 @@ export default function ReportDetailPage() {
                                 </CardContent>
                                 <CardFooter className="flex-col items-start gap-2 text-sm">
                                     <div className="text-muted-foreground leading-none">
-                                        Total member aktif selama 6 bulan terakhir (sejak April 2025)
+                                        Total member aktif selama 6 bulan terakhir
+                                    </div>
+                                </CardFooter>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Line Chart - Insidentil Gym</CardTitle>
+                                    <CardDescription>6 Bulan Terakhir</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <ChartContainer config={chartConfig}>
+                                        <LineChart
+                                            accessibilityLayer
+                                            data={incGymChartData}
+                                            margin={{
+                                            left: 12,
+                                            right: 12,
+                                            }}
+                                        >
+                                            <CartesianGrid vertical={false} />
+                                            <XAxis
+                                                dataKey="month"
+                                                tickLine={false}
+                                                axisLine={false}
+                                                tickMargin={8}
+                                                tickFormatter={(value) => value.slice(0, 3)}
+                                            />
+                                            <ChartTooltip
+                                                cursor={false}
+                                                content={<ChartTooltipContent hideLabel />}
+                                            />
+                                            <Line
+                                                dataKey="incidentiles"
+                                                type="linear"
+                                                stroke="var(--color-incidentiles)"
+                                                strokeWidth={2}
+                                                dot={true}
+                                            />
+                                        </LineChart>
+                                    </ChartContainer>
+                                </CardContent>
+                                <CardFooter className="flex-col items-start gap-2 text-sm">
+                                    <div className="text-muted-foreground leading-none">
+                                        Total insidentil gym selama 6 bulan terakhir
+                                    </div>
+                                </CardFooter>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Line Chart - Insidentil Kelas</CardTitle>
+                                    <CardDescription>6 Bulan Terakhir</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <ChartContainer config={chartConfig}>
+                                        <LineChart
+                                            accessibilityLayer
+                                            data={incClassChartData}
+                                            margin={{
+                                            left: 12,
+                                            right: 12,
+                                            }}
+                                        >
+                                            <CartesianGrid vertical={false} />
+                                            <XAxis
+                                                dataKey="month"
+                                                tickLine={false}
+                                                axisLine={false}
+                                                tickMargin={8}
+                                                tickFormatter={(value) => value.slice(0, 3)}
+                                            />
+                                            <ChartTooltip
+                                                cursor={false}
+                                                content={<ChartTooltipContent hideLabel />}
+                                            />
+                                            <Line
+                                                dataKey="incidentiles"
+                                                type="linear"
+                                                stroke="var(--color-incidentiles)"
+                                                strokeWidth={2}
+                                                dot={true}
+                                            />
+                                        </LineChart>
+                                    </ChartContainer>
+                                </CardContent>
+                                <CardFooter className="flex-col items-start gap-2 text-sm">
+                                    <div className="text-muted-foreground leading-none">
+                                        Total insidentil kelas selama 6 bulan terakhir
                                     </div>
                                 </CardFooter>
                             </Card>

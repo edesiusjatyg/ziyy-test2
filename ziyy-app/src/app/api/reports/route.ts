@@ -15,14 +15,48 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const period = searchParams.get('period');
     if (!period) {
-      reports = await prisma.monthlyReport.findMany({
+      const dbReports = await prisma.monthlyReport.findMany({
         orderBy: { id: 'desc' },
       });
+      
+      // Convert BigInt fields to numbers for JSON response
+      reports = dbReports.map(report => ({
+        ...report,
+        foTotalIncome: Number(report.foTotalIncome),
+        canteenTotalIncome: Number(report.canteenTotalIncome),
+        accountingTotalIncome: Number(report.accountingTotalIncome),
+        foTotalExpenses: Number(report.foTotalExpenses),
+        canteenTotalExpenses: Number(report.canteenTotalExpenses),
+        accountingTotalExpenses: Number(report.accountingTotalExpenses),
+        netIncome: Number(report.netIncome),
+        cashBalance: Number(report.cashBalance),
+        memberChartData: report.memberChartData,
+        incGymChartData: report.incGymChartData,
+        incClassChartData: report.incClassChartData
+      }));
+      
       return NextResponse.json(reports, { status: 200 });
     } else {
-      reports = await prisma.monthlyReport.findMany({
+      const dbReports = await prisma.monthlyReport.findMany({
         where: { period },
       });
+      
+      // Convert BigInt fields to numbers for JSON response
+      reports = dbReports.map(report => ({
+        ...report,
+        foTotalIncome: Number(report.foTotalIncome),
+        canteenTotalIncome: Number(report.canteenTotalIncome),
+        accountingTotalIncome: Number(report.accountingTotalIncome),
+        foTotalExpenses: Number(report.foTotalExpenses),
+        canteenTotalExpenses: Number(report.canteenTotalExpenses),
+        accountingTotalExpenses: Number(report.accountingTotalExpenses),
+        netIncome: Number(report.netIncome),
+        cashBalance: Number(report.cashBalance),
+        memberChartData: report.memberChartData,
+        incGymChartData: report.incGymChartData,
+        incClassChartData: report.incClassChartData
+      }));
+      
       return NextResponse.json(reports, { status: 200 });
     }
   } catch (error) {
