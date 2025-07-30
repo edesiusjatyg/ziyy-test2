@@ -37,11 +37,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return null
           }
 
+          // Update last login time
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { lastLogin: new Date() }
+          })
+
+          console.log("User logged in successfully:", credentials.username)
+
           // Return user object - DO NOT automatically assign admin role
           return {
             id: user.id.toString(),
-            username: user.username,
-            email: user.email,
+            username: user.username || "",
+            email: user.email || "",
             role: user.role, // Use the role from database, don't override
           }
         } catch (error) {
@@ -72,6 +80,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 24 hours
+    maxAge: 2 * 60 * 60, // 2 hours
   }
 })

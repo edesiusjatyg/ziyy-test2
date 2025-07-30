@@ -213,8 +213,9 @@ model CanteenItem {
 
 model User {
   id           Int      @id @default(autoincrement())
-  email        String   @unique
-  username     String   @unique
+  email        String?   @unique
+  username     String?   @unique
+  name         String?
   passwordHash String
   role         UserRole
   createdAt    DateTime @default(now())
