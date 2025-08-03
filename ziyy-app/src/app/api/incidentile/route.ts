@@ -21,7 +21,12 @@ export async function GET() {
     
     return NextResponse.json(incidentiles, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch incidentiles' }, { status: 500 });
+    console.error('Error fetching incidentiles:', error);
+    return NextResponse.json({ 
+      error: 'Failed to fetch incidentiles',
+      message: typeof error === 'object' && error !== null && 'message' in error ? (error as { message: string }).message : String(error),
+      details: error
+    }, { status: 500 });
   }
 }
 

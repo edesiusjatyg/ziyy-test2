@@ -227,6 +227,8 @@ export default function Page() {
         }
 
         try {
+            setIsAbsDialogOpen(false);
+            
             const response = await fetch('/api/member-arrivals', {
                 method: 'POST',
                 headers: {
@@ -247,7 +249,6 @@ export default function Page() {
             
             setSelectedMemberId(null);
             setAbsenceType("");
-            setIsAbsDialogOpen(false);
             alert(`Kedatangan ${selectedMember?.name} berhasil dicatat.`);
             fetchArrivals();
         } catch (error) {
@@ -257,6 +258,8 @@ export default function Page() {
 
     const handleAddMemberSubmit = async () => {
         try {
+            setIsAddMemberDialogOpen(false);
+
             const memberPayload: any = {
                 name: memberName,
                 nik: memberNik,
@@ -326,7 +329,6 @@ export default function Page() {
             setMemberDuration("");
             setPaymentAmount("");
             setPaymentMethod("");
-            setIsAddMemberDialogOpen(false);
             alert(`Member ${memberName} berhasil ditambahkan.`);
             fetchMembers();
         } catch (error) {
@@ -337,6 +339,8 @@ export default function Page() {
 
     const handleAddInsSubmit = async () => {
         try {
+            setIsAddInsDialogOpen(false);
+
             const insResponse = await fetch('/api/incidentile', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -382,7 +386,6 @@ export default function Page() {
             setInsSauna(false);
             setPaymentMethod("");
             setPaymentAmount("");
-            setIsAddInsDialogOpen(false);
             alert(`Insidentil ${insName} berhasil ditambahkan.`);
             fetchIncidentiles();
         } catch (error) {
@@ -392,6 +395,8 @@ export default function Page() {
     };
 
     const handleAddTxSubmit = () => {
+        setIsAddTxDialogOpen(false);
+
         console.log("Transaction Type:", txType);
         if(txType === "pemasukan") {
             console.log("Member Name:", memberName);
@@ -416,7 +421,6 @@ export default function Page() {
         setPaymentAmount("");
         setPaymentMethod("");
         setPertemuanAmount("");
-        setIsAddTxDialogOpen(false);
     };
 
     const handleContact = (member: Member) => {
@@ -437,10 +441,10 @@ export default function Page() {
 
     const handleNearExpDeleteMember = () => {
       if (selectedNearExpMember) {
-        setNearExpMembers(prev => prev.filter(m => m.id !== selectedNearExpMember.id));
-        setMembers(prev => prev.filter(m => m.id !== selectedNearExpMember.id));
         setIsNearExpDeleteDialogOpen(false);
         setIsNearExpDialogOpen(false);
+        setNearExpMembers(prev => prev.filter(m => m.id !== selectedNearExpMember.id));
+        setMembers(prev => prev.filter(m => m.id !== selectedNearExpMember.id));
         setSelectedNearExpMember(null);
       }
     };
@@ -474,6 +478,8 @@ export default function Page() {
           alert('Member tidak ditemukan.');
           return;
         }
+        
+        setIsNearExpPerpanjangDialogOpen(false);
         
         const now = new Date();
         let baseDate = new Date(memberToUpdate.expiryDate);
@@ -521,7 +527,6 @@ export default function Page() {
         setPerpanjangType("");
         setPerpanjangDuration("");
         setPerpanjangMethod("");
-        setIsNearExpPerpanjangDialogOpen(false);
         setSelectedNearExpMember(null);
         alert(`Member ${perpanjangName} berhasil diperpanjang.`);
         fetchMembers();
