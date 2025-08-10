@@ -109,7 +109,7 @@ export default function Page() {
     const [isNearExpDialogOpen, setIsNearExpDialogOpen] = useState(false);
     const [isNearExpDeleteDialogOpen, setIsNearExpDeleteDialogOpen] = useState(false);
 
-    // State for perpanjang dialog
+    // State for perpanjang member dialog
     const [isNearExpPerpanjangDialogOpen, setIsNearExpPerpanjangDialogOpen] = useState(false);
     const [perpanjangName, setPerpanjangName] = useState("");
     const [perpanjangNik, setPerpanjangNik] = useState("");
@@ -117,6 +117,13 @@ export default function Page() {
     const [perpanjangType, setPerpanjangType] = useState("");
     const [perpanjangDuration, setPerpanjangDuration] = useState("");
     const [perpanjangMethod, setPerpanjangMethod] = useState("");
+
+    // State for perpanjang PT dialog
+    const [isPerpanjangPtDialogOpen, setIsPerpanjangPtDialogOpen] = useState(false);
+    const [perpanjangPtName, setPerpanjangPtName] = useState("");
+    const [perpanjangPtAmount, setPerpanjangPtAmount] = useState("");
+    const [perpanjangPtPaymentMethod, setPerpanjangPtPaymentMethod] = useState("");
+    const [perpanjangPtPaymentAmount, setPerpanjangPtPaymentAmount] = useState("");
 
     const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
     const [absenceType, setAbsenceType] = useState("");
@@ -540,6 +547,57 @@ export default function Page() {
       }
     };
 
+    const handlePerpanjangPtSubmit = async () => {
+      try {
+        setIsPerpanjangPtDialogOpen(false);
+
+        const selectedMember = members.find(m => m.id === selectedMemberId);
+        if (selectedMember) {
+            if (selectedMember.status.toUpperCase() === "EXPIRED") {
+                alert("Member ini sudah expired. Tidak dapat mencatat perpanjangan PT.");
+                return;
+            }
+        }
+
+        const memberRes = await fetch('/api/members', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: selectedMemberId,
+            ptAmount: parseInt(perpanjangPtAmount),
+          })
+        });
+
+        const txRes = await fetch('/api/transaction-fo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: "PEMASUKAN",
+            title: `Perpanjang PT - ${perpanjangPtName}`,
+            note: "",
+            paymentMethod: perpanjangPtPaymentMethod.toUpperCase(),
+            paymentAmount: perpanjangPtPaymentAmount,
+            date: new Date().toISOString(),
+            billId: billId,
+          }),
+        });
+
+        if (!txRes.ok || !memberRes.ok) {
+          alert('Gagal menambah transaksi perpanjangan PT.');
+          return;
+        }
+
+        setPerpanjangPtName("");
+        setPerpanjangPtAmount("");
+        setPerpanjangPtPaymentMethod("");
+        setPerpanjangPtPaymentAmount("");
+        alert(`Perpanjang PT untuk ${perpanjangPtName} berhasil.`);
+      } catch (error) {
+        alert('Terjadi kesalahan saat memperpanjang PT.');
+        console.error(error);
+      }
+    };
+
     const getPerpanjangAmount = () => {
       let total = 0;
       if (perpanjangType === "personal") {
@@ -602,6 +660,15 @@ export default function Page() {
             return 25000;
         }
         return 0;
+    };
+
+    const getPtPaymentAmount = () => {
+        if (perpanjangPtAmount === "1") return 200000;
+        else if (perpanjangPtAmount === "4") return 600000;
+        else if (perpanjangPtAmount === "6") return 900000;
+        else if (perpanjangPtAmount === "8") return 1200000;
+        else if (perpanjangPtAmount === "10") return 1500000;
+        else return 200000 * (parseInt(perpanjangPtAmount) || 0);
     };
 
     const getStatusBadge = (status: string) => {
@@ -1157,6 +1224,10 @@ export default function Page() {
                                 </DialogContent>
                             </Dialog>
                             )} 
+
+                            <Card onClick={() => setIsPerpanjangPtDialogOpen(true)} className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                                Test Perpanjang PT
+                            </Card>
                         </div>
                     </div>
 
@@ -1397,6 +1468,84 @@ export default function Page() {
                           </Button>
                         </DialogFooter>
                       </DialogContent>
+                    </Dialog>
+
+                    <Dialog open={isPerpanjangPtDialogOpen} onOpenChange={setIsPerpanjangPtDialogOpen}>
+                        <DialogContent className="max-w-md">
+                            <DialogHeader>
+                                <DialogTitle className="flex items-center gap-2">
+                                    <Edit className="h-5 w-5" />
+                                    Perpanjang Member PT
+                                </DialogTitle>
+                                <DialogDescription>Perpanjang durasi berlangganan PT.</DialogDescription>
+                            </DialogHeader>
+                            <div className="space-y-4">
+                                <div className="grid gap-4 py-4">
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="perpanjangPtName" className="text-left">Nama</Label>
+                                            <div className="col-span-3">
+                                                <MemberSearch members={members} onSelectMember={(id) => setSelectedMemberId(id)} />
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="perpanjangPtAmount" className="text-left">
+                                            Durasi PT
+                                            </Label>
+                                            <Select value={perpanjangPtAmount} onValueChange={setPerpanjangPtAmount}>
+                                            <SelectTrigger className="col-span-3">
+                                                <SelectValue placeholder="Pilih Durasi PT" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="1">1 Pertemuan</SelectItem>
+                                                <SelectItem value="4">4 Pertemuan</SelectItem>
+                                                <SelectItem value="6">6 Pertemuan</SelectItem>
+                                                <SelectItem value="8">8 Pertemuan</SelectItem>
+                                                <SelectItem value="10">10 Pertemuan</SelectItem>
+                                            </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="perpanjangPtPaymentMethod" className="text-right">Metode</Label>
+                                            <Select value={perpanjangPtPaymentMethod} onValueChange={setPerpanjangPtPaymentMethod}>
+                                                <SelectTrigger className="col-span-3">
+                                                <SelectValue placeholder="Pilih Metode Pembayaran" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="CASH">Cash</SelectItem>
+                                                    <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                    <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                    <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                    <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                    <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                    <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="billId" className="text-left">
+                                                No Nota
+                                            </Label>
+                                            <Input id="billId" value={billId} onChange={(e) => setBillId(e.target.value)} placeholder="No Nota" className="col-span-3 w-1/2" />
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="perpanjangAmount" className="text-right">Nominal</Label>
+                                            <Label htmlFor="perpanjangAmount" className="text-gray-900 col-span-3">
+                                                {`Rp ${getPtPaymentAmount().toLocaleString()}`}
+                                            </Label>
+                                    </div>
+                                </div>
+                            </div>
+                            <DialogFooter className="flex gap-2">
+                                <Button
+                                    variant="default"
+                                    onClick={handlePerpanjangPtSubmit}
+                                    className="flex items-center gap-2 hover:cursor-pointer"
+                                >
+                                    Perpanjang
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
                     </Dialog>
                 </div>
             </div>
