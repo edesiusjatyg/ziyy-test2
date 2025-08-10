@@ -101,6 +101,8 @@ export default function Page() {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [billId, setBillId] = useState("");
+
     // Add state for near-expiry member dialog
     type NullableMember = Member | null;
     const [selectedNearExpMember, setSelectedNearExpMember] = useState<NullableMember>(null);
@@ -311,6 +313,7 @@ export default function Page() {
                     paymentMethod: paymentMethod.toUpperCase(),
                     paymentAmount: getMemberPaymentAmount(),
                     date: new Date().toISOString(),
+                    billId: billId,
                 }),
             });
             const txResult = await txRes.json();
@@ -514,6 +517,7 @@ export default function Page() {
             paymentMethod: perpanjangMethod.toUpperCase(),
             paymentAmount: getPerpanjangAmount(),
             date: new Date().toISOString(),
+            billId: billId,
           }),
         });
         const txResult = await txRes.json();
@@ -772,7 +776,7 @@ export default function Page() {
                                     <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
                                         <CardContent className="flex flex-row items-center gap-2">
                                             <CirclePlus className="text-[#7bb3d6]" />
-                                            <p className="text-md text-gray-900">Tambah Kedatangan Member</p>
+                                            <p className="text-md text-gray-900">Absensi Kedatangan Member</p>
                                         </CardContent>
                                     </Card>
                                 </DialogTrigger>
@@ -944,6 +948,12 @@ export default function Page() {
                                                 </SelectContent>
                                             </Select>
                                         </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="billId" className="text-left">
+                                                No Nota
+                                            </Label>
+                                            <Input id="billId" value={billId} onChange={(e) => setBillId(e.target.value)} placeholder="No Nota" className="col-span-3 w-1/2" />
+                                        </div>
                                         <div hidden={!(memberType==="personal" || memberType==="couple" || memberType==="muayThaiMember" || memberType==="muayThaiPrivate")} className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="paymentAmount" className="text-left">
                                                 Nominal
@@ -1047,6 +1057,12 @@ export default function Page() {
                                                     <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                                 </SelectContent>
                                             </Select>
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="billId" className="text-left">
+                                                No Nota
+                                            </Label>
+                                            <Input id="billId" value={billId} onChange={(e) => setBillId(e.target.value)} placeholder="No Nota" className="col-span-3 w-1/2" />
                                         </div>
                                         <div hidden={!(insType === "gym" || insType === "kelas" || insType === "sauna" || insType === "pt")} className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="paymentAmount" className="text-left">
@@ -1349,6 +1365,12 @@ export default function Page() {
                                     <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
                                 </SelectContent>
                               </Select>
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="billId" className="text-left">
+                                    No Nota
+                                </Label>
+                                <Input id="billId" value={billId} onChange={(e) => setBillId(e.target.value)} placeholder="No Nota" className="col-span-3 w-1/2" />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
                               <Label htmlFor="perpanjangAmount" className="text-right">Nominal</Label>

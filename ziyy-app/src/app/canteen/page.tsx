@@ -63,6 +63,7 @@ export default function Page() {
     const [isAddItemDialogOpen, setIsAddItemDialogOpen] = useState(false);
     const [newItemName, setNewItemName] = useState("");
     const [newItemPrice, setNewItemPrice] = useState("");
+    const [billId, setBillId] = useState("");
 
     const [show, setShow] = useState(false);
 
@@ -137,7 +138,8 @@ export default function Page() {
                 ...(txType === "pengeluaran" && {
                     title: txTitle,
                     note: txNote
-                })
+                }),
+                billId: billId,
             };
 
             const response = await fetch('/api/transaction-canteen', {

@@ -139,6 +139,7 @@ model TxFo {
     paymentMethod PaymentMethod
     paymentAmount Int
     date          DateTime
+    billId        String?
     @@index([type])
     @@index([date])
     @@index([date, type])
@@ -155,6 +156,7 @@ model TxCanteen {
   paymentMethod PaymentMethod
   paymentAmount Int
   date          DateTime
+  billId        String?
   @@index([type])
   @@index([itemId])
   @@index([date])
@@ -169,6 +171,7 @@ model TxAccounting {
   paymentMethod PaymentMethod
   paymentAmount Int
   date          DateTime
+  billId        String?
   @@index([type])
   @@index([date])
   @@index([date, type])
