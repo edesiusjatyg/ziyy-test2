@@ -79,6 +79,7 @@ export default function Page() {
     const [memberPtAmount, setMemberPtAmount] = useState("");
 
     const [insName, setInsName] = useState("");
+    const [insPhone, setInsPhone] = useState("");
     const [insType, setInsType] = useState("");
     const [insClass, setInsClass] = useState("");
     const [insPt, setInsPt] = useState(false);
@@ -356,6 +357,7 @@ export default function Page() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: insName,
+                    phone: insPhone,
                     type: insType.toUpperCase(),
                     class: insClass ? insClass.toUpperCase() : null,
                     pt: insPt,
@@ -390,6 +392,7 @@ export default function Page() {
             }
 
             setInsName("");
+            setInsPhone("");
             setInsType("");
             setInsClass("");
             setInsPt(false);
@@ -796,7 +799,7 @@ export default function Page() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-8 px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 pb-8 px-8">
                         <Card className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 text-center">Member Mendekati Habis ({nearExpMembers.length})</CardTitle>
@@ -813,7 +816,7 @@ export default function Page() {
                                                 <p className="text-gray-700 text-center w-full">Tidak ada member yang mendekati habis.</p>
                                             </div>
                                         ) : (
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                                                 {nearExpMembers.map((member) => (
                                                     <Card key={member.id} className="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-3 cursor-pointer justify-between" onClick={() => handleNearExpMemberClick(member)}>
                                                         <CardContent className="flex flex-col p-2">
@@ -836,7 +839,7 @@ export default function Page() {
                             </CardContent>
                         </Card>
 
-                        <div className="grid grid-row-4 md:grid-row-4 gap-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
                             {canCreate && (
                             <Dialog open={isAbsDialogOpen} onOpenChange={setIsAbsDialogOpen}>
                                 <DialogTrigger asChild>
@@ -1008,6 +1011,7 @@ export default function Page() {
                                                     <SelectItem value="TRANSFER">Transfer</SelectItem>
                                                     <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
                                                     <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="TRANSFER_BRI">Transfer BRI</SelectItem>
                                                     <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
                                                     <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
                                                     <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
@@ -1064,6 +1068,12 @@ export default function Page() {
                                             <Input id="insName" value={insName} onChange={(e) => setInsName(e.target.value)} placeholder="Nama Customer" className="col-span-3" />
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="insPhone" className="text-left">
+                                                Nomor HP
+                                            </Label>
+                                            <Input id="insPhone" value={insPhone} onChange={(e) => setInsPhone(e.target.value)} placeholder="Nomor HP" className="col-span-3" />
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="insType" className="text-left">
                                                 Jenis
                                             </Label>
@@ -1118,6 +1128,7 @@ export default function Page() {
                                                     <SelectItem value="TRANSFER">Transfer</SelectItem>
                                                     <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
                                                     <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="TRANSFER_BRI">Transfer BRI</SelectItem>
                                                     <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
                                                     <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
                                                     <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
@@ -1201,6 +1212,7 @@ export default function Page() {
                                                         <SelectItem value="TRANSFER">Transfer</SelectItem>
                                                         <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
                                                         <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                        <SelectItem value="TRANSFER_BRI">Transfer BRI</SelectItem>
                                                         <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
                                                         <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
                                                         <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
@@ -1430,6 +1442,7 @@ export default function Page() {
                                     <SelectItem value="TRANSFER">Transfer</SelectItem>
                                     <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
                                     <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                    <SelectItem value="TRANSFER_BRI">Transfer BRI</SelectItem>
                                     <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
                                     <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
                                     <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
@@ -1505,7 +1518,7 @@ export default function Page() {
                                             </Select>
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="perpanjangPtPaymentMethod" className="text-right">Metode</Label>
+                                            <Label htmlFor="perpanjangPtPaymentMethod" className="text-right">Pembayaran</Label>
                                             <Select value={perpanjangPtPaymentMethod} onValueChange={setPerpanjangPtPaymentMethod}>
                                                 <SelectTrigger className="col-span-3">
                                                 <SelectValue placeholder="Pilih Metode Pembayaran" />
@@ -1515,6 +1528,7 @@ export default function Page() {
                                                     <SelectItem value="TRANSFER">Transfer</SelectItem>
                                                     <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
                                                     <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                    <SelectItem value="TRANSFER_BRI">Transfer BRI</SelectItem>
                                                     <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
                                                     <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
                                                     <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
