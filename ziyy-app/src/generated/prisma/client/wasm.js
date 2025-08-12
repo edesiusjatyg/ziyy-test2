@@ -148,6 +148,7 @@ exports.Prisma.MemberArrivalScalarFieldEnum = {
 exports.Prisma.IncidentileScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  phone: 'phone',
   type: 'type',
   class: 'class',
   pt: 'pt',
@@ -164,7 +165,8 @@ exports.Prisma.TxFoScalarFieldEnum = {
   note: 'note',
   paymentMethod: 'paymentMethod',
   paymentAmount: 'paymentAmount',
-  date: 'date'
+  date: 'date',
+  billId: 'billId'
 };
 
 exports.Prisma.TxCanteenScalarFieldEnum = {
@@ -176,7 +178,8 @@ exports.Prisma.TxCanteenScalarFieldEnum = {
   itemAmount: 'itemAmount',
   paymentMethod: 'paymentMethod',
   paymentAmount: 'paymentAmount',
-  date: 'date'
+  date: 'date',
+  billId: 'billId'
 };
 
 exports.Prisma.TxAccountingScalarFieldEnum = {
@@ -186,7 +189,8 @@ exports.Prisma.TxAccountingScalarFieldEnum = {
   note: 'note',
   paymentMethod: 'paymentMethod',
   paymentAmount: 'paymentAmount',
-  date: 'date'
+  date: 'date',
+  billId: 'billId'
 };
 
 exports.Prisma.CampaignScalarFieldEnum = {
@@ -212,6 +216,7 @@ exports.Prisma.CanteenItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
+  stock: 'stock',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -220,11 +225,11 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   username: 'username',
-  name: 'name',
   passwordHash: 'passwordHash',
   role: 'role',
   createdAt: 'createdAt',
-  lastLogin: 'lastLogin'
+  lastLogin: 'lastLogin',
+  name: 'name'
 };
 
 exports.Prisma.UserActionsScalarFieldEnum = {
@@ -258,12 +263,12 @@ exports.Prisma.MonthlyReportScalarFieldEnum = {
   accountingTotalExpenses: 'accountingTotalExpenses',
   netIncome: 'netIncome',
   cashBalance: 'cashBalance',
-  memberChartData: 'memberChartData',
-  incGymChartData: 'incGymChartData',
-  incClassChartData: 'incClassChartData',
   status: 'status',
   generatedAt: 'generatedAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  incClassChartData: 'incClassChartData',
+  incGymChartData: 'incGymChartData',
+  memberChartData: 'memberChartData'
 };
 
 exports.Prisma.SortOrder = {
