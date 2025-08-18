@@ -896,6 +896,41 @@ export default function Page() {
         }
     }
 
+    const handleEditStockSubmit = async () => {
+        try {
+            const stockData = {
+                id: parseInt(editStockItemId),
+                stock: parseInt(editStockValue)
+            };
+
+            const response = await fetch('/api/canteen-item', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(stockData),
+            });
+
+            if (response.ok) {
+                // Reset form
+                setEditStockItemId("");
+                setEditStockValue("");
+                setIsEditStockDialogOpen(false);
+                
+                // Reload data
+                fetchCanteenData();
+                
+                alert('Stok berhasil diperbarui!');
+            } else {
+                console.error('Failed to update stock');
+                alert('Gagal memperbarui stok.');
+            }
+        } catch (error) {
+            console.error('Error updating stock:', error);
+            alert('Terjadi kesalahan saat memperbarui stok.');
+        }
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
             <div className={`w-full max-w-6xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
@@ -1496,7 +1531,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button type="submit" onClick={() => {/* TODO: handle add menu submit */}} disabled={!newMenuName || !newMenuPrice}>
+                                <Button type="submit" onClick={() => {handleAddItemSubmit}} disabled={!newMenuName || !newMenuPrice}>
                                     Tambah Menu
                                 </Button>
                             </DialogFooter>
@@ -1530,7 +1565,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button type="submit" onClick={() => {/* TODO: handle edit stock submit */}} disabled={!editStockItemId || !editStockValue}>
+                                <Button type="submit" onClick={handleEditStockSubmit} disabled={!editStockItemId || !editStockValue}>
                                     Simpan Stok
                                 </Button>
                             </DialogFooter>
