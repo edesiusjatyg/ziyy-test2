@@ -868,8 +868,9 @@ export default function Page() {
     const handleAddItemSubmit = async () => {
         try {
             const itemData = {
-                name: newItemName,
-                price: parseInt(newItemPrice)
+                name: newMenuName,
+                price: parseInt(newMenuPrice),
+                stock: parseInt(newMenuStock) || 0
             };
 
             const response = await fetch('/api/canteen-item', {
@@ -882,17 +883,22 @@ export default function Page() {
 
             if (response.ok) {
                 // Reset form
-                setNewItemName("");
-                setNewItemPrice("");
-                setIsAddItemDialogOpen(false);
+                setNewMenuName("");
+                setNewMenuPrice("");
+                setNewMenuStock("");
+                setIsAddMenuDialogOpen(false);
                 
                 // Reload data
                 fetchCanteenData();
+                
+                alert('Menu baru berhasil ditambahkan!');
             } else {
                 console.error('Failed to create item');
+                alert('Gagal menambahkan menu baru.');
             }
         } catch (error) {
             console.error('Error creating item:', error);
+            alert('Terjadi kesalahan saat menambahkan menu.');
         }
     }
 
@@ -1068,7 +1074,7 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 px-8">
-                        <Card className="bg-white rounded-2xl shadow-sm transition-all border-0 cursor-pointer">
+                        <Card className="bg-white rounded-2xl shadow-sm transition-all border-0">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 text-center">Member Mendekati Habis ({nearExpMembers.length})</CardTitle>
                             </CardHeader>
@@ -1440,7 +1446,7 @@ export default function Page() {
                     {/* Canteen Section */}
                     {canReadCanteen && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-8 pb-8">
-                        <Card className="bg-white rounded-2xl shadow-sm transition-all border-0 cursor-pointer">
+                        <Card className="bg-white rounded-2xl shadow-sm transition-all border-0">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 text-center">Daftar Menu</CardTitle>
                             </CardHeader>
@@ -1459,7 +1465,7 @@ export default function Page() {
                                                     <TableHead className="text-right">Harga</TableHead>
                                                 </TableRow>
                                             </TableHeader>
-                                            <TableBody>
+                                            <TableBody className="cursor-pointer">
                                                 {canteenItems.map((item) => (
                                                     <TableRow key={item.id}>
                                                         <TableCell className="font-medium">{item.name}</TableCell>
@@ -1531,7 +1537,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button type="submit" onClick={() => {handleAddItemSubmit}} disabled={!newMenuName || !newMenuPrice}>
+                                <Button type="submit" onClick={handleAddItemSubmit} disabled={!newMenuName || !newMenuPrice}>
                                     Tambah Menu
                                 </Button>
                             </DialogFooter>
