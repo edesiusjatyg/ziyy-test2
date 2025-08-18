@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { CirclePlus, Undo2, Info, Phone } from "lucide-react";
+import { CirclePlus, Undo2, Info, Phone, NotebookPen, UserPlus, Contact, Coffee, BanknoteArrowUp, Notebook,  } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -1118,9 +1118,9 @@ export default function Page() {
                             <Dialog open={isAbsDialogOpen} onOpenChange={setIsAbsDialogOpen}>
                                 <DialogTrigger asChild>
                                     <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
-                                        <CardContent className="flex flex-row items-center gap-2">
-                                            <CirclePlus className="text-[#7bb3d6]" />
-                                            <p className="text-md text-gray-900 ">Absensi Kedatangan Member</p>
+                                        <CardContent className="flex flex-row items-center gap-2 justify-between">
+                                            <p className="text-md text-gray-900 ">Catat Absensi Kedatangan Member</p>
+                                            <Contact className="text-[#7bb3d6]" />
                                         </CardContent>
                                     </Card>
                                 </DialogTrigger>
@@ -1166,9 +1166,9 @@ export default function Page() {
                                 <Dialog open={isAddMemberDialogOpen} onOpenChange={setIsAddMemberDialogOpen}>
                                     <DialogTrigger asChild>
                                         <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
-                                            <CardContent className="flex flex-row items-center gap-2">
-                                                <CirclePlus className="text-[#7bb3d6]" />
+                                            <CardContent className="flex flex-row items-center gap-2 justify-between">
                                                 <p className="text-md text-gray-900 ">Tambah Member Baru</p>
+                                                <UserPlus className="text-[#7bb3d6]" />
                                             </CardContent>
                                         </Card>
                                     </DialogTrigger>
@@ -1321,9 +1321,9 @@ export default function Page() {
                                 <Dialog open={isAddInsDialogOpen} onOpenChange={setIsAddInsDialogOpen}>
                                     <DialogTrigger asChild>
                                         <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
-                                        <CardContent className="flex flex-row items-center gap-2">
-                                            <CirclePlus className="text-[#7bb3d6]" />
+                                        <CardContent className="flex flex-row items-center gap-2 justify-between">
                                             <p className="text-md text-gray-900">Tambah Insidentil Baru</p>
+                                            <CirclePlus className="text-[#7bb3d6]" />
                                         </CardContent>
                                     </Card>
                                 </DialogTrigger>
@@ -1435,9 +1435,9 @@ export default function Page() {
                             )}
 
                             <Card onClick={() => setIsPerpanjangPtDialogOpen(true)} className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
-                                <CardContent className="flex flex-row items-center gap-2">
-                                    <CirclePlus className="text-[#7bb3d6]" />
+                                <CardContent className="flex flex-row items-center gap-2 justify-between">
                                     <p className="text-md text-gray-900">Perpanjang Member PT</p>
+                                    <NotebookPen className="text-[#7bb3d6]" />
                                 </CardContent>
                             </Card>
                         </div>
@@ -1484,9 +1484,9 @@ export default function Page() {
                             {canCreateCanteen && (
                             <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl" 
                                   onClick={() => setIsAddCanteenTxDialogOpen(true)}>
-                                <CardContent className="flex flex-row items-center gap-2">
-                                    <CirclePlus className="text-[#7bb3d6]" />
+                                <CardContent className="flex flex-row items-center gap-2 justify-between">
                                     <p className="text-md text-gray-900">Tambah Transaksi Kantin/Cafe</p>
+                                    <BanknoteArrowUp className="text-[#7bb3d6]" />
                                 </CardContent>
                             </Card>
                             )}
@@ -1494,9 +1494,9 @@ export default function Page() {
                             {canCreateCanteen && (
                             <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl" 
                                   onClick={() => setIsAddMenuDialogOpen(true)}>
-                                <CardContent className="flex flex-row items-center gap-2">
-                                    <CirclePlus className="text-[#7bb3d6]" />
+                                <CardContent className="flex flex-row items-center gap-2 justify-between">
                                     <p className="text-md text-gray-900">Tambah Menu Baru</p>
+                                    <Coffee className="text-[#7bb3d6]" />
                                 </CardContent>
                             </Card>
                             )}
@@ -1504,9 +1504,9 @@ export default function Page() {
                             {canCreateCanteen && (
                             <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl" 
                                   onClick={() => setIsEditStockDialogOpen(true)}>
-                                <CardContent className="flex flex-row items-center gap-2">
-                                    <CirclePlus className="text-[#7bb3d6]" />
+                                <CardContent className="flex flex-row items-center gap-2 justify-between">
                                     <p className="text-md text-gray-900">Atur Stok Kantin/Cafe</p>
+                                    <NotebookPen className="text-[#7bb3d6]" />
                                 </CardContent>
                             </Card>
                             )}
