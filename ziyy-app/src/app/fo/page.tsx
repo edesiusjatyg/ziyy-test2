@@ -14,11 +14,13 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlertDialog, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Edit, Trash2, User } from "lucide-react";
 import { MemberSearch } from "@/components/ui/member-search";
-import { hasFoCrudAccess } from "@/lib/rbac";
+import { formatCurrency } from "@/lib/format";
+import { hasFoCrudAccess, hasCanteenCrudAccess } from "@/lib/rbac";
 
 interface Member {
   id: number;
@@ -50,16 +52,45 @@ interface Insidentil {
     paymentAmount: number;
 }
 
+interface CanteenItem {
+    id: number;
+    name: string;
+    stock: number;
+    price: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+interface CanteenTransaction {
+    id: number;
+    type: 'PEMASUKAN' | 'PENGELUARAN';
+    title?: string;
+    note?: string;
+    itemId?: number;
+    item?: CanteenItem;
+    itemAmount?: number;
+    paymentMethod: string;
+    paymentAmount: number;
+    date: string;
+    billId?: string;
+}
+
 export default function Page() {
     const router = useRouter();
     const { data: session } = useSession();
     const [show, setShow] = useState(false);
 
-    // Check permissions
+    // Check FO permissions
     const canCreate = session?.user?.role ? hasFoCrudAccess(session.user.role, "CREATE") : false;
     const canRead = session?.user?.role ? hasFoCrudAccess(session.user.role, "READ") : false;
     const canUpdate = session?.user?.role ? hasFoCrudAccess(session.user.role, "UPDATE") : false;
     const canDelete = session?.user?.role ? hasFoCrudAccess(session.user.role, "DELETE") : false;
+
+    // Check Canteen permissions
+    const canCreateCanteen = session?.user?.role ? hasCanteenCrudAccess(session.user.role, "CREATE") : false;
+    const canReadCanteen = session?.user?.role ? hasCanteenCrudAccess(session.user.role, "READ") : false;
+    const canUpdateCanteen = session?.user?.role ? hasCanteenCrudAccess(session.user.role, "UPDATE") : false;
+    const canDeleteCanteen = session?.user?.role ? hasCanteenCrudAccess(session.user.role, "DELETE") : false;
 
     const [isAbsDialogOpen, setIsAbsDialogOpen] = useState(false);
     const [isAddMemberDialogOpen, setIsAddMemberDialogOpen] = useState(false);
@@ -101,6 +132,31 @@ export default function Page() {
     const [insCount, setInsCount] = useState<Insidentil[]>([]);
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    // Canteen state variables
+    const [isAddCanteenTxDialogOpen, setIsAddCanteenTxDialogOpen] = useState(false);
+    const [isAddMenuDialogOpen, setIsAddMenuDialogOpen] = useState(false);
+    const [isEditStockDialogOpen, setIsEditStockDialogOpen] = useState(false);
+    const [newMenuName, setNewMenuName] = useState("");
+    const [newMenuPrice, setNewMenuPrice] = useState("");
+    const [newMenuStock, setNewMenuStock] = useState("");
+    const [editStockItemId, setEditStockItemId] = useState("");
+    const [editStockValue, setEditStockValue] = useState("");
+    const [canteenTxType, setCanteenTxType] = useState("");
+    const [canteenTxTitle, setCanteenTxTitle] = useState("");
+    const [canteenTxNote, setCanteenTxNote] = useState("");
+    const [canteenItemType, setCanteenItemType] = useState("");
+    const [canteenItemAmount, setCanteenItemAmount] = useState("");
+    const [canteenPaymentAmount, setCanteenPaymentAmount] = useState("");
+    const [canteenPaymentMethod, setCanteenPaymentMethod] = useState("");
+    const [canteenBillId, setCanteenBillId] = useState("");
+    
+    const [canteenTotalIncome, setCanteenTotalIncome] = useState(0);
+    const [canteenTotalExpense, setCanteenTotalExpense] = useState(0);
+    const [canteenItems, setCanteenItems] = useState<CanteenItem[]>([]);
+    const [isAddItemDialogOpen, setIsAddItemDialogOpen] = useState(false);
+    const [newItemName, setNewItemName] = useState("");
+    const [newItemPrice, setNewItemPrice] = useState("");
 
     const [billId, setBillId] = useState("");
 
@@ -190,6 +246,42 @@ export default function Page() {
         }
     }
 
+    const fetchCanteenData = async () => {
+        try {
+            // Fetch canteen items
+            const itemsResponse = await fetch('/api/canteen-item');
+            if (itemsResponse.ok) {
+                const items = await itemsResponse.json();
+                setCanteenItems(items);
+            }
+
+            // Fetch canteen transactions
+            const transactionsResponse = await fetch('/api/transaction-canteen');
+            if (transactionsResponse.ok) {
+                const transactions: CanteenTransaction[] = await transactionsResponse.json();
+                
+                // Calculate today's totals
+                const today = new Date().toISOString().split('T')[0];
+                const todayTransactions = transactions.filter(tx => 
+                    tx.date.startsWith(today)
+                );
+
+                const income = todayTransactions
+                    .filter(tx => tx.type === 'PEMASUKAN')
+                    .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+
+                const expense = todayTransactions
+                    .filter(tx => tx.type === 'PENGELUARAN')
+                    .reduce((sum, tx) => sum + tx.paymentAmount, 0);
+
+                setCanteenTotalIncome(income);
+                setCanteenTotalExpense(expense);
+            }
+        } catch (error) {
+            console.error('Error loading canteen data:', error);
+        }
+    };
+
     useEffect(() => {
         setTimeout(() => {setShow(true)}, 100);
         loadAllData();
@@ -201,7 +293,8 @@ export default function Page() {
             await Promise.all([
                 fetchMembers(),
                 fetchArrivals(),
-                fetchIncidentiles()
+                fetchIncidentiles(),
+                fetchCanteenData()
             ]);
         } catch (error) {
             console.error('Error loading data:', error);
@@ -221,6 +314,30 @@ export default function Page() {
             setPaymentAmount(getInsPaymentAmount().toString());
         }
     }, [insType, insClass, insPt, insSauna, isAddInsDialogOpen]);
+
+    // Calculate canteen total amount when item or quantity changes
+    useEffect(() => {
+        if (canteenTxType === "pemasukan" && canteenItemType && canteenItemAmount) {
+            const selectedItem = canteenItems.find(item => 
+                item.name.toLowerCase() === canteenItemType
+            );
+            if (selectedItem) {
+                const total = selectedItem.price * parseInt(canteenItemAmount);
+                setCanteenPaymentAmount(total.toString());
+            }
+        }
+    }, [canteenItemType, canteenItemAmount, canteenItems, canteenTxType]);
+
+    useEffect(() => {
+        if (editStockItemId) {
+            const selectedItem = canteenItems.find(item => 
+                item.id.toString() === editStockItemId
+            );
+            if (selectedItem) {
+                setEditStockValue(selectedItem.stock.toString());
+            }
+        }
+    }, [editStockItemId, canteenItems]);
 
     const handleAbsenceSubmit = async () => {
         if (!selectedMemberId || !absenceType) {
@@ -698,6 +815,87 @@ export default function Page() {
       return null;
     };
 
+    // Canteen handlers
+    const handleAddCanteenTxSubmit = async () => {
+        try {
+            const transactionData = {
+                type: canteenTxType.toUpperCase(),
+                paymentMethod: canteenPaymentMethod,
+                paymentAmount: parseInt(canteenPaymentAmount),
+                date: new Date().toISOString(),
+                ...(canteenTxType === "pemasukan" && {
+                    title: "Pembelian "+canteenItems.find(item => item.name.toLowerCase() === canteenItemType)?.name,
+                    itemId: canteenItems.find(item => item.name.toLowerCase() === canteenItemType)?.id,
+                    itemAmount: parseInt(canteenItemAmount) || 1
+                }),
+                ...(canteenTxType === "pengeluaran" && {
+                    title: canteenTxTitle,
+                    note: canteenTxNote
+                }),
+                billId: canteenBillId,
+            };
+
+            const response = await fetch('/api/transaction-canteen', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(transactionData),
+            });
+
+            if (response.ok) {
+                // Reset form
+                setCanteenTxType("");
+                setCanteenTxTitle("");
+                setCanteenTxNote("");
+                setCanteenItemType("");
+                setCanteenItemAmount("");
+                setCanteenPaymentAmount("");
+                setCanteenPaymentMethod("");
+                setCanteenBillId("");
+                setIsAddCanteenTxDialogOpen(false);
+                
+                // Reload data
+                fetchCanteenData();
+            } else {
+                console.error('Failed to create canteen transaction');
+            }
+        } catch (error) {
+            console.error('Error creating canteen transaction:', error);
+        }
+    }
+
+    const handleAddItemSubmit = async () => {
+        try {
+            const itemData = {
+                name: newItemName,
+                price: parseInt(newItemPrice)
+            };
+
+            const response = await fetch('/api/canteen-item', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(itemData),
+            });
+
+            if (response.ok) {
+                // Reset form
+                setNewItemName("");
+                setNewItemPrice("");
+                setIsAddItemDialogOpen(false);
+                
+                // Reload data
+                fetchCanteenData();
+            } else {
+                console.error('Failed to create item');
+            }
+        } catch (error) {
+            console.error('Error creating item:', error);
+        }
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center font-sans bg-gradient-to-tr from-[#629dc9] to-[#b8e4ff]">
             <div className={`w-full max-w-6xl py-8 px-4 transition-all duration-500 ${show ? "opacity-100" : "opacity-0"}`}>
@@ -730,6 +928,41 @@ export default function Page() {
                                 </BreadcrumbList>
                             </Breadcrumb>
                         </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 pb-4 px-8">
+                        <Link href="/canteen/tx-income">
+                                <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
+                                    <CardHeader>
+                                        <CardTitle className="text-gray-900 text-center">Pemasukan Hari Ini</CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        {loading ? (
+                                            <div className="flex justify-center">
+                                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                            </div>
+                                        ) : (
+                                            <p className="text-lg text-gray-700 text-center">{formatCurrency(canteenTotalIncome)}</p>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                            <Link href="/canteen/tx-expense">
+                                <Card className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer h-full">
+                                    <CardHeader>
+                                        <CardTitle className="text-gray-900 text-center">Pengeluaran Hari Ini</CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        {loading ? (
+                                            <div className="flex justify-center">
+                                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                            </div>
+                                        ) : (
+                                            <p className="text-lg text-gray-700 text-center">{formatCurrency(canteenTotalExpense)}</p>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                            </Link>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 pb-4 px-8">
@@ -799,8 +1032,8 @@ export default function Page() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 pb-8 px-8">
-                        <Card className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all border-0 cursor-pointer">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 px-8">
+                        <Card className="bg-white rounded-2xl shadow-sm transition-all border-0 cursor-pointer">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 text-center">Member Mendekati Habis ({nearExpMembers.length})</CardTitle>
                             </CardHeader>
@@ -810,7 +1043,7 @@ export default function Page() {
                                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
                                     </div>
                                 ) : (
-                                    <ScrollArea className="h-62 w-full">
+                                    <ScrollArea className="h-70 w-full">
                                         {nearExpMembers.length === 0 ? (
                                             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-3">
                                                 <p className="text-gray-700 text-center w-full">Tidak ada member yang mendekati habis.</p>
@@ -839,14 +1072,14 @@ export default function Page() {
                             </CardContent>
                         </Card>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
                             {canCreate && (
                             <Dialog open={isAbsDialogOpen} onOpenChange={setIsAbsDialogOpen}>
                                 <DialogTrigger asChild>
-                                    <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                                    <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
                                         <CardContent className="flex flex-row items-center gap-2">
                                             <CirclePlus className="text-[#7bb3d6]" />
-                                            <p className="text-md text-gray-900">Absensi Kedatangan Member</p>
+                                            <p className="text-md text-gray-900 ">Absensi Kedatangan Member</p>
                                         </CardContent>
                                     </Card>
                                 </DialogTrigger>
@@ -891,10 +1124,10 @@ export default function Page() {
                             {canCreate && (
                                 <Dialog open={isAddMemberDialogOpen} onOpenChange={setIsAddMemberDialogOpen}>
                                     <DialogTrigger asChild>
-                                        <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                                        <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
                                             <CardContent className="flex flex-row items-center gap-2">
                                                 <CirclePlus className="text-[#7bb3d6]" />
-                                                <p className="text-md text-gray-900">Tambah Member Baru</p>
+                                                <p className="text-md text-gray-900 ">Tambah Member Baru</p>
                                             </CardContent>
                                         </Card>
                                     </DialogTrigger>
@@ -1046,7 +1279,7 @@ export default function Page() {
                             {canCreate && (
                                 <Dialog open={isAddInsDialogOpen} onOpenChange={setIsAddInsDialogOpen}>
                                     <DialogTrigger asChild>
-                                        <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                                        <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
                                         <CardContent className="flex flex-row items-center gap-2">
                                             <CirclePlus className="text-[#7bb3d6]" />
                                             <p className="text-md text-gray-900">Tambah Insidentil Baru</p>
@@ -1160,88 +1393,149 @@ export default function Page() {
                             </Dialog>
                             )}
 
-                            {canCreate && (
-                            <Dialog open={isAddTxDialogOpen} onOpenChange={setIsAddTxDialogOpen}>
-                                <DialogTrigger asChild>
-                                    <Card className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
-                                        <CardContent className="flex flex-row items-center gap-2">
-                                            <CirclePlus className="text-[#7bb3d6]" />
-                                            <p className="text-md text-gray-900">Tambah Transaksi</p>
-                                        </CardContent>
-                                    </Card>
-                                </DialogTrigger>
-                                <DialogContent className="sm:max-w-[425px]">
-                                    <DialogHeader>
-                                        <DialogTitle>Tambah Transaksi</DialogTitle>
-                                        <DialogDescription>Masukkan detail transaksi di sini.</DialogDescription>
-                                    </DialogHeader>
-                                    <div className="grid gap-4 py-4">
-                                        <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="txType" className="text-left">
-                                                Transaksi
-                                            </Label>
-                                            <Select value={txType} onValueChange={setTxType}>
-                                                <SelectTrigger className="col-span-3">
-                                                    <SelectValue placeholder="Pilih Jenis Transaksi" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="pemasukan">Pemasukan</SelectItem>
-                                                    <SelectItem value="pengeluaran">Pengeluaran</SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        </div>
-                                        <div hidden={!(txType === "pengeluaran" || txType === "pemasukan")} className="grid gap-4">
-                                            <div className="grid grid-cols-4 items-center gap-4">
-                                                <Label htmlFor="txTitle" className="text-left">Judul</Label>
-                                                <Input id="txTitle" value={txTitle} onChange={(e) => setTxTitle(e.target.value)} placeholder="Masukkan Judul" className="col-span-3" />
-                                            </div>
-                                            <div className="grid grid-cols-4 items-center gap-4">
-                                                <Label htmlFor="txNote" className="text-left">Keterangan</Label>
-                                                <Input id="txNote" value={txNote} onChange={(e) => setTxNote(e.target.value)} placeholder="Masukkan Keterangan" className="col-span-3" />
-                                            </div>
-                                            <div className="grid grid-cols-4 items-center gap-4">
-                                                <Label htmlFor="paymentMethod" className="text-left">
-                                                    Pembayaran
-                                                </Label>
-                                                <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                                                    <SelectTrigger className="col-span-3">
-                                                        <SelectValue placeholder="Pilih Metode Pembayaran" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="CASH">Cash</SelectItem>
-                                                        <SelectItem value="TRANSFER">Transfer</SelectItem>
-                                                        <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
-                                                        <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
-                                                        <SelectItem value="TRANSFER_BRI">Transfer BRI</SelectItem>
-                                                        <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
-                                                        <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
-                                                        <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
-                                                        <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-                                            <div className="grid grid-cols-4 items-center gap-4">
-                                                <Label htmlFor="paymentAmount" className="text-left">
-                                                    Nominal
-                                                </Label>
-                                                <Input id="paymentAmount" type="number" value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} placeholder="Nominal Pembayaran" className="w-[50%] col-span-3" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <DialogFooter>
-                                        <Button type="submit" onClick={handleAddTxSubmit} disabled={!paymentAmount}>
-                                            Tambah Transaksi
-                                        </Button>
-                                    </DialogFooter>
-                                </DialogContent>
-                            </Dialog>
-                            )} 
-
-                            <Card onClick={() => setIsPerpanjangPtDialogOpen(true)} className="flex flex-col justify-between shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
-                                Test Perpanjang PT
+                            <Card onClick={() => setIsPerpanjangPtDialogOpen(true)} className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                                <CardContent className="flex flex-row items-center gap-2">
+                                    <CirclePlus className="text-[#7bb3d6]" />
+                                    <p className="text-md text-gray-900">Perpanjang Member PT</p>
+                                </CardContent>
                             </Card>
                         </div>
                     </div>
+
+                    {/* Canteen Section */}
+                    {canReadCanteen && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-8 pb-8">
+                        <Card className="bg-white rounded-2xl shadow-sm transition-all border-0 cursor-pointer">
+                            <CardHeader>
+                                <CardTitle className="text-gray-900 text-center">Daftar Menu</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <ScrollArea className="h-70 w-full">
+                                    {loading ? (
+                                        <div className="flex justify-center">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
+                                        </div>
+                                    ) : (
+                                        <Table>
+                                            <TableHeader>
+                                                <TableRow>
+                                                    <TableHead>Item</TableHead>
+                                                    <TableHead className="text-right">Stok</TableHead>
+                                                    <TableHead className="text-right">Harga</TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {canteenItems.map((item) => (
+                                                    <TableRow key={item.id}>
+                                                        <TableCell className="font-medium">{item.name}</TableCell>
+                                                        <TableCell className="text-right">{item.stock}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(item.price)}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    )}
+                                </ScrollArea>
+                            </CardContent>
+                        </Card>
+
+                        <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+                            {canCreateCanteen && (
+                            <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl" 
+                                  onClick={() => setIsAddCanteenTxDialogOpen(true)}>
+                                <CardContent className="flex flex-row items-center gap-2">
+                                    <CirclePlus className="text-[#7bb3d6]" />
+                                    <p className="text-md text-gray-900">Tambah Transaksi Kantin/Cafe</p>
+                                </CardContent>
+                            </Card>
+                            )}
+
+                            {canCreateCanteen && (
+                            <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl" 
+                                  onClick={() => setIsAddMenuDialogOpen(true)}>
+                                <CardContent className="flex flex-row items-center gap-2">
+                                    <CirclePlus className="text-[#7bb3d6]" />
+                                    <p className="text-md text-gray-900">Tambah Menu Baru</p>
+                                </CardContent>
+                            </Card>
+                            )}
+
+                            {canCreateCanteen && (
+                            <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl" 
+                                  onClick={() => setIsEditStockDialogOpen(true)}>
+                                <CardContent className="flex flex-row items-center gap-2">
+                                    <CirclePlus className="text-[#7bb3d6]" />
+                                    <p className="text-md text-gray-900">Atur Stok Kantin/Cafe</p>
+                                </CardContent>
+                            </Card>
+                            )}
+                        </div>
+                    </div>
+                    )}
+
+
+                    {/* Tambah Menu Baru Dialog */}
+                    <Dialog open={isAddMenuDialogOpen} onOpenChange={setIsAddMenuDialogOpen}>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle>Tambah Menu Baru</DialogTitle>
+                                <DialogDescription>Masukkan detail menu baru di sini.</DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="newMenuName" className="text-left">Nama Item</Label>
+                                    <Input id="newMenuName" value={newMenuName} onChange={e => setNewMenuName(e.target.value)} placeholder="Nama Item" className="col-span-3" />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="newMenuPrice" className="text-left">Harga</Label>
+                                    <Input id="newMenuPrice" type="number" value={newMenuPrice} onChange={e => setNewMenuPrice(e.target.value)} placeholder="Harga" className="col-span-3" />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="newMenuStock" className="text-left">Stok Awal</Label>
+                                    <Input id="newMenuStock" type="number" value={newMenuStock} onChange={e => setNewMenuStock(e.target.value)} placeholder="Stok Awal" className="col-span-3" />
+                                </div>
+                            </div>
+                            <DialogFooter>
+                                <Button type="submit" onClick={() => {/* TODO: handle add menu submit */}} disabled={!newMenuName || !newMenuPrice}>
+                                    Tambah Menu
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+
+                    {/* Atur Stok Kantin/Cafe Dialog */}
+                    <Dialog open={isEditStockDialogOpen} onOpenChange={setIsEditStockDialogOpen}>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle>Atur Stok Kantin/Cafe</DialogTitle>
+                                <DialogDescription>Pilih item dan atur stoknya.</DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="editStockItemId" className="text-left">Item</Label>
+                                    <Select value={editStockItemId} onValueChange={setEditStockItemId}>
+                                        <SelectTrigger className="col-span-3">
+                                            <SelectValue placeholder="Pilih Item" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {canteenItems.map((item) => (
+                                                <SelectItem key={item.id} value={item.id.toString()}>{item.name}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="editStockValue" className="text-left">Stok</Label>
+                                    <Input id="editStockValue" type="number" value={editStockValue} onChange={e => setEditStockValue(e.target.value)} placeholder="Stok" className="col-span-3 w-1/2" />
+                                </div>
+                            </div>
+                            <DialogFooter>
+                                <Button type="submit" onClick={() => {/* TODO: handle edit stock submit */}} disabled={!editStockItemId || !editStockValue}>
+                                    Simpan Stok
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
 
                     <AlertDialog open={isAlertDialogOpen} onOpenChange={setIsAlertDialogOpen}>
                         <AlertDialogContent>
@@ -1557,6 +1851,135 @@ export default function Page() {
                                     className="flex items-center gap-2 hover:cursor-pointer"
                                 >
                                     Perpanjang
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+
+                    <Dialog open={isAddCanteenTxDialogOpen} onOpenChange={setIsAddCanteenTxDialogOpen}>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle>Tambah Transaksi Kantin</DialogTitle>
+                                <DialogDescription>Masukkan detail transaksi kantin di sini.</DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="canteenTxType" className="text-right">
+                                        Transaksi
+                                    </Label>
+                                    <Select value={canteenTxType} onValueChange={setCanteenTxType}>
+                                        <SelectTrigger className="col-span-3">
+                                            <SelectValue placeholder="Pilih Jenis Transaksi" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="pemasukan">Pemasukan</SelectItem>
+                                            <SelectItem value="pengeluaran">Pengeluaran</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                
+                                <div hidden={!(canteenTxType === "pemasukan")} className="grid gap-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenItemType" className="text-left">Item</Label>
+                                        <Select value={canteenItemType} onValueChange={setCanteenItemType}>
+                                            <SelectTrigger className="col-span-3">
+                                                <SelectValue placeholder="Pilih Item" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {canteenItems.map((item) => (
+                                                    <SelectItem key={item.id} value={item.name.toLowerCase()}>
+                                                        {item.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenItemAmount" className="text-left">Jumlah Item</Label>
+                                        <Input type="number" id="canteenItemAmount" value={canteenItemAmount} onChange={(e) => setCanteenItemAmount(e.target.value)} placeholder="Jumlah Item" className="col-span-3 w-1/2" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenPaymentMethod" className="text-left">
+                                            Pembayaran
+                                        </Label>
+                                        <Select value={canteenPaymentMethod} onValueChange={setCanteenPaymentMethod}>
+                                            <SelectTrigger className="col-span-3">
+                                                <SelectValue placeholder="Pilih Metode Pembayaran" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="CASH">Cash</SelectItem>
+                                                <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenBillId" className="text-left">
+                                            No Nota
+                                        </Label>
+                                        <Input id="canteenBillId" value={canteenBillId} onChange={(e) => setCanteenBillId(e.target.value)} placeholder="No Nota" className="col-span-3 w-1/2" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenPaymentAmount" className="text-left">
+                                            Jumlah
+                                        </Label>
+                                        <p className="font-semibold text-sm col-span-3">
+                                            {loading ? "Loading..." : formatCurrency(canteenPaymentAmount ? parseInt(canteenPaymentAmount) : 0)}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div hidden={!(canteenTxType === "pengeluaran")} className="grid gap-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenTxTitle" className="text-left">Judul</Label>
+                                        <Input id="canteenTxTitle" value={canteenTxTitle} onChange={(e) => setCanteenTxTitle(e.target.value)} placeholder="Judul Pengeluaran" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenTxNote" className="text-left">Keterangan</Label>
+                                        <Input id="canteenTxNote" value={canteenTxNote} onChange={(e) => setCanteenTxNote(e.target.value)} placeholder="Keterangan Pengeluaran" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenPaymentMethod2" className="text-left">
+                                            Pembayaran
+                                        </Label>
+                                        <Select value={canteenPaymentMethod} onValueChange={setCanteenPaymentMethod}>
+                                            <SelectTrigger className="col-span-3">
+                                                <SelectValue placeholder="Pilih Metode Pembayaran" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="CASH">Cash</SelectItem>
+                                                <SelectItem value="TRANSFER">Transfer</SelectItem>
+                                                <SelectItem value="DEBIT_BRI">Debit BRI</SelectItem>
+                                                <SelectItem value="QRIS_BRI">QRIS BRI</SelectItem>
+                                                <SelectItem value="DEBIT_MANDIRI">Debit Mandiri</SelectItem>
+                                                <SelectItem value="QRIS_MANDIRI">QRIS Mandiri</SelectItem>
+                                                <SelectItem value="EDC_MANDIRI">EDC Mandiri</SelectItem>
+                                                <SelectItem value="TRANSFER_MANDIRI">Transfer Mandiri</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenBillId" className="text-left">
+                                            No Nota
+                                        </Label>
+                                        <Input id="canteenBillId" value={canteenBillId} onChange={(e) => setCanteenBillId(e.target.value)} placeholder="No Nota" className="col-span-3 w-1/2" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="canteenPaymentAmount2" className="text-left">
+                                            Jumlah
+                                        </Label>
+                                        <Input id="canteenPaymentAmount2" type="number" value={canteenPaymentAmount} onChange={(e) => setCanteenPaymentAmount(e.target.value)} placeholder="Jumlah Pembayaran" className="col-span-3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <DialogFooter>
+                                <Button type="submit" onClick={handleAddCanteenTxSubmit} disabled={!canteenPaymentAmount}>
+                                    Tambah Transaksi
                                 </Button>
                             </DialogFooter>
                         </DialogContent>
