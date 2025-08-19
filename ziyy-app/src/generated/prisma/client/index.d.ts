@@ -4561,6 +4561,7 @@ export namespace Prisma {
     memberId: number | null
     arrivalDate: Date | null
     arrivalType: $Enums.ArrivalType | null
+    namaPt: string | null
   }
 
   export type MemberArrivalMaxAggregateOutputType = {
@@ -4568,6 +4569,7 @@ export namespace Prisma {
     memberId: number | null
     arrivalDate: Date | null
     arrivalType: $Enums.ArrivalType | null
+    namaPt: string | null
   }
 
   export type MemberArrivalCountAggregateOutputType = {
@@ -4575,6 +4577,7 @@ export namespace Prisma {
     memberId: number
     arrivalDate: number
     arrivalType: number
+    namaPt: number
     _all: number
   }
 
@@ -4594,6 +4597,7 @@ export namespace Prisma {
     memberId?: true
     arrivalDate?: true
     arrivalType?: true
+    namaPt?: true
   }
 
   export type MemberArrivalMaxAggregateInputType = {
@@ -4601,6 +4605,7 @@ export namespace Prisma {
     memberId?: true
     arrivalDate?: true
     arrivalType?: true
+    namaPt?: true
   }
 
   export type MemberArrivalCountAggregateInputType = {
@@ -4608,6 +4613,7 @@ export namespace Prisma {
     memberId?: true
     arrivalDate?: true
     arrivalType?: true
+    namaPt?: true
     _all?: true
   }
 
@@ -4702,6 +4708,7 @@ export namespace Prisma {
     memberId: number
     arrivalDate: Date
     arrivalType: $Enums.ArrivalType
+    namaPt: string | null
     _count: MemberArrivalCountAggregateOutputType | null
     _avg: MemberArrivalAvgAggregateOutputType | null
     _sum: MemberArrivalSumAggregateOutputType | null
@@ -4728,6 +4735,7 @@ export namespace Prisma {
     memberId?: boolean
     arrivalDate?: boolean
     arrivalType?: boolean
+    namaPt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["memberArrival"]>
 
@@ -4736,6 +4744,7 @@ export namespace Prisma {
     memberId?: boolean
     arrivalDate?: boolean
     arrivalType?: boolean
+    namaPt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["memberArrival"]>
 
@@ -4744,6 +4753,7 @@ export namespace Prisma {
     memberId?: boolean
     arrivalDate?: boolean
     arrivalType?: boolean
+    namaPt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["memberArrival"]>
 
@@ -4752,9 +4762,10 @@ export namespace Prisma {
     memberId?: boolean
     arrivalDate?: boolean
     arrivalType?: boolean
+    namaPt?: boolean
   }
 
-  export type MemberArrivalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "memberId" | "arrivalDate" | "arrivalType", ExtArgs["result"]["memberArrival"]>
+  export type MemberArrivalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "memberId" | "arrivalDate" | "arrivalType" | "namaPt", ExtArgs["result"]["memberArrival"]>
   export type MemberArrivalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }
@@ -4775,6 +4786,7 @@ export namespace Prisma {
       memberId: number
       arrivalDate: Date
       arrivalType: $Enums.ArrivalType
+      namaPt: string | null
     }, ExtArgs["result"]["memberArrival"]>
     composites: {}
   }
@@ -5203,6 +5215,7 @@ export namespace Prisma {
     readonly memberId: FieldRef<"MemberArrival", 'Int'>
     readonly arrivalDate: FieldRef<"MemberArrival", 'DateTime'>
     readonly arrivalType: FieldRef<"MemberArrival", 'ArrivalType'>
+    readonly namaPt: FieldRef<"MemberArrival", 'String'>
   }
     
 
@@ -5645,6 +5658,7 @@ export namespace Prisma {
     phone: string | null
     type: $Enums.IncidentileType | null
     class: $Enums.IncidentileClass | null
+    namaPt: string | null
     pt: boolean | null
     sauna: boolean | null
     paymentMethod: $Enums.PaymentMethod | null
@@ -5658,6 +5672,7 @@ export namespace Prisma {
     phone: string | null
     type: $Enums.IncidentileType | null
     class: $Enums.IncidentileClass | null
+    namaPt: string | null
     pt: boolean | null
     sauna: boolean | null
     paymentMethod: $Enums.PaymentMethod | null
@@ -5671,6 +5686,7 @@ export namespace Prisma {
     phone: number
     type: number
     class: number
+    namaPt: number
     pt: number
     sauna: number
     paymentMethod: number
@@ -5696,6 +5712,7 @@ export namespace Prisma {
     phone?: true
     type?: true
     class?: true
+    namaPt?: true
     pt?: true
     sauna?: true
     paymentMethod?: true
@@ -5709,6 +5726,7 @@ export namespace Prisma {
     phone?: true
     type?: true
     class?: true
+    namaPt?: true
     pt?: true
     sauna?: true
     paymentMethod?: true
@@ -5722,6 +5740,7 @@ export namespace Prisma {
     phone?: true
     type?: true
     class?: true
+    namaPt?: true
     pt?: true
     sauna?: true
     paymentMethod?: true
@@ -5822,6 +5841,7 @@ export namespace Prisma {
     phone: string | null
     type: $Enums.IncidentileType
     class: $Enums.IncidentileClass | null
+    namaPt: string | null
     pt: boolean
     sauna: boolean
     paymentMethod: $Enums.PaymentMethod
@@ -5854,6 +5874,7 @@ export namespace Prisma {
     phone?: boolean
     type?: boolean
     class?: boolean
+    namaPt?: boolean
     pt?: boolean
     sauna?: boolean
     paymentMethod?: boolean
@@ -5867,6 +5888,7 @@ export namespace Prisma {
     phone?: boolean
     type?: boolean
     class?: boolean
+    namaPt?: boolean
     pt?: boolean
     sauna?: boolean
     paymentMethod?: boolean
@@ -5880,6 +5902,7 @@ export namespace Prisma {
     phone?: boolean
     type?: boolean
     class?: boolean
+    namaPt?: boolean
     pt?: boolean
     sauna?: boolean
     paymentMethod?: boolean
@@ -5893,6 +5916,7 @@ export namespace Prisma {
     phone?: boolean
     type?: boolean
     class?: boolean
+    namaPt?: boolean
     pt?: boolean
     sauna?: boolean
     paymentMethod?: boolean
@@ -5900,7 +5924,7 @@ export namespace Prisma {
     date?: boolean
   }
 
-  export type IncidentileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "type" | "class" | "pt" | "sauna" | "paymentMethod" | "paymentAmount" | "date", ExtArgs["result"]["incidentile"]>
+  export type IncidentileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "type" | "class" | "namaPt" | "pt" | "sauna" | "paymentMethod" | "paymentAmount" | "date", ExtArgs["result"]["incidentile"]>
 
   export type $IncidentilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Incidentile"
@@ -5911,6 +5935,7 @@ export namespace Prisma {
       phone: string | null
       type: $Enums.IncidentileType
       class: $Enums.IncidentileClass | null
+      namaPt: string | null
       pt: boolean
       sauna: boolean
       paymentMethod: $Enums.PaymentMethod
@@ -6344,6 +6369,7 @@ export namespace Prisma {
     readonly phone: FieldRef<"Incidentile", 'String'>
     readonly type: FieldRef<"Incidentile", 'IncidentileType'>
     readonly class: FieldRef<"Incidentile", 'IncidentileClass'>
+    readonly namaPt: FieldRef<"Incidentile", 'String'>
     readonly pt: FieldRef<"Incidentile", 'Boolean'>
     readonly sauna: FieldRef<"Incidentile", 'Boolean'>
     readonly paymentMethod: FieldRef<"Incidentile", 'PaymentMethod'>
@@ -17083,7 +17109,8 @@ export namespace Prisma {
     id: 'id',
     memberId: 'memberId',
     arrivalDate: 'arrivalDate',
-    arrivalType: 'arrivalType'
+    arrivalType: 'arrivalType',
+    namaPt: 'namaPt'
   };
 
   export type MemberArrivalScalarFieldEnum = (typeof MemberArrivalScalarFieldEnum)[keyof typeof MemberArrivalScalarFieldEnum]
@@ -17095,6 +17122,7 @@ export namespace Prisma {
     phone: 'phone',
     type: 'type',
     class: 'class',
+    namaPt: 'namaPt',
     pt: 'pt',
     sauna: 'sauna',
     paymentMethod: 'paymentMethod',
@@ -17651,6 +17679,7 @@ export namespace Prisma {
     memberId?: IntFilter<"MemberArrival"> | number
     arrivalDate?: DateTimeFilter<"MemberArrival"> | Date | string
     arrivalType?: EnumArrivalTypeFilter<"MemberArrival"> | $Enums.ArrivalType
+    namaPt?: StringNullableFilter<"MemberArrival"> | string | null
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
   }
 
@@ -17659,6 +17688,7 @@ export namespace Prisma {
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrderInput | SortOrder
     member?: MemberOrderByWithRelationInput
   }
 
@@ -17670,6 +17700,7 @@ export namespace Prisma {
     memberId?: IntFilter<"MemberArrival"> | number
     arrivalDate?: DateTimeFilter<"MemberArrival"> | Date | string
     arrivalType?: EnumArrivalTypeFilter<"MemberArrival"> | $Enums.ArrivalType
+    namaPt?: StringNullableFilter<"MemberArrival"> | string | null
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
   }, "id">
 
@@ -17678,6 +17709,7 @@ export namespace Prisma {
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrderInput | SortOrder
     _count?: MemberArrivalCountOrderByAggregateInput
     _avg?: MemberArrivalAvgOrderByAggregateInput
     _max?: MemberArrivalMaxOrderByAggregateInput
@@ -17693,6 +17725,7 @@ export namespace Prisma {
     memberId?: IntWithAggregatesFilter<"MemberArrival"> | number
     arrivalDate?: DateTimeWithAggregatesFilter<"MemberArrival"> | Date | string
     arrivalType?: EnumArrivalTypeWithAggregatesFilter<"MemberArrival"> | $Enums.ArrivalType
+    namaPt?: StringNullableWithAggregatesFilter<"MemberArrival"> | string | null
   }
 
   export type IncidentileWhereInput = {
@@ -17704,6 +17737,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Incidentile"> | string | null
     type?: EnumIncidentileTypeFilter<"Incidentile"> | $Enums.IncidentileType
     class?: EnumIncidentileClassNullableFilter<"Incidentile"> | $Enums.IncidentileClass | null
+    namaPt?: StringNullableFilter<"Incidentile"> | string | null
     pt?: BoolFilter<"Incidentile"> | boolean
     sauna?: BoolFilter<"Incidentile"> | boolean
     paymentMethod?: EnumPaymentMethodFilter<"Incidentile"> | $Enums.PaymentMethod
@@ -17717,6 +17751,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     type?: SortOrder
     class?: SortOrderInput | SortOrder
+    namaPt?: SortOrderInput | SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -17733,6 +17768,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Incidentile"> | string | null
     type?: EnumIncidentileTypeFilter<"Incidentile"> | $Enums.IncidentileType
     class?: EnumIncidentileClassNullableFilter<"Incidentile"> | $Enums.IncidentileClass | null
+    namaPt?: StringNullableFilter<"Incidentile"> | string | null
     pt?: BoolFilter<"Incidentile"> | boolean
     sauna?: BoolFilter<"Incidentile"> | boolean
     paymentMethod?: EnumPaymentMethodFilter<"Incidentile"> | $Enums.PaymentMethod
@@ -17746,6 +17782,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     type?: SortOrder
     class?: SortOrderInput | SortOrder
+    namaPt?: SortOrderInput | SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -17767,6 +17804,7 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"Incidentile"> | string | null
     type?: EnumIncidentileTypeWithAggregatesFilter<"Incidentile"> | $Enums.IncidentileType
     class?: EnumIncidentileClassNullableWithAggregatesFilter<"Incidentile"> | $Enums.IncidentileClass | null
+    namaPt?: StringNullableWithAggregatesFilter<"Incidentile"> | string | null
     pt?: BoolWithAggregatesFilter<"Incidentile"> | boolean
     sauna?: BoolWithAggregatesFilter<"Incidentile"> | boolean
     paymentMethod?: EnumPaymentMethodWithAggregatesFilter<"Incidentile"> | $Enums.PaymentMethod
@@ -18618,6 +18656,7 @@ export namespace Prisma {
   export type MemberArrivalCreateInput = {
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
     member: MemberCreateNestedOneWithoutArrivalsInput
   }
 
@@ -18626,11 +18665,13 @@ export namespace Prisma {
     memberId: number
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
   }
 
   export type MemberArrivalUpdateInput = {
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     member?: MemberUpdateOneRequiredWithoutArrivalsNestedInput
   }
 
@@ -18639,6 +18680,7 @@ export namespace Prisma {
     memberId?: IntFieldUpdateOperationsInput | number
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MemberArrivalCreateManyInput = {
@@ -18646,11 +18688,13 @@ export namespace Prisma {
     memberId: number
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
   }
 
   export type MemberArrivalUpdateManyMutationInput = {
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MemberArrivalUncheckedUpdateManyInput = {
@@ -18658,6 +18702,7 @@ export namespace Prisma {
     memberId?: IntFieldUpdateOperationsInput | number
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IncidentileCreateInput = {
@@ -18665,6 +18710,7 @@ export namespace Prisma {
     phone?: string | null
     type: $Enums.IncidentileType
     class?: $Enums.IncidentileClass | null
+    namaPt?: string | null
     pt: boolean
     sauna: boolean
     paymentMethod: $Enums.PaymentMethod
@@ -18678,6 +18724,7 @@ export namespace Prisma {
     phone?: string | null
     type: $Enums.IncidentileType
     class?: $Enums.IncidentileClass | null
+    namaPt?: string | null
     pt: boolean
     sauna: boolean
     paymentMethod: $Enums.PaymentMethod
@@ -18690,6 +18737,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentileTypeFieldUpdateOperationsInput | $Enums.IncidentileType
     class?: NullableEnumIncidentileClassFieldUpdateOperationsInput | $Enums.IncidentileClass | null
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     pt?: BoolFieldUpdateOperationsInput | boolean
     sauna?: BoolFieldUpdateOperationsInput | boolean
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -18703,6 +18751,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentileTypeFieldUpdateOperationsInput | $Enums.IncidentileType
     class?: NullableEnumIncidentileClassFieldUpdateOperationsInput | $Enums.IncidentileClass | null
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     pt?: BoolFieldUpdateOperationsInput | boolean
     sauna?: BoolFieldUpdateOperationsInput | boolean
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -18716,6 +18765,7 @@ export namespace Prisma {
     phone?: string | null
     type: $Enums.IncidentileType
     class?: $Enums.IncidentileClass | null
+    namaPt?: string | null
     pt: boolean
     sauna: boolean
     paymentMethod: $Enums.PaymentMethod
@@ -18728,6 +18778,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentileTypeFieldUpdateOperationsInput | $Enums.IncidentileType
     class?: NullableEnumIncidentileClassFieldUpdateOperationsInput | $Enums.IncidentileClass | null
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     pt?: BoolFieldUpdateOperationsInput | boolean
     sauna?: BoolFieldUpdateOperationsInput | boolean
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -18741,6 +18792,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentileTypeFieldUpdateOperationsInput | $Enums.IncidentileType
     class?: NullableEnumIncidentileClassFieldUpdateOperationsInput | $Enums.IncidentileClass | null
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     pt?: BoolFieldUpdateOperationsInput | boolean
     sauna?: BoolFieldUpdateOperationsInput | boolean
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -19780,11 +19832,27 @@ export namespace Prisma {
     not?: NestedEnumArrivalTypeFilter<$PrismaModel> | $Enums.ArrivalType
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type MemberArrivalCountOrderByAggregateInput = {
     id?: SortOrder
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrder
   }
 
   export type MemberArrivalAvgOrderByAggregateInput = {
@@ -19797,6 +19865,7 @@ export namespace Prisma {
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrder
   }
 
   export type MemberArrivalMinOrderByAggregateInput = {
@@ -19804,6 +19873,7 @@ export namespace Prisma {
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrder
   }
 
   export type MemberArrivalSumOrderByAggregateInput = {
@@ -19821,7 +19891,7 @@ export namespace Prisma {
     _max?: NestedEnumArrivalTypeFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -19833,7 +19903,10 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumIncidentileTypeFilter<$PrismaModel = never> = {
@@ -19868,6 +19941,7 @@ export namespace Prisma {
     phone?: SortOrder
     type?: SortOrder
     class?: SortOrder
+    namaPt?: SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -19886,6 +19960,7 @@ export namespace Prisma {
     phone?: SortOrder
     type?: SortOrder
     class?: SortOrder
+    namaPt?: SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -19899,6 +19974,7 @@ export namespace Prisma {
     phone?: SortOrder
     type?: SortOrder
     class?: SortOrder
+    namaPt?: SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -19909,24 +19985,6 @@ export namespace Prisma {
   export type IncidentileSumOrderByAggregateInput = {
     id?: SortOrder
     paymentAmount?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumIncidentileTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -20824,16 +20882,16 @@ export namespace Prisma {
     set?: $Enums.ArrivalType
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type MemberUpdateOneRequiredWithoutArrivalsNestedInput = {
     create?: XOR<MemberCreateWithoutArrivalsInput, MemberUncheckedCreateWithoutArrivalsInput>
     connectOrCreate?: MemberCreateOrConnectWithoutArrivalsInput
     upsert?: MemberUpsertWithoutArrivalsInput
     connect?: MemberWhereUniqueInput
     update?: XOR<XOR<MemberUpdateToOneWithWhereWithoutArrivalsInput, MemberUpdateWithoutArrivalsInput>, MemberUncheckedUpdateWithoutArrivalsInput>
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type EnumIncidentileTypeFieldUpdateOperationsInput = {
@@ -21239,16 +21297,6 @@ export namespace Prisma {
     not?: NestedEnumArrivalTypeFilter<$PrismaModel> | $Enums.ArrivalType
   }
 
-  export type NestedEnumArrivalTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ArrivalType | EnumArrivalTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ArrivalType[] | ListEnumArrivalTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ArrivalType[] | ListEnumArrivalTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumArrivalTypeWithAggregatesFilter<$PrismaModel> | $Enums.ArrivalType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumArrivalTypeFilter<$PrismaModel>
-    _max?: NestedEnumArrivalTypeFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -21261,6 +21309,33 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumArrivalTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ArrivalType | EnumArrivalTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ArrivalType[] | ListEnumArrivalTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ArrivalType[] | ListEnumArrivalTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumArrivalTypeWithAggregatesFilter<$PrismaModel> | $Enums.ArrivalType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumArrivalTypeFilter<$PrismaModel>
+    _max?: NestedEnumArrivalTypeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumIncidentileTypeFilter<$PrismaModel = never> = {
@@ -21287,23 +21362,6 @@ export namespace Prisma {
     in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
     notIn?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
     not?: NestedEnumPaymentMethodFilter<$PrismaModel> | $Enums.PaymentMethod
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumIncidentileTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -21511,12 +21569,14 @@ export namespace Prisma {
   export type MemberArrivalCreateWithoutMemberInput = {
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
   }
 
   export type MemberArrivalUncheckedCreateWithoutMemberInput = {
     id?: number
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
   }
 
   export type MemberArrivalCreateOrConnectWithoutMemberInput = {
@@ -21594,6 +21654,7 @@ export namespace Prisma {
     memberId?: IntFilter<"MemberArrival"> | number
     arrivalDate?: DateTimeFilter<"MemberArrival"> | Date | string
     arrivalType?: EnumArrivalTypeFilter<"MemberArrival"> | $Enums.ArrivalType
+    namaPt?: StringNullableFilter<"MemberArrival"> | string | null
   }
 
   export type MemberCreateWithoutCouples1Input = {
@@ -22147,6 +22208,7 @@ export namespace Prisma {
     id?: number
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
   }
 
   export type CoupleUpdateWithoutMember1Input = {
@@ -22180,18 +22242,21 @@ export namespace Prisma {
   export type MemberArrivalUpdateWithoutMemberInput = {
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MemberArrivalUncheckedUpdateWithoutMemberInput = {
     id?: IntFieldUpdateOperationsInput | number
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MemberArrivalUncheckedUpdateManyWithoutMemberInput = {
     id?: IntFieldUpdateOperationsInput | number
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ActivityMarketingCreateManyCampaignInput = {

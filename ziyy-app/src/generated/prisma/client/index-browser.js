@@ -142,7 +142,8 @@ exports.Prisma.MemberArrivalScalarFieldEnum = {
   id: 'id',
   memberId: 'memberId',
   arrivalDate: 'arrivalDate',
-  arrivalType: 'arrivalType'
+  arrivalType: 'arrivalType',
+  namaPt: 'namaPt'
 };
 
 exports.Prisma.IncidentileScalarFieldEnum = {
@@ -151,6 +152,7 @@ exports.Prisma.IncidentileScalarFieldEnum = {
   phone: 'phone',
   type: 'type',
   class: 'class',
+  namaPt: 'namaPt',
   pt: 'pt',
   sauna: 'sauna',
   paymentMethod: 'paymentMethod',

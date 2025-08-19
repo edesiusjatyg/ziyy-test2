@@ -45,6 +45,7 @@ model MemberArrival {
   memberId    Int
   arrivalDate DateTime
   arrivalType ArrivalType
+  namaPt      String?
   member      Member      @relation(fields: [memberId], references: [id])
 
   @@index([memberId])
@@ -58,6 +59,7 @@ model Incidentile {
   phone         String?
   type          IncidentileType
   class         IncidentileClass?
+  namaPt        String?
   pt            Boolean
   sauna         Boolean
   paymentMethod PaymentMethod

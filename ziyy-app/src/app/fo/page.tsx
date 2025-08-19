@@ -38,6 +38,7 @@ interface Arrival {
   name: string;
   arrivalDate: string;
   arrivalType: string;
+  namaPt: string;
 }
 
 interface Insidentil {
@@ -45,10 +46,11 @@ interface Insidentil {
     name: string;
     type: string;
     class: string;
+    namaPt: string;
     pt: boolean;
     sauna: boolean;
     date: string;
-    paymentMethod: string;
+    paymentMethod: string;  
     paymentAmount: number;
 }
 
@@ -108,12 +110,14 @@ export default function Page() {
     const [memberDuration, setMemberDuration] = useState("");
     const [memberPt, setMemberPt] = useState(false);
     const [memberPtAmount, setMemberPtAmount] = useState("");
+    const [arrivalNamaPt, setArrivalNamaPt] = useState("");
 
     const [insName, setInsName] = useState("");
     const [insPhone, setInsPhone] = useState("");
     const [insType, setInsType] = useState("");
     const [insClass, setInsClass] = useState("");
     const [insPt, setInsPt] = useState(false);
+    const [insNamaPt, setInsNamaPt] = useState("");
     const [insSauna, setInsSauna] = useState(false);
 
     const [txType, setTxType] = useState("");
@@ -364,6 +368,7 @@ export default function Page() {
                 body: JSON.stringify({
                     memberId: selectedMemberId,
                     arrivalType: absenceType.toUpperCase(),
+                    namaPt: arrivalNamaPt,
                 }),
             });
 
@@ -477,6 +482,7 @@ export default function Page() {
                     phone: insPhone,
                     type: insType.toUpperCase(),
                     class: insClass ? insClass.toUpperCase() : null,
+                    namaPt: insNamaPt,
                     pt: insPt,
                     sauna: insSauna,
                     paymentMethod: paymentMethod.toUpperCase(),
@@ -1152,6 +1158,12 @@ export default function Page() {
                                             </SelectContent>
                                             </Select>
                                         </div>
+                                        <div hidden={absenceType !== "GYM_PT"} className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="arrivalNamaPt" className="text-left">Nama PT</Label>
+                                            <div className="col-span-3">
+                                                <Input id="arrivalNamaPt" value={arrivalNamaPt} onChange={(e) => setArrivalNamaPt(e.target.value)} placeholder="Nama PT" className="col-span-3" />
+                                            </div>
+                                        </div>
                                     </div>
                                     <DialogFooter>
                                         <Button type="submit" onClick={handleAbsenceSubmit} className="hover:cursor-pointer">
@@ -1372,6 +1384,12 @@ export default function Page() {
                                                 Sauna?
                                             </Label>
                                             <Checkbox id="insSauna" checked={insSauna} onCheckedChange={(checked) => setInsSauna(!!checked)} />
+                                        </div>
+                                        <div hidden={!(insType === "pt") && !insPt} className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="insNamaPt" className="text-left">
+                                                Nama PT
+                                            </Label>
+                                            <Input id="insNamaPt" value={insNamaPt} onChange={(e) => setInsNamaPt(e.target.value)} placeholder="Nama PT" className="col-span-3" />
                                         </div>
                                         <div hidden={!(insType === "kelas")} className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="insClass" className="text-left">
