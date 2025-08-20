@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { CirclePlus, Undo2, Info, Phone, NotebookPen, UserPlus, Contact, Coffee, BanknoteArrowUp, Notebook,  } from "lucide-react";
+import { CirclePlus, Undo2, Info, Phone, NotebookPen, UserPlus, Contact, Coffee, BanknoteArrowUp, Notebook, FileText,  } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -1525,6 +1525,16 @@ export default function Page() {
                                 <CardContent className="flex flex-row items-center gap-2 justify-between">
                                     <p className="text-md text-gray-900">Atur Stok Kantin/Cafe</p>
                                     <NotebookPen className="text-[#7bb3d6]" />
+                                </CardContent>
+                            </Card>
+                            )}
+
+                            {canReadCanteen && (
+                            <Card className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl"
+                                 onClick={() => router.push('/fo/rekap')}>
+                                <CardContent className="flex flex-row items-center gap-2 justify-between">
+                                    <p className="text-md text-gray-900">Rekap Front Office</p>
+                                    <FileText className="text-[#7bb3d6]" />
                                 </CardContent>
                             </Card>
                             )}
