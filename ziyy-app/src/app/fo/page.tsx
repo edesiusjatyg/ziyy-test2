@@ -1096,7 +1096,7 @@ export default function Page() {
                                                 <p className="text-gray-700 text-center w-full">Tidak ada member yang mendekati habis.</p>
                                             </div>
                                         ) : (
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
                                                 {nearExpMembers.map((member) => (
                                                     <Card key={member.id} className="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-3 cursor-pointer justify-between" onClick={() => handleNearExpMemberClick(member)}>
                                                         <CardContent className="flex flex-col p-2">
