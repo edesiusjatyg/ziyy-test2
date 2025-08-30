@@ -160,8 +160,8 @@ export default function Page() {
                     title: campaignTitle,
                     description: campaignDesc,
                     kpi: campaignKpi,
-                    startDate: startDate,
-                    endDate: endDate,
+                    startDate: new Date(startDate).toISOString(),
+                    endDate: new Date(endDate).toISOString(),
                     status: 'ACTIVE'
                 }),
             });
