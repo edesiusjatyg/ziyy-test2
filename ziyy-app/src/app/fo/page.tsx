@@ -849,6 +849,30 @@ export default function Page() {
                 body: JSON.stringify(transactionData),
             });
 
+            // Deduct stock if pemasukan (sale)
+            if (response.ok && canteenTxType === "pemasukan") {
+                const item = canteenItems.find(item => item.name.toLowerCase() === canteenItemType);
+                const itemId = item?.id;
+                const amount = parseInt(canteenItemAmount) || 1;
+                if (itemId) {
+                    // Update stock in backend
+                    await fetch('/api/canteen-item', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            id: itemId,
+                            stock: item.stock - amount
+                        })
+                    });
+                    // Update stock in UI instantly
+                    setCanteenItems(prev => prev.map(ci =>
+                        ci.id === itemId
+                            ? { ...ci, stock: Math.max(0, (ci.stock || 0) - amount) }
+                            : ci
+                    ));
+                }
+            }
+
             if (response.ok) {
                 // Reset form
                 setCanteenTxType("");
