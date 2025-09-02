@@ -43,6 +43,7 @@ export default function Page() {
     const [show, setShow] = useState(false);
     const [reports, setReports] = useState<ReportData[]>([]);
     const router = useRouter();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setTimeout(() => { setShow(true) }, 100);
@@ -60,6 +61,8 @@ export default function Page() {
             setReports(data);
         } catch (error) {
             console.error('Error fetching reports:', error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -105,12 +108,43 @@ export default function Page() {
 
                     {/* Reports Grid */}
                     <div className="px-8 pb-8">
-                        <div className="mb-8">
-                            <h3 className="text-base md:text-lg text-gray-500 mb-2 text-center">Monthly Performance Reports</h3>
-                            <p className="text-sm md:text-base text-gray-500 text-center">View detailed performance reports for each month</p>
+                        <div hidden={!loading} className="flex items-center justify-center py-20">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-400"></div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" hidden={loading}>
+                            <Card className="hover:shadow-lg transition-shadow duration-200 border border-gray-200 justify-between">
+                                <CardHeader className="pb-3">
+                                    <div className="flex items-start justify-between">
+                                        <div className="flex items-center gap-2">
+                                            <div className="p-2 bg-gray-200 rounded-lg">
+                                                <FileText className="w-5 h-5" />
+                                            </div>
+                                            <div>
+                                                <CardTitle className="text-lg font-semibold text-gray-800">
+                                                    Custom Report
+                                                </CardTitle>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2 mt-2">
+                                        <Calendar className="w-4 h-4 text-gray-500" />
+                                        <p className="text-sm text-gray-600">Tentukan tanggal sendiri.</p>
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="pt-0">
+                                    <div className="mt-4">
+                                        <Button 
+                                            className="w-full cursor-pointer" 
+                                            variant="outline"
+                                            onClick={() => router.push(`/mgmt/reports/custom`)}
+                                        >
+                                            Buat Custom Report
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
                             {reports.map((report) => (
                                 <Card key={report.id} className="hover:shadow-lg transition-shadow duration-200 border border-gray-200">
                                     <CardHeader className="pb-3">

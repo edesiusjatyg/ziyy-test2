@@ -5,7 +5,14 @@ import { useRouter } from "next/navigation";
 import { Calendar, CalendarIcon, Undo2, Users, DollarSign, User, Weight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/format";
-// Placeholder for report data structure (copy from mgmt reports [id] page)
+import { Button } from "@/components/ui/button";
+import { Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbItem, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
+
 const mockReportData = {
     displayName: "Periode Custom",
     totalMembers: 120,
@@ -32,27 +39,20 @@ const mockReportData = {
     finishedCampaignNames: ["Promo A", "Promo B"],
     finishedCampaignActivities: ["Flyer", "IG Post"],
 };
-import { Button } from "@/components/ui/button";
-import { Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbItem, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar as CalendarComponent } from "@/components/ui/calendar";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
 
 export default function Page() {
     const router = useRouter();
     const [show, setShow] = useState(false);
     const [startDate, setStartDate] = useState<Date | undefined>();
     const [endDate, setEndDate] = useState<Date | undefined>();
+    const [reportData, setReportData] = useState<any | null>(null);
+    const [showReport, setShowReport] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         setTimeout(() => { setShow(true) }, 100);
     }, []);
-
-
-    const [reportData, setReportData] = useState<any | null>(null);
-    const [showReport, setShowReport] = useState(false);
 
     // Helper: convert date to period string (YYYY-MM)
     function getPeriodString(date: Date) {
@@ -60,9 +60,6 @@ export default function Page() {
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
         return `${year}-${month}`;
     }
-
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
     const handleGenerateReport = async () => {
         if (startDate && endDate) {
