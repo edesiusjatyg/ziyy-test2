@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import { PrismaClient } from "@/generated/prisma/client"
+import { PrismaClient } from "./generated/prisma/client"
 import bcrypt from "bcryptjs"
 
 const prisma = new PrismaClient()
@@ -8,81 +8,78 @@ const prisma = new PrismaClient()
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
-      name: "credentials",
       credentials: {
         username: { label: "Username", type: "text" },
-        password: { label: "Password", type: "password" },
+        password: { label: "Password", type: "password" }
       },
-      authorize: async (credentials) => {
+      async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) {
-          throw new Error("Username and password are required");
+          return null
         }
 
         try {
-          // Find user in database
           const user = await prisma.user.findUnique({
-            where: {
-              username: credentials.username as string,
-            },
-          });
+            where: { username: credentials.username as string }
+          })
 
           if (!user) {
-            throw new Error("Invalid credentials");
+            console.log("User not found:", credentials.username)
+            return null
           }
 
-          // Verify password
-          const isPasswordValid = await bcrypt.compare(
-            credentials.password as string,
+          const isValidPassword = await bcrypt.compare(
+            credentials.password as string, 
             user.passwordHash
-          );
+          )
 
-          if (!isPasswordValid) {
-            throw new Error("Invalid credentials");
+          if (!isValidPassword) {
+            console.log("Invalid password for user:", credentials.username)
+            return null
           }
 
-          // Update last login
+          // Update last login time
           await prisma.user.update({
             where: { id: user.id },
-            data: { lastLogin: new Date() },
-          });
+            data: { lastLogin: new Date() }
+          })
 
-          // Return user object (without password)
+          console.log("User logged in successfully:", credentials.username)
+
+          // Return user object - DO NOT automatically assign admin role
           return {
             id: user.id.toString(),
-            username: user.username,
-            email: user.email,
-            role: user.role,
-          };
+            username: user.username || "",
+            email: user.email || "",
+            role: user.role, // Use the role from database, don't override
+          }
         } catch (error) {
-          console.error("Auth error:", error);
-          return null;
+          console.error("Auth error:", error)
+          return null
         }
-      },
-    }),
+      }
+    })
   ],
-  session: {
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role;
-        token.username = user.username;
+        token.role = user.role
+        token.username = user.username
       }
-      return token;
+      return token
     },
     async session({ session, token }) {
-      if (token && token.sub) {
-        session.user.id = token.sub;
-        session.user.role = token.role as any;
-        session.user.username = token.username as string;
+      if (token) {
+        session.user.role = token.role as any
+        session.user.username = token.username as string
       }
-      return session;
-    },
+      return session
+    }
   },
   pages: {
     signIn: "/signin",
   },
-  debug: process.env.NODE_ENV === "development", // Enable debug in development
-});
+  session: {
+    strategy: "jwt",
+    maxAge: 2 * 60 * 60, // 2 hours
+  }
+})

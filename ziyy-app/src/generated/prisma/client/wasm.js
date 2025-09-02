@@ -142,14 +142,17 @@ exports.Prisma.MemberArrivalScalarFieldEnum = {
   id: 'id',
   memberId: 'memberId',
   arrivalDate: 'arrivalDate',
-  arrivalType: 'arrivalType'
+  arrivalType: 'arrivalType',
+  namaPt: 'namaPt'
 };
 
 exports.Prisma.IncidentileScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  phone: 'phone',
   type: 'type',
   class: 'class',
+  namaPt: 'namaPt',
   pt: 'pt',
   sauna: 'sauna',
   paymentMethod: 'paymentMethod',
@@ -164,7 +167,8 @@ exports.Prisma.TxFoScalarFieldEnum = {
   note: 'note',
   paymentMethod: 'paymentMethod',
   paymentAmount: 'paymentAmount',
-  date: 'date'
+  date: 'date',
+  billId: 'billId'
 };
 
 exports.Prisma.TxCanteenScalarFieldEnum = {
@@ -176,7 +180,8 @@ exports.Prisma.TxCanteenScalarFieldEnum = {
   itemAmount: 'itemAmount',
   paymentMethod: 'paymentMethod',
   paymentAmount: 'paymentAmount',
-  date: 'date'
+  date: 'date',
+  billId: 'billId'
 };
 
 exports.Prisma.TxAccountingScalarFieldEnum = {
@@ -186,7 +191,8 @@ exports.Prisma.TxAccountingScalarFieldEnum = {
   note: 'note',
   paymentMethod: 'paymentMethod',
   paymentAmount: 'paymentAmount',
-  date: 'date'
+  date: 'date',
+  billId: 'billId'
 };
 
 exports.Prisma.CampaignScalarFieldEnum = {
@@ -212,6 +218,7 @@ exports.Prisma.CanteenItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
+  stock: 'stock',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -223,7 +230,8 @@ exports.Prisma.UserScalarFieldEnum = {
   passwordHash: 'passwordHash',
   role: 'role',
   createdAt: 'createdAt',
-  lastLogin: 'lastLogin'
+  lastLogin: 'lastLogin',
+  name: 'name'
 };
 
 exports.Prisma.UserActionsScalarFieldEnum = {
@@ -233,9 +241,45 @@ exports.Prisma.UserActionsScalarFieldEnum = {
   description: 'description'
 };
 
+exports.Prisma.MonthlyReportScalarFieldEnum = {
+  id: 'id',
+  period: 'period',
+  displayName: 'displayName',
+  totalMembers: 'totalMembers',
+  activeMembers: 'activeMembers',
+  expiredMembers: 'expiredMembers',
+  newMembers: 'newMembers',
+  renewals: 'renewals',
+  incidentiles: 'incidentiles',
+  incidentilesGym: 'incidentilesGym',
+  incidentilesClass: 'incidentilesClass',
+  canteenItemsSold: 'canteenItemsSold',
+  finishedCampaigns: 'finishedCampaigns',
+  finishedCampaignNames: 'finishedCampaignNames',
+  finishedCampaignActivities: 'finishedCampaignActivities',
+  foTotalIncome: 'foTotalIncome',
+  canteenTotalIncome: 'canteenTotalIncome',
+  accountingTotalIncome: 'accountingTotalIncome',
+  foTotalExpenses: 'foTotalExpenses',
+  canteenTotalExpenses: 'canteenTotalExpenses',
+  accountingTotalExpenses: 'accountingTotalExpenses',
+  netIncome: 'netIncome',
+  cashBalance: 'cashBalance',
+  status: 'status',
+  generatedAt: 'generatedAt',
+  updatedAt: 'updatedAt',
+  incClassChartData: 'incClassChartData',
+  incGymChartData: 'incGymChartData',
+  memberChartData: 'memberChartData'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -246,6 +290,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.MembershipType = exports.$Enums.MembershipType = {
   PERSONAL: 'PERSONAL',
@@ -287,6 +337,7 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
   TRANSFER: 'TRANSFER',
   DEBIT_BRI: 'DEBIT_BRI',
   QRIS_BRI: 'QRIS_BRI',
+  TRANSFER_BRI: 'TRANSFER_BRI',
   DEBIT_MANDIRI: 'DEBIT_MANDIRI',
   QRIS_MANDIRI: 'QRIS_MANDIRI',
   EDC_MANDIRI: 'EDC_MANDIRI',
@@ -307,6 +358,11 @@ exports.UserRole = exports.$Enums.UserRole = {
   MARKETING: 'MARKETING'
 };
 
+exports.ReportStatus = exports.$Enums.ReportStatus = {
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
 exports.Prisma.ModelName = {
   Member: 'Member',
   Couple: 'Couple',
@@ -319,7 +375,8 @@ exports.Prisma.ModelName = {
   ActivityMarketing: 'ActivityMarketing',
   CanteenItem: 'CanteenItem',
   User: 'User',
-  UserActions: 'UserActions'
+  UserActions: 'UserActions',
+  MonthlyReport: 'MonthlyReport'
 };
 
 /**

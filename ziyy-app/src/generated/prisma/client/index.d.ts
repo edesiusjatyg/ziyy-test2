@@ -73,6 +73,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type UserActions = $Result.DefaultSelection<Prisma.$UserActionsPayload>
+/**
+ * Model MonthlyReport
+ * 
+ */
+export type MonthlyReport = $Result.DefaultSelection<Prisma.$MonthlyReportPayload>
 
 /**
  * Enums
@@ -83,6 +88,7 @@ export namespace $Enums {
   TRANSFER: 'TRANSFER',
   DEBIT_BRI: 'DEBIT_BRI',
   QRIS_BRI: 'QRIS_BRI',
+  TRANSFER_BRI: 'TRANSFER_BRI',
   DEBIT_MANDIRI: 'DEBIT_MANDIRI',
   QRIS_MANDIRI: 'QRIS_MANDIRI',
   EDC_MANDIRI: 'EDC_MANDIRI',
@@ -161,6 +167,14 @@ export const UserRole: {
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
+
+export const ReportStatus: {
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
+export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
+
 }
 
 export type PaymentMethod = $Enums.PaymentMethod
@@ -194,6 +208,10 @@ export const TransactionType: typeof $Enums.TransactionType
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type ReportStatus = $Enums.ReportStatus
+
+export const ReportStatus: typeof $Enums.ReportStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -439,6 +457,16 @@ export class PrismaClient<
     * ```
     */
   get userActions(): Prisma.UserActionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.monthlyReport`: Exposes CRUD operations for the **MonthlyReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MonthlyReports
+    * const monthlyReports = await prisma.monthlyReport.findMany()
+    * ```
+    */
+  get monthlyReport(): Prisma.MonthlyReportDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -890,7 +918,8 @@ export namespace Prisma {
     ActivityMarketing: 'ActivityMarketing',
     CanteenItem: 'CanteenItem',
     User: 'User',
-    UserActions: 'UserActions'
+    UserActions: 'UserActions',
+    MonthlyReport: 'MonthlyReport'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -909,7 +938,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "member" | "couple" | "memberArrival" | "incidentile" | "txFo" | "txCanteen" | "txAccounting" | "campaign" | "activityMarketing" | "canteenItem" | "user" | "userActions"
+      modelProps: "member" | "couple" | "memberArrival" | "incidentile" | "txFo" | "txCanteen" | "txAccounting" | "campaign" | "activityMarketing" | "canteenItem" | "user" | "userActions" | "monthlyReport"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1801,6 +1830,80 @@ export namespace Prisma {
           }
         }
       }
+      MonthlyReport: {
+        payload: Prisma.$MonthlyReportPayload<ExtArgs>
+        fields: Prisma.MonthlyReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MonthlyReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MonthlyReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          findFirst: {
+            args: Prisma.MonthlyReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MonthlyReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          findMany: {
+            args: Prisma.MonthlyReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>[]
+          }
+          create: {
+            args: Prisma.MonthlyReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          createMany: {
+            args: Prisma.MonthlyReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MonthlyReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>[]
+          }
+          delete: {
+            args: Prisma.MonthlyReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          update: {
+            args: Prisma.MonthlyReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.MonthlyReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MonthlyReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MonthlyReportUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>[]
+          }
+          upsert: {
+            args: Prisma.MonthlyReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MonthlyReportPayload>
+          }
+          aggregate: {
+            args: Prisma.MonthlyReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMonthlyReport>
+          }
+          groupBy: {
+            args: Prisma.MonthlyReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MonthlyReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MonthlyReportCountArgs<ExtArgs>
+            result: $Utils.Optional<MonthlyReportCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1897,6 +2000,7 @@ export namespace Prisma {
     canteenItem?: CanteenItemOmit
     user?: UserOmit
     userActions?: UserActionsOmit
+    monthlyReport?: MonthlyReportOmit
   }
 
   /* Types for Logging */
@@ -1991,15 +2095,15 @@ export namespace Prisma {
    */
 
   export type MemberCountOutputType = {
-    arrivals: number
     couples1: number
     couples2: number
+    arrivals: number
   }
 
   export type MemberCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    arrivals?: boolean | MemberCountOutputTypeCountArrivalsArgs
     couples1?: boolean | MemberCountOutputTypeCountCouples1Args
     couples2?: boolean | MemberCountOutputTypeCountCouples2Args
+    arrivals?: boolean | MemberCountOutputTypeCountArrivalsArgs
   }
 
   // Custom InputTypes
@@ -2016,13 +2120,6 @@ export namespace Prisma {
   /**
    * MemberCountOutputType without action
    */
-  export type MemberCountOutputTypeCountArrivalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MemberArrivalWhereInput
-  }
-
-  /**
-   * MemberCountOutputType without action
-   */
   export type MemberCountOutputTypeCountCouples1Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CoupleWhereInput
   }
@@ -2032,6 +2129,13 @@ export namespace Prisma {
    */
   export type MemberCountOutputTypeCountCouples2Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CoupleWhereInput
+  }
+
+  /**
+   * MemberCountOutputType without action
+   */
+  export type MemberCountOutputTypeCountArrivalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberArrivalWhereInput
   }
 
 
@@ -2366,9 +2470,9 @@ export namespace Prisma {
     joinDate?: boolean
     expiryDate?: boolean
     status?: boolean
-    arrivals?: boolean | Member$arrivalsArgs<ExtArgs>
     couples1?: boolean | Member$couples1Args<ExtArgs>
     couples2?: boolean | Member$couples2Args<ExtArgs>
+    arrivals?: boolean | Member$arrivalsArgs<ExtArgs>
     _count?: boolean | MemberCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["member"]>
 
@@ -2410,9 +2514,9 @@ export namespace Prisma {
 
   export type MemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "nik" | "phone" | "membership" | "ptAmount" | "joinDate" | "expiryDate" | "status", ExtArgs["result"]["member"]>
   export type MemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    arrivals?: boolean | Member$arrivalsArgs<ExtArgs>
     couples1?: boolean | Member$couples1Args<ExtArgs>
     couples2?: boolean | Member$couples2Args<ExtArgs>
+    arrivals?: boolean | Member$arrivalsArgs<ExtArgs>
     _count?: boolean | MemberCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2421,9 +2525,9 @@ export namespace Prisma {
   export type $MemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Member"
     objects: {
-      arrivals: Prisma.$MemberArrivalPayload<ExtArgs>[]
       couples1: Prisma.$CouplePayload<ExtArgs>[]
       couples2: Prisma.$CouplePayload<ExtArgs>[]
+      arrivals: Prisma.$MemberArrivalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2829,9 +2933,9 @@ export namespace Prisma {
    */
   export interface Prisma__MemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    arrivals<T extends Member$arrivalsArgs<ExtArgs> = {}>(args?: Subset<T, Member$arrivalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberArrivalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     couples1<T extends Member$couples1Args<ExtArgs> = {}>(args?: Subset<T, Member$couples1Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     couples2<T extends Member$couples2Args<ExtArgs> = {}>(args?: Subset<T, Member$couples2Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    arrivals<T extends Member$arrivalsArgs<ExtArgs> = {}>(args?: Subset<T, Member$arrivalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberArrivalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3258,30 +3362,6 @@ export namespace Prisma {
   }
 
   /**
-   * Member.arrivals
-   */
-  export type Member$arrivalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MemberArrival
-     */
-    select?: MemberArrivalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MemberArrival
-     */
-    omit?: MemberArrivalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MemberArrivalInclude<ExtArgs> | null
-    where?: MemberArrivalWhereInput
-    orderBy?: MemberArrivalOrderByWithRelationInput | MemberArrivalOrderByWithRelationInput[]
-    cursor?: MemberArrivalWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MemberArrivalScalarFieldEnum | MemberArrivalScalarFieldEnum[]
-  }
-
-  /**
    * Member.couples1
    */
   export type Member$couples1Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3327,6 +3407,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CoupleScalarFieldEnum | CoupleScalarFieldEnum[]
+  }
+
+  /**
+   * Member.arrivals
+   */
+  export type Member$arrivalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberArrival
+     */
+    select?: MemberArrivalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberArrival
+     */
+    omit?: MemberArrivalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberArrivalInclude<ExtArgs> | null
+    where?: MemberArrivalWhereInput
+    orderBy?: MemberArrivalOrderByWithRelationInput | MemberArrivalOrderByWithRelationInput[]
+    cursor?: MemberArrivalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MemberArrivalScalarFieldEnum | MemberArrivalScalarFieldEnum[]
   }
 
   /**
@@ -4457,6 +4561,7 @@ export namespace Prisma {
     memberId: number | null
     arrivalDate: Date | null
     arrivalType: $Enums.ArrivalType | null
+    namaPt: string | null
   }
 
   export type MemberArrivalMaxAggregateOutputType = {
@@ -4464,6 +4569,7 @@ export namespace Prisma {
     memberId: number | null
     arrivalDate: Date | null
     arrivalType: $Enums.ArrivalType | null
+    namaPt: string | null
   }
 
   export type MemberArrivalCountAggregateOutputType = {
@@ -4471,6 +4577,7 @@ export namespace Prisma {
     memberId: number
     arrivalDate: number
     arrivalType: number
+    namaPt: number
     _all: number
   }
 
@@ -4490,6 +4597,7 @@ export namespace Prisma {
     memberId?: true
     arrivalDate?: true
     arrivalType?: true
+    namaPt?: true
   }
 
   export type MemberArrivalMaxAggregateInputType = {
@@ -4497,6 +4605,7 @@ export namespace Prisma {
     memberId?: true
     arrivalDate?: true
     arrivalType?: true
+    namaPt?: true
   }
 
   export type MemberArrivalCountAggregateInputType = {
@@ -4504,6 +4613,7 @@ export namespace Prisma {
     memberId?: true
     arrivalDate?: true
     arrivalType?: true
+    namaPt?: true
     _all?: true
   }
 
@@ -4598,6 +4708,7 @@ export namespace Prisma {
     memberId: number
     arrivalDate: Date
     arrivalType: $Enums.ArrivalType
+    namaPt: string | null
     _count: MemberArrivalCountAggregateOutputType | null
     _avg: MemberArrivalAvgAggregateOutputType | null
     _sum: MemberArrivalSumAggregateOutputType | null
@@ -4624,6 +4735,7 @@ export namespace Prisma {
     memberId?: boolean
     arrivalDate?: boolean
     arrivalType?: boolean
+    namaPt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["memberArrival"]>
 
@@ -4632,6 +4744,7 @@ export namespace Prisma {
     memberId?: boolean
     arrivalDate?: boolean
     arrivalType?: boolean
+    namaPt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["memberArrival"]>
 
@@ -4640,6 +4753,7 @@ export namespace Prisma {
     memberId?: boolean
     arrivalDate?: boolean
     arrivalType?: boolean
+    namaPt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["memberArrival"]>
 
@@ -4648,9 +4762,10 @@ export namespace Prisma {
     memberId?: boolean
     arrivalDate?: boolean
     arrivalType?: boolean
+    namaPt?: boolean
   }
 
-  export type MemberArrivalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "memberId" | "arrivalDate" | "arrivalType", ExtArgs["result"]["memberArrival"]>
+  export type MemberArrivalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "memberId" | "arrivalDate" | "arrivalType" | "namaPt", ExtArgs["result"]["memberArrival"]>
   export type MemberArrivalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }
@@ -4671,6 +4786,7 @@ export namespace Prisma {
       memberId: number
       arrivalDate: Date
       arrivalType: $Enums.ArrivalType
+      namaPt: string | null
     }, ExtArgs["result"]["memberArrival"]>
     composites: {}
   }
@@ -5099,6 +5215,7 @@ export namespace Prisma {
     readonly memberId: FieldRef<"MemberArrival", 'Int'>
     readonly arrivalDate: FieldRef<"MemberArrival", 'DateTime'>
     readonly arrivalType: FieldRef<"MemberArrival", 'ArrivalType'>
+    readonly namaPt: FieldRef<"MemberArrival", 'String'>
   }
     
 
@@ -5538,8 +5655,10 @@ export namespace Prisma {
   export type IncidentileMinAggregateOutputType = {
     id: number | null
     name: string | null
+    phone: string | null
     type: $Enums.IncidentileType | null
     class: $Enums.IncidentileClass | null
+    namaPt: string | null
     pt: boolean | null
     sauna: boolean | null
     paymentMethod: $Enums.PaymentMethod | null
@@ -5550,8 +5669,10 @@ export namespace Prisma {
   export type IncidentileMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    phone: string | null
     type: $Enums.IncidentileType | null
     class: $Enums.IncidentileClass | null
+    namaPt: string | null
     pt: boolean | null
     sauna: boolean | null
     paymentMethod: $Enums.PaymentMethod | null
@@ -5562,8 +5683,10 @@ export namespace Prisma {
   export type IncidentileCountAggregateOutputType = {
     id: number
     name: number
+    phone: number
     type: number
     class: number
+    namaPt: number
     pt: number
     sauna: number
     paymentMethod: number
@@ -5586,8 +5709,10 @@ export namespace Prisma {
   export type IncidentileMinAggregateInputType = {
     id?: true
     name?: true
+    phone?: true
     type?: true
     class?: true
+    namaPt?: true
     pt?: true
     sauna?: true
     paymentMethod?: true
@@ -5598,8 +5723,10 @@ export namespace Prisma {
   export type IncidentileMaxAggregateInputType = {
     id?: true
     name?: true
+    phone?: true
     type?: true
     class?: true
+    namaPt?: true
     pt?: true
     sauna?: true
     paymentMethod?: true
@@ -5610,8 +5737,10 @@ export namespace Prisma {
   export type IncidentileCountAggregateInputType = {
     id?: true
     name?: true
+    phone?: true
     type?: true
     class?: true
+    namaPt?: true
     pt?: true
     sauna?: true
     paymentMethod?: true
@@ -5709,8 +5838,10 @@ export namespace Prisma {
   export type IncidentileGroupByOutputType = {
     id: number
     name: string
+    phone: string | null
     type: $Enums.IncidentileType
     class: $Enums.IncidentileClass | null
+    namaPt: string | null
     pt: boolean
     sauna: boolean
     paymentMethod: $Enums.PaymentMethod
@@ -5740,8 +5871,10 @@ export namespace Prisma {
   export type IncidentileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    phone?: boolean
     type?: boolean
     class?: boolean
+    namaPt?: boolean
     pt?: boolean
     sauna?: boolean
     paymentMethod?: boolean
@@ -5752,8 +5885,10 @@ export namespace Prisma {
   export type IncidentileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    phone?: boolean
     type?: boolean
     class?: boolean
+    namaPt?: boolean
     pt?: boolean
     sauna?: boolean
     paymentMethod?: boolean
@@ -5764,8 +5899,10 @@ export namespace Prisma {
   export type IncidentileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    phone?: boolean
     type?: boolean
     class?: boolean
+    namaPt?: boolean
     pt?: boolean
     sauna?: boolean
     paymentMethod?: boolean
@@ -5776,8 +5913,10 @@ export namespace Prisma {
   export type IncidentileSelectScalar = {
     id?: boolean
     name?: boolean
+    phone?: boolean
     type?: boolean
     class?: boolean
+    namaPt?: boolean
     pt?: boolean
     sauna?: boolean
     paymentMethod?: boolean
@@ -5785,7 +5924,7 @@ export namespace Prisma {
     date?: boolean
   }
 
-  export type IncidentileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "class" | "pt" | "sauna" | "paymentMethod" | "paymentAmount" | "date", ExtArgs["result"]["incidentile"]>
+  export type IncidentileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "type" | "class" | "namaPt" | "pt" | "sauna" | "paymentMethod" | "paymentAmount" | "date", ExtArgs["result"]["incidentile"]>
 
   export type $IncidentilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Incidentile"
@@ -5793,8 +5932,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      phone: string | null
       type: $Enums.IncidentileType
       class: $Enums.IncidentileClass | null
+      namaPt: string | null
       pt: boolean
       sauna: boolean
       paymentMethod: $Enums.PaymentMethod
@@ -6225,8 +6366,10 @@ export namespace Prisma {
   interface IncidentileFieldRefs {
     readonly id: FieldRef<"Incidentile", 'Int'>
     readonly name: FieldRef<"Incidentile", 'String'>
+    readonly phone: FieldRef<"Incidentile", 'String'>
     readonly type: FieldRef<"Incidentile", 'IncidentileType'>
     readonly class: FieldRef<"Incidentile", 'IncidentileClass'>
+    readonly namaPt: FieldRef<"Incidentile", 'String'>
     readonly pt: FieldRef<"Incidentile", 'Boolean'>
     readonly sauna: FieldRef<"Incidentile", 'Boolean'>
     readonly paymentMethod: FieldRef<"Incidentile", 'PaymentMethod'>
@@ -6628,6 +6771,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod | null
     paymentAmount: number | null
     date: Date | null
+    billId: string | null
   }
 
   export type TxFoMaxAggregateOutputType = {
@@ -6638,6 +6782,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod | null
     paymentAmount: number | null
     date: Date | null
+    billId: string | null
   }
 
   export type TxFoCountAggregateOutputType = {
@@ -6648,6 +6793,7 @@ export namespace Prisma {
     paymentMethod: number
     paymentAmount: number
     date: number
+    billId: number
     _all: number
   }
 
@@ -6670,6 +6816,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
   }
 
   export type TxFoMaxAggregateInputType = {
@@ -6680,6 +6827,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
   }
 
   export type TxFoCountAggregateInputType = {
@@ -6690,6 +6838,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
     _all?: true
   }
 
@@ -6787,6 +6936,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date
+    billId: string | null
     _count: TxFoCountAggregateOutputType | null
     _avg: TxFoAvgAggregateOutputType | null
     _sum: TxFoSumAggregateOutputType | null
@@ -6816,6 +6966,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }, ExtArgs["result"]["txFo"]>
 
   export type TxFoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6826,6 +6977,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }, ExtArgs["result"]["txFo"]>
 
   export type TxFoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6836,6 +6988,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }, ExtArgs["result"]["txFo"]>
 
   export type TxFoSelectScalar = {
@@ -6846,9 +6999,10 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }
 
-  export type TxFoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "title" | "note" | "paymentMethod" | "paymentAmount" | "date", ExtArgs["result"]["txFo"]>
+  export type TxFoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "title" | "note" | "paymentMethod" | "paymentAmount" | "date" | "billId", ExtArgs["result"]["txFo"]>
 
   export type $TxFoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TxFo"
@@ -6861,6 +7015,7 @@ export namespace Prisma {
       paymentMethod: $Enums.PaymentMethod
       paymentAmount: number
       date: Date
+      billId: string | null
     }, ExtArgs["result"]["txFo"]>
     composites: {}
   }
@@ -7291,6 +7446,7 @@ export namespace Prisma {
     readonly paymentMethod: FieldRef<"TxFo", 'PaymentMethod'>
     readonly paymentAmount: FieldRef<"TxFo", 'Int'>
     readonly date: FieldRef<"TxFo", 'DateTime'>
+    readonly billId: FieldRef<"TxFo", 'String'>
   }
     
 
@@ -7693,6 +7849,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod | null
     paymentAmount: number | null
     date: Date | null
+    billId: string | null
   }
 
   export type TxCanteenMaxAggregateOutputType = {
@@ -7705,6 +7862,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod | null
     paymentAmount: number | null
     date: Date | null
+    billId: string | null
   }
 
   export type TxCanteenCountAggregateOutputType = {
@@ -7717,6 +7875,7 @@ export namespace Prisma {
     paymentMethod: number
     paymentAmount: number
     date: number
+    billId: number
     _all: number
   }
 
@@ -7745,6 +7904,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
   }
 
   export type TxCanteenMaxAggregateInputType = {
@@ -7757,6 +7917,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
   }
 
   export type TxCanteenCountAggregateInputType = {
@@ -7769,6 +7930,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
     _all?: true
   }
 
@@ -7868,6 +8030,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date
+    billId: string | null
     _count: TxCanteenCountAggregateOutputType | null
     _avg: TxCanteenAvgAggregateOutputType | null
     _sum: TxCanteenSumAggregateOutputType | null
@@ -7899,6 +8062,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
     item?: boolean | TxCanteen$itemArgs<ExtArgs>
   }, ExtArgs["result"]["txCanteen"]>
 
@@ -7912,6 +8076,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
     item?: boolean | TxCanteen$itemArgs<ExtArgs>
   }, ExtArgs["result"]["txCanteen"]>
 
@@ -7925,6 +8090,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
     item?: boolean | TxCanteen$itemArgs<ExtArgs>
   }, ExtArgs["result"]["txCanteen"]>
 
@@ -7938,9 +8104,10 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }
 
-  export type TxCanteenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "title" | "note" | "itemId" | "itemAmount" | "paymentMethod" | "paymentAmount" | "date", ExtArgs["result"]["txCanteen"]>
+  export type TxCanteenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "title" | "note" | "itemId" | "itemAmount" | "paymentMethod" | "paymentAmount" | "date" | "billId", ExtArgs["result"]["txCanteen"]>
   export type TxCanteenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     item?: boolean | TxCanteen$itemArgs<ExtArgs>
   }
@@ -7966,6 +8133,7 @@ export namespace Prisma {
       paymentMethod: $Enums.PaymentMethod
       paymentAmount: number
       date: Date
+      billId: string | null
     }, ExtArgs["result"]["txCanteen"]>
     composites: {}
   }
@@ -8399,6 +8567,7 @@ export namespace Prisma {
     readonly paymentMethod: FieldRef<"TxCanteen", 'PaymentMethod'>
     readonly paymentAmount: FieldRef<"TxCanteen", 'Int'>
     readonly date: FieldRef<"TxCanteen", 'DateTime'>
+    readonly billId: FieldRef<"TxCanteen", 'String'>
   }
     
 
@@ -8862,6 +9031,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod | null
     paymentAmount: number | null
     date: Date | null
+    billId: string | null
   }
 
   export type TxAccountingMaxAggregateOutputType = {
@@ -8872,6 +9042,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod | null
     paymentAmount: number | null
     date: Date | null
+    billId: string | null
   }
 
   export type TxAccountingCountAggregateOutputType = {
@@ -8882,6 +9053,7 @@ export namespace Prisma {
     paymentMethod: number
     paymentAmount: number
     date: number
+    billId: number
     _all: number
   }
 
@@ -8904,6 +9076,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
   }
 
   export type TxAccountingMaxAggregateInputType = {
@@ -8914,6 +9087,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
   }
 
   export type TxAccountingCountAggregateInputType = {
@@ -8924,6 +9098,7 @@ export namespace Prisma {
     paymentMethod?: true
     paymentAmount?: true
     date?: true
+    billId?: true
     _all?: true
   }
 
@@ -9021,6 +9196,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date
+    billId: string | null
     _count: TxAccountingCountAggregateOutputType | null
     _avg: TxAccountingAvgAggregateOutputType | null
     _sum: TxAccountingSumAggregateOutputType | null
@@ -9050,6 +9226,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }, ExtArgs["result"]["txAccounting"]>
 
   export type TxAccountingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9060,6 +9237,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }, ExtArgs["result"]["txAccounting"]>
 
   export type TxAccountingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9070,6 +9248,7 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }, ExtArgs["result"]["txAccounting"]>
 
   export type TxAccountingSelectScalar = {
@@ -9080,9 +9259,10 @@ export namespace Prisma {
     paymentMethod?: boolean
     paymentAmount?: boolean
     date?: boolean
+    billId?: boolean
   }
 
-  export type TxAccountingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "title" | "note" | "paymentMethod" | "paymentAmount" | "date", ExtArgs["result"]["txAccounting"]>
+  export type TxAccountingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "title" | "note" | "paymentMethod" | "paymentAmount" | "date" | "billId", ExtArgs["result"]["txAccounting"]>
 
   export type $TxAccountingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TxAccounting"
@@ -9095,6 +9275,7 @@ export namespace Prisma {
       paymentMethod: $Enums.PaymentMethod
       paymentAmount: number
       date: Date
+      billId: string | null
     }, ExtArgs["result"]["txAccounting"]>
     composites: {}
   }
@@ -9525,6 +9706,7 @@ export namespace Prisma {
     readonly paymentMethod: FieldRef<"TxAccounting", 'PaymentMethod'>
     readonly paymentAmount: FieldRef<"TxAccounting", 'Int'>
     readonly date: FieldRef<"TxAccounting", 'DateTime'>
+    readonly billId: FieldRef<"TxAccounting", 'String'>
   }
     
 
@@ -12164,17 +12346,20 @@ export namespace Prisma {
   export type CanteenItemAvgAggregateOutputType = {
     id: number | null
     price: number | null
+    stock: number | null
   }
 
   export type CanteenItemSumAggregateOutputType = {
     id: number | null
     price: number | null
+    stock: number | null
   }
 
   export type CanteenItemMinAggregateOutputType = {
     id: number | null
     name: string | null
     price: number | null
+    stock: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12183,6 +12368,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     price: number | null
+    stock: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12191,6 +12377,7 @@ export namespace Prisma {
     id: number
     name: number
     price: number
+    stock: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -12200,17 +12387,20 @@ export namespace Prisma {
   export type CanteenItemAvgAggregateInputType = {
     id?: true
     price?: true
+    stock?: true
   }
 
   export type CanteenItemSumAggregateInputType = {
     id?: true
     price?: true
+    stock?: true
   }
 
   export type CanteenItemMinAggregateInputType = {
     id?: true
     name?: true
     price?: true
+    stock?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12219,6 +12409,7 @@ export namespace Prisma {
     id?: true
     name?: true
     price?: true
+    stock?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12227,6 +12418,7 @@ export namespace Prisma {
     id?: true
     name?: true
     price?: true
+    stock?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -12322,6 +12514,7 @@ export namespace Prisma {
     id: number
     name: string
     price: number
+    stock: number
     createdAt: Date
     updatedAt: Date
     _count: CanteenItemCountAggregateOutputType | null
@@ -12349,6 +12542,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     price?: boolean
+    stock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     txCanteens?: boolean | CanteenItem$txCanteensArgs<ExtArgs>
@@ -12359,6 +12553,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     price?: boolean
+    stock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["canteenItem"]>
@@ -12367,6 +12562,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     price?: boolean
+    stock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["canteenItem"]>
@@ -12375,11 +12571,12 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     price?: boolean
+    stock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CanteenItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "createdAt" | "updatedAt", ExtArgs["result"]["canteenItem"]>
+  export type CanteenItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "stock" | "createdAt" | "updatedAt", ExtArgs["result"]["canteenItem"]>
   export type CanteenItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     txCanteens?: boolean | CanteenItem$txCanteensArgs<ExtArgs>
     _count?: boolean | CanteenItemCountOutputTypeDefaultArgs<ExtArgs>
@@ -12396,6 +12593,7 @@ export namespace Prisma {
       id: number
       name: string
       price: number
+      stock: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["canteenItem"]>
@@ -12825,6 +13023,7 @@ export namespace Prisma {
     readonly id: FieldRef<"CanteenItem", 'Int'>
     readonly name: FieldRef<"CanteenItem", 'String'>
     readonly price: FieldRef<"CanteenItem", 'Int'>
+    readonly stock: FieldRef<"CanteenItem", 'Int'>
     readonly createdAt: FieldRef<"CanteenItem", 'DateTime'>
     readonly updatedAt: FieldRef<"CanteenItem", 'DateTime'>
   }
@@ -13285,6 +13484,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     createdAt: Date | null
     lastLogin: Date | null
+    name: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -13295,6 +13495,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     createdAt: Date | null
     lastLogin: Date | null
+    name: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -13305,6 +13506,7 @@ export namespace Prisma {
     role: number
     createdAt: number
     lastLogin: number
+    name: number
     _all: number
   }
 
@@ -13325,6 +13527,7 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     lastLogin?: true
+    name?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -13335,6 +13538,7 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     lastLogin?: true
+    name?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -13345,6 +13549,7 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     lastLogin?: true
+    name?: true
     _all?: true
   }
 
@@ -13436,12 +13641,13 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
-    email: string
-    username: string
+    email: string | null
+    username: string | null
     passwordHash: string
     role: $Enums.UserRole
     createdAt: Date
     lastLogin: Date | null
+    name: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -13471,6 +13677,7 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     lastLogin?: boolean
+    name?: boolean
     actions?: boolean | User$actionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -13483,6 +13690,7 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     lastLogin?: boolean
+    name?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13493,6 +13701,7 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     lastLogin?: boolean
+    name?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -13503,9 +13712,10 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     lastLogin?: boolean
+    name?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "passwordHash" | "role" | "createdAt" | "lastLogin", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "passwordHash" | "role" | "createdAt" | "lastLogin" | "name", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     actions?: boolean | User$actionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -13520,12 +13730,13 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      email: string
-      username: string
+      email: string | null
+      username: string | null
       passwordHash: string
       role: $Enums.UserRole
       createdAt: Date
       lastLogin: Date | null
+      name: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -13957,6 +14168,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'UserRole'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly lastLogin: FieldRef<"User", 'DateTime'>
+    readonly name: FieldRef<"User", 'String'>
   }
     
 
@@ -15471,6 +15683,1391 @@ export namespace Prisma {
 
 
   /**
+   * Model MonthlyReport
+   */
+
+  export type AggregateMonthlyReport = {
+    _count: MonthlyReportCountAggregateOutputType | null
+    _avg: MonthlyReportAvgAggregateOutputType | null
+    _sum: MonthlyReportSumAggregateOutputType | null
+    _min: MonthlyReportMinAggregateOutputType | null
+    _max: MonthlyReportMaxAggregateOutputType | null
+  }
+
+  export type MonthlyReportAvgAggregateOutputType = {
+    id: number | null
+    totalMembers: number | null
+    activeMembers: number | null
+    expiredMembers: number | null
+    newMembers: number | null
+    renewals: number | null
+    incidentiles: number | null
+    incidentilesGym: number | null
+    incidentilesClass: number | null
+    finishedCampaigns: number | null
+    foTotalIncome: number | null
+    canteenTotalIncome: number | null
+    accountingTotalIncome: number | null
+    foTotalExpenses: number | null
+    canteenTotalExpenses: number | null
+    accountingTotalExpenses: number | null
+    netIncome: number | null
+    cashBalance: number | null
+  }
+
+  export type MonthlyReportSumAggregateOutputType = {
+    id: number | null
+    totalMembers: number | null
+    activeMembers: number | null
+    expiredMembers: number | null
+    newMembers: number | null
+    renewals: number | null
+    incidentiles: number | null
+    incidentilesGym: number | null
+    incidentilesClass: number | null
+    finishedCampaigns: number | null
+    foTotalIncome: bigint | null
+    canteenTotalIncome: bigint | null
+    accountingTotalIncome: bigint | null
+    foTotalExpenses: bigint | null
+    canteenTotalExpenses: bigint | null
+    accountingTotalExpenses: bigint | null
+    netIncome: bigint | null
+    cashBalance: bigint | null
+  }
+
+  export type MonthlyReportMinAggregateOutputType = {
+    id: number | null
+    period: string | null
+    displayName: string | null
+    totalMembers: number | null
+    activeMembers: number | null
+    expiredMembers: number | null
+    newMembers: number | null
+    renewals: number | null
+    incidentiles: number | null
+    incidentilesGym: number | null
+    incidentilesClass: number | null
+    finishedCampaigns: number | null
+    foTotalIncome: bigint | null
+    canteenTotalIncome: bigint | null
+    accountingTotalIncome: bigint | null
+    foTotalExpenses: bigint | null
+    canteenTotalExpenses: bigint | null
+    accountingTotalExpenses: bigint | null
+    netIncome: bigint | null
+    cashBalance: bigint | null
+    status: $Enums.ReportStatus | null
+    generatedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MonthlyReportMaxAggregateOutputType = {
+    id: number | null
+    period: string | null
+    displayName: string | null
+    totalMembers: number | null
+    activeMembers: number | null
+    expiredMembers: number | null
+    newMembers: number | null
+    renewals: number | null
+    incidentiles: number | null
+    incidentilesGym: number | null
+    incidentilesClass: number | null
+    finishedCampaigns: number | null
+    foTotalIncome: bigint | null
+    canteenTotalIncome: bigint | null
+    accountingTotalIncome: bigint | null
+    foTotalExpenses: bigint | null
+    canteenTotalExpenses: bigint | null
+    accountingTotalExpenses: bigint | null
+    netIncome: bigint | null
+    cashBalance: bigint | null
+    status: $Enums.ReportStatus | null
+    generatedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MonthlyReportCountAggregateOutputType = {
+    id: number
+    period: number
+    displayName: number
+    totalMembers: number
+    activeMembers: number
+    expiredMembers: number
+    newMembers: number
+    renewals: number
+    incidentiles: number
+    incidentilesGym: number
+    incidentilesClass: number
+    canteenItemsSold: number
+    finishedCampaigns: number
+    finishedCampaignNames: number
+    finishedCampaignActivities: number
+    foTotalIncome: number
+    canteenTotalIncome: number
+    accountingTotalIncome: number
+    foTotalExpenses: number
+    canteenTotalExpenses: number
+    accountingTotalExpenses: number
+    netIncome: number
+    cashBalance: number
+    status: number
+    generatedAt: number
+    updatedAt: number
+    incClassChartData: number
+    incGymChartData: number
+    memberChartData: number
+    _all: number
+  }
+
+
+  export type MonthlyReportAvgAggregateInputType = {
+    id?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    finishedCampaigns?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+  }
+
+  export type MonthlyReportSumAggregateInputType = {
+    id?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    finishedCampaigns?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+  }
+
+  export type MonthlyReportMinAggregateInputType = {
+    id?: true
+    period?: true
+    displayName?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    finishedCampaigns?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+    status?: true
+    generatedAt?: true
+    updatedAt?: true
+  }
+
+  export type MonthlyReportMaxAggregateInputType = {
+    id?: true
+    period?: true
+    displayName?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    finishedCampaigns?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+    status?: true
+    generatedAt?: true
+    updatedAt?: true
+  }
+
+  export type MonthlyReportCountAggregateInputType = {
+    id?: true
+    period?: true
+    displayName?: true
+    totalMembers?: true
+    activeMembers?: true
+    expiredMembers?: true
+    newMembers?: true
+    renewals?: true
+    incidentiles?: true
+    incidentilesGym?: true
+    incidentilesClass?: true
+    canteenItemsSold?: true
+    finishedCampaigns?: true
+    finishedCampaignNames?: true
+    finishedCampaignActivities?: true
+    foTotalIncome?: true
+    canteenTotalIncome?: true
+    accountingTotalIncome?: true
+    foTotalExpenses?: true
+    canteenTotalExpenses?: true
+    accountingTotalExpenses?: true
+    netIncome?: true
+    cashBalance?: true
+    status?: true
+    generatedAt?: true
+    updatedAt?: true
+    incClassChartData?: true
+    incGymChartData?: true
+    memberChartData?: true
+    _all?: true
+  }
+
+  export type MonthlyReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MonthlyReport to aggregate.
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MonthlyReports to fetch.
+     */
+    orderBy?: MonthlyReportOrderByWithRelationInput | MonthlyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MonthlyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MonthlyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MonthlyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MonthlyReports
+    **/
+    _count?: true | MonthlyReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MonthlyReportAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MonthlyReportSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MonthlyReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MonthlyReportMaxAggregateInputType
+  }
+
+  export type GetMonthlyReportAggregateType<T extends MonthlyReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateMonthlyReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMonthlyReport[P]>
+      : GetScalarType<T[P], AggregateMonthlyReport[P]>
+  }
+
+
+
+
+  export type MonthlyReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MonthlyReportWhereInput
+    orderBy?: MonthlyReportOrderByWithAggregationInput | MonthlyReportOrderByWithAggregationInput[]
+    by: MonthlyReportScalarFieldEnum[] | MonthlyReportScalarFieldEnum
+    having?: MonthlyReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MonthlyReportCountAggregateInputType | true
+    _avg?: MonthlyReportAvgAggregateInputType
+    _sum?: MonthlyReportSumAggregateInputType
+    _min?: MonthlyReportMinAggregateInputType
+    _max?: MonthlyReportMaxAggregateInputType
+  }
+
+  export type MonthlyReportGroupByOutputType = {
+    id: number
+    period: string
+    displayName: string
+    totalMembers: number
+    activeMembers: number
+    expiredMembers: number
+    newMembers: number
+    renewals: number
+    incidentiles: number
+    incidentilesGym: number
+    incidentilesClass: number
+    canteenItemsSold: JsonValue
+    finishedCampaigns: number
+    finishedCampaignNames: string[]
+    finishedCampaignActivities: string[]
+    foTotalIncome: bigint
+    canteenTotalIncome: bigint
+    accountingTotalIncome: bigint
+    foTotalExpenses: bigint
+    canteenTotalExpenses: bigint
+    accountingTotalExpenses: bigint
+    netIncome: bigint
+    cashBalance: bigint
+    status: $Enums.ReportStatus
+    generatedAt: Date
+    updatedAt: Date
+    incClassChartData: JsonValue
+    incGymChartData: JsonValue
+    memberChartData: JsonValue
+    _count: MonthlyReportCountAggregateOutputType | null
+    _avg: MonthlyReportAvgAggregateOutputType | null
+    _sum: MonthlyReportSumAggregateOutputType | null
+    _min: MonthlyReportMinAggregateOutputType | null
+    _max: MonthlyReportMaxAggregateOutputType | null
+  }
+
+  type GetMonthlyReportGroupByPayload<T extends MonthlyReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MonthlyReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MonthlyReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MonthlyReportGroupByOutputType[P]>
+            : GetScalarType<T[P], MonthlyReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MonthlyReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    period?: boolean
+    displayName?: boolean
+    totalMembers?: boolean
+    activeMembers?: boolean
+    expiredMembers?: boolean
+    newMembers?: boolean
+    renewals?: boolean
+    incidentiles?: boolean
+    incidentilesGym?: boolean
+    incidentilesClass?: boolean
+    canteenItemsSold?: boolean
+    finishedCampaigns?: boolean
+    finishedCampaignNames?: boolean
+    finishedCampaignActivities?: boolean
+    foTotalIncome?: boolean
+    canteenTotalIncome?: boolean
+    accountingTotalIncome?: boolean
+    foTotalExpenses?: boolean
+    canteenTotalExpenses?: boolean
+    accountingTotalExpenses?: boolean
+    netIncome?: boolean
+    cashBalance?: boolean
+    status?: boolean
+    generatedAt?: boolean
+    updatedAt?: boolean
+    incClassChartData?: boolean
+    incGymChartData?: boolean
+    memberChartData?: boolean
+  }, ExtArgs["result"]["monthlyReport"]>
+
+  export type MonthlyReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    period?: boolean
+    displayName?: boolean
+    totalMembers?: boolean
+    activeMembers?: boolean
+    expiredMembers?: boolean
+    newMembers?: boolean
+    renewals?: boolean
+    incidentiles?: boolean
+    incidentilesGym?: boolean
+    incidentilesClass?: boolean
+    canteenItemsSold?: boolean
+    finishedCampaigns?: boolean
+    finishedCampaignNames?: boolean
+    finishedCampaignActivities?: boolean
+    foTotalIncome?: boolean
+    canteenTotalIncome?: boolean
+    accountingTotalIncome?: boolean
+    foTotalExpenses?: boolean
+    canteenTotalExpenses?: boolean
+    accountingTotalExpenses?: boolean
+    netIncome?: boolean
+    cashBalance?: boolean
+    status?: boolean
+    generatedAt?: boolean
+    updatedAt?: boolean
+    incClassChartData?: boolean
+    incGymChartData?: boolean
+    memberChartData?: boolean
+  }, ExtArgs["result"]["monthlyReport"]>
+
+  export type MonthlyReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    period?: boolean
+    displayName?: boolean
+    totalMembers?: boolean
+    activeMembers?: boolean
+    expiredMembers?: boolean
+    newMembers?: boolean
+    renewals?: boolean
+    incidentiles?: boolean
+    incidentilesGym?: boolean
+    incidentilesClass?: boolean
+    canteenItemsSold?: boolean
+    finishedCampaigns?: boolean
+    finishedCampaignNames?: boolean
+    finishedCampaignActivities?: boolean
+    foTotalIncome?: boolean
+    canteenTotalIncome?: boolean
+    accountingTotalIncome?: boolean
+    foTotalExpenses?: boolean
+    canteenTotalExpenses?: boolean
+    accountingTotalExpenses?: boolean
+    netIncome?: boolean
+    cashBalance?: boolean
+    status?: boolean
+    generatedAt?: boolean
+    updatedAt?: boolean
+    incClassChartData?: boolean
+    incGymChartData?: boolean
+    memberChartData?: boolean
+  }, ExtArgs["result"]["monthlyReport"]>
+
+  export type MonthlyReportSelectScalar = {
+    id?: boolean
+    period?: boolean
+    displayName?: boolean
+    totalMembers?: boolean
+    activeMembers?: boolean
+    expiredMembers?: boolean
+    newMembers?: boolean
+    renewals?: boolean
+    incidentiles?: boolean
+    incidentilesGym?: boolean
+    incidentilesClass?: boolean
+    canteenItemsSold?: boolean
+    finishedCampaigns?: boolean
+    finishedCampaignNames?: boolean
+    finishedCampaignActivities?: boolean
+    foTotalIncome?: boolean
+    canteenTotalIncome?: boolean
+    accountingTotalIncome?: boolean
+    foTotalExpenses?: boolean
+    canteenTotalExpenses?: boolean
+    accountingTotalExpenses?: boolean
+    netIncome?: boolean
+    cashBalance?: boolean
+    status?: boolean
+    generatedAt?: boolean
+    updatedAt?: boolean
+    incClassChartData?: boolean
+    incGymChartData?: boolean
+    memberChartData?: boolean
+  }
+
+  export type MonthlyReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "period" | "displayName" | "totalMembers" | "activeMembers" | "expiredMembers" | "newMembers" | "renewals" | "incidentiles" | "incidentilesGym" | "incidentilesClass" | "canteenItemsSold" | "finishedCampaigns" | "finishedCampaignNames" | "finishedCampaignActivities" | "foTotalIncome" | "canteenTotalIncome" | "accountingTotalIncome" | "foTotalExpenses" | "canteenTotalExpenses" | "accountingTotalExpenses" | "netIncome" | "cashBalance" | "status" | "generatedAt" | "updatedAt" | "incClassChartData" | "incGymChartData" | "memberChartData", ExtArgs["result"]["monthlyReport"]>
+
+  export type $MonthlyReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MonthlyReport"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      period: string
+      displayName: string
+      totalMembers: number
+      activeMembers: number
+      expiredMembers: number
+      newMembers: number
+      renewals: number
+      incidentiles: number
+      incidentilesGym: number
+      incidentilesClass: number
+      canteenItemsSold: Prisma.JsonValue
+      finishedCampaigns: number
+      finishedCampaignNames: string[]
+      finishedCampaignActivities: string[]
+      foTotalIncome: bigint
+      canteenTotalIncome: bigint
+      accountingTotalIncome: bigint
+      foTotalExpenses: bigint
+      canteenTotalExpenses: bigint
+      accountingTotalExpenses: bigint
+      netIncome: bigint
+      cashBalance: bigint
+      status: $Enums.ReportStatus
+      generatedAt: Date
+      updatedAt: Date
+      incClassChartData: Prisma.JsonValue
+      incGymChartData: Prisma.JsonValue
+      memberChartData: Prisma.JsonValue
+    }, ExtArgs["result"]["monthlyReport"]>
+    composites: {}
+  }
+
+  type MonthlyReportGetPayload<S extends boolean | null | undefined | MonthlyReportDefaultArgs> = $Result.GetResult<Prisma.$MonthlyReportPayload, S>
+
+  type MonthlyReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MonthlyReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MonthlyReportCountAggregateInputType | true
+    }
+
+  export interface MonthlyReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MonthlyReport'], meta: { name: 'MonthlyReport' } }
+    /**
+     * Find zero or one MonthlyReport that matches the filter.
+     * @param {MonthlyReportFindUniqueArgs} args - Arguments to find a MonthlyReport
+     * @example
+     * // Get one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MonthlyReportFindUniqueArgs>(args: SelectSubset<T, MonthlyReportFindUniqueArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MonthlyReport that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MonthlyReportFindUniqueOrThrowArgs} args - Arguments to find a MonthlyReport
+     * @example
+     * // Get one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MonthlyReportFindUniqueOrThrowArgs>(args: SelectSubset<T, MonthlyReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MonthlyReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportFindFirstArgs} args - Arguments to find a MonthlyReport
+     * @example
+     * // Get one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MonthlyReportFindFirstArgs>(args?: SelectSubset<T, MonthlyReportFindFirstArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MonthlyReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportFindFirstOrThrowArgs} args - Arguments to find a MonthlyReport
+     * @example
+     * // Get one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MonthlyReportFindFirstOrThrowArgs>(args?: SelectSubset<T, MonthlyReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MonthlyReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MonthlyReports
+     * const monthlyReports = await prisma.monthlyReport.findMany()
+     * 
+     * // Get first 10 MonthlyReports
+     * const monthlyReports = await prisma.monthlyReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const monthlyReportWithIdOnly = await prisma.monthlyReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MonthlyReportFindManyArgs>(args?: SelectSubset<T, MonthlyReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MonthlyReport.
+     * @param {MonthlyReportCreateArgs} args - Arguments to create a MonthlyReport.
+     * @example
+     * // Create one MonthlyReport
+     * const MonthlyReport = await prisma.monthlyReport.create({
+     *   data: {
+     *     // ... data to create a MonthlyReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends MonthlyReportCreateArgs>(args: SelectSubset<T, MonthlyReportCreateArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MonthlyReports.
+     * @param {MonthlyReportCreateManyArgs} args - Arguments to create many MonthlyReports.
+     * @example
+     * // Create many MonthlyReports
+     * const monthlyReport = await prisma.monthlyReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MonthlyReportCreateManyArgs>(args?: SelectSubset<T, MonthlyReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MonthlyReports and returns the data saved in the database.
+     * @param {MonthlyReportCreateManyAndReturnArgs} args - Arguments to create many MonthlyReports.
+     * @example
+     * // Create many MonthlyReports
+     * const monthlyReport = await prisma.monthlyReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MonthlyReports and only return the `id`
+     * const monthlyReportWithIdOnly = await prisma.monthlyReport.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MonthlyReportCreateManyAndReturnArgs>(args?: SelectSubset<T, MonthlyReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MonthlyReport.
+     * @param {MonthlyReportDeleteArgs} args - Arguments to delete one MonthlyReport.
+     * @example
+     * // Delete one MonthlyReport
+     * const MonthlyReport = await prisma.monthlyReport.delete({
+     *   where: {
+     *     // ... filter to delete one MonthlyReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MonthlyReportDeleteArgs>(args: SelectSubset<T, MonthlyReportDeleteArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MonthlyReport.
+     * @param {MonthlyReportUpdateArgs} args - Arguments to update one MonthlyReport.
+     * @example
+     * // Update one MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MonthlyReportUpdateArgs>(args: SelectSubset<T, MonthlyReportUpdateArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MonthlyReports.
+     * @param {MonthlyReportDeleteManyArgs} args - Arguments to filter MonthlyReports to delete.
+     * @example
+     * // Delete a few MonthlyReports
+     * const { count } = await prisma.monthlyReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MonthlyReportDeleteManyArgs>(args?: SelectSubset<T, MonthlyReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MonthlyReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MonthlyReports
+     * const monthlyReport = await prisma.monthlyReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MonthlyReportUpdateManyArgs>(args: SelectSubset<T, MonthlyReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MonthlyReports and returns the data updated in the database.
+     * @param {MonthlyReportUpdateManyAndReturnArgs} args - Arguments to update many MonthlyReports.
+     * @example
+     * // Update many MonthlyReports
+     * const monthlyReport = await prisma.monthlyReport.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MonthlyReports and only return the `id`
+     * const monthlyReportWithIdOnly = await prisma.monthlyReport.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MonthlyReportUpdateManyAndReturnArgs>(args: SelectSubset<T, MonthlyReportUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MonthlyReport.
+     * @param {MonthlyReportUpsertArgs} args - Arguments to update or create a MonthlyReport.
+     * @example
+     * // Update or create a MonthlyReport
+     * const monthlyReport = await prisma.monthlyReport.upsert({
+     *   create: {
+     *     // ... data to create a MonthlyReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MonthlyReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MonthlyReportUpsertArgs>(args: SelectSubset<T, MonthlyReportUpsertArgs<ExtArgs>>): Prisma__MonthlyReportClient<$Result.GetResult<Prisma.$MonthlyReportPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MonthlyReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportCountArgs} args - Arguments to filter MonthlyReports to count.
+     * @example
+     * // Count the number of MonthlyReports
+     * const count = await prisma.monthlyReport.count({
+     *   where: {
+     *     // ... the filter for the MonthlyReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends MonthlyReportCountArgs>(
+      args?: Subset<T, MonthlyReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MonthlyReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MonthlyReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MonthlyReportAggregateArgs>(args: Subset<T, MonthlyReportAggregateArgs>): Prisma.PrismaPromise<GetMonthlyReportAggregateType<T>>
+
+    /**
+     * Group by MonthlyReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MonthlyReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MonthlyReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MonthlyReportGroupByArgs['orderBy'] }
+        : { orderBy?: MonthlyReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MonthlyReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMonthlyReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MonthlyReport model
+   */
+  readonly fields: MonthlyReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MonthlyReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MonthlyReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MonthlyReport model
+   */
+  interface MonthlyReportFieldRefs {
+    readonly id: FieldRef<"MonthlyReport", 'Int'>
+    readonly period: FieldRef<"MonthlyReport", 'String'>
+    readonly displayName: FieldRef<"MonthlyReport", 'String'>
+    readonly totalMembers: FieldRef<"MonthlyReport", 'Int'>
+    readonly activeMembers: FieldRef<"MonthlyReport", 'Int'>
+    readonly expiredMembers: FieldRef<"MonthlyReport", 'Int'>
+    readonly newMembers: FieldRef<"MonthlyReport", 'Int'>
+    readonly renewals: FieldRef<"MonthlyReport", 'Int'>
+    readonly incidentiles: FieldRef<"MonthlyReport", 'Int'>
+    readonly incidentilesGym: FieldRef<"MonthlyReport", 'Int'>
+    readonly incidentilesClass: FieldRef<"MonthlyReport", 'Int'>
+    readonly canteenItemsSold: FieldRef<"MonthlyReport", 'Json'>
+    readonly finishedCampaigns: FieldRef<"MonthlyReport", 'Int'>
+    readonly finishedCampaignNames: FieldRef<"MonthlyReport", 'String[]'>
+    readonly finishedCampaignActivities: FieldRef<"MonthlyReport", 'String[]'>
+    readonly foTotalIncome: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly canteenTotalIncome: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly accountingTotalIncome: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly foTotalExpenses: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly canteenTotalExpenses: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly accountingTotalExpenses: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly netIncome: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly cashBalance: FieldRef<"MonthlyReport", 'BigInt'>
+    readonly status: FieldRef<"MonthlyReport", 'ReportStatus'>
+    readonly generatedAt: FieldRef<"MonthlyReport", 'DateTime'>
+    readonly updatedAt: FieldRef<"MonthlyReport", 'DateTime'>
+    readonly incClassChartData: FieldRef<"MonthlyReport", 'Json'>
+    readonly incGymChartData: FieldRef<"MonthlyReport", 'Json'>
+    readonly memberChartData: FieldRef<"MonthlyReport", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MonthlyReport findUnique
+   */
+  export type MonthlyReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReport to fetch.
+     */
+    where: MonthlyReportWhereUniqueInput
+  }
+
+  /**
+   * MonthlyReport findUniqueOrThrow
+   */
+  export type MonthlyReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReport to fetch.
+     */
+    where: MonthlyReportWhereUniqueInput
+  }
+
+  /**
+   * MonthlyReport findFirst
+   */
+  export type MonthlyReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReport to fetch.
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MonthlyReports to fetch.
+     */
+    orderBy?: MonthlyReportOrderByWithRelationInput | MonthlyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MonthlyReports.
+     */
+    cursor?: MonthlyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MonthlyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MonthlyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MonthlyReports.
+     */
+    distinct?: MonthlyReportScalarFieldEnum | MonthlyReportScalarFieldEnum[]
+  }
+
+  /**
+   * MonthlyReport findFirstOrThrow
+   */
+  export type MonthlyReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReport to fetch.
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MonthlyReports to fetch.
+     */
+    orderBy?: MonthlyReportOrderByWithRelationInput | MonthlyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MonthlyReports.
+     */
+    cursor?: MonthlyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MonthlyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MonthlyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MonthlyReports.
+     */
+    distinct?: MonthlyReportScalarFieldEnum | MonthlyReportScalarFieldEnum[]
+  }
+
+  /**
+   * MonthlyReport findMany
+   */
+  export type MonthlyReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MonthlyReports to fetch.
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MonthlyReports to fetch.
+     */
+    orderBy?: MonthlyReportOrderByWithRelationInput | MonthlyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MonthlyReports.
+     */
+    cursor?: MonthlyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MonthlyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MonthlyReports.
+     */
+    skip?: number
+    distinct?: MonthlyReportScalarFieldEnum | MonthlyReportScalarFieldEnum[]
+  }
+
+  /**
+   * MonthlyReport create
+   */
+  export type MonthlyReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MonthlyReport.
+     */
+    data: XOR<MonthlyReportCreateInput, MonthlyReportUncheckedCreateInput>
+  }
+
+  /**
+   * MonthlyReport createMany
+   */
+  export type MonthlyReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MonthlyReports.
+     */
+    data: MonthlyReportCreateManyInput | MonthlyReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MonthlyReport createManyAndReturn
+   */
+  export type MonthlyReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The data used to create many MonthlyReports.
+     */
+    data: MonthlyReportCreateManyInput | MonthlyReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MonthlyReport update
+   */
+  export type MonthlyReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MonthlyReport.
+     */
+    data: XOR<MonthlyReportUpdateInput, MonthlyReportUncheckedUpdateInput>
+    /**
+     * Choose, which MonthlyReport to update.
+     */
+    where: MonthlyReportWhereUniqueInput
+  }
+
+  /**
+   * MonthlyReport updateMany
+   */
+  export type MonthlyReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MonthlyReports.
+     */
+    data: XOR<MonthlyReportUpdateManyMutationInput, MonthlyReportUncheckedUpdateManyInput>
+    /**
+     * Filter which MonthlyReports to update
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * Limit how many MonthlyReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MonthlyReport updateManyAndReturn
+   */
+  export type MonthlyReportUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The data used to update MonthlyReports.
+     */
+    data: XOR<MonthlyReportUpdateManyMutationInput, MonthlyReportUncheckedUpdateManyInput>
+    /**
+     * Filter which MonthlyReports to update
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * Limit how many MonthlyReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MonthlyReport upsert
+   */
+  export type MonthlyReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MonthlyReport to update in case it exists.
+     */
+    where: MonthlyReportWhereUniqueInput
+    /**
+     * In case the MonthlyReport found by the `where` argument doesn't exist, create a new MonthlyReport with this data.
+     */
+    create: XOR<MonthlyReportCreateInput, MonthlyReportUncheckedCreateInput>
+    /**
+     * In case the MonthlyReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MonthlyReportUpdateInput, MonthlyReportUncheckedUpdateInput>
+  }
+
+  /**
+   * MonthlyReport delete
+   */
+  export type MonthlyReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+    /**
+     * Filter which MonthlyReport to delete.
+     */
+    where: MonthlyReportWhereUniqueInput
+  }
+
+  /**
+   * MonthlyReport deleteMany
+   */
+  export type MonthlyReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MonthlyReports to delete
+     */
+    where?: MonthlyReportWhereInput
+    /**
+     * Limit how many MonthlyReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MonthlyReport without action
+   */
+  export type MonthlyReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MonthlyReport
+     */
+    select?: MonthlyReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MonthlyReport
+     */
+    omit?: MonthlyReportOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -15512,7 +17109,8 @@ export namespace Prisma {
     id: 'id',
     memberId: 'memberId',
     arrivalDate: 'arrivalDate',
-    arrivalType: 'arrivalType'
+    arrivalType: 'arrivalType',
+    namaPt: 'namaPt'
   };
 
   export type MemberArrivalScalarFieldEnum = (typeof MemberArrivalScalarFieldEnum)[keyof typeof MemberArrivalScalarFieldEnum]
@@ -15521,8 +17119,10 @@ export namespace Prisma {
   export const IncidentileScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    phone: 'phone',
     type: 'type',
     class: 'class',
+    namaPt: 'namaPt',
     pt: 'pt',
     sauna: 'sauna',
     paymentMethod: 'paymentMethod',
@@ -15540,7 +17140,8 @@ export namespace Prisma {
     note: 'note',
     paymentMethod: 'paymentMethod',
     paymentAmount: 'paymentAmount',
-    date: 'date'
+    date: 'date',
+    billId: 'billId'
   };
 
   export type TxFoScalarFieldEnum = (typeof TxFoScalarFieldEnum)[keyof typeof TxFoScalarFieldEnum]
@@ -15555,7 +17156,8 @@ export namespace Prisma {
     itemAmount: 'itemAmount',
     paymentMethod: 'paymentMethod',
     paymentAmount: 'paymentAmount',
-    date: 'date'
+    date: 'date',
+    billId: 'billId'
   };
 
   export type TxCanteenScalarFieldEnum = (typeof TxCanteenScalarFieldEnum)[keyof typeof TxCanteenScalarFieldEnum]
@@ -15568,7 +17170,8 @@ export namespace Prisma {
     note: 'note',
     paymentMethod: 'paymentMethod',
     paymentAmount: 'paymentAmount',
-    date: 'date'
+    date: 'date',
+    billId: 'billId'
   };
 
   export type TxAccountingScalarFieldEnum = (typeof TxAccountingScalarFieldEnum)[keyof typeof TxAccountingScalarFieldEnum]
@@ -15603,6 +17206,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     price: 'price',
+    stock: 'stock',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15617,7 +17221,8 @@ export namespace Prisma {
     passwordHash: 'passwordHash',
     role: 'role',
     createdAt: 'createdAt',
-    lastLogin: 'lastLogin'
+    lastLogin: 'lastLogin',
+    name: 'name'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -15633,12 +17238,54 @@ export namespace Prisma {
   export type UserActionsScalarFieldEnum = (typeof UserActionsScalarFieldEnum)[keyof typeof UserActionsScalarFieldEnum]
 
 
+  export const MonthlyReportScalarFieldEnum: {
+    id: 'id',
+    period: 'period',
+    displayName: 'displayName',
+    totalMembers: 'totalMembers',
+    activeMembers: 'activeMembers',
+    expiredMembers: 'expiredMembers',
+    newMembers: 'newMembers',
+    renewals: 'renewals',
+    incidentiles: 'incidentiles',
+    incidentilesGym: 'incidentilesGym',
+    incidentilesClass: 'incidentilesClass',
+    canteenItemsSold: 'canteenItemsSold',
+    finishedCampaigns: 'finishedCampaigns',
+    finishedCampaignNames: 'finishedCampaignNames',
+    finishedCampaignActivities: 'finishedCampaignActivities',
+    foTotalIncome: 'foTotalIncome',
+    canteenTotalIncome: 'canteenTotalIncome',
+    accountingTotalIncome: 'accountingTotalIncome',
+    foTotalExpenses: 'foTotalExpenses',
+    canteenTotalExpenses: 'canteenTotalExpenses',
+    accountingTotalExpenses: 'accountingTotalExpenses',
+    netIncome: 'netIncome',
+    cashBalance: 'cashBalance',
+    status: 'status',
+    generatedAt: 'generatedAt',
+    updatedAt: 'updatedAt',
+    incClassChartData: 'incClassChartData',
+    incGymChartData: 'incGymChartData',
+    memberChartData: 'memberChartData'
+  };
+
+  export type MonthlyReportScalarFieldEnum = (typeof MonthlyReportScalarFieldEnum)[keyof typeof MonthlyReportScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -15655,6 +17302,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -15824,6 +17480,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReportStatus'
+   */
+  export type EnumReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReportStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReportStatus[]'
+   */
+  export type ListEnumReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReportStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -15853,9 +17551,9 @@ export namespace Prisma {
     joinDate?: DateTimeFilter<"Member"> | Date | string
     expiryDate?: DateTimeFilter<"Member"> | Date | string
     status?: EnumMemberStatusFilter<"Member"> | $Enums.MemberStatus
-    arrivals?: MemberArrivalListRelationFilter
     couples1?: CoupleListRelationFilter
     couples2?: CoupleListRelationFilter
+    arrivals?: MemberArrivalListRelationFilter
   }
 
   export type MemberOrderByWithRelationInput = {
@@ -15868,9 +17566,9 @@ export namespace Prisma {
     joinDate?: SortOrder
     expiryDate?: SortOrder
     status?: SortOrder
-    arrivals?: MemberArrivalOrderByRelationAggregateInput
     couples1?: CoupleOrderByRelationAggregateInput
     couples2?: CoupleOrderByRelationAggregateInput
+    arrivals?: MemberArrivalOrderByRelationAggregateInput
   }
 
   export type MemberWhereUniqueInput = Prisma.AtLeast<{
@@ -15886,9 +17584,9 @@ export namespace Prisma {
     joinDate?: DateTimeFilter<"Member"> | Date | string
     expiryDate?: DateTimeFilter<"Member"> | Date | string
     status?: EnumMemberStatusFilter<"Member"> | $Enums.MemberStatus
-    arrivals?: MemberArrivalListRelationFilter
     couples1?: CoupleListRelationFilter
     couples2?: CoupleListRelationFilter
+    arrivals?: MemberArrivalListRelationFilter
   }, "id">
 
   export type MemberOrderByWithAggregationInput = {
@@ -15981,6 +17679,7 @@ export namespace Prisma {
     memberId?: IntFilter<"MemberArrival"> | number
     arrivalDate?: DateTimeFilter<"MemberArrival"> | Date | string
     arrivalType?: EnumArrivalTypeFilter<"MemberArrival"> | $Enums.ArrivalType
+    namaPt?: StringNullableFilter<"MemberArrival"> | string | null
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
   }
 
@@ -15989,6 +17688,7 @@ export namespace Prisma {
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrderInput | SortOrder
     member?: MemberOrderByWithRelationInput
   }
 
@@ -16000,6 +17700,7 @@ export namespace Prisma {
     memberId?: IntFilter<"MemberArrival"> | number
     arrivalDate?: DateTimeFilter<"MemberArrival"> | Date | string
     arrivalType?: EnumArrivalTypeFilter<"MemberArrival"> | $Enums.ArrivalType
+    namaPt?: StringNullableFilter<"MemberArrival"> | string | null
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
   }, "id">
 
@@ -16008,6 +17709,7 @@ export namespace Prisma {
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrderInput | SortOrder
     _count?: MemberArrivalCountOrderByAggregateInput
     _avg?: MemberArrivalAvgOrderByAggregateInput
     _max?: MemberArrivalMaxOrderByAggregateInput
@@ -16023,6 +17725,7 @@ export namespace Prisma {
     memberId?: IntWithAggregatesFilter<"MemberArrival"> | number
     arrivalDate?: DateTimeWithAggregatesFilter<"MemberArrival"> | Date | string
     arrivalType?: EnumArrivalTypeWithAggregatesFilter<"MemberArrival"> | $Enums.ArrivalType
+    namaPt?: StringNullableWithAggregatesFilter<"MemberArrival"> | string | null
   }
 
   export type IncidentileWhereInput = {
@@ -16031,8 +17734,10 @@ export namespace Prisma {
     NOT?: IncidentileWhereInput | IncidentileWhereInput[]
     id?: IntFilter<"Incidentile"> | number
     name?: StringFilter<"Incidentile"> | string
+    phone?: StringNullableFilter<"Incidentile"> | string | null
     type?: EnumIncidentileTypeFilter<"Incidentile"> | $Enums.IncidentileType
     class?: EnumIncidentileClassNullableFilter<"Incidentile"> | $Enums.IncidentileClass | null
+    namaPt?: StringNullableFilter<"Incidentile"> | string | null
     pt?: BoolFilter<"Incidentile"> | boolean
     sauna?: BoolFilter<"Incidentile"> | boolean
     paymentMethod?: EnumPaymentMethodFilter<"Incidentile"> | $Enums.PaymentMethod
@@ -16043,8 +17748,10 @@ export namespace Prisma {
   export type IncidentileOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    phone?: SortOrderInput | SortOrder
     type?: SortOrder
     class?: SortOrderInput | SortOrder
+    namaPt?: SortOrderInput | SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -16058,8 +17765,10 @@ export namespace Prisma {
     OR?: IncidentileWhereInput[]
     NOT?: IncidentileWhereInput | IncidentileWhereInput[]
     name?: StringFilter<"Incidentile"> | string
+    phone?: StringNullableFilter<"Incidentile"> | string | null
     type?: EnumIncidentileTypeFilter<"Incidentile"> | $Enums.IncidentileType
     class?: EnumIncidentileClassNullableFilter<"Incidentile"> | $Enums.IncidentileClass | null
+    namaPt?: StringNullableFilter<"Incidentile"> | string | null
     pt?: BoolFilter<"Incidentile"> | boolean
     sauna?: BoolFilter<"Incidentile"> | boolean
     paymentMethod?: EnumPaymentMethodFilter<"Incidentile"> | $Enums.PaymentMethod
@@ -16070,8 +17779,10 @@ export namespace Prisma {
   export type IncidentileOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    phone?: SortOrderInput | SortOrder
     type?: SortOrder
     class?: SortOrderInput | SortOrder
+    namaPt?: SortOrderInput | SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -16090,8 +17801,10 @@ export namespace Prisma {
     NOT?: IncidentileScalarWhereWithAggregatesInput | IncidentileScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Incidentile"> | number
     name?: StringWithAggregatesFilter<"Incidentile"> | string
+    phone?: StringNullableWithAggregatesFilter<"Incidentile"> | string | null
     type?: EnumIncidentileTypeWithAggregatesFilter<"Incidentile"> | $Enums.IncidentileType
     class?: EnumIncidentileClassNullableWithAggregatesFilter<"Incidentile"> | $Enums.IncidentileClass | null
+    namaPt?: StringNullableWithAggregatesFilter<"Incidentile"> | string | null
     pt?: BoolWithAggregatesFilter<"Incidentile"> | boolean
     sauna?: BoolWithAggregatesFilter<"Incidentile"> | boolean
     paymentMethod?: EnumPaymentMethodWithAggregatesFilter<"Incidentile"> | $Enums.PaymentMethod
@@ -16110,6 +17823,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFilter<"TxFo"> | $Enums.PaymentMethod
     paymentAmount?: IntFilter<"TxFo"> | number
     date?: DateTimeFilter<"TxFo"> | Date | string
+    billId?: StringNullableFilter<"TxFo"> | string | null
   }
 
   export type TxFoOrderByWithRelationInput = {
@@ -16120,6 +17834,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrderInput | SortOrder
   }
 
   export type TxFoWhereUniqueInput = Prisma.AtLeast<{
@@ -16133,6 +17848,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFilter<"TxFo"> | $Enums.PaymentMethod
     paymentAmount?: IntFilter<"TxFo"> | number
     date?: DateTimeFilter<"TxFo"> | Date | string
+    billId?: StringNullableFilter<"TxFo"> | string | null
   }, "id">
 
   export type TxFoOrderByWithAggregationInput = {
@@ -16143,6 +17859,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrderInput | SortOrder
     _count?: TxFoCountOrderByAggregateInput
     _avg?: TxFoAvgOrderByAggregateInput
     _max?: TxFoMaxOrderByAggregateInput
@@ -16161,6 +17878,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodWithAggregatesFilter<"TxFo"> | $Enums.PaymentMethod
     paymentAmount?: IntWithAggregatesFilter<"TxFo"> | number
     date?: DateTimeWithAggregatesFilter<"TxFo"> | Date | string
+    billId?: StringNullableWithAggregatesFilter<"TxFo"> | string | null
   }
 
   export type TxCanteenWhereInput = {
@@ -16176,6 +17894,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFilter<"TxCanteen"> | $Enums.PaymentMethod
     paymentAmount?: IntFilter<"TxCanteen"> | number
     date?: DateTimeFilter<"TxCanteen"> | Date | string
+    billId?: StringNullableFilter<"TxCanteen"> | string | null
     item?: XOR<CanteenItemNullableScalarRelationFilter, CanteenItemWhereInput> | null
   }
 
@@ -16189,6 +17908,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrderInput | SortOrder
     item?: CanteenItemOrderByWithRelationInput
   }
 
@@ -16205,6 +17925,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFilter<"TxCanteen"> | $Enums.PaymentMethod
     paymentAmount?: IntFilter<"TxCanteen"> | number
     date?: DateTimeFilter<"TxCanteen"> | Date | string
+    billId?: StringNullableFilter<"TxCanteen"> | string | null
     item?: XOR<CanteenItemNullableScalarRelationFilter, CanteenItemWhereInput> | null
   }, "id">
 
@@ -16218,6 +17939,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrderInput | SortOrder
     _count?: TxCanteenCountOrderByAggregateInput
     _avg?: TxCanteenAvgOrderByAggregateInput
     _max?: TxCanteenMaxOrderByAggregateInput
@@ -16238,6 +17960,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodWithAggregatesFilter<"TxCanteen"> | $Enums.PaymentMethod
     paymentAmount?: IntWithAggregatesFilter<"TxCanteen"> | number
     date?: DateTimeWithAggregatesFilter<"TxCanteen"> | Date | string
+    billId?: StringNullableWithAggregatesFilter<"TxCanteen"> | string | null
   }
 
   export type TxAccountingWhereInput = {
@@ -16251,6 +17974,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFilter<"TxAccounting"> | $Enums.PaymentMethod
     paymentAmount?: IntFilter<"TxAccounting"> | number
     date?: DateTimeFilter<"TxAccounting"> | Date | string
+    billId?: StringNullableFilter<"TxAccounting"> | string | null
   }
 
   export type TxAccountingOrderByWithRelationInput = {
@@ -16261,6 +17985,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrderInput | SortOrder
   }
 
   export type TxAccountingWhereUniqueInput = Prisma.AtLeast<{
@@ -16274,6 +17999,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFilter<"TxAccounting"> | $Enums.PaymentMethod
     paymentAmount?: IntFilter<"TxAccounting"> | number
     date?: DateTimeFilter<"TxAccounting"> | Date | string
+    billId?: StringNullableFilter<"TxAccounting"> | string | null
   }, "id">
 
   export type TxAccountingOrderByWithAggregationInput = {
@@ -16284,6 +18010,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrderInput | SortOrder
     _count?: TxAccountingCountOrderByAggregateInput
     _avg?: TxAccountingAvgOrderByAggregateInput
     _max?: TxAccountingMaxOrderByAggregateInput
@@ -16302,6 +18029,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodWithAggregatesFilter<"TxAccounting"> | $Enums.PaymentMethod
     paymentAmount?: IntWithAggregatesFilter<"TxAccounting"> | number
     date?: DateTimeWithAggregatesFilter<"TxAccounting"> | Date | string
+    billId?: StringNullableWithAggregatesFilter<"TxAccounting"> | string | null
   }
 
   export type CampaignWhereInput = {
@@ -16440,6 +18168,7 @@ export namespace Prisma {
     id?: IntFilter<"CanteenItem"> | number
     name?: StringFilter<"CanteenItem"> | string
     price?: IntFilter<"CanteenItem"> | number
+    stock?: IntFilter<"CanteenItem"> | number
     createdAt?: DateTimeFilter<"CanteenItem"> | Date | string
     updatedAt?: DateTimeFilter<"CanteenItem"> | Date | string
     txCanteens?: TxCanteenListRelationFilter
@@ -16449,6 +18178,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     price?: SortOrder
+    stock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     txCanteens?: TxCanteenOrderByRelationAggregateInput
@@ -16462,6 +18192,7 @@ export namespace Prisma {
     NOT?: CanteenItemWhereInput | CanteenItemWhereInput[]
     name?: StringFilter<"CanteenItem"> | string
     price?: IntFilter<"CanteenItem"> | number
+    stock?: IntFilter<"CanteenItem"> | number
     createdAt?: DateTimeFilter<"CanteenItem"> | Date | string
     updatedAt?: DateTimeFilter<"CanteenItem"> | Date | string
     txCanteens?: TxCanteenListRelationFilter
@@ -16471,6 +18202,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     price?: SortOrder
+    stock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CanteenItemCountOrderByAggregateInput
@@ -16487,6 +18219,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"CanteenItem"> | number
     name?: StringWithAggregatesFilter<"CanteenItem"> | string
     price?: IntWithAggregatesFilter<"CanteenItem"> | number
+    stock?: IntWithAggregatesFilter<"CanteenItem"> | number
     createdAt?: DateTimeWithAggregatesFilter<"CanteenItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CanteenItem"> | Date | string
   }
@@ -16496,23 +18229,25 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
-    email?: StringFilter<"User"> | string
-    username?: StringFilter<"User"> | string
+    email?: StringNullableFilter<"User"> | string | null
+    username?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
+    name?: StringNullableFilter<"User"> | string | null
     actions?: UserActionsListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    email?: SortOrder
-    username?: SortOrder
+    email?: SortOrderInput | SortOrder
+    username?: SortOrderInput | SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
+    name?: SortOrderInput | SortOrder
     actions?: UserActionsOrderByRelationAggregateInput
   }
 
@@ -16527,17 +18262,19 @@ export namespace Prisma {
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
+    name?: StringNullableFilter<"User"> | string | null
     actions?: UserActionsListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    email?: SortOrder
-    username?: SortOrder
+    email?: SortOrderInput | SortOrder
+    username?: SortOrderInput | SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
+    name?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -16550,12 +18287,13 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
-    email?: StringWithAggregatesFilter<"User"> | string
-    username?: StringWithAggregatesFilter<"User"> | string
+    email?: StringNullableWithAggregatesFilter<"User"> | string | null
+    username?: StringNullableWithAggregatesFilter<"User"> | string | null
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    name?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type UserActionsWhereInput = {
@@ -16610,6 +18348,180 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"UserActions"> | string
   }
 
+  export type MonthlyReportWhereInput = {
+    AND?: MonthlyReportWhereInput | MonthlyReportWhereInput[]
+    OR?: MonthlyReportWhereInput[]
+    NOT?: MonthlyReportWhereInput | MonthlyReportWhereInput[]
+    id?: IntFilter<"MonthlyReport"> | number
+    period?: StringFilter<"MonthlyReport"> | string
+    displayName?: StringFilter<"MonthlyReport"> | string
+    totalMembers?: IntFilter<"MonthlyReport"> | number
+    activeMembers?: IntFilter<"MonthlyReport"> | number
+    expiredMembers?: IntFilter<"MonthlyReport"> | number
+    newMembers?: IntFilter<"MonthlyReport"> | number
+    renewals?: IntFilter<"MonthlyReport"> | number
+    incidentiles?: IntFilter<"MonthlyReport"> | number
+    incidentilesGym?: IntFilter<"MonthlyReport"> | number
+    incidentilesClass?: IntFilter<"MonthlyReport"> | number
+    canteenItemsSold?: JsonFilter<"MonthlyReport">
+    finishedCampaigns?: IntFilter<"MonthlyReport"> | number
+    finishedCampaignNames?: StringNullableListFilter<"MonthlyReport">
+    finishedCampaignActivities?: StringNullableListFilter<"MonthlyReport">
+    foTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    canteenTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    accountingTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    foTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    canteenTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    accountingTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    netIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    cashBalance?: BigIntFilter<"MonthlyReport"> | bigint | number
+    status?: EnumReportStatusFilter<"MonthlyReport"> | $Enums.ReportStatus
+    generatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
+    updatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
+    incClassChartData?: JsonFilter<"MonthlyReport">
+    incGymChartData?: JsonFilter<"MonthlyReport">
+    memberChartData?: JsonFilter<"MonthlyReport">
+  }
+
+  export type MonthlyReportOrderByWithRelationInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    canteenItemsSold?: SortOrder
+    finishedCampaigns?: SortOrder
+    finishedCampaignNames?: SortOrder
+    finishedCampaignActivities?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+    incClassChartData?: SortOrder
+    incGymChartData?: SortOrder
+    memberChartData?: SortOrder
+  }
+
+  export type MonthlyReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    period?: string
+    AND?: MonthlyReportWhereInput | MonthlyReportWhereInput[]
+    OR?: MonthlyReportWhereInput[]
+    NOT?: MonthlyReportWhereInput | MonthlyReportWhereInput[]
+    displayName?: StringFilter<"MonthlyReport"> | string
+    totalMembers?: IntFilter<"MonthlyReport"> | number
+    activeMembers?: IntFilter<"MonthlyReport"> | number
+    expiredMembers?: IntFilter<"MonthlyReport"> | number
+    newMembers?: IntFilter<"MonthlyReport"> | number
+    renewals?: IntFilter<"MonthlyReport"> | number
+    incidentiles?: IntFilter<"MonthlyReport"> | number
+    incidentilesGym?: IntFilter<"MonthlyReport"> | number
+    incidentilesClass?: IntFilter<"MonthlyReport"> | number
+    canteenItemsSold?: JsonFilter<"MonthlyReport">
+    finishedCampaigns?: IntFilter<"MonthlyReport"> | number
+    finishedCampaignNames?: StringNullableListFilter<"MonthlyReport">
+    finishedCampaignActivities?: StringNullableListFilter<"MonthlyReport">
+    foTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    canteenTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    accountingTotalIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    foTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    canteenTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    accountingTotalExpenses?: BigIntFilter<"MonthlyReport"> | bigint | number
+    netIncome?: BigIntFilter<"MonthlyReport"> | bigint | number
+    cashBalance?: BigIntFilter<"MonthlyReport"> | bigint | number
+    status?: EnumReportStatusFilter<"MonthlyReport"> | $Enums.ReportStatus
+    generatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
+    updatedAt?: DateTimeFilter<"MonthlyReport"> | Date | string
+    incClassChartData?: JsonFilter<"MonthlyReport">
+    incGymChartData?: JsonFilter<"MonthlyReport">
+    memberChartData?: JsonFilter<"MonthlyReport">
+  }, "id" | "period">
+
+  export type MonthlyReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    canteenItemsSold?: SortOrder
+    finishedCampaigns?: SortOrder
+    finishedCampaignNames?: SortOrder
+    finishedCampaignActivities?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+    incClassChartData?: SortOrder
+    incGymChartData?: SortOrder
+    memberChartData?: SortOrder
+    _count?: MonthlyReportCountOrderByAggregateInput
+    _avg?: MonthlyReportAvgOrderByAggregateInput
+    _max?: MonthlyReportMaxOrderByAggregateInput
+    _min?: MonthlyReportMinOrderByAggregateInput
+    _sum?: MonthlyReportSumOrderByAggregateInput
+  }
+
+  export type MonthlyReportScalarWhereWithAggregatesInput = {
+    AND?: MonthlyReportScalarWhereWithAggregatesInput | MonthlyReportScalarWhereWithAggregatesInput[]
+    OR?: MonthlyReportScalarWhereWithAggregatesInput[]
+    NOT?: MonthlyReportScalarWhereWithAggregatesInput | MonthlyReportScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    period?: StringWithAggregatesFilter<"MonthlyReport"> | string
+    displayName?: StringWithAggregatesFilter<"MonthlyReport"> | string
+    totalMembers?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    activeMembers?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    expiredMembers?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    newMembers?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    renewals?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    incidentiles?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    incidentilesGym?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    incidentilesClass?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    canteenItemsSold?: JsonWithAggregatesFilter<"MonthlyReport">
+    finishedCampaigns?: IntWithAggregatesFilter<"MonthlyReport"> | number
+    finishedCampaignNames?: StringNullableListFilter<"MonthlyReport">
+    finishedCampaignActivities?: StringNullableListFilter<"MonthlyReport">
+    foTotalIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    canteenTotalIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    accountingTotalIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    foTotalExpenses?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    canteenTotalExpenses?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    accountingTotalExpenses?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    netIncome?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    cashBalance?: BigIntWithAggregatesFilter<"MonthlyReport"> | bigint | number
+    status?: EnumReportStatusWithAggregatesFilter<"MonthlyReport"> | $Enums.ReportStatus
+    generatedAt?: DateTimeWithAggregatesFilter<"MonthlyReport"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MonthlyReport"> | Date | string
+    incClassChartData?: JsonWithAggregatesFilter<"MonthlyReport">
+    incGymChartData?: JsonWithAggregatesFilter<"MonthlyReport">
+    memberChartData?: JsonWithAggregatesFilter<"MonthlyReport">
+  }
+
   export type MemberCreateInput = {
     name: string
     nik: string
@@ -16619,9 +18531,9 @@ export namespace Prisma {
     joinDate: Date | string
     expiryDate: Date | string
     status: $Enums.MemberStatus
-    arrivals?: MemberArrivalCreateNestedManyWithoutMemberInput
     couples1?: CoupleCreateNestedManyWithoutMember1Input
     couples2?: CoupleCreateNestedManyWithoutMember2Input
+    arrivals?: MemberArrivalCreateNestedManyWithoutMemberInput
   }
 
   export type MemberUncheckedCreateInput = {
@@ -16634,9 +18546,9 @@ export namespace Prisma {
     joinDate: Date | string
     expiryDate: Date | string
     status: $Enums.MemberStatus
-    arrivals?: MemberArrivalUncheckedCreateNestedManyWithoutMemberInput
     couples1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
     couples2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
+    arrivals?: MemberArrivalUncheckedCreateNestedManyWithoutMemberInput
   }
 
   export type MemberUpdateInput = {
@@ -16648,9 +18560,9 @@ export namespace Prisma {
     joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
-    arrivals?: MemberArrivalUpdateManyWithoutMemberNestedInput
     couples1?: CoupleUpdateManyWithoutMember1NestedInput
     couples2?: CoupleUpdateManyWithoutMember2NestedInput
+    arrivals?: MemberArrivalUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberUncheckedUpdateInput = {
@@ -16663,9 +18575,9 @@ export namespace Prisma {
     joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
-    arrivals?: MemberArrivalUncheckedUpdateManyWithoutMemberNestedInput
     couples1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
     couples2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
+    arrivals?: MemberArrivalUncheckedUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberCreateManyInput = {
@@ -16744,6 +18656,7 @@ export namespace Prisma {
   export type MemberArrivalCreateInput = {
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
     member: MemberCreateNestedOneWithoutArrivalsInput
   }
 
@@ -16752,11 +18665,13 @@ export namespace Prisma {
     memberId: number
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
   }
 
   export type MemberArrivalUpdateInput = {
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     member?: MemberUpdateOneRequiredWithoutArrivalsNestedInput
   }
 
@@ -16765,6 +18680,7 @@ export namespace Prisma {
     memberId?: IntFieldUpdateOperationsInput | number
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MemberArrivalCreateManyInput = {
@@ -16772,11 +18688,13 @@ export namespace Prisma {
     memberId: number
     arrivalDate: Date | string
     arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
   }
 
   export type MemberArrivalUpdateManyMutationInput = {
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MemberArrivalUncheckedUpdateManyInput = {
@@ -16784,12 +18702,15 @@ export namespace Prisma {
     memberId?: IntFieldUpdateOperationsInput | number
     arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IncidentileCreateInput = {
     name: string
+    phone?: string | null
     type: $Enums.IncidentileType
     class?: $Enums.IncidentileClass | null
+    namaPt?: string | null
     pt: boolean
     sauna: boolean
     paymentMethod: $Enums.PaymentMethod
@@ -16800,8 +18721,10 @@ export namespace Prisma {
   export type IncidentileUncheckedCreateInput = {
     id?: number
     name: string
+    phone?: string | null
     type: $Enums.IncidentileType
     class?: $Enums.IncidentileClass | null
+    namaPt?: string | null
     pt: boolean
     sauna: boolean
     paymentMethod: $Enums.PaymentMethod
@@ -16811,8 +18734,10 @@ export namespace Prisma {
 
   export type IncidentileUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentileTypeFieldUpdateOperationsInput | $Enums.IncidentileType
     class?: NullableEnumIncidentileClassFieldUpdateOperationsInput | $Enums.IncidentileClass | null
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     pt?: BoolFieldUpdateOperationsInput | boolean
     sauna?: BoolFieldUpdateOperationsInput | boolean
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -16823,8 +18748,10 @@ export namespace Prisma {
   export type IncidentileUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentileTypeFieldUpdateOperationsInput | $Enums.IncidentileType
     class?: NullableEnumIncidentileClassFieldUpdateOperationsInput | $Enums.IncidentileClass | null
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     pt?: BoolFieldUpdateOperationsInput | boolean
     sauna?: BoolFieldUpdateOperationsInput | boolean
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -16835,8 +18762,10 @@ export namespace Prisma {
   export type IncidentileCreateManyInput = {
     id?: number
     name: string
+    phone?: string | null
     type: $Enums.IncidentileType
     class?: $Enums.IncidentileClass | null
+    namaPt?: string | null
     pt: boolean
     sauna: boolean
     paymentMethod: $Enums.PaymentMethod
@@ -16846,8 +18775,10 @@ export namespace Prisma {
 
   export type IncidentileUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentileTypeFieldUpdateOperationsInput | $Enums.IncidentileType
     class?: NullableEnumIncidentileClassFieldUpdateOperationsInput | $Enums.IncidentileClass | null
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     pt?: BoolFieldUpdateOperationsInput | boolean
     sauna?: BoolFieldUpdateOperationsInput | boolean
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -16858,8 +18789,10 @@ export namespace Prisma {
   export type IncidentileUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentileTypeFieldUpdateOperationsInput | $Enums.IncidentileType
     class?: NullableEnumIncidentileClassFieldUpdateOperationsInput | $Enums.IncidentileClass | null
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
     pt?: BoolFieldUpdateOperationsInput | boolean
     sauna?: BoolFieldUpdateOperationsInput | boolean
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -16874,6 +18807,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxFoUncheckedCreateInput = {
@@ -16884,6 +18818,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxFoUpdateInput = {
@@ -16893,6 +18828,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxFoUncheckedUpdateInput = {
@@ -16903,6 +18839,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxFoCreateManyInput = {
@@ -16913,6 +18850,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxFoUpdateManyMutationInput = {
@@ -16922,6 +18860,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxFoUncheckedUpdateManyInput = {
@@ -16932,6 +18871,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxCanteenCreateInput = {
@@ -16942,6 +18882,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
     item?: CanteenItemCreateNestedOneWithoutTxCanteensInput
   }
 
@@ -16955,6 +18896,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxCanteenUpdateInput = {
@@ -16965,6 +18907,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
     item?: CanteenItemUpdateOneWithoutTxCanteensNestedInput
   }
 
@@ -16978,6 +18921,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxCanteenCreateManyInput = {
@@ -16990,6 +18934,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxCanteenUpdateManyMutationInput = {
@@ -17000,6 +18945,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxCanteenUncheckedUpdateManyInput = {
@@ -17012,6 +18958,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxAccountingCreateInput = {
@@ -17021,6 +18968,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxAccountingUncheckedCreateInput = {
@@ -17031,6 +18979,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxAccountingUpdateInput = {
@@ -17040,6 +18989,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxAccountingUncheckedUpdateInput = {
@@ -17050,6 +19000,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxAccountingCreateManyInput = {
@@ -17060,6 +19011,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxAccountingUpdateManyMutationInput = {
@@ -17069,6 +19021,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxAccountingUncheckedUpdateManyInput = {
@@ -17079,6 +19032,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CampaignCreateInput = {
@@ -17214,6 +19168,7 @@ export namespace Prisma {
   export type CanteenItemCreateInput = {
     name: string
     price: number
+    stock?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     txCanteens?: TxCanteenCreateNestedManyWithoutItemInput
@@ -17223,6 +19178,7 @@ export namespace Prisma {
     id?: number
     name: string
     price: number
+    stock?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     txCanteens?: TxCanteenUncheckedCreateNestedManyWithoutItemInput
@@ -17231,6 +19187,7 @@ export namespace Prisma {
   export type CanteenItemUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     txCanteens?: TxCanteenUpdateManyWithoutItemNestedInput
@@ -17240,6 +19197,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     txCanteens?: TxCanteenUncheckedUpdateManyWithoutItemNestedInput
@@ -17249,6 +19207,7 @@ export namespace Prisma {
     id?: number
     name: string
     price: number
+    stock?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17256,6 +19215,7 @@ export namespace Prisma {
   export type CanteenItemUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17264,79 +19224,87 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateInput = {
-    email: string
-    username: string
+    email?: string | null
+    username?: string | null
     passwordHash: string
     role: $Enums.UserRole
     createdAt?: Date | string
     lastLogin?: Date | string | null
+    name?: string | null
     actions?: UserActionsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
-    email: string
-    username: string
+    email?: string | null
+    username?: string | null
     passwordHash: string
     role: $Enums.UserRole
     createdAt?: Date | string
     lastLogin?: Date | string | null
+    name?: string | null
     actions?: UserActionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     actions?: UserActionsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     actions?: UserActionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: number
-    email: string
-    username: string
+    email?: string | null
+    username?: string | null
     passwordHash: string
     role: $Enums.UserRole
     createdAt?: Date | string
     lastLogin?: Date | string | null
+    name?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserActionsCreateInput = {
@@ -17382,6 +19350,227 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     time?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MonthlyReportCreateInput = {
+    period: string
+    displayName?: string
+    totalMembers?: number
+    activeMembers?: number
+    expiredMembers?: number
+    newMembers?: number
+    renewals?: number
+    incidentiles?: number
+    incidentilesGym?: number
+    incidentilesClass?: number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: number
+    finishedCampaignNames?: MonthlyReportCreatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportCreatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: bigint | number
+    canteenTotalIncome?: bigint | number
+    accountingTotalIncome?: bigint | number
+    foTotalExpenses?: bigint | number
+    canteenTotalExpenses?: bigint | number
+    accountingTotalExpenses?: bigint | number
+    netIncome?: bigint | number
+    cashBalance?: bigint | number
+    status: $Enums.ReportStatus
+    generatedAt?: Date | string
+    updatedAt?: Date | string
+    incClassChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    memberChartData?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MonthlyReportUncheckedCreateInput = {
+    id?: number
+    period: string
+    displayName?: string
+    totalMembers?: number
+    activeMembers?: number
+    expiredMembers?: number
+    newMembers?: number
+    renewals?: number
+    incidentiles?: number
+    incidentilesGym?: number
+    incidentilesClass?: number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: number
+    finishedCampaignNames?: MonthlyReportCreatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportCreatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: bigint | number
+    canteenTotalIncome?: bigint | number
+    accountingTotalIncome?: bigint | number
+    foTotalExpenses?: bigint | number
+    canteenTotalExpenses?: bigint | number
+    accountingTotalExpenses?: bigint | number
+    netIncome?: bigint | number
+    cashBalance?: bigint | number
+    status: $Enums.ReportStatus
+    generatedAt?: Date | string
+    updatedAt?: Date | string
+    incClassChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    memberChartData?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MonthlyReportUpdateInput = {
+    period?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    totalMembers?: IntFieldUpdateOperationsInput | number
+    activeMembers?: IntFieldUpdateOperationsInput | number
+    expiredMembers?: IntFieldUpdateOperationsInput | number
+    newMembers?: IntFieldUpdateOperationsInput | number
+    renewals?: IntFieldUpdateOperationsInput | number
+    incidentiles?: IntFieldUpdateOperationsInput | number
+    incidentilesGym?: IntFieldUpdateOperationsInput | number
+    incidentilesClass?: IntFieldUpdateOperationsInput | number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: IntFieldUpdateOperationsInput | number
+    finishedCampaignNames?: MonthlyReportUpdatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportUpdatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    foTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    incClassChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    memberChartData?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MonthlyReportUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    period?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    totalMembers?: IntFieldUpdateOperationsInput | number
+    activeMembers?: IntFieldUpdateOperationsInput | number
+    expiredMembers?: IntFieldUpdateOperationsInput | number
+    newMembers?: IntFieldUpdateOperationsInput | number
+    renewals?: IntFieldUpdateOperationsInput | number
+    incidentiles?: IntFieldUpdateOperationsInput | number
+    incidentilesGym?: IntFieldUpdateOperationsInput | number
+    incidentilesClass?: IntFieldUpdateOperationsInput | number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: IntFieldUpdateOperationsInput | number
+    finishedCampaignNames?: MonthlyReportUpdatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportUpdatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    foTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    incClassChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    memberChartData?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MonthlyReportCreateManyInput = {
+    id?: number
+    period: string
+    displayName?: string
+    totalMembers?: number
+    activeMembers?: number
+    expiredMembers?: number
+    newMembers?: number
+    renewals?: number
+    incidentiles?: number
+    incidentilesGym?: number
+    incidentilesClass?: number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: number
+    finishedCampaignNames?: MonthlyReportCreatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportCreatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: bigint | number
+    canteenTotalIncome?: bigint | number
+    accountingTotalIncome?: bigint | number
+    foTotalExpenses?: bigint | number
+    canteenTotalExpenses?: bigint | number
+    accountingTotalExpenses?: bigint | number
+    netIncome?: bigint | number
+    cashBalance?: bigint | number
+    status: $Enums.ReportStatus
+    generatedAt?: Date | string
+    updatedAt?: Date | string
+    incClassChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    memberChartData?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MonthlyReportUpdateManyMutationInput = {
+    period?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    totalMembers?: IntFieldUpdateOperationsInput | number
+    activeMembers?: IntFieldUpdateOperationsInput | number
+    expiredMembers?: IntFieldUpdateOperationsInput | number
+    newMembers?: IntFieldUpdateOperationsInput | number
+    renewals?: IntFieldUpdateOperationsInput | number
+    incidentiles?: IntFieldUpdateOperationsInput | number
+    incidentilesGym?: IntFieldUpdateOperationsInput | number
+    incidentilesClass?: IntFieldUpdateOperationsInput | number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: IntFieldUpdateOperationsInput | number
+    finishedCampaignNames?: MonthlyReportUpdatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportUpdatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    foTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    incClassChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    memberChartData?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MonthlyReportUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    period?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    totalMembers?: IntFieldUpdateOperationsInput | number
+    activeMembers?: IntFieldUpdateOperationsInput | number
+    expiredMembers?: IntFieldUpdateOperationsInput | number
+    newMembers?: IntFieldUpdateOperationsInput | number
+    renewals?: IntFieldUpdateOperationsInput | number
+    incidentiles?: IntFieldUpdateOperationsInput | number
+    incidentilesGym?: IntFieldUpdateOperationsInput | number
+    incidentilesClass?: IntFieldUpdateOperationsInput | number
+    canteenItemsSold?: JsonNullValueInput | InputJsonValue
+    finishedCampaigns?: IntFieldUpdateOperationsInput | number
+    finishedCampaignNames?: MonthlyReportUpdatefinishedCampaignNamesInput | string[]
+    finishedCampaignActivities?: MonthlyReportUpdatefinishedCampaignActivitiesInput | string[]
+    foTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    foTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    canteenTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    accountingTotalExpenses?: BigIntFieldUpdateOperationsInput | bigint | number
+    netIncome?: BigIntFieldUpdateOperationsInput | bigint | number
+    cashBalance?: BigIntFieldUpdateOperationsInput | bigint | number
+    status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    incClassChartData?: JsonNullValueInput | InputJsonValue
+    incGymChartData?: JsonNullValueInput | InputJsonValue
+    memberChartData?: JsonNullValueInput | InputJsonValue
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -17446,16 +19635,16 @@ export namespace Prisma {
     not?: NestedEnumMemberStatusFilter<$PrismaModel> | $Enums.MemberStatus
   }
 
-  export type MemberArrivalListRelationFilter = {
-    every?: MemberArrivalWhereInput
-    some?: MemberArrivalWhereInput
-    none?: MemberArrivalWhereInput
-  }
-
   export type CoupleListRelationFilter = {
     every?: CoupleWhereInput
     some?: CoupleWhereInput
     none?: CoupleWhereInput
+  }
+
+  export type MemberArrivalListRelationFilter = {
+    every?: MemberArrivalWhereInput
+    some?: MemberArrivalWhereInput
+    none?: MemberArrivalWhereInput
   }
 
   export type SortOrderInput = {
@@ -17463,11 +19652,11 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type MemberArrivalOrderByRelationAggregateInput = {
+  export type CoupleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type CoupleOrderByRelationAggregateInput = {
+  export type MemberArrivalOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17643,11 +19832,27 @@ export namespace Prisma {
     not?: NestedEnumArrivalTypeFilter<$PrismaModel> | $Enums.ArrivalType
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type MemberArrivalCountOrderByAggregateInput = {
     id?: SortOrder
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrder
   }
 
   export type MemberArrivalAvgOrderByAggregateInput = {
@@ -17660,6 +19865,7 @@ export namespace Prisma {
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrder
   }
 
   export type MemberArrivalMinOrderByAggregateInput = {
@@ -17667,6 +19873,7 @@ export namespace Prisma {
     memberId?: SortOrder
     arrivalDate?: SortOrder
     arrivalType?: SortOrder
+    namaPt?: SortOrder
   }
 
   export type MemberArrivalSumOrderByAggregateInput = {
@@ -17682,6 +19889,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumArrivalTypeFilter<$PrismaModel>
     _max?: NestedEnumArrivalTypeFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumIncidentileTypeFilter<$PrismaModel = never> = {
@@ -17713,8 +19938,10 @@ export namespace Prisma {
   export type IncidentileCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    phone?: SortOrder
     type?: SortOrder
     class?: SortOrder
+    namaPt?: SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -17730,8 +19957,10 @@ export namespace Prisma {
   export type IncidentileMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    phone?: SortOrder
     type?: SortOrder
     class?: SortOrder
+    namaPt?: SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -17742,8 +19971,10 @@ export namespace Prisma {
   export type IncidentileMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    phone?: SortOrder
     type?: SortOrder
     class?: SortOrder
+    namaPt?: SortOrder
     pt?: SortOrder
     sauna?: SortOrder
     paymentMethod?: SortOrder
@@ -17801,21 +20032,6 @@ export namespace Prisma {
     not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type TxFoCountOrderByAggregateInput = {
     id?: SortOrder
     type?: SortOrder
@@ -17824,6 +20040,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxFoAvgOrderByAggregateInput = {
@@ -17839,6 +20056,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxFoMinOrderByAggregateInput = {
@@ -17849,6 +20067,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxFoSumOrderByAggregateInput = {
@@ -17866,24 +20085,6 @@ export namespace Prisma {
     _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type CanteenItemNullableScalarRelationFilter = {
     is?: CanteenItemWhereInput | null
     isNot?: CanteenItemWhereInput | null
@@ -17899,6 +20100,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxCanteenAvgOrderByAggregateInput = {
@@ -17918,6 +20120,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxCanteenMinOrderByAggregateInput = {
@@ -17930,6 +20133,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxCanteenSumOrderByAggregateInput = {
@@ -17947,6 +20151,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxAccountingAvgOrderByAggregateInput = {
@@ -17962,6 +20167,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxAccountingMinOrderByAggregateInput = {
@@ -17972,6 +20178,7 @@ export namespace Prisma {
     paymentMethod?: SortOrder
     paymentAmount?: SortOrder
     date?: SortOrder
+    billId?: SortOrder
   }
 
   export type TxAccountingSumOrderByAggregateInput = {
@@ -18088,6 +20295,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     price?: SortOrder
+    stock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18095,12 +20303,14 @@ export namespace Prisma {
   export type CanteenItemAvgOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
+    stock?: SortOrder
   }
 
   export type CanteenItemMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     price?: SortOrder
+    stock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18109,6 +20319,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     price?: SortOrder
+    stock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18116,6 +20327,7 @@ export namespace Prisma {
   export type CanteenItemSumOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
+    stock?: SortOrder
   }
 
   export type EnumUserRoleFilter<$PrismaModel = never> = {
@@ -18154,6 +20366,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     lastLogin?: SortOrder
+    name?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -18168,6 +20381,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     lastLogin?: SortOrder
+    name?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -18178,6 +20392,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     lastLogin?: SortOrder
+    name?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -18243,12 +20458,232 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type MemberArrivalCreateNestedManyWithoutMemberInput = {
-    create?: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput> | MemberArrivalCreateWithoutMemberInput[] | MemberArrivalUncheckedCreateWithoutMemberInput[]
-    connectOrCreate?: MemberArrivalCreateOrConnectWithoutMemberInput | MemberArrivalCreateOrConnectWithoutMemberInput[]
-    createMany?: MemberArrivalCreateManyMemberInputEnvelope
-    connect?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type EnumReportStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumReportStatusFilter<$PrismaModel> | $Enums.ReportStatus
+  }
+
+  export type MonthlyReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    canteenItemsSold?: SortOrder
+    finishedCampaigns?: SortOrder
+    finishedCampaignNames?: SortOrder
+    finishedCampaignActivities?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+    incClassChartData?: SortOrder
+    incGymChartData?: SortOrder
+    memberChartData?: SortOrder
+  }
+
+  export type MonthlyReportAvgOrderByAggregateInput = {
+    id?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    finishedCampaigns?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+  }
+
+  export type MonthlyReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    finishedCampaigns?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MonthlyReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    period?: SortOrder
+    displayName?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    finishedCampaigns?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+    status?: SortOrder
+    generatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MonthlyReportSumOrderByAggregateInput = {
+    id?: SortOrder
+    totalMembers?: SortOrder
+    activeMembers?: SortOrder
+    expiredMembers?: SortOrder
+    newMembers?: SortOrder
+    renewals?: SortOrder
+    incidentiles?: SortOrder
+    incidentilesGym?: SortOrder
+    incidentilesClass?: SortOrder
+    finishedCampaigns?: SortOrder
+    foTotalIncome?: SortOrder
+    canteenTotalIncome?: SortOrder
+    accountingTotalIncome?: SortOrder
+    foTotalExpenses?: SortOrder
+    canteenTotalExpenses?: SortOrder
+    accountingTotalExpenses?: SortOrder
+    netIncome?: SortOrder
+    cashBalance?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type EnumReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.ReportStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumReportStatusFilter<$PrismaModel>
+    _max?: NestedEnumReportStatusFilter<$PrismaModel>
   }
 
   export type CoupleCreateNestedManyWithoutMember1Input = {
@@ -18265,7 +20700,7 @@ export namespace Prisma {
     connect?: CoupleWhereUniqueInput | CoupleWhereUniqueInput[]
   }
 
-  export type MemberArrivalUncheckedCreateNestedManyWithoutMemberInput = {
+  export type MemberArrivalCreateNestedManyWithoutMemberInput = {
     create?: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput> | MemberArrivalCreateWithoutMemberInput[] | MemberArrivalUncheckedCreateWithoutMemberInput[]
     connectOrCreate?: MemberArrivalCreateOrConnectWithoutMemberInput | MemberArrivalCreateOrConnectWithoutMemberInput[]
     createMany?: MemberArrivalCreateManyMemberInputEnvelope
@@ -18284,6 +20719,13 @@ export namespace Prisma {
     connectOrCreate?: CoupleCreateOrConnectWithoutMember2Input | CoupleCreateOrConnectWithoutMember2Input[]
     createMany?: CoupleCreateManyMember2InputEnvelope
     connect?: CoupleWhereUniqueInput | CoupleWhereUniqueInput[]
+  }
+
+  export type MemberArrivalUncheckedCreateNestedManyWithoutMemberInput = {
+    create?: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput> | MemberArrivalCreateWithoutMemberInput[] | MemberArrivalUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberArrivalCreateOrConnectWithoutMemberInput | MemberArrivalCreateOrConnectWithoutMemberInput[]
+    createMany?: MemberArrivalCreateManyMemberInputEnvelope
+    connect?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18308,20 +20750,6 @@ export namespace Prisma {
 
   export type EnumMemberStatusFieldUpdateOperationsInput = {
     set?: $Enums.MemberStatus
-  }
-
-  export type MemberArrivalUpdateManyWithoutMemberNestedInput = {
-    create?: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput> | MemberArrivalCreateWithoutMemberInput[] | MemberArrivalUncheckedCreateWithoutMemberInput[]
-    connectOrCreate?: MemberArrivalCreateOrConnectWithoutMemberInput | MemberArrivalCreateOrConnectWithoutMemberInput[]
-    upsert?: MemberArrivalUpsertWithWhereUniqueWithoutMemberInput | MemberArrivalUpsertWithWhereUniqueWithoutMemberInput[]
-    createMany?: MemberArrivalCreateManyMemberInputEnvelope
-    set?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
-    disconnect?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
-    delete?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
-    connect?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
-    update?: MemberArrivalUpdateWithWhereUniqueWithoutMemberInput | MemberArrivalUpdateWithWhereUniqueWithoutMemberInput[]
-    updateMany?: MemberArrivalUpdateManyWithWhereWithoutMemberInput | MemberArrivalUpdateManyWithWhereWithoutMemberInput[]
-    deleteMany?: MemberArrivalScalarWhereInput | MemberArrivalScalarWhereInput[]
   }
 
   export type CoupleUpdateManyWithoutMember1NestedInput = {
@@ -18352,15 +20780,7 @@ export namespace Prisma {
     deleteMany?: CoupleScalarWhereInput | CoupleScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type MemberArrivalUncheckedUpdateManyWithoutMemberNestedInput = {
+  export type MemberArrivalUpdateManyWithoutMemberNestedInput = {
     create?: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput> | MemberArrivalCreateWithoutMemberInput[] | MemberArrivalUncheckedCreateWithoutMemberInput[]
     connectOrCreate?: MemberArrivalCreateOrConnectWithoutMemberInput | MemberArrivalCreateOrConnectWithoutMemberInput[]
     upsert?: MemberArrivalUpsertWithWhereUniqueWithoutMemberInput | MemberArrivalUpsertWithWhereUniqueWithoutMemberInput[]
@@ -18372,6 +20792,14 @@ export namespace Prisma {
     update?: MemberArrivalUpdateWithWhereUniqueWithoutMemberInput | MemberArrivalUpdateWithWhereUniqueWithoutMemberInput[]
     updateMany?: MemberArrivalUpdateManyWithWhereWithoutMemberInput | MemberArrivalUpdateManyWithWhereWithoutMemberInput[]
     deleteMany?: MemberArrivalScalarWhereInput | MemberArrivalScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type CoupleUncheckedUpdateManyWithoutMember1NestedInput = {
@@ -18400,6 +20828,20 @@ export namespace Prisma {
     update?: CoupleUpdateWithWhereUniqueWithoutMember2Input | CoupleUpdateWithWhereUniqueWithoutMember2Input[]
     updateMany?: CoupleUpdateManyWithWhereWithoutMember2Input | CoupleUpdateManyWithWhereWithoutMember2Input[]
     deleteMany?: CoupleScalarWhereInput | CoupleScalarWhereInput[]
+  }
+
+  export type MemberArrivalUncheckedUpdateManyWithoutMemberNestedInput = {
+    create?: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput> | MemberArrivalCreateWithoutMemberInput[] | MemberArrivalUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberArrivalCreateOrConnectWithoutMemberInput | MemberArrivalCreateOrConnectWithoutMemberInput[]
+    upsert?: MemberArrivalUpsertWithWhereUniqueWithoutMemberInput | MemberArrivalUpsertWithWhereUniqueWithoutMemberInput[]
+    createMany?: MemberArrivalCreateManyMemberInputEnvelope
+    set?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
+    disconnect?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
+    delete?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
+    connect?: MemberArrivalWhereUniqueInput | MemberArrivalWhereUniqueInput[]
+    update?: MemberArrivalUpdateWithWhereUniqueWithoutMemberInput | MemberArrivalUpdateWithWhereUniqueWithoutMemberInput[]
+    updateMany?: MemberArrivalUpdateManyWithWhereWithoutMemberInput | MemberArrivalUpdateManyWithWhereWithoutMemberInput[]
+    deleteMany?: MemberArrivalScalarWhereInput | MemberArrivalScalarWhereInput[]
   }
 
   export type MemberCreateNestedOneWithoutCouples1Input = {
@@ -18440,6 +20882,10 @@ export namespace Prisma {
     set?: $Enums.ArrivalType
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type MemberUpdateOneRequiredWithoutArrivalsNestedInput = {
     create?: XOR<MemberCreateWithoutArrivalsInput, MemberUncheckedCreateWithoutArrivalsInput>
     connectOrCreate?: MemberCreateOrConnectWithoutArrivalsInput
@@ -18466,10 +20912,6 @@ export namespace Prisma {
 
   export type EnumTransactionTypeFieldUpdateOperationsInput = {
     set?: $Enums.TransactionType
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type CanteenItemCreateNestedOneWithoutTxCanteensInput = {
@@ -18652,6 +21094,36 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutActionsInput, UserUpdateWithoutActionsInput>, UserUncheckedUpdateWithoutActionsInput>
   }
 
+  export type MonthlyReportCreatefinishedCampaignNamesInput = {
+    set: string[]
+  }
+
+  export type MonthlyReportCreatefinishedCampaignActivitiesInput = {
+    set: string[]
+  }
+
+  export type MonthlyReportUpdatefinishedCampaignNamesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type MonthlyReportUpdatefinishedCampaignActivitiesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type EnumReportStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ReportStatus
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -18825,6 +21297,20 @@ export namespace Prisma {
     not?: NestedEnumArrivalTypeFilter<$PrismaModel> | $Enums.ArrivalType
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedEnumArrivalTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ArrivalType | EnumArrivalTypeFieldRefInput<$PrismaModel>
     in?: $Enums.ArrivalType[] | ListEnumArrivalTypeFieldRefInput<$PrismaModel>
@@ -18833,6 +21319,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumArrivalTypeFilter<$PrismaModel>
     _max?: NestedEnumArrivalTypeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumIncidentileTypeFilter<$PrismaModel = never> = {
@@ -18906,20 +21409,6 @@ export namespace Prisma {
     not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
     in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
@@ -18928,23 +21417,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
     _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
@@ -18989,25 +21461,71 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type MemberArrivalCreateWithoutMemberInput = {
-    arrivalDate: Date | string
-    arrivalType: $Enums.ArrivalType
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
   }
 
-  export type MemberArrivalUncheckedCreateWithoutMemberInput = {
-    id?: number
-    arrivalDate: Date | string
-    arrivalType: $Enums.ArrivalType
+  export type NestedEnumReportStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumReportStatusFilter<$PrismaModel> | $Enums.ReportStatus
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type MemberArrivalCreateOrConnectWithoutMemberInput = {
-    where: MemberArrivalWhereUniqueInput
-    create: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput>
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
-  export type MemberArrivalCreateManyMemberInputEnvelope = {
-    data: MemberArrivalCreateManyMemberInput | MemberArrivalCreateManyMemberInput[]
-    skipDuplicates?: boolean
+  export type NestedEnumReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.ReportStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumReportStatusFilter<$PrismaModel>
+    _max?: NestedEnumReportStatusFilter<$PrismaModel>
   }
 
   export type CoupleCreateWithoutMember1Input = {
@@ -19048,30 +21566,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type MemberArrivalUpsertWithWhereUniqueWithoutMemberInput = {
+  export type MemberArrivalCreateWithoutMemberInput = {
+    arrivalDate: Date | string
+    arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
+  }
+
+  export type MemberArrivalUncheckedCreateWithoutMemberInput = {
+    id?: number
+    arrivalDate: Date | string
+    arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
+  }
+
+  export type MemberArrivalCreateOrConnectWithoutMemberInput = {
     where: MemberArrivalWhereUniqueInput
-    update: XOR<MemberArrivalUpdateWithoutMemberInput, MemberArrivalUncheckedUpdateWithoutMemberInput>
     create: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput>
   }
 
-  export type MemberArrivalUpdateWithWhereUniqueWithoutMemberInput = {
-    where: MemberArrivalWhereUniqueInput
-    data: XOR<MemberArrivalUpdateWithoutMemberInput, MemberArrivalUncheckedUpdateWithoutMemberInput>
-  }
-
-  export type MemberArrivalUpdateManyWithWhereWithoutMemberInput = {
-    where: MemberArrivalScalarWhereInput
-    data: XOR<MemberArrivalUpdateManyMutationInput, MemberArrivalUncheckedUpdateManyWithoutMemberInput>
-  }
-
-  export type MemberArrivalScalarWhereInput = {
-    AND?: MemberArrivalScalarWhereInput | MemberArrivalScalarWhereInput[]
-    OR?: MemberArrivalScalarWhereInput[]
-    NOT?: MemberArrivalScalarWhereInput | MemberArrivalScalarWhereInput[]
-    id?: IntFilter<"MemberArrival"> | number
-    memberId?: IntFilter<"MemberArrival"> | number
-    arrivalDate?: DateTimeFilter<"MemberArrival"> | Date | string
-    arrivalType?: EnumArrivalTypeFilter<"MemberArrival"> | $Enums.ArrivalType
+  export type MemberArrivalCreateManyMemberInputEnvelope = {
+    data: MemberArrivalCreateManyMemberInput | MemberArrivalCreateManyMemberInput[]
+    skipDuplicates?: boolean
   }
 
   export type CoupleUpsertWithWhereUniqueWithoutMember1Input = {
@@ -19115,6 +21630,33 @@ export namespace Prisma {
     data: XOR<CoupleUpdateManyMutationInput, CoupleUncheckedUpdateManyWithoutMember2Input>
   }
 
+  export type MemberArrivalUpsertWithWhereUniqueWithoutMemberInput = {
+    where: MemberArrivalWhereUniqueInput
+    update: XOR<MemberArrivalUpdateWithoutMemberInput, MemberArrivalUncheckedUpdateWithoutMemberInput>
+    create: XOR<MemberArrivalCreateWithoutMemberInput, MemberArrivalUncheckedCreateWithoutMemberInput>
+  }
+
+  export type MemberArrivalUpdateWithWhereUniqueWithoutMemberInput = {
+    where: MemberArrivalWhereUniqueInput
+    data: XOR<MemberArrivalUpdateWithoutMemberInput, MemberArrivalUncheckedUpdateWithoutMemberInput>
+  }
+
+  export type MemberArrivalUpdateManyWithWhereWithoutMemberInput = {
+    where: MemberArrivalScalarWhereInput
+    data: XOR<MemberArrivalUpdateManyMutationInput, MemberArrivalUncheckedUpdateManyWithoutMemberInput>
+  }
+
+  export type MemberArrivalScalarWhereInput = {
+    AND?: MemberArrivalScalarWhereInput | MemberArrivalScalarWhereInput[]
+    OR?: MemberArrivalScalarWhereInput[]
+    NOT?: MemberArrivalScalarWhereInput | MemberArrivalScalarWhereInput[]
+    id?: IntFilter<"MemberArrival"> | number
+    memberId?: IntFilter<"MemberArrival"> | number
+    arrivalDate?: DateTimeFilter<"MemberArrival"> | Date | string
+    arrivalType?: EnumArrivalTypeFilter<"MemberArrival"> | $Enums.ArrivalType
+    namaPt?: StringNullableFilter<"MemberArrival"> | string | null
+  }
+
   export type MemberCreateWithoutCouples1Input = {
     name: string
     nik: string
@@ -19124,8 +21666,8 @@ export namespace Prisma {
     joinDate: Date | string
     expiryDate: Date | string
     status: $Enums.MemberStatus
-    arrivals?: MemberArrivalCreateNestedManyWithoutMemberInput
     couples2?: CoupleCreateNestedManyWithoutMember2Input
+    arrivals?: MemberArrivalCreateNestedManyWithoutMemberInput
   }
 
   export type MemberUncheckedCreateWithoutCouples1Input = {
@@ -19138,8 +21680,8 @@ export namespace Prisma {
     joinDate: Date | string
     expiryDate: Date | string
     status: $Enums.MemberStatus
-    arrivals?: MemberArrivalUncheckedCreateNestedManyWithoutMemberInput
     couples2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
+    arrivals?: MemberArrivalUncheckedCreateNestedManyWithoutMemberInput
   }
 
   export type MemberCreateOrConnectWithoutCouples1Input = {
@@ -19156,8 +21698,8 @@ export namespace Prisma {
     joinDate: Date | string
     expiryDate: Date | string
     status: $Enums.MemberStatus
-    arrivals?: MemberArrivalCreateNestedManyWithoutMemberInput
     couples1?: CoupleCreateNestedManyWithoutMember1Input
+    arrivals?: MemberArrivalCreateNestedManyWithoutMemberInput
   }
 
   export type MemberUncheckedCreateWithoutCouples2Input = {
@@ -19170,8 +21712,8 @@ export namespace Prisma {
     joinDate: Date | string
     expiryDate: Date | string
     status: $Enums.MemberStatus
-    arrivals?: MemberArrivalUncheckedCreateNestedManyWithoutMemberInput
     couples1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
+    arrivals?: MemberArrivalUncheckedCreateNestedManyWithoutMemberInput
   }
 
   export type MemberCreateOrConnectWithoutCouples2Input = {
@@ -19199,8 +21741,8 @@ export namespace Prisma {
     joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
-    arrivals?: MemberArrivalUpdateManyWithoutMemberNestedInput
     couples2?: CoupleUpdateManyWithoutMember2NestedInput
+    arrivals?: MemberArrivalUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberUncheckedUpdateWithoutCouples1Input = {
@@ -19213,8 +21755,8 @@ export namespace Prisma {
     joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
-    arrivals?: MemberArrivalUncheckedUpdateManyWithoutMemberNestedInput
     couples2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
+    arrivals?: MemberArrivalUncheckedUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberUpsertWithoutCouples2Input = {
@@ -19237,8 +21779,8 @@ export namespace Prisma {
     joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
-    arrivals?: MemberArrivalUpdateManyWithoutMemberNestedInput
     couples1?: CoupleUpdateManyWithoutMember1NestedInput
+    arrivals?: MemberArrivalUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberUncheckedUpdateWithoutCouples2Input = {
@@ -19251,8 +21793,8 @@ export namespace Prisma {
     joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
-    arrivals?: MemberArrivalUncheckedUpdateManyWithoutMemberNestedInput
     couples1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
+    arrivals?: MemberArrivalUncheckedUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberCreateWithoutArrivalsInput = {
@@ -19328,6 +21870,7 @@ export namespace Prisma {
   export type CanteenItemCreateWithoutTxCanteensInput = {
     name: string
     price: number
+    stock?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19336,6 +21879,7 @@ export namespace Prisma {
     id?: number
     name: string
     price: number
+    stock?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19359,6 +21903,7 @@ export namespace Prisma {
   export type CanteenItemUpdateWithoutTxCanteensInput = {
     name?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19367,6 +21912,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19486,6 +22032,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxCanteenUncheckedCreateWithoutItemInput = {
@@ -19497,6 +22044,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxCanteenCreateOrConnectWithoutItemInput = {
@@ -19538,6 +22086,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFilter<"TxCanteen"> | $Enums.PaymentMethod
     paymentAmount?: IntFilter<"TxCanteen"> | number
     date?: DateTimeFilter<"TxCanteen"> | Date | string
+    billId?: StringNullableFilter<"TxCanteen"> | string | null
   }
 
   export type UserActionsCreateWithoutUserInput = {
@@ -19588,22 +22137,24 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutActionsInput = {
-    email: string
-    username: string
+    email?: string | null
+    username?: string | null
     passwordHash: string
     role: $Enums.UserRole
     createdAt?: Date | string
     lastLogin?: Date | string | null
+    name?: string | null
   }
 
   export type UserUncheckedCreateWithoutActionsInput = {
     id?: number
-    email: string
-    username: string
+    email?: string | null
+    username?: string | null
     passwordHash: string
     role: $Enums.UserRole
     createdAt?: Date | string
     lastLogin?: Date | string | null
+    name?: string | null
   }
 
   export type UserCreateOrConnectWithoutActionsInput = {
@@ -19623,28 +22174,24 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutActionsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateWithoutActionsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type MemberArrivalCreateManyMemberInput = {
-    id?: number
-    arrivalDate: Date | string
-    arrivalType: $Enums.ArrivalType
+    name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CoupleCreateManyMember1Input = {
@@ -19657,21 +22204,11 @@ export namespace Prisma {
     member1Id: number
   }
 
-  export type MemberArrivalUpdateWithoutMemberInput = {
-    arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
-  }
-
-  export type MemberArrivalUncheckedUpdateWithoutMemberInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
-  }
-
-  export type MemberArrivalUncheckedUpdateManyWithoutMemberInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+  export type MemberArrivalCreateManyMemberInput = {
+    id?: number
+    arrivalDate: Date | string
+    arrivalType: $Enums.ArrivalType
+    namaPt?: string | null
   }
 
   export type CoupleUpdateWithoutMember1Input = {
@@ -19700,6 +22237,26 @@ export namespace Prisma {
   export type CoupleUncheckedUpdateManyWithoutMember2Input = {
     id?: IntFieldUpdateOperationsInput | number
     member1Id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MemberArrivalUpdateWithoutMemberInput = {
+    arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MemberArrivalUncheckedUpdateWithoutMemberInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MemberArrivalUncheckedUpdateManyWithoutMemberInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    arrivalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    arrivalType?: EnumArrivalTypeFieldUpdateOperationsInput | $Enums.ArrivalType
+    namaPt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ActivityMarketingCreateManyCampaignInput = {
@@ -19742,6 +22299,7 @@ export namespace Prisma {
     paymentMethod: $Enums.PaymentMethod
     paymentAmount: number
     date: Date | string
+    billId?: string | null
   }
 
   export type TxCanteenUpdateWithoutItemInput = {
@@ -19752,6 +22310,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxCanteenUncheckedUpdateWithoutItemInput = {
@@ -19763,6 +22322,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TxCanteenUncheckedUpdateManyWithoutItemInput = {
@@ -19774,6 +22334,7 @@ export namespace Prisma {
     paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     paymentAmount?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    billId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserActionsCreateManyUserInput = {

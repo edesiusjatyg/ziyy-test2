@@ -97,17 +97,19 @@ export default function Page() {
 
     const handleEditClick = () => {
         if (selectedMember) {
+            setIsEditDialogOpen(true);
             setMemberName(selectedMember.name);
             setMemberNik(selectedMember.nik);
             setMemberTelp(selectedMember.phone);
             setMemberType(selectedMember.membership);
-            setIsEditDialogOpen(true);
         }
     };
 
     const handleSaveEdit = async () => {
         if (selectedMember) {
             try{
+                setIsEditDialogOpen(false);
+
                 const response = await fetch('/api/members', {
                     method: 'PUT',
                     headers: {
@@ -129,8 +131,6 @@ export default function Page() {
                 setMockMembers(mockMembers.map(member => 
                     member.id === updatedMember.id ? updatedMember : member
                 ));
-
-                setIsEditDialogOpen(false);
             } catch (error) {
                 console.log('Error saving edit: ', error);
             }
@@ -140,6 +140,9 @@ export default function Page() {
     const handleDeleteMember = async () => {
         if(selectedMember){
             try{
+                setIsDeleteDialogOpen(false);
+                setIsDialogOpen(false);
+
                 if (selectedMember.membership.toUpperCase() === "COUPLE") {
                     await fetch('/api/couples', {
                         method: 'DELETE',
@@ -163,8 +166,6 @@ export default function Page() {
                 }
 
                 setMockMembers(mockMembers.filter(member => member.id !== selectedMember.id));
-                setIsDeleteDialogOpen(false);
-                setIsDialogOpen(false);
             } catch(error) {
                 console.log('Error deleting member: ', error);
             }
@@ -304,7 +305,11 @@ export default function Page() {
                                 {filteredMembers.length === 0 && (
                                     <p className="text-gray-500 col-span-full text-center">Tidak ada member.</p>
                                 )}
-                                {filteredMembers.sort((a, b) => b.id - a.id).map((member) => (
+                                {filteredMembers.sort((a, b) => {
+                                    if(a.status.toUpperCase() === "ACTIVE" && b.status.toUpperCase() !== "ACTIVE") return -1;
+                                    if(a.status.toUpperCase() !== "ACTIVE" && b.status.toUpperCase() === "ACTIVE") return 1;
+                                    return b.id - a.id;
+                                }).map((member) => (
                                     <Card
                                         key={member.id}
                                         className="cursor-pointer hover:shadow-lg transition-shadow bg-white justify-between"

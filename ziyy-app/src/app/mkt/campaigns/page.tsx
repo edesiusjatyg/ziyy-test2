@@ -196,25 +196,44 @@ export default function CampaignsPage() {
                                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                             </div>
                         ) : (
-                            campaigns.map((campaign) => (
-                                <Card 
-                                    key={campaign.id} 
-                                    className="cursor-pointer hover:shadow-lg transition-shadow bg-white/80"
-                                    onClick={() => handleCampaignClick(campaign)}
-                                >
-                                    <CardHeader>
-                                        <CardTitle>{campaign.title}</CardTitle>
-                                        <CardDescription>{campaign.description}</CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="space-y-2">
-                                            <p><span className="font-semibold">KPI:</span> {campaign.kpi}</p>
-                                            <p><span className="font-semibold">Mulai:</span> {campaign.startDate.split("T")[0]}</p>
-                                            <p><span className="font-semibold">Sampai:</span> {campaign.endDate.split("T")[0]}</p>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))
+                            campaigns.map((campaign) => {
+                                // Status logic
+                                const today = new Date();
+                                const start = new Date(campaign.startDate);
+                                const end = new Date(campaign.endDate);
+                                let statusLabel = "";
+                                let statusClass = "";
+                                if (today < start) {
+                                    statusLabel = "Belum dijalankan";
+                                    statusClass = "text-gray-500";
+                                } else if (today >= start && today <= end) {
+                                    statusLabel = "Aktif";
+                                    statusClass = "text-green-600 font-bold";
+                                } else if (today > end) {
+                                    statusLabel = "Selesai";
+                                    statusClass = "text-sky-600 font-semibold";
+                                }
+                                return (
+                                    <Card 
+                                        key={campaign.id} 
+                                        className="cursor-pointer hover:shadow-lg transition-shadow bg-white/80"
+                                        onClick={() => handleCampaignClick(campaign)}
+                                    >
+                                        <CardHeader>
+                                            <CardTitle>{campaign.title}</CardTitle>
+                                            <CardDescription>{campaign.description}</CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div className="space-y-2">
+                                                <p><span className="font-semibold">KPI:</span> {campaign.kpi}</p>
+                                                <p><span className="font-semibold">Mulai:</span> {campaign.startDate.split("T")[0]}</p>
+                                                <p><span className="font-semibold">Sampai:</span> {campaign.endDate.split("T")[0]}</p>
+                                                <p><span className="font-semibold">Status:</span> <span className={statusClass}>{statusLabel}</span></p>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                );
+                            })
                         )}
                     </div>
 
