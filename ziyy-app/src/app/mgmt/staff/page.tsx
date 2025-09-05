@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Undo2, Users, User, Cog, BookText, Trash, Pencil } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogDescription, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -70,6 +70,7 @@ export default function Page() {
     }
 
     const handleStaffClick = (staff: Staff) => {
+        console.log("Entering staff click handler")
         setSelectedStaff(staff);
         setStaffName(staff.name || "");
         setStaffEmail(staff.email || "");
@@ -87,6 +88,26 @@ export default function Page() {
                 : "Belum pernah login"
         );
         setStaffDialogOpen(true);
+    }
+
+    const handleStaffKick = (staff: Staff) => {
+        console.log("Entering staff kick handler")
+        // Call API to kick staff (log out)
+        fetch(`/api/users/${staff.id}/kick`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('Failed to kick staff');
+            // Optionally update UI, e.g. remove staff from online list
+            // Show feedback
+            alert(`Staff ${staff.name} has been kicked (logged out).`);
+        })
+        .catch(err => {
+            alert(`Failed to kick staff: ${err.message}`);
+        });
     }
 
     const handleAddStaff = async () => {
@@ -197,9 +218,9 @@ export default function Page() {
                             </CardHeader>
                             <CardContent>
                                 <ScrollArea className="h-48 w-full">
-                                    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                                         {staffs.map(staff => (
-                                            <Card key={staff.id} className="hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={() => handleStaffClick(staff)}>
+                                            <Card key={staff.id} className="hover:shadow-lg transition-all duration-300 justify-between cursor-pointer" onClick={() => handleStaffClick(staff)}>
                                                 <CardHeader>
                                                     <div className="flex justify-between items-center">
                                                         <CardTitle className="text-sm font-semibold">{staff.name}</CardTitle>
@@ -207,6 +228,13 @@ export default function Page() {
                                                     </div>
                                                     <CardDescription className="text-xs text-gray-500">{staff.role}</CardDescription>
                                                 </CardHeader>
+                                                <CardFooter>
+                                                    <div className="flex justify-center items-center w-full">
+                                                        <Button className="cursor-pointer" variant="outline" onClick={() => handleStaffKick(staff)}>
+                                                            Kick (Log out)
+                                                        </Button>
+                                                    </div>
+                                                </CardFooter>
                                             </Card>
                                         ))}
                                     </div>
@@ -285,10 +313,10 @@ export default function Page() {
                             </DialogHeader>
                             <div className="grid gap-4 py-4">
                                 <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label htmlFor="memberName" className="text-left">
+                                    <Label htmlFor="staffName" className="text-left">
                                         Nama
                                     </Label>
-                                    <Input id="memberName" value={staffName} onChange={(e) => setStaffName(e.target.value)} placeholder="Nama asli staff" className="col-span-3" />
+                                    <Input id="staffName" value={staffName} onChange={(e) => setStaffName(e.target.value)} placeholder="Nama asli staff" className="col-span-3" />
                                 </div>
                                 <div className="grid grid-cols-4 items-center gap-4">
                                     <Label htmlFor="staffEmail" className="text-left">
