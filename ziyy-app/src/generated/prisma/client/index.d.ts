@@ -78,6 +78,11 @@ export type UserActions = $Result.DefaultSelection<Prisma.$UserActionsPayload>
  * 
  */
 export type MonthlyReport = $Result.DefaultSelection<Prisma.$MonthlyReportPayload>
+/**
+ * Model SaunaUsage
+ * 
+ */
+export type SaunaUsage = $Result.DefaultSelection<Prisma.$SaunaUsagePayload>
 
 /**
  * Enums
@@ -467,6 +472,16 @@ export class PrismaClient<
     * ```
     */
   get monthlyReport(): Prisma.MonthlyReportDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.saunaUsage`: Exposes CRUD operations for the **SaunaUsage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SaunaUsages
+    * const saunaUsages = await prisma.saunaUsage.findMany()
+    * ```
+    */
+  get saunaUsage(): Prisma.SaunaUsageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -919,7 +934,8 @@ export namespace Prisma {
     CanteenItem: 'CanteenItem',
     User: 'User',
     UserActions: 'UserActions',
-    MonthlyReport: 'MonthlyReport'
+    MonthlyReport: 'MonthlyReport',
+    SaunaUsage: 'SaunaUsage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -938,7 +954,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "member" | "couple" | "memberArrival" | "incidentile" | "txFo" | "txCanteen" | "txAccounting" | "campaign" | "activityMarketing" | "canteenItem" | "user" | "userActions" | "monthlyReport"
+      modelProps: "member" | "couple" | "memberArrival" | "incidentile" | "txFo" | "txCanteen" | "txAccounting" | "campaign" | "activityMarketing" | "canteenItem" | "user" | "userActions" | "monthlyReport" | "saunaUsage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1904,6 +1920,80 @@ export namespace Prisma {
           }
         }
       }
+      SaunaUsage: {
+        payload: Prisma.$SaunaUsagePayload<ExtArgs>
+        fields: Prisma.SaunaUsageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SaunaUsageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SaunaUsageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>
+          }
+          findFirst: {
+            args: Prisma.SaunaUsageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SaunaUsageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>
+          }
+          findMany: {
+            args: Prisma.SaunaUsageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>[]
+          }
+          create: {
+            args: Prisma.SaunaUsageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>
+          }
+          createMany: {
+            args: Prisma.SaunaUsageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SaunaUsageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>[]
+          }
+          delete: {
+            args: Prisma.SaunaUsageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>
+          }
+          update: {
+            args: Prisma.SaunaUsageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>
+          }
+          deleteMany: {
+            args: Prisma.SaunaUsageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SaunaUsageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SaunaUsageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>[]
+          }
+          upsert: {
+            args: Prisma.SaunaUsageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaunaUsagePayload>
+          }
+          aggregate: {
+            args: Prisma.SaunaUsageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSaunaUsage>
+          }
+          groupBy: {
+            args: Prisma.SaunaUsageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SaunaUsageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SaunaUsageCountArgs<ExtArgs>
+            result: $Utils.Optional<SaunaUsageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2001,6 +2091,7 @@ export namespace Prisma {
     user?: UserOmit
     userActions?: UserActionsOmit
     monthlyReport?: MonthlyReportOmit
+    saunaUsage?: SaunaUsageOmit
   }
 
   /* Types for Logging */
@@ -17068,6 +17159,1035 @@ export namespace Prisma {
 
 
   /**
+   * Model SaunaUsage
+   */
+
+  export type AggregateSaunaUsage = {
+    _count: SaunaUsageCountAggregateOutputType | null
+    _avg: SaunaUsageAvgAggregateOutputType | null
+    _sum: SaunaUsageSumAggregateOutputType | null
+    _min: SaunaUsageMinAggregateOutputType | null
+    _max: SaunaUsageMaxAggregateOutputType | null
+  }
+
+  export type SaunaUsageAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type SaunaUsageSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type SaunaUsageMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    phone: string | null
+    startTime: Date | null
+    endTime: Date | null
+  }
+
+  export type SaunaUsageMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    phone: string | null
+    startTime: Date | null
+    endTime: Date | null
+  }
+
+  export type SaunaUsageCountAggregateOutputType = {
+    id: number
+    name: number
+    phone: number
+    startTime: number
+    endTime: number
+    _all: number
+  }
+
+
+  export type SaunaUsageAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type SaunaUsageSumAggregateInputType = {
+    id?: true
+  }
+
+  export type SaunaUsageMinAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    startTime?: true
+    endTime?: true
+  }
+
+  export type SaunaUsageMaxAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    startTime?: true
+    endTime?: true
+  }
+
+  export type SaunaUsageCountAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    startTime?: true
+    endTime?: true
+    _all?: true
+  }
+
+  export type SaunaUsageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SaunaUsage to aggregate.
+     */
+    where?: SaunaUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SaunaUsages to fetch.
+     */
+    orderBy?: SaunaUsageOrderByWithRelationInput | SaunaUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SaunaUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SaunaUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SaunaUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SaunaUsages
+    **/
+    _count?: true | SaunaUsageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SaunaUsageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SaunaUsageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SaunaUsageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SaunaUsageMaxAggregateInputType
+  }
+
+  export type GetSaunaUsageAggregateType<T extends SaunaUsageAggregateArgs> = {
+        [P in keyof T & keyof AggregateSaunaUsage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSaunaUsage[P]>
+      : GetScalarType<T[P], AggregateSaunaUsage[P]>
+  }
+
+
+
+
+  export type SaunaUsageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaunaUsageWhereInput
+    orderBy?: SaunaUsageOrderByWithAggregationInput | SaunaUsageOrderByWithAggregationInput[]
+    by: SaunaUsageScalarFieldEnum[] | SaunaUsageScalarFieldEnum
+    having?: SaunaUsageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SaunaUsageCountAggregateInputType | true
+    _avg?: SaunaUsageAvgAggregateInputType
+    _sum?: SaunaUsageSumAggregateInputType
+    _min?: SaunaUsageMinAggregateInputType
+    _max?: SaunaUsageMaxAggregateInputType
+  }
+
+  export type SaunaUsageGroupByOutputType = {
+    id: number
+    name: string
+    phone: string | null
+    startTime: Date | null
+    endTime: Date | null
+    _count: SaunaUsageCountAggregateOutputType | null
+    _avg: SaunaUsageAvgAggregateOutputType | null
+    _sum: SaunaUsageSumAggregateOutputType | null
+    _min: SaunaUsageMinAggregateOutputType | null
+    _max: SaunaUsageMaxAggregateOutputType | null
+  }
+
+  type GetSaunaUsageGroupByPayload<T extends SaunaUsageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SaunaUsageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SaunaUsageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SaunaUsageGroupByOutputType[P]>
+            : GetScalarType<T[P], SaunaUsageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SaunaUsageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    startTime?: boolean
+    endTime?: boolean
+  }, ExtArgs["result"]["saunaUsage"]>
+
+  export type SaunaUsageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    startTime?: boolean
+    endTime?: boolean
+  }, ExtArgs["result"]["saunaUsage"]>
+
+  export type SaunaUsageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    startTime?: boolean
+    endTime?: boolean
+  }, ExtArgs["result"]["saunaUsage"]>
+
+  export type SaunaUsageSelectScalar = {
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    startTime?: boolean
+    endTime?: boolean
+  }
+
+  export type SaunaUsageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "startTime" | "endTime", ExtArgs["result"]["saunaUsage"]>
+
+  export type $SaunaUsagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SaunaUsage"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      phone: string | null
+      startTime: Date | null
+      endTime: Date | null
+    }, ExtArgs["result"]["saunaUsage"]>
+    composites: {}
+  }
+
+  type SaunaUsageGetPayload<S extends boolean | null | undefined | SaunaUsageDefaultArgs> = $Result.GetResult<Prisma.$SaunaUsagePayload, S>
+
+  type SaunaUsageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SaunaUsageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SaunaUsageCountAggregateInputType | true
+    }
+
+  export interface SaunaUsageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SaunaUsage'], meta: { name: 'SaunaUsage' } }
+    /**
+     * Find zero or one SaunaUsage that matches the filter.
+     * @param {SaunaUsageFindUniqueArgs} args - Arguments to find a SaunaUsage
+     * @example
+     * // Get one SaunaUsage
+     * const saunaUsage = await prisma.saunaUsage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SaunaUsageFindUniqueArgs>(args: SelectSubset<T, SaunaUsageFindUniqueArgs<ExtArgs>>): Prisma__SaunaUsageClient<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SaunaUsage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SaunaUsageFindUniqueOrThrowArgs} args - Arguments to find a SaunaUsage
+     * @example
+     * // Get one SaunaUsage
+     * const saunaUsage = await prisma.saunaUsage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SaunaUsageFindUniqueOrThrowArgs>(args: SelectSubset<T, SaunaUsageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SaunaUsageClient<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SaunaUsage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaunaUsageFindFirstArgs} args - Arguments to find a SaunaUsage
+     * @example
+     * // Get one SaunaUsage
+     * const saunaUsage = await prisma.saunaUsage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SaunaUsageFindFirstArgs>(args?: SelectSubset<T, SaunaUsageFindFirstArgs<ExtArgs>>): Prisma__SaunaUsageClient<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SaunaUsage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaunaUsageFindFirstOrThrowArgs} args - Arguments to find a SaunaUsage
+     * @example
+     * // Get one SaunaUsage
+     * const saunaUsage = await prisma.saunaUsage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SaunaUsageFindFirstOrThrowArgs>(args?: SelectSubset<T, SaunaUsageFindFirstOrThrowArgs<ExtArgs>>): Prisma__SaunaUsageClient<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SaunaUsages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaunaUsageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SaunaUsages
+     * const saunaUsages = await prisma.saunaUsage.findMany()
+     * 
+     * // Get first 10 SaunaUsages
+     * const saunaUsages = await prisma.saunaUsage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const saunaUsageWithIdOnly = await prisma.saunaUsage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SaunaUsageFindManyArgs>(args?: SelectSubset<T, SaunaUsageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SaunaUsage.
+     * @param {SaunaUsageCreateArgs} args - Arguments to create a SaunaUsage.
+     * @example
+     * // Create one SaunaUsage
+     * const SaunaUsage = await prisma.saunaUsage.create({
+     *   data: {
+     *     // ... data to create a SaunaUsage
+     *   }
+     * })
+     * 
+     */
+    create<T extends SaunaUsageCreateArgs>(args: SelectSubset<T, SaunaUsageCreateArgs<ExtArgs>>): Prisma__SaunaUsageClient<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SaunaUsages.
+     * @param {SaunaUsageCreateManyArgs} args - Arguments to create many SaunaUsages.
+     * @example
+     * // Create many SaunaUsages
+     * const saunaUsage = await prisma.saunaUsage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SaunaUsageCreateManyArgs>(args?: SelectSubset<T, SaunaUsageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SaunaUsages and returns the data saved in the database.
+     * @param {SaunaUsageCreateManyAndReturnArgs} args - Arguments to create many SaunaUsages.
+     * @example
+     * // Create many SaunaUsages
+     * const saunaUsage = await prisma.saunaUsage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SaunaUsages and only return the `id`
+     * const saunaUsageWithIdOnly = await prisma.saunaUsage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SaunaUsageCreateManyAndReturnArgs>(args?: SelectSubset<T, SaunaUsageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SaunaUsage.
+     * @param {SaunaUsageDeleteArgs} args - Arguments to delete one SaunaUsage.
+     * @example
+     * // Delete one SaunaUsage
+     * const SaunaUsage = await prisma.saunaUsage.delete({
+     *   where: {
+     *     // ... filter to delete one SaunaUsage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SaunaUsageDeleteArgs>(args: SelectSubset<T, SaunaUsageDeleteArgs<ExtArgs>>): Prisma__SaunaUsageClient<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SaunaUsage.
+     * @param {SaunaUsageUpdateArgs} args - Arguments to update one SaunaUsage.
+     * @example
+     * // Update one SaunaUsage
+     * const saunaUsage = await prisma.saunaUsage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SaunaUsageUpdateArgs>(args: SelectSubset<T, SaunaUsageUpdateArgs<ExtArgs>>): Prisma__SaunaUsageClient<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SaunaUsages.
+     * @param {SaunaUsageDeleteManyArgs} args - Arguments to filter SaunaUsages to delete.
+     * @example
+     * // Delete a few SaunaUsages
+     * const { count } = await prisma.saunaUsage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SaunaUsageDeleteManyArgs>(args?: SelectSubset<T, SaunaUsageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SaunaUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaunaUsageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SaunaUsages
+     * const saunaUsage = await prisma.saunaUsage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SaunaUsageUpdateManyArgs>(args: SelectSubset<T, SaunaUsageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SaunaUsages and returns the data updated in the database.
+     * @param {SaunaUsageUpdateManyAndReturnArgs} args - Arguments to update many SaunaUsages.
+     * @example
+     * // Update many SaunaUsages
+     * const saunaUsage = await prisma.saunaUsage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SaunaUsages and only return the `id`
+     * const saunaUsageWithIdOnly = await prisma.saunaUsage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SaunaUsageUpdateManyAndReturnArgs>(args: SelectSubset<T, SaunaUsageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SaunaUsage.
+     * @param {SaunaUsageUpsertArgs} args - Arguments to update or create a SaunaUsage.
+     * @example
+     * // Update or create a SaunaUsage
+     * const saunaUsage = await prisma.saunaUsage.upsert({
+     *   create: {
+     *     // ... data to create a SaunaUsage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SaunaUsage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SaunaUsageUpsertArgs>(args: SelectSubset<T, SaunaUsageUpsertArgs<ExtArgs>>): Prisma__SaunaUsageClient<$Result.GetResult<Prisma.$SaunaUsagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SaunaUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaunaUsageCountArgs} args - Arguments to filter SaunaUsages to count.
+     * @example
+     * // Count the number of SaunaUsages
+     * const count = await prisma.saunaUsage.count({
+     *   where: {
+     *     // ... the filter for the SaunaUsages we want to count
+     *   }
+     * })
+    **/
+    count<T extends SaunaUsageCountArgs>(
+      args?: Subset<T, SaunaUsageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SaunaUsageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SaunaUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaunaUsageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SaunaUsageAggregateArgs>(args: Subset<T, SaunaUsageAggregateArgs>): Prisma.PrismaPromise<GetSaunaUsageAggregateType<T>>
+
+    /**
+     * Group by SaunaUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaunaUsageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SaunaUsageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SaunaUsageGroupByArgs['orderBy'] }
+        : { orderBy?: SaunaUsageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SaunaUsageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSaunaUsageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SaunaUsage model
+   */
+  readonly fields: SaunaUsageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SaunaUsage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SaunaUsageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SaunaUsage model
+   */
+  interface SaunaUsageFieldRefs {
+    readonly id: FieldRef<"SaunaUsage", 'Int'>
+    readonly name: FieldRef<"SaunaUsage", 'String'>
+    readonly phone: FieldRef<"SaunaUsage", 'String'>
+    readonly startTime: FieldRef<"SaunaUsage", 'DateTime'>
+    readonly endTime: FieldRef<"SaunaUsage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SaunaUsage findUnique
+   */
+  export type SaunaUsageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * Filter, which SaunaUsage to fetch.
+     */
+    where: SaunaUsageWhereUniqueInput
+  }
+
+  /**
+   * SaunaUsage findUniqueOrThrow
+   */
+  export type SaunaUsageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * Filter, which SaunaUsage to fetch.
+     */
+    where: SaunaUsageWhereUniqueInput
+  }
+
+  /**
+   * SaunaUsage findFirst
+   */
+  export type SaunaUsageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * Filter, which SaunaUsage to fetch.
+     */
+    where?: SaunaUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SaunaUsages to fetch.
+     */
+    orderBy?: SaunaUsageOrderByWithRelationInput | SaunaUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SaunaUsages.
+     */
+    cursor?: SaunaUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SaunaUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SaunaUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SaunaUsages.
+     */
+    distinct?: SaunaUsageScalarFieldEnum | SaunaUsageScalarFieldEnum[]
+  }
+
+  /**
+   * SaunaUsage findFirstOrThrow
+   */
+  export type SaunaUsageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * Filter, which SaunaUsage to fetch.
+     */
+    where?: SaunaUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SaunaUsages to fetch.
+     */
+    orderBy?: SaunaUsageOrderByWithRelationInput | SaunaUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SaunaUsages.
+     */
+    cursor?: SaunaUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SaunaUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SaunaUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SaunaUsages.
+     */
+    distinct?: SaunaUsageScalarFieldEnum | SaunaUsageScalarFieldEnum[]
+  }
+
+  /**
+   * SaunaUsage findMany
+   */
+  export type SaunaUsageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * Filter, which SaunaUsages to fetch.
+     */
+    where?: SaunaUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SaunaUsages to fetch.
+     */
+    orderBy?: SaunaUsageOrderByWithRelationInput | SaunaUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SaunaUsages.
+     */
+    cursor?: SaunaUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SaunaUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SaunaUsages.
+     */
+    skip?: number
+    distinct?: SaunaUsageScalarFieldEnum | SaunaUsageScalarFieldEnum[]
+  }
+
+  /**
+   * SaunaUsage create
+   */
+  export type SaunaUsageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SaunaUsage.
+     */
+    data: XOR<SaunaUsageCreateInput, SaunaUsageUncheckedCreateInput>
+  }
+
+  /**
+   * SaunaUsage createMany
+   */
+  export type SaunaUsageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SaunaUsages.
+     */
+    data: SaunaUsageCreateManyInput | SaunaUsageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SaunaUsage createManyAndReturn
+   */
+  export type SaunaUsageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * The data used to create many SaunaUsages.
+     */
+    data: SaunaUsageCreateManyInput | SaunaUsageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SaunaUsage update
+   */
+  export type SaunaUsageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SaunaUsage.
+     */
+    data: XOR<SaunaUsageUpdateInput, SaunaUsageUncheckedUpdateInput>
+    /**
+     * Choose, which SaunaUsage to update.
+     */
+    where: SaunaUsageWhereUniqueInput
+  }
+
+  /**
+   * SaunaUsage updateMany
+   */
+  export type SaunaUsageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SaunaUsages.
+     */
+    data: XOR<SaunaUsageUpdateManyMutationInput, SaunaUsageUncheckedUpdateManyInput>
+    /**
+     * Filter which SaunaUsages to update
+     */
+    where?: SaunaUsageWhereInput
+    /**
+     * Limit how many SaunaUsages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SaunaUsage updateManyAndReturn
+   */
+  export type SaunaUsageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * The data used to update SaunaUsages.
+     */
+    data: XOR<SaunaUsageUpdateManyMutationInput, SaunaUsageUncheckedUpdateManyInput>
+    /**
+     * Filter which SaunaUsages to update
+     */
+    where?: SaunaUsageWhereInput
+    /**
+     * Limit how many SaunaUsages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SaunaUsage upsert
+   */
+  export type SaunaUsageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SaunaUsage to update in case it exists.
+     */
+    where: SaunaUsageWhereUniqueInput
+    /**
+     * In case the SaunaUsage found by the `where` argument doesn't exist, create a new SaunaUsage with this data.
+     */
+    create: XOR<SaunaUsageCreateInput, SaunaUsageUncheckedCreateInput>
+    /**
+     * In case the SaunaUsage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SaunaUsageUpdateInput, SaunaUsageUncheckedUpdateInput>
+  }
+
+  /**
+   * SaunaUsage delete
+   */
+  export type SaunaUsageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+    /**
+     * Filter which SaunaUsage to delete.
+     */
+    where: SaunaUsageWhereUniqueInput
+  }
+
+  /**
+   * SaunaUsage deleteMany
+   */
+  export type SaunaUsageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SaunaUsages to delete
+     */
+    where?: SaunaUsageWhereInput
+    /**
+     * Limit how many SaunaUsages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SaunaUsage without action
+   */
+  export type SaunaUsageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaUsage
+     */
+    select?: SaunaUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaUsage
+     */
+    omit?: SaunaUsageOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17271,6 +18391,17 @@ export namespace Prisma {
   };
 
   export type MonthlyReportScalarFieldEnum = (typeof MonthlyReportScalarFieldEnum)[keyof typeof MonthlyReportScalarFieldEnum]
+
+
+  export const SaunaUsageScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    phone: 'phone',
+    startTime: 'startTime',
+    endTime: 'endTime'
+  };
+
+  export type SaunaUsageScalarFieldEnum = (typeof SaunaUsageScalarFieldEnum)[keyof typeof SaunaUsageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -18522,6 +19653,60 @@ export namespace Prisma {
     memberChartData?: JsonWithAggregatesFilter<"MonthlyReport">
   }
 
+  export type SaunaUsageWhereInput = {
+    AND?: SaunaUsageWhereInput | SaunaUsageWhereInput[]
+    OR?: SaunaUsageWhereInput[]
+    NOT?: SaunaUsageWhereInput | SaunaUsageWhereInput[]
+    id?: IntFilter<"SaunaUsage"> | number
+    name?: StringFilter<"SaunaUsage"> | string
+    phone?: StringNullableFilter<"SaunaUsage"> | string | null
+    startTime?: DateTimeNullableFilter<"SaunaUsage"> | Date | string | null
+    endTime?: DateTimeNullableFilter<"SaunaUsage"> | Date | string | null
+  }
+
+  export type SaunaUsageOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    startTime?: SortOrderInput | SortOrder
+    endTime?: SortOrderInput | SortOrder
+  }
+
+  export type SaunaUsageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: SaunaUsageWhereInput | SaunaUsageWhereInput[]
+    OR?: SaunaUsageWhereInput[]
+    NOT?: SaunaUsageWhereInput | SaunaUsageWhereInput[]
+    name?: StringFilter<"SaunaUsage"> | string
+    phone?: StringNullableFilter<"SaunaUsage"> | string | null
+    startTime?: DateTimeNullableFilter<"SaunaUsage"> | Date | string | null
+    endTime?: DateTimeNullableFilter<"SaunaUsage"> | Date | string | null
+  }, "id">
+
+  export type SaunaUsageOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    startTime?: SortOrderInput | SortOrder
+    endTime?: SortOrderInput | SortOrder
+    _count?: SaunaUsageCountOrderByAggregateInput
+    _avg?: SaunaUsageAvgOrderByAggregateInput
+    _max?: SaunaUsageMaxOrderByAggregateInput
+    _min?: SaunaUsageMinOrderByAggregateInput
+    _sum?: SaunaUsageSumOrderByAggregateInput
+  }
+
+  export type SaunaUsageScalarWhereWithAggregatesInput = {
+    AND?: SaunaUsageScalarWhereWithAggregatesInput | SaunaUsageScalarWhereWithAggregatesInput[]
+    OR?: SaunaUsageScalarWhereWithAggregatesInput[]
+    NOT?: SaunaUsageScalarWhereWithAggregatesInput | SaunaUsageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SaunaUsage"> | number
+    name?: StringWithAggregatesFilter<"SaunaUsage"> | string
+    phone?: StringNullableWithAggregatesFilter<"SaunaUsage"> | string | null
+    startTime?: DateTimeNullableWithAggregatesFilter<"SaunaUsage"> | Date | string | null
+    endTime?: DateTimeNullableWithAggregatesFilter<"SaunaUsage"> | Date | string | null
+  }
+
   export type MemberCreateInput = {
     name: string
     nik: string
@@ -19571,6 +20756,59 @@ export namespace Prisma {
     incClassChartData?: JsonNullValueInput | InputJsonValue
     incGymChartData?: JsonNullValueInput | InputJsonValue
     memberChartData?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type SaunaUsageCreateInput = {
+    name: string
+    phone?: string | null
+    startTime?: Date | string | null
+    endTime?: Date | string | null
+  }
+
+  export type SaunaUsageUncheckedCreateInput = {
+    id?: number
+    name: string
+    phone?: string | null
+    startTime?: Date | string | null
+    endTime?: Date | string | null
+  }
+
+  export type SaunaUsageUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SaunaUsageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SaunaUsageCreateManyInput = {
+    id?: number
+    name: string
+    phone?: string | null
+    startTime?: Date | string | null
+    endTime?: Date | string | null
+  }
+
+  export type SaunaUsageUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SaunaUsageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -20684,6 +21922,38 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumReportStatusFilter<$PrismaModel>
     _max?: NestedEnumReportStatusFilter<$PrismaModel>
+  }
+
+  export type SaunaUsageCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+  }
+
+  export type SaunaUsageAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type SaunaUsageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+  }
+
+  export type SaunaUsageMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+  }
+
+  export type SaunaUsageSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type CoupleCreateNestedManyWithoutMember1Input = {

@@ -273,6 +273,14 @@ exports.Prisma.MonthlyReportScalarFieldEnum = {
   memberChartData: 'memberChartData'
 };
 
+exports.Prisma.SaunaUsageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  phone: 'phone',
+  startTime: 'startTime',
+  endTime: 'endTime'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -376,7 +384,8 @@ exports.Prisma.ModelName = {
   CanteenItem: 'CanteenItem',
   User: 'User',
   UserActions: 'UserActions',
-  MonthlyReport: 'MonthlyReport'
+  MonthlyReport: 'MonthlyReport',
+  SaunaUsage: 'SaunaUsage'
 };
 
 /**

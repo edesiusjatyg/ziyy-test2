@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { CirclePlus, Undo2, Info, Phone, NotebookPen, UserPlus, Contact, Coffee, BanknoteArrowUp, Notebook, FileText,  } from "lucide-react";
+import { CirclePlus, Undo2, Info, Phone, NotebookPen, UserPlus, Contact, Coffee, BanknoteArrowUp, Notebook, FileText, Waves } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -75,6 +75,14 @@ interface CanteenTransaction {
     paymentAmount: number;
     date: string;
     billId?: string;
+}
+
+interface SaunaUsage {
+    id: number;
+    name: string;
+    phone?: string;
+    startTime?: string;
+    endTime?: string;
 }
 
 export default function Page() {
@@ -188,6 +196,43 @@ export default function Page() {
 
     const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
     const [absenceType, setAbsenceType] = useState("");
+
+    // State for catat penggunaan sauna dialog
+    const [isCatatPenggunaanSaunaDialogOpen, setIsCatatPenggunaanSaunaDialogOpen] = useState(false);
+    const [saunaName, setSaunaName] = useState("");
+    const [saunaPhone, setSaunaPhone] = useState("");
+    const [saunaStartTime, setSaunaStartTime] = useState<Date | null>(null);
+    const [saunaEndTime, setSaunaEndTime] = useState<Date | null>(null);
+
+    const handleSaunaUsageSubmit = async () => {
+        if (!saunaName || !saunaStartTime || !saunaEndTime) {
+            alert("Nama, waktu mulai, dan waktu selesai wajib diisi.");
+            return;
+        }
+        try {
+            const res = await fetch("/api/sauna-usage", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: saunaName,
+                    phone: saunaPhone,
+                    startTime: saunaStartTime,
+                    endTime: saunaEndTime
+                })
+            });
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || "Gagal mencatat penggunaan sauna");
+            }
+            setIsCatatPenggunaanSaunaDialogOpen(false);
+            setSaunaName("");
+            setSaunaPhone("");
+            setSaunaStartTime(null);
+            setSaunaEndTime(null);
+        } catch (e: any) {
+            alert(e.message || "Gagal mencatat penggunaan sauna");
+        }
+    };
 
     const fetchMembers = async () => {
         try{
@@ -1013,7 +1058,7 @@ export default function Page() {
                                                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
                                             </div>
                                         ) : (
-                                            <p className="text-lg text-gray-700 text-center">{formatCurrency(canteenTotalIncome)}</p>
+                                            <p className="text-lg text-green-700 font-semibold text-center">{formatCurrency(canteenTotalIncome)}</p>
                                         )}
                                     </CardContent>
                                 </Card>
@@ -1029,7 +1074,7 @@ export default function Page() {
                                                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-500 mx-auto"></div>
                                             </div>
                                         ) : (
-                                            <p className="text-lg text-gray-700 text-center">{formatCurrency(canteenTotalExpense)}</p>
+                                            <p className="text-lg text-red-700 font-semibold text-center">{formatCurrency(canteenTotalExpense)}</p>
                                         )}
                                     </CardContent>
                                 </Card>
@@ -1196,6 +1241,64 @@ export default function Page() {
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
+                            )}
+
+                            {canCreate && (
+                                <>
+                                <Card onClick={() => setIsCatatPenggunaanSaunaDialogOpen(true)} className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                                    <CardContent className="flex flex-row items-center gap-2 justify-between">
+                                        <p className="text-md text-gray-900">Catat Penggunaan Sauna</p>
+                                        <Waves className="text-[#7bb3d6]" />
+                                    </CardContent>
+                                </Card>
+                                <Dialog open={isCatatPenggunaanSaunaDialogOpen} onOpenChange={setIsCatatPenggunaanSaunaDialogOpen}>
+                                    <DialogContent className="sm:max-w-[425px]">
+                                        <DialogHeader>
+                                            <DialogTitle>Catat Penggunaan Sauna</DialogTitle>
+                                            <DialogDescription>
+                                                Masukkan detail penggunaan sauna di sini.
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                        <div className="grid gap-4 py-4">
+                                            <div className="grid grid-cols-4 items-center gap-4">
+                                                <Label htmlFor="saunaName" className="text-left">Nama</Label>
+                                                <Input id="saunaName" value={saunaName} onChange={e => setSaunaName(e.target.value)} placeholder="Nama Customer" className="col-span-3" required />
+                                            </div>
+                                            <div className="grid grid-cols-4 items-center gap-4">
+                                                <Label htmlFor="saunaPhone" className="text-left">No HP</Label>
+                                                <Input id="saunaPhone" value={saunaPhone} onChange={e => setSaunaPhone(e.target.value)} placeholder="Nomor HP" className="col-span-3" />
+                                            </div>
+                                            <div className="grid grid-cols-4 items-center gap-4">
+                                                <Label htmlFor="saunaStartTime" className="text-left">Waktu Mulai</Label>
+                                                <Input
+                                                    type="datetime-local"
+                                                    id="saunaStartTime"
+                                                    value={saunaStartTime ? `${saunaStartTime.getFullYear()}-${(saunaStartTime.getMonth()+1).toString().padStart(2,'0')}-${saunaStartTime.getDate().toString().padStart(2,'0')}` +
+                                                        `T${saunaStartTime.getHours().toString().padStart(2,'0')}:${saunaStartTime.getMinutes().toString().padStart(2,'0')}` : ""}
+                                                    onChange={e => setSaunaStartTime(e.target.value ? new Date(e.target.value.replace("T", " ") + ":00") : null)}
+                                                    className="col-span-3"
+                                                    required
+                                                />
+                                            </div>
+                                            <div className="grid grid-cols-4 items-center gap-4">
+                                                <Label htmlFor="saunaEndTime" className="text-left">Waktu Selesai</Label>
+                                                <Input
+                                                    type="datetime-local"
+                                                    id="saunaEndTime"
+                                                    value={saunaEndTime ? `${saunaEndTime.getFullYear()}-${(saunaEndTime.getMonth()+1).toString().padStart(2,'0')}-${saunaEndTime.getDate().toString().padStart(2,'0')}` +
+                                                        `T${saunaEndTime.getHours().toString().padStart(2,'0')}:${saunaEndTime.getMinutes().toString().padStart(2,'0')}` : ""}
+                                                    onChange={e => setSaunaEndTime(e.target.value ? new Date(e.target.value.replace("T", " ") + ":00") : null)}
+                                                    className="col-span-3"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <DialogFooter>
+                                            <Button type="button" onClick={handleSaunaUsageSubmit} className="hover:cursor-pointer">Catat</Button>
+                                        </DialogFooter>
+                                    </DialogContent>
+                                </Dialog>
+                                </>
                             )}
 
                             {canCreate && (
@@ -1476,12 +1579,14 @@ export default function Page() {
                             </Dialog>
                             )}
 
-                            <Card onClick={() => setIsPerpanjangPtDialogOpen(true)} className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
-                                <CardContent className="flex flex-row items-center gap-2 justify-between">
-                                    <p className="text-md text-gray-900">Perpanjang Member PT</p>
-                                    <NotebookPen className="text-[#7bb3d6]" />
-                                </CardContent>
-                            </Card>
+                            {canCreate && (
+                                <Card onClick={() => setIsPerpanjangPtDialogOpen(true)} className="flex flex-col justify-center shadow-sm bg-white hover:shadow-lg transition-all py-6 px-2 cursor-pointer rounded-xl">
+                                    <CardContent className="flex flex-row items-center gap-2 justify-between">
+                                        <p className="text-md text-gray-900">Perpanjang Member PT</p>
+                                        <NotebookPen className="text-[#7bb3d6]" />
+                                    </CardContent>
+                                </Card>
+                            )}
                         </div>
                     </div>
 
